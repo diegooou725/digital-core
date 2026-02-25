@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paquete Core Plus | Digital Core</title>
+    <link rel="icon" href="Isotipo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="Digital Core original.png" alt="Digital Core">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html#servicios">Servicios</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero detail-hero" id="subHero">
+        <h1>Paquete <span>Core Plus</span></h1>
+        <p class="price-hero">$1,500 MXN</p>
+        <p>Interacción real con tus clientes. Portafolios, formularios y ubicación geográfica integrados.</p>
+    </section>
+
+    <main class="package-detail-section">
+        
+        <a href="paginas-web.html#paquetes-principales" class="btn-back">← Volver a todos los paquetes</a>
+
+        <div class="package-detail-grid">
+            <div class="detail-description">
+                
+                <div class="alert-box" style="border-left-color: #f39c12; background: rgba(243, 156, 18, 0.05);">
+                    <div class="alert-title" style="color: #d68910;">⚠️ Importante: Lleva tu marca al siguiente nivel</div>
+                    <p>El paquete <strong>Core Plus</strong> incluye programación avanzada y Hosting por 1 año, pero <strong>no incluye un Dominio propio (.com) ni Correos Corporativos</strong>.</p>
+                    
+                    <div class="alert-title" style="margin-top: 1.5rem;">💡 ¿Buscas una imagen 100% corporativa?</div>
+                    <p>Si además de los formularios y la galería, quieres que tu enlace sea <em>www.tuempresa.com</em> y enviar cotizaciones desde <em>contacto@tuempresa.com</em>, te recomendamos hacer <em>upgrade</em> a nuestro <strong>Paquete Core Business</strong> por $2,200 MXN, que ya te incluye todo esto integrado.</p>
+                    
+                    <div style="margin-top: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <a href="detalle-business.html" class="btn-upsell" style="background-color: #d68910;">Ver Paquete Core Business</a>
+                    </div>
+                </div>
+
+                <h2>Alcances ¿Qué INCLUYE exactamente?</h2>
+                <p>Este paquete es perfecto para mostrar trabajos visuales (arquitectos, diseñadores, eventos, restaurantes) y captar los datos de tus prospectos de forma estructurada.</p>
+                <ul class="detail-features">
+                    <li><strong>Hosting de Alto Rendimiento (1 Año):</strong> Alojamiento en la nube incluido para que tu página sea rápida y estable.</li>
+                    <li><strong>Estructura hasta 4 Secciones:</strong> Ejemplo: "Inicio", "Nosotros", "Portafolio/Galería" y "Contacto".</li>
+                    <li><strong>Galería de Imágenes Dinámica:</strong> Un portafolio visual atractivo que se amplía al hacer clic, optimizado para no poner lenta la página.</li>
+                    <li><strong>Formulario de Contacto Funcional:</strong> Un formulario donde los clientes dejan su nombre, correo y mensaje, y te llega directamente a tu bandeja de entrada.</li>
+                    <li><strong>Integración de Google Maps:</strong> Un mapa interactivo para que tus clientes encuentren tu ubicación física fácilmente.</li>
+                    <li><strong>Alta Básica en Buscadores:</strong> Configuración inicial (SEO On-Page básico) y envío de tu página a Google para que empiece a ser indexada.</li>
+                </ul>
+
+                <h2>Limitantes y Costos Operativos</h2>
+                <p>Las consideraciones técnicas para este desarrollo son las siguientes:</p>
+                <ul class="detail-features limitations-list">
+                    <li><strong>Sin Panel Autogestionable:</strong> La galería de imágenes y los textos quedan fijos tras la entrega.</li>
+                    <li><strong>Modificaciones con Costo Extra:</strong> ¿Necesitas cambiar fotos de la galería en el futuro o ajustar textos? Lo hacemos por ti <strong>desde $200 MXN</strong> por evento, asegurando que el código siga intacto.</li>
+                    <li><strong>Límites del Formulario:</strong> El formulario envía datos por correo, pero no guarda un historial en una base de datos interna.</li>
+                </ul>
+
+                <h2>Lo que NO incluye este paquete</h2>
+                <ul class="detail-features exclusions-list">
+                    <li>Registro de Dominio personalizado (.com, .mx). <em>*Se cotiza por separado a precio de mercado.</em></li>
+                    <li>Cuentas de correo electrónico corporativo.</li>
+                    <li>Sistemas de reservas online, agendas interactivas o pasarelas de pago.</li>
+                </ul>
+            </div>
+            
+            <div class="detail-action">
+                <div class="action-card">
+                    <h3>¿Core Plus es para ti?</h3>
+                    <p>Si tu negocio depende de mostrar la calidad visual de tu trabajo y necesitas recibir cotizaciones formales por escrito, este es tu paquete.</p>
+                    <a href="contacto.html" class="btn-order">Contratar Core Plus</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Digital Core. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Fondo Hero interactivo
+        const subHero = document.getElementById('subHero');
+        subHero.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth / 2 - e.clientX) / 30;
+            const y = (window.innerHeight / 2 - e.clientY) / 30;
+            subHero.style.setProperty('--mouse-x', x + 'px');
+            subHero.style.setProperty('--mouse-y', y + 'px');
+        });
+    </script>
+</body>
+</html>

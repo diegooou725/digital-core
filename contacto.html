@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto | Digital Core</title>
+    <link rel="icon" href="Isotipo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="Digital Core original.png" alt="Digital Core">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html#servicios">Servicios</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="subHero" style="padding: 60px 5%;">
+        <h1>Hablemos de tu <span>Proyecto</span></h1>
+        <p>Estamos listos para construir el núcleo digital que tu negocio necesita.</p>
+    </section>
+
+    <main class="contact-section">
+        <div class="contact-grid">
+            
+            <div class="contact-info">
+                <h2>¿Quiénes Somos?</h2>
+                <p>En <strong>Digital Core</strong> somos un equipo apasionado por la tecnología, dedicado a transformar la manera en que operan los negocios. No nos limitamos a hacer páginas web; creamos ecosistemas completos.</p>
+                <p>Desde el diseño de tu identidad visual hasta la automatización de tus datos y la infraestructura de tu oficina, trabajamos bajo una sola premisa: <strong>hacer que la tecnología trabaje para ti, no al revés.</strong></p>
+                
+                <h3 style="color: var(--dark-blue); margin-top: 2.5rem; font-size: 1.3rem;">Contacto Directo</h3>
+                <ul class="contact-methods">
+                    <li>📍 <strong>Ubicación:</strong> Servicio en todo México.</li>
+                    <li>✉️ <strong>Email:</strong> <a href="mailto:hola@digitalcore.mx">hola@digitalcore.mx</a></li>
+                    <li>📱 <strong>Facebook:</strong> <a href="https://facebook.com/DigitalCoreMx" target="_blank">@DigitalCoreMx</a></li>
+                </ul>
+            </div>
+
+            <div class="contact-form-container">
+                <form action="#" method="POST">
+                    
+                    <div class="form-group">
+                        <label for="nombre">Nombre Completo</label>
+                        <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Ej. Juan Pérez" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Correo Electrónico</label>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="tu@empresa.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="servicio">Servicio de Interés</label>
+                        <select id="servicio" name="servicio" class="form-control" required>
+                            <option value="" disabled selected>Selecciona una opción...</option>
+                            <option value="desarrollo_web">Desarrollo Web Estratégico</option>
+                            <option value="sistemas_datos">Sistemas de Datos</option>
+                            <option value="infraestructura">Soporte e Infraestructura</option>
+                            <option value="capacitacion">Capacitación y Consultoría</option>
+                            <option value="identidad">Identidad y Diseño Visual</option>
+                            <option value="automatizacion">Automatización y Chatbots</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mensaje">Cuéntanos sobre tu proyecto</label>
+                        <textarea id="mensaje" name="mensaje" class="form-control" placeholder="Detalles, requerimientos, preguntas..." required></textarea>
+                    </div>
+
+                    <div class="btn-glow-container" style="width: 100%; text-align: center; margin-top: 10px;">
+                        <button type="submit" class="btn" id="submitBtn" style="width: 100%;">Enviar Mensaje</button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Digital Core. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Movimiento del fondo Hero
+        const subHero = document.getElementById('subHero');
+        subHero.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth / 2 - e.clientX) / 30;
+            const y = (window.innerHeight / 2 - e.clientY) / 30;
+            subHero.style.setProperty('--mouse-x', x + 'px');
+            subHero.style.setProperty('--mouse-y', y + 'px');
+        });
+
+        // Luz dinámica en el botón de enviar
+        const submitBtn = document.getElementById('submitBtn');
+        const btnContainer = document.querySelector('.contact-form-container .btn-glow-container');
+        btnContainer.addEventListener('mousemove', (e) => {
+            const rect = btnContainer.getBoundingClientRect();
+            submitBtn.style.setProperty('--btn-x', (e.clientX - rect.left) + 'px');
+            submitBtn.style.setProperty('--btn-y', (e.clientY - rect.top) + 'px');
+        });
+    </script>
+</body>
+</html>

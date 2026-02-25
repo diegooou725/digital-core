@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Digital Core - Soluciones digitales, desarrollo web estratégico, infraestructura y automatización.">
+    <title>Digital Core</title>
+    <link rel="icon" href="Isotipo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="Digital Core original.png" alt="Digital Core">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="inicio" class="hero">
+        <h1>Soluciones digitales <span>integrales</span></h1>
+        <p>Desde desarrollo web estratégico hasta automatización de procesos y despliegue de infraestructura. Construimos el núcleo digital que tu negocio necesita.</p>
+        
+        <div class="btn-glow-container">
+            <a href="contacto.html" class="btn" id="heroBtn">Cotiza tu proyecto</a>
+        </div>
+    </section>
+
+    <section id="servicios" class="services">
+        <div class="services-header">
+            <h2>Nuestros Servicios</h2>
+        </div>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>Desarrollo Web Estratégico</h3>
+                <p>Diseño de páginas web profesionales, invitaciones digitales interactivas, y gestión integral de dominios y hosting en la nube.</p>
+                <a href="paginas-web.html" class="link-more">Ver detalles</a>
+            </div>
+            <div class="service-card">
+                <h3>Sistemas de Datos</h3>
+                <p>Sistemas a medida, puntos de venta (POS), desarrollo de aplicaciones móviles y manejo avanzado de datos para la toma de decisiones.</p>
+                <a href="sistemas.html" class="link-more">Ver detalles</a>
+            </div>
+            <div class="service-card">
+                <h3>Soporte e Infraestructura</h3>
+                <p>Mantenimiento y reparación de equipos, instalación de sistemas de seguridad (CCTV) y recuperación especializada de información.</p>
+                <a href="infraestructura.html" class="link-more">Ver detalles</a>
+            </div>
+            <div class="service-card">
+                <h3>Capacitación y Consultoría</h3>
+                <p>Cursos de computación adaptados a todos los niveles y asesoría para la estructuración y despliegue de micro centros de datos corporativos.</p>
+                <a href="consultoria.html" class="link-more">Ver detalles</a>
+            </div>
+            <div class="service-card">
+                <h3>Identidad y Diseño Visual</h3>
+                <p>Creación de logotipos modernos, branding corporativo y diseño de interfaces (UI/UX) enfocadas en una experiencia de usuario impecable.</p>
+                <a href="diseno.html" class="link-more">Ver detalles</a>
+            </div>
+            <div class="service-card">
+                <h3>Automatización y Chatbots</h3>
+                <p>Implementación de flujos automáticos, respuestas inteligentes en plataformas como WhatsApp y optimización de tiempos en atención al cliente.</p>
+                <a href="automatizacion.html" class="link-more">Ver detalles</a>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contacto">
+        <a href="https://facebook.com/DigitalCoreMx" target="_blank" class="social-link">Síguenos en @DigitalCoreMx</a>
+        <p>&copy; 2026 Digital Core. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // --- Interacción 1: Fondo que sigue al mouse ---
+        const heroSection = document.querySelector('.hero');
+
+        heroSection.addEventListener('mousemove', (e) => {
+            const mouseX = (window.innerWidth / 2 - e.clientX) / 20; 
+            const mouseY = (window.innerHeight / 2 - e.clientY) / 20;
+
+            heroSection.style.setProperty('--mouse-x', mouseX + 'px');
+            heroSection.style.setProperty('--mouse-y', mouseY + 'px');
+        });
+
+        // --- Interacción 2: Botón con luz seguidora ---
+        const heroBtn = document.getElementById('heroBtn');
+        const btnContainer = document.querySelector('.btn-glow-container');
+
+        btnContainer.addEventListener('mousemove', (e) => {
+            const rect = btnContainer.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            heroBtn.style.setProperty('--btn-x', x + 'px');
+            heroBtn.style.setProperty('--btn-y', y + 'px');
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paquete Core Dynamic | Digital Core</title>
+    <link rel="icon" href="Isotipo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="Digital Core original.png" alt="Digital Core">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html#servicios">Servicios</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero detail-hero" id="subHero">
+        <h1>Paquete <span>Core Dynamic</span></h1>
+        <p class="price-hero" style="font-size: 1.8rem !important;">Cotización a Medida</p>
+        <p>Aplicaciones web, portales de usuarios y plataformas robustas. Desarrollo en la nube diseñado exclusivamente para la lógica de tu negocio.</p>
+    </section>
+
+    <main class="package-detail-section">
+        
+        <a href="paginas-web.html#paquetes-principales" class="btn-back">← Volver a todos los paquetes</a>
+
+        <div class="package-detail-grid">
+            <div class="detail-description">
+                
+                <div class="alert-box" style="border-left-color: #e74c3c; background: rgba(231, 76, 60, 0.05);">
+                    <div class="alert-title" style="color: #c0392b;">⚙️ Consultoría Técnica Especializada</div>
+                    <p>El paquete <strong>Core Dynamic</strong> no es una simple página web informativa, es la construcción de una plataforma interactiva en la nube. Al ser un desarrollo a la medida, no manejamos un precio fijo.</p>
+                    <p>El primer paso es agendar una reunión de levantamiento de requerimientos. Analizaremos qué tipo de interacciones necesitas (registros, pagos, perfiles) y te propondremos la arquitectura web exacta.</p>
+                    
+                    <div style="margin-top: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <a href="contacto.html" class="btn-upsell" style="background-color: #c0392b;">Agendar Consultoría Inicial</a>
+                    </div>
+                </div>
+
+                <h2>Alcances ¿Qué podemos desarrollar en la web?</h2>
+                <p>Nuestra especialidad en este nivel es crear sitios web que funcionen como herramientas. Dependiendo de tus necesidades, tu plataforma puede incluir:</p>
+                <ul class="detail-features">
+                    <li><strong>Sistemas de Usuarios y Perfiles:</strong> Páginas con inicio de sesión (Login/Registro) donde cada usuario tiene su propia información, historial o panel de control.</li>
+                    <li><strong>Bases de Datos en la Nube:</strong> Estructuración web para guardar, consultar y gestionar grandes volúmenes de datos directamente desde el navegador.</li>
+                    <li><strong>E-commerce y Pasarelas de Pago:</strong> Tiendas en línea completas con carritos de compra, cálculo de envíos y cobros automáticos con tarjeta (Stripe, PayPal, MercadoPago).</li>
+                    <li><strong>Paneles de Administración Web (Dashboards):</strong> Una interfaz privada para los dueños del negocio donde pueden ver métricas, ventas o gestionar el contenido de la plataforma de forma visual.</li>
+                    <li><strong>Integraciones de APIs:</strong> Conexión de tu página web con otros servicios (facturación electrónica, sistemas de envíos, CRMs, etc.).</li>
+                </ul>
+
+                <h2>Proceso y Consideraciones Técnicas</h2>
+                <p>Desarrollar una aplicación web a medida requiere planeación y disciplina. Ten en cuenta lo siguiente al cotizar este servicio:</p>
+                <ul class="detail-features limitations-list">
+                    <li><strong>Tiempos de Entrega:</strong> A diferencia de una página estándar, una plataforma dinámica requiere fases de diseño (UI/UX), programación Backend/Frontend y pruebas rigurosas.</li>
+                    <li><strong>Costos de Infraestructura:</strong> Los sistemas dinámicos consumen más recursos del servidor. El costo de tu Hosting Dedicado o Servidor en la Nube (VPS) se calculará en función del tráfico esperado y la cantidad de datos.</li>
+                    <li><strong>Mantenimiento Evolutivo:</strong> Una vez entregada la plataforma, cualquier nueva función o módulo adicional se cotizará como una nueva fase de desarrollo.</li>
+                </ul>
+
+                <h2>Lo que NO incluye este paquete de Desarrollo Web</h2>
+                <ul class="detail-features exclusions-list">
+                    <li>Soluciones de software local o de escritorio (como bases de datos offline en Excel/Access o instalación de Puntos de Venta físicos). <em>*Para esto, consulta nuestra área de Sistemas de Datos.</em></li>
+                    <li>Carga masiva de datos iniciales manual, a menos que nos proporciones la información en formatos limpios (CSV) para una migración automatizada.</li>
+                </ul>
+            </div>
+            
+            <div class="detail-action">
+                <div class="action-card">
+                    <h3>¿Necesitas una plataforma a medida?</h3>
+                    <p>Si tu empresa necesita que sus clientes interactúen, compren o gestionen información directamente en tu página web, hablemos de tu proyecto.</p>
+                    <a href="contacto.html" class="btn-order">Cotizar Plataforma Web</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Digital Core. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Fondo Hero interactivo
+        const subHero = document.getElementById('subHero');
+        subHero.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth / 2 - e.clientX) / 30;
+            const y = (window.innerHeight / 2 - e.clientY) / 30;
+            subHero.style.setProperty('--mouse-x', x + 'px');
+            subHero.style.setProperty('--mouse-y', y + 'px');
+        });
+    </script>
+</body>
+</html>
