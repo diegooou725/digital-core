@@ -25,7 +25,7 @@
 
     <section class="hero" id="subHero">
         <h1>Desarrollo Web <span>Estratégico</span></h1>
-        <p>Soluciones diseñadas para cada etapa de tu negocio, desde presencia básica hasta infraestructura avanzada.</p>
+        <p>Soluciones diseñadas para cada etapa de tu negocio, desde invitaciones hasta tiendas en línea automatizadas.</p>
         
         <div class="nav-buttons">
             <a href="#paquetes-principales" class="btn-secondary">Servicios Principales</a>
@@ -33,57 +33,113 @@
         </div>
     </section>
 
+    <div style="text-align: center; margin-top: -40px; position: relative; z-index: 10; padding: 0 5%;">
+        <div style="background: var(--white); max-width: 700px; margin: 0 auto; padding: 2rem; border-radius: 12px; box-shadow: 0 15px 35px rgba(0, 156, 225, 0.15); border: 2px solid rgba(0, 156, 225, 0.2);">
+            <h3 style="color: var(--dark-blue); font-size: 1.6rem; margin-bottom: 0.5rem; font-weight: 800;">¿No sabes qué paquete elegir? 🤔</h3>
+            <p style="color: #555; font-size: 1.05rem; margin-bottom: 1.5rem;">Utiliza nuestro asistente inteligente. Responde un par de preguntas rápidas y descubre el plan exacto para tu proyecto.</p>
+            <a href="recomendador.html" class="btn-upsell" style="background-color: var(--light-blue); font-size: 1rem; padding: 12px 30px; border-radius: 8px;">Hacer test rápido</a>
+        </div>
+    </div>
+
     <h2 class="section-title" id="paquetes-principales">Paquetes Core</h2>
     <main class="pricing-grid">
         
         <div class="package-card">
-            <div class="package-header"><h3>Core Flash</h3><span class="price-tag">$500 MXN</span></div>
-            <p class="short-desc">Tarjeta digital básica en código puro.</p>
+            <div class="package-header">
+                <h3>Core<br>Event</h3>
+                <span class="price-tag">$450 MXN</span>
+            </div>
+            <p class="short-desc">Invitación digital interactiva para eventos.</p>
+            <button class="details-toggle">Detalles <span class="arrow-icon">▼</span></button>
+            <div class="extra-info"><ul><li>Cuenta regresiva</li><li>Confirmación RSVP</li><li>Ubicación Maps</li></ul></div>
+            <a href="detalle-event.html" class="btn-order">Lo quiero</a>
+        </div>
+
+        <div class="package-card">
+            <div class="package-header">
+                <h3>Core<br>Flash</h3>
+                <span class="price-tag">$500 MXN</span>
+            </div>
+            <p class="short-desc">Tarjeta Digital básica en código puro (1 sección).</p>
             <button class="details-toggle">Detalles <span class="arrow-icon">▼</span></button>
             <div class="extra-info"><ul><li>Presencia rápida</li><li>Código ligero</li><li>Ideal para enlaces</li></ul></div>
             <a href="detalle-flash.html" class="btn-order">Lo quiero</a>
         </div>
 
         <div class="package-card">
-            <div class="package-header"><h3>Core Start</h3><span class="price-tag">$999 MXN</span></div>
-            <p class="short-desc">Web de presencia con hosting optimizado.</p>
+            <div class="package-header">
+                <h3>Core<br>Start</h3>
+                <span class="price-tag">$1,200 MXN</span>
+            </div>
+            <p class="short-desc">Web básica de 3 secciones con hosting optimizado.</p>
             <button class="details-toggle">Detalles <span class="arrow-icon">▼</span></button>
-            <div class="extra-info"><ul><li>Diseño responsivo</li><li>Hosting alto rendimiento</li><li>1 Sección principal</li></ul></div>
+            <div class="extra-info"><ul><li>Diseño responsivo</li><li>Hosting incluido</li><li>Sin correos</li></ul></div>
             <a href="detalle-start.html" class="btn-order">Lo quiero</a>
         </div>
 
         <div class="package-card">
-            <div class="package-header"><h3>Core Plus</h3><span class="price-tag">$1,500 MXN</span></div>
-            <p class="short-desc">Portafolio visual de hasta 3 secciones.</p>
+            <div class="package-header">
+                <h3>Core<br>Plus</h3>
+                <span class="price-tag">$2,000 MXN</span>
+            </div>
+            <p class="short-desc">Portafolio visual, mapas y formularios de contacto.</p>
             <button class="details-toggle">Detalles <span class="arrow-icon">▼</span></button>
-            <div class="extra-info"><ul><li>Galería de imágenes</li><li>Sección servicios</li><li>Carga optimizada</li></ul></div>
+            <div class="extra-info"><ul><li>Galería de imágenes</li><li>Formularios funcionales</li><li>Google Maps</li></ul></div>
             <a href="detalle-plus.html" class="btn-order">Lo quiero</a>
         </div>
 
         <div class="package-card">
-            <div class="package-header"><h3>Core Business</h3><span class="price-tag">$2,200 MXN</span></div>
-            <p class="short-desc">Marca profesional con dominio incluido.</p>
+            <div class="package-header">
+                <h3>Core<br>Landing</h3>
+                <span class="price-tag">$2,800 MXN</span>
+            </div>
+            <p class="short-desc">Página de ventas y embudos para publicidad (Ads).</p>
             <button class="details-toggle">Detalles <span class="arrow-icon">▼</span></button>
-            <div class="extra-info"><ul><li>Dominio .com/.mx (1 año)</li><li>Hosting incluido</li><li>Correo corporativo</li></ul></div>
+            <div class="extra-info"><ul><li>Alta conversión</li><li>Pixeles de rastreo</li><li>Captación de Leads</li></ul></div>
+            <a href="detalle-landing.html" class="btn-order">Lo quiero</a>
+        </div>
+
+        <div class="package-card">
+            <div class="package-header">
+                <h3>Core<br>Business</h3>
+                <span class="price-tag">$3,500 MXN</span>
+            </div>
+            <p class="short-desc">Ecosistema profesional de 5 secciones con dominio .com.</p>
+            <button class="details-toggle">Detalles <span class="arrow-icon">▼</span></button>
+            <div class="extra-info"><ul><li>Dominio .com/.mx</li><li>Hosting incluido</li><li>Sin correos</li></ul></div>
             <a href="detalle-business.html" class="btn-order">Lo quiero</a>
         </div>
 
         <div class="package-card">
-            <div class="package-header"><h3>Core Elite</h3><span class="price-tag">$3,500 MXN</span></div>
-            <p class="short-desc">Identidad total con SEO y herramientas de contacto.</p>
+            <div class="package-header">
+                <h3>Core<br>Elite</h3>
+                <span class="price-tag">$5,500 MXN</span>
+            </div>
+            <p class="short-desc">Catálogo de 20 productos, SEO y 1 Correo Profesional.</p>
             <button class="details-toggle">Detalles <span class="arrow-icon">▼</span></button>
-            <div class="extra-info"><ul><li>Formulario funcional</li><li>Google Maps</li><li>SEO Básico</li></ul></div>
+            <div class="extra-info"><ul><li>Catálogo digital</li><li>SEO On-Page</li><li>1 Correo Pro</li></ul></div>
             <a href="detalle-elite.html" class="btn-order">Lo quiero</a>
         </div>
 
         <div class="package-card">
             <div class="package-header">
-                <h3>Core Dynamic</h3>
-                <span class="price-tag" style="font-size: 1.05rem;">A Medida</span>
+                <h3>Core<br>Commerce</h3>
+                <span class="price-tag">$8,500+</span>
             </div>
-            <p class="short-desc">Sistemas web y plataformas robustas en la nube.</p>
+            <p class="short-desc">Tienda en línea completa con cobro por tarjeta.</p>
             <button class="details-toggle">Detalles <span class="arrow-icon">▼</span></button>
-            <div class="extra-info"><ul><li>Bases de Datos</li><li>Paneles de control</li><li>E-commerce</li></ul></div>
+            <div class="extra-info"><ul><li>Pasarela de pago</li><li>Carrito de compras</li><li>3 Correos Pro</li></ul></div>
+            <a href="detalle-commerce.html" class="btn-order">Lo quiero</a>
+        </div>
+
+        <div class="package-card">
+            <div class="package-header">
+                <h3>Core<br>Dynamic</h3>
+                <span class="price-tag">A Medida</span>
+            </div>
+            <p class="short-desc">Sistemas web a medida y plataformas en la nube.</p>
+            <button class="details-toggle">Detalles <span class="arrow-icon">▼</span></button>
+            <div class="extra-info"><ul><li>Bases de Datos</li><li>Paneles de control</li><li>Software Web</li></ul></div>
             <a href="detalle-dynamic.html" class="btn-order">Lo quiero</a>
         </div>
     </main>
@@ -91,18 +147,27 @@
     <h2 class="section-title" id="nube-hosting">Infraestructura & Nube</h2>
     <section class="pricing-grid">
         <div class="package-card">
-            <div class="package-header"><h3>Gestión de Dominios</h3><span class="price-tag">Consúltanos</span></div>
+            <div class="package-header">
+                <h3>Gestión de<br>Dominios</h3>
+                <span class="price-tag" style="font-size: 1.05rem;">Consúltanos</span>
+            </div>
             <p class="short-desc">Registro, renovación y administración de dominios globales.</p>
             <a href="contacto.html" class="btn-order">Solicitar info</a>
         </div>
         <div class="package-card">
-            <div class="package-header"><h3>Hosting de Alto Rendimiento</h3><span class="price-tag">Consúltanos</span></div>
+            <div class="package-header">
+                <h3>Hosting de<br>Alto Rendimiento</h3>
+                <span class="price-tag" style="font-size: 1.05rem;">Consúltanos</span>
+            </div>
             <p class="short-desc">Alojamiento seguro con certificados SSL y respaldos.</p>
             <a href="contacto.html" class="btn-order">Solicitar info</a>
         </div>
         <div class="package-card">
-            <div class="package-header"><h3>Correos Corporativos</h3><span class="price-tag">Consúltanos</span></div>
-            <p class="short-desc">Configuración de buzones profesionales para tu equipo.</p>
+            <div class="package-header">
+                <h3>Correos<br>Corporativos</h3>
+                <span class="price-tag" style="font-size: 1.05rem;">Consúltanos</span>
+            </div>
+            <p class="short-desc">Venta y configuración de buzones profesionales adicionales.</p>
             <a href="contacto.html" class="btn-order">Solicitar info</a>
         </div>
     </section>
@@ -112,7 +177,6 @@
     </footer>
 
     <script>
-        // Fondo Hero interactivo
         const subHero = document.getElementById('subHero');
         subHero.addEventListener('mousemove', (e) => {
             const x = (window.innerWidth / 2 - e.clientX) / 30;
@@ -121,7 +185,6 @@
             subHero.style.setProperty('--mouse-y', y + 'px');
         });
 
-        // Acordeón
         document.querySelectorAll('.details-toggle').forEach(toggle => {
             toggle.addEventListener('click', () => {
                 const info = toggle.nextElementSibling;
@@ -133,7 +196,6 @@
             });
         });
 
-        // Luz en botones
         document.querySelectorAll('.btn-order').forEach(btn => {
             btn.addEventListener('mousemove', (e) => {
                 const rect = btn.getBoundingClientRect();

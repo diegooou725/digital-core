@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Digital Core - Soluciones digitales, desarrollo web estratégico, infraestructura y automatización.">
-    <title>Digital Core</title>
+    <title>Digital Core | Soluciones Tecnológicas</title>
     <link rel="icon" href="Isotipo.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
@@ -17,91 +16,103 @@
         </div>
         <nav>
             <ul>
-                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="index.html">Inicio</a></li>
                 <li><a href="#servicios">Servicios</a></li>
                 <li><a href="contacto.html">Contacto</a></li>
             </ul>
         </nav>
     </header>
 
-    <section id="inicio" class="hero">
+    <section class="hero" id="subHero" style="padding: 80px 5% 60px; min-height: auto;">
         <h1>Soluciones digitales <span>integrales</span></h1>
         <p>Desde desarrollo web estratégico hasta automatización de procesos y despliegue de infraestructura. Construimos el núcleo digital que tu negocio necesita.</p>
         
-        <div class="btn-glow-container">
-            <a href="contacto.html" class="btn" id="heroBtn">Cotiza tu proyecto</a>
+        <div class="nav-buttons" style="justify-content: center;">
+            <div class="btn-glow-container">
+                <a href="contacto.html" class="btn">Cotiza tu proyecto</a>
+            </div>
         </div>
     </section>
 
-    <section id="servicios" class="services">
+    <section class="services" id="servicios">
         <div class="services-header">
-            <h2>Nuestros Servicios</h2>
+            <h2 class="section-title" style="margin-top: 0;">Nuestras Soluciones</h2>
         </div>
         
         <div class="services-grid">
+            
             <div class="service-card">
                 <h3>Desarrollo Web Estratégico</h3>
                 <p>Diseño de páginas web profesionales, invitaciones digitales interactivas, y gestión integral de dominios y hosting en la nube.</p>
-                <a href="paginas-web.html" class="link-more">Ver detalles</a>
+                <a href="paginas-web.html" class="link-more">Ver Detalles</a>
             </div>
+
             <div class="service-card">
                 <h3>Sistemas de Datos</h3>
                 <p>Sistemas a medida, puntos de venta (POS), desarrollo de aplicaciones móviles y manejo avanzado de datos para la toma de decisiones.</p>
-                <a href="sistemas.html" class="link-more">Ver detalles</a>
+                <a href="sistemas.html" class="link-more">Ver Detalles</a>
             </div>
+
+            <div class="service-card">
+                <h3>Cursos, Capacitación y Consultoría</h3>
+                <p>Cursos de computación adaptados a todos los niveles, entrenamiento para personal corporativo y auditorías tecnológicas estratégicas.</p>
+                <a href="capacitacion.html" class="link-more">Ver Detalles</a>
+            </div>
+
             <div class="service-card">
                 <h3>Soporte e Infraestructura</h3>
-                <p>Mantenimiento y reparación de equipos, instalación de sistemas de seguridad (CCTV) y recuperación especializada de información.</p>
-                <a href="infraestructura.html" class="link-more">Ver detalles</a>
+                <p>Mantenimiento de equipos, instalación de sistemas de seguridad (CCTV) y despliegue de micro centros de datos corporativos.</p>
+                <span style="color: #999; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-top: auto;">Próximamente</span>
             </div>
-            <div class="service-card">
-                <h3>Capacitación y Consultoría</h3>
-                <p>Cursos de computación adaptados a todos los niveles y asesoría para la estructuración y despliegue de micro centros de datos corporativos.</p>
-                <a href="consultoria.html" class="link-more">Ver detalles</a>
-            </div>
+
             <div class="service-card">
                 <h3>Identidad y Diseño Visual</h3>
                 <p>Creación de logotipos modernos, branding corporativo y diseño de interfaces (UI/UX) enfocadas en una experiencia de usuario impecable.</p>
-                <a href="diseno.html" class="link-more">Ver detalles</a>
+                <span style="color: #999; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-top: auto;">Próximamente</span>
             </div>
+
             <div class="service-card">
                 <h3>Automatización y Chatbots</h3>
                 <p>Implementación de flujos automáticos, respuestas inteligentes en plataformas como WhatsApp y optimización de tiempos en atención al cliente.</p>
-                <a href="automatizacion.html" class="link-more">Ver detalles</a>
+                <span style="color: #999; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-top: auto;">Próximamente</span>
             </div>
+
         </div>
     </section>
 
-    <footer id="contacto">
-        <a href="https://facebook.com/DigitalCoreMx" target="_blank" class="social-link">Síguenos en @DigitalCoreMx</a>
+    <footer>
         <p>&copy; 2026 Digital Core. Todos los derechos reservados.</p>
     </footer>
 
     <script>
-        // --- Interacción 1: Fondo que sigue al mouse ---
-        const heroSection = document.querySelector('.hero');
-
-        heroSection.addEventListener('mousemove', (e) => {
-            const mouseX = (window.innerWidth / 2 - e.clientX) / 20; 
-            const mouseY = (window.innerHeight / 2 - e.clientY) / 20;
-
-            heroSection.style.setProperty('--mouse-x', mouseX + 'px');
-            heroSection.style.setProperty('--mouse-y', mouseY + 'px');
+        // Efecto del fondo Hero
+        const subHero = document.getElementById('subHero');
+        subHero.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth / 2 - e.clientX) / 30;
+            const y = (window.innerHeight / 2 - e.clientY) / 30;
+            subHero.style.setProperty('--mouse-x', x + 'px');
+            subHero.style.setProperty('--mouse-y', y + 'px');
         });
 
-        // --- Interacción 2: Botón con luz seguidora ---
-        const heroBtn = document.getElementById('heroBtn');
-        const btnContainer = document.querySelector('.btn-glow-container');
+        // Luz interactiva en las tarjetas de servicios al pasar el mouse
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
 
-        btnContainer.addEventListener('mousemove', (e) => {
-            const rect = btnContainer.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            heroBtn.style.setProperty('--btn-x', x + 'px');
-            heroBtn.style.setProperty('--btn-y', y + 'px');
+        // Luz interactiva del botón principal "Cotiza tu proyecto"
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                btn.style.setProperty('--btn-x', (e.clientX - rect.left) + 'px');
+                btn.style.setProperty('--btn-y', (e.clientY - rect.top) + 'px');
+            });
         });
     </script>
-
 </body>
 </html>

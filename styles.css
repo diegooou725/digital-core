@@ -1,3 +1,6 @@
+/* =========================================
+   RESET & GLOBALS
+   ========================================= */
 html {
     scroll-behavior: smooth;
 }
@@ -27,11 +30,19 @@ body {
 }
 
 @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-/* HEADER */
+/* =========================================
+   HEADER & NAVEGACIÓN
+   ========================================= */
 header {
     background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(10px);
@@ -82,28 +93,30 @@ nav a::after {
     transition: width 0.3s ease;
 }
 
-nav a:hover { color: var(--light-blue); }
-nav a:hover::after { width: 100%; }
+nav a:hover {
+    color: var(--light-blue);
+}
 
-/* HERO SECTION - FONDO PARALLAX */
+nav a:hover::after {
+    width: 100%;
+}
+
+/* =========================================
+   HERO SECTION - FONDO PARALLAX
+   ========================================= */
 .hero {
     --mouse-x: 0px;
     --mouse-y: 0px;
-
     background-color: var(--dark-blue);
-    
     background-image:
         radial-gradient(circle at 50% 50%, rgba(0, 156, 225, 0.15) 0%, transparent 70%),
         linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    
     background-size: 100% 100%, 40px 40px, 40px 40px;
-    
     background-position: 
         calc(50% + var(--mouse-x) * 0.5) calc(50% + var(--mouse-y) * 0.5), 
         calc(50% + var(--mouse-x)) calc(50% + var(--mouse-y)), 
         calc(50% + var(--mouse-x)) calc(50% + var(--mouse-y));
-    
     color: var(--white);
     padding: 130px 5%;
     text-align: center;
@@ -138,7 +151,9 @@ nav a:hover::after { width: 100%; }
     color: rgba(255, 255, 255, 0.9);
 }
 
-/* BOTÓN INTERACTIVO FLUIDO CON ENCENDIDO/APAGADO */
+/* =========================================
+   BOTÓN INTERACTIVO FLUIDO
+   ========================================= */
 .btn-glow-container {
     display: inline-block;
     position: relative;
@@ -171,12 +186,17 @@ nav a:hover::after { width: 100%; }
     z-index: 1;
     background: transparent; 
     transition: color 0.3s ease;
+    border: none;
+    cursor: pointer;
 }
 
 .btn::before {
     content: '';
     position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background: radial-gradient(circle at var(--btn-x) var(--btn-y), var(--neon-blue) 0%, var(--light-blue) 50%, var(--medium-blue) 100%);
     opacity: 0; 
     transition: opacity 0.4s ease; 
@@ -187,7 +207,9 @@ nav a:hover::after { width: 100%; }
     opacity: 1; 
 }
 
-/* SERVICIOS */
+/* =========================================
+   SERVICIOS MAIN INDEX
+   ========================================= */
 .services {
     padding: 100px 5%;
     background-color: var(--bg-light);
@@ -226,7 +248,10 @@ nav a:hover::after { width: 100%; }
 .service-card::before {
     content: '';
     position: absolute;
-    top: 0; left: 0; width: 100%; height: 3px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
     background: linear-gradient(90deg, var(--light-blue), var(--neon-blue));
     transform: scaleX(0);
     transform-origin: left;
@@ -239,7 +264,9 @@ nav a:hover::after { width: 100%; }
     border-color: rgba(0, 156, 225, 0.4);
 }
 
-.service-card:hover::before { transform: scaleX(1); }
+.service-card:hover::before {
+    transform: scaleX(1);
+}
 
 .service-card h3 {
     color: var(--dark-blue);
@@ -249,7 +276,9 @@ nav a:hover::after { width: 100%; }
     transition: color 0.3s ease;
 }
 
-.service-card:hover h3 { color: var(--light-blue); }
+.service-card:hover h3 {
+    color: var(--light-blue);
+}
 
 .service-card p {
     color: #555;
@@ -285,45 +314,12 @@ nav a:hover::after { width: 100%; }
     text-shadow: 0 0 5px rgba(0, 156, 225, 0.3);
 }
 
-.link-more:hover::after { transform: translateX(6px); }
-
-/* FOOTER */
-footer {
-    background-color: var(--dark-blue);
-    color: rgba(255, 255, 255, 0.8);
-    text-align: center;
-    padding: 4rem 5%;
-    position: relative;
-}
-
-footer::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 5%; right: 5%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--light-blue), transparent);
-    opacity: 0.5;
-}
-
-.social-link {
-    color: var(--neon-blue);
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 1.1rem;
-    letter-spacing: 1px;
-    display: inline-block;
-    margin-bottom: 1.5rem;
-    transition: all 0.3s ease;
-}
-
-.social-link:hover {
-    color: var(--white);
-    text-shadow: 0 0 15px var(--neon-blue);
-    transform: scale(1.02);
+.link-more:hover::after {
+    transform: translateX(6px);
 }
 
 /* =========================================
-   ESTILOS PARA paginas-web.html (PAQUETES)
+   PÁGINAS DE PAQUETES Y CUADRÍCULAS
    ========================================= */
 
 #subHero {
@@ -397,10 +393,15 @@ footer::before {
     border-color: var(--light-blue);
 }
 
+/* =========================================
+   CORRECCIÓN DE ALINEACIÓN DE ENCABEZADO Y PRECIO
+   ========================================= */
 .package-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end; 
+    gap: 10px; /* Reducimos el espacio un poco para que respire */
+    flex-wrap: wrap; /* Seguro de vida: Si no cabe, baja al siguiente renglón en lugar de cortarse */
     margin-bottom: 1rem;
     border-bottom: 1px solid rgba(4, 31, 61, 0.1);
     padding-bottom: 1rem;
@@ -408,14 +409,20 @@ footer::before {
 
 .package-header h3 {
     color: var(--dark-blue);
-    font-size: 1.5rem;
+    font-size: 1.4rem; /* Ligeramente más chico para dar espacio a nombres muy largos */
     font-weight: 800;
+    line-height: 1.2;
+    margin: 0;
+    flex: 1 1 120px; /* Le permite ser flexible pero con un tamaño mínimo para no aplastarse */
+    word-wrap: break-word; /* Evita que palabras súper largas rompan el diseño */
 }
 
 .price-tag {
     color: var(--light-blue);
     font-weight: 900;
-    font-size: 1.25rem;
+    font-size: 1.15rem; /* Ajustado para encajar mejor con el texto "Desde" */
+    white-space: nowrap; /* Evita que el precio en sí se rompa a la mitad */
+    flex-shrink: 0; /* Evita que se aplaste */
 }
 
 .short-desc {
@@ -488,7 +495,7 @@ footer::before {
     font-weight: bold;
 }
 
-/* Botón de Orden */
+/* Botón de Orden de Paquetes */
 .btn-order {
     margin-top: auto; 
     display: block;
@@ -513,12 +520,10 @@ footer::before {
 }
 
 /* =========================================
-   ESTILOS PARA DETALLES DE PAQUETES
+   ESTILOS PARA DETALLES DE PAQUETES INDIVIDUALES
    ========================================= */
-
-/* Hero más delgado para páginas de detalle (ALTURA REDUCIDA) */
 .detail-hero {
-    padding: 45px 5% 30px; 
+    padding: 45px 5% 30px;
 }
 
 .detail-hero h1 {
@@ -535,11 +540,10 @@ footer::before {
 }
 
 .package-detail-section {
-    padding: 40px 5% 80px; 
+    padding: 40px 5% 80px;
     background-color: var(--bg-light);
 }
 
-/* Botón de regreso */
 .btn-back {
     display: inline-block;
     margin-bottom: 2.5rem;
@@ -552,7 +556,7 @@ footer::before {
 
 .btn-back:hover {
     color: var(--light-blue);
-    transform: translateX(-5px); 
+    transform: translateX(-5px);
 }
 
 .package-detail-grid {
@@ -578,7 +582,6 @@ footer::before {
     line-height: 1.8;
 }
 
-/* Caja de Alerta Importante */
 .alert-box {
     padding: 1.5rem 2rem;
     border-radius: 8px;
@@ -605,7 +608,6 @@ footer::before {
     color: var(--medium-blue);
 }
 
-/* Botón de Upselling en la alerta */
 .btn-upsell {
     display: inline-block;
     margin-top: 5px;
@@ -625,7 +627,6 @@ footer::before {
     transform: translateY(-2px);
 }
 
-/* Listas de Detalles */
 .detail-features {
     list-style: none;
     margin-bottom: 2rem;
@@ -648,7 +649,6 @@ footer::before {
     font-weight: bold;
 }
 
-/* Modificadores para Limitaciones y Exclusiones */
 .limitations-list li::before {
     content: '⚠️';
     color: inherit;
@@ -661,7 +661,7 @@ footer::before {
 
 .exclusions-list li::before {
     content: '✕';
-    color: #e74c3c; 
+    color: #e74c3c;
     font-size: 1.2rem;
 }
 
@@ -688,7 +688,159 @@ footer::before {
     font-size: 0.95rem;
 }
 
-/* Responsividad extra para móviles */
+/* =========================================
+   ESTILOS PARA CONTACTO (contacto.html)
+   ========================================= */
+.contact-section {
+    padding: 80px 5%;
+    background-color: var(--bg-light);
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.contact-info h2 {
+    color: var(--dark-blue);
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    font-weight: 800;
+}
+
+.contact-info p {
+    color: #555;
+    margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+.contact-methods {
+    list-style: none;
+    margin-top: 1.5rem;
+}
+
+.contact-methods li {
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    color: var(--dark-blue);
+    font-weight: 600;
+}
+
+.contact-methods a {
+    color: var(--light-blue);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-methods a:hover {
+    color: var(--neon-blue);
+}
+
+.contact-form-container {
+    background: var(--white);
+    padding: 3rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    border: 1px solid rgba(0, 156, 225, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-form-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, var(--light-blue), var(--neon-blue));
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--dark-blue);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 14px 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    transition: all 0.3s;
+    background: #f9fbfd;
+    color: var(--text-main);
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--light-blue);
+    box-shadow: 0 0 0 4px rgba(0, 156, 225, 0.15);
+    background: var(--white);
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* =========================================
+   FOOTER GLOBAL
+   ========================================= */
+footer {
+    background-color: var(--dark-blue);
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    padding: 4rem 5%;
+    position: relative;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 5%;
+    right: 5%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--light-blue), transparent);
+    opacity: 0.5;
+}
+
+.social-link {
+    color: var(--neon-blue);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    color: var(--white);
+    text-shadow: 0 0 15px var(--neon-blue);
+    transform: scale(1.02);
+}
+
+/* =========================================
+   MEDIA QUERIES (RESPONSIVIDAD MÓVIL)
+   ========================================= */
 @media (max-width: 900px) {
     .package-detail-grid {
         grid-template-columns: 1fr;
@@ -697,14 +849,31 @@ footer::before {
         position: relative;
         top: 0;
     }
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    .contact-form-container {
+        padding: 2rem;
+    }
 }
 
 @media (max-width: 768px) {
-    nav ul { display: none; }
-    .hero h1 { font-size: 2.5rem; }
-    .hero { padding: 80px 5%; }
+    nav ul {
+        display: none;
+    }
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    .hero {
+        padding: 80px 5%;
+    }
     .nav-buttons {
         flex-direction: column;
         gap: 1rem;
+    }
+    .package-header {
+        flex-direction: column; /* En celulares pequeños, baja el precio */
+        align-items: flex-start;
     }
 }

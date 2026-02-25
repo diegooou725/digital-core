@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistemas de Datos | Digital Core</title>
+    <link rel="icon" href="Isotipo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="Digital Core original.png" alt="Digital Core">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html#servicios">Servicios</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="subHero">
+        <h1>Sistemas de <span>Datos</span></h1>
+        <p>Ordena, controla y automatiza la información de tu negocio. Elige el área que deseas optimizar.</p>
+        
+        <div class="nav-buttons">
+            <a href="#sistemas-oficina" class="btn-secondary">Gestión de Oficina</a>
+            <a href="#puntos-venta" class="btn-secondary">Puntos de Venta</a>
+        </div>
+    </section>
+
+    <h2 class="section-title" id="sistemas-oficina">Gestión y Automatización</h2>
+    <main class="pricing-grid">
+        
+        <div class="package-card">
+            <div class="package-header">
+                <h3>Data<br>Flow</h3>
+                <span class="price-tag">Desde $800</span>
+            </div>
+            <p class="short-desc">El ecosistema completo para automatizar hojas de cálculo y reportes.</p>
+            <button class="details-toggle">Subcategorías <span class="arrow-icon">▼</span></button>
+            <div class="extra-info">
+                <ul>
+                    <li>Plantillas Inteligentes</li>
+                    <li>Programación de Macros</li>
+                    <li>Dashboards Financieros</li>
+                    <li>Migración a la Nube</li>
+                </ul>
+            </div>
+            <a href="paquetes-flow.html" class="btn-order">Ver opciones y precios</a>
+        </div>
+
+        <div class="package-card">
+            <div class="package-header">
+                <h3>Data<br>Hub</h3>
+                <span class="price-tag">Desde $2,500</span>
+            </div>
+            <p class="short-desc">Sistemas de bases de datos relacionales para trabajo en red local.</p>
+            <button class="details-toggle">Subcategorías <span class="arrow-icon">▼</span></button>
+            <div class="extra-info">
+                <ul>
+                    <li>Sistemas de captura Multiusuario</li>
+                    <li>Control de Inventarios robusto</li>
+                    <li>Generación de reportes PDF</li>
+                </ul>
+            </div>
+            <a href="paquetes-hub.html" class="btn-order">Ver opciones y precios</a>
+        </div>
+
+        <div class="package-card">
+            <div class="package-header">
+                <h3>Data<br>Custom</h3>
+                <span class="price-tag">A Medida</span>
+            </div>
+            <p class="short-desc">Desarrollo de aplicaciones de escritorio o sistemas muy específicos.</p>
+            <button class="details-toggle">Alcances <span class="arrow-icon">▼</span></button>
+            <div class="extra-info">
+                <ul>
+                    <li>Lógica de negocio única</li>
+                    <li>Aplicaciones instalables (PC)</li>
+                    <li>Conexión con hardware externo</li>
+                </ul>
+            </div>
+            <a href="detalle-custom.html" class="btn-order">Agendar Consultoría</a>
+        </div>
+    </main>
+
+    <h2 class="section-title" id="puntos-venta">Comercio Físico (POS)</h2>
+    <section class="pricing-grid">
+        
+        <div class="package-card">
+            <div class="package-header">
+                <h3>Licencia<br>POS Básico</h3>
+                <span class="price-tag" style="font-size: 1.05rem;">Consúltanos</span>
+            </div>
+            <p class="short-desc">Instalación y configuración de software en tu computadora actual.</p>
+            <div class="extra-info active" style="margin-top: 15px; max-height: 200px; opacity: 1;">
+                <ul>
+                    <li>Control de Inventarios</li>
+                    <li>Corte de Caja</li>
+                    <li>Tickets de venta</li>
+                </ul>
+            </div>
+            <a href="detalle-pos.html" class="btn-order">Ver detalles</a>
+        </div>
+
+        <div class="package-card">
+            <div class="package-header">
+                <h3>Hardware<br>POS Completo</h3>
+                <span class="price-tag" style="font-size: 1.05rem;">Consúltanos</span>
+            </div>
+            <p class="short-desc">Venta e instalación de equipo físico (PC, cajón, impresora, lector).</p>
+            <div class="extra-info active" style="margin-top: 15px; max-height: 200px; opacity: 1;">
+                <ul>
+                    <li>Cajón de dinero de apertura automática</li>
+                    <li>Impresora térmica de tickets</li>
+                    <li>Lector de código de barras</li>
+                </ul>
+            </div>
+            <a href="detalle-pos.html" class="btn-order">Ver detalles</a>
+        </div>
+
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Digital Core. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        const subHero = document.getElementById('subHero');
+        subHero.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth / 2 - e.clientX) / 30;
+            const y = (window.innerHeight / 2 - e.clientY) / 30;
+            subHero.style.setProperty('--mouse-x', x + 'px');
+            subHero.style.setProperty('--mouse-y', y + 'px');
+        });
+
+        document.querySelectorAll('.details-toggle').forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const info = toggle.nextElementSibling;
+                info.classList.toggle('active');
+                const arrow = toggle.querySelector('.arrow-icon');
+                if (arrow) {
+                    arrow.style.transform = info.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0deg)';
+                }
+            });
+        });
+
+        document.querySelectorAll('.btn-order').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                btn.style.setProperty('--btn-x', (e.clientX - rect.left) + 'px');
+                btn.style.setProperty('--btn-y', (e.clientY - rect.top) + 'px');
+            });
+        });
+    </script>
+</body>
+</html>
