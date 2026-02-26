@@ -6,7 +6,36 @@
     <title>Contacto | Digital Core</title>
     <link rel="icon" href="Isotipo.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Estilo para alinear los nuevos íconos perfectamente */
+        .contact-methods li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            color: var(--dark-blue);
+            font-weight: 600;
+        }
+        .contact-methods i {
+            font-size: 1.5rem;
+            color: var(--light-blue);
+            margin-right: 12px;
+            background: rgba(0, 156, 225, 0.1);
+            padding: 8px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        .contact-methods li:hover i {
+            background: var(--light-blue);
+            color: var(--white);
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 156, 225, 0.3);
+        }
+        .contact-methods strong {
+            margin-right: 8px;
+        }
+    </style>
 </head>
 <body>
 
@@ -36,16 +65,25 @@
                 <p>En <strong>Digital Core</strong> somos un equipo apasionado por la tecnología, dedicado a transformar la manera en que operan los negocios. No nos limitamos a hacer páginas web; creamos ecosistemas completos.</p>
                 <p>Desde el diseño de tu identidad visual hasta la automatización de tus datos y la infraestructura de tu oficina, trabajamos bajo una sola premisa: <strong>hacer que la tecnología trabaje para ti, no al revés.</strong></p>
                 
-                <h3 style="color: var(--dark-blue); margin-top: 2.5rem; font-size: 1.3rem;">Contacto Directo</h3>
+                <h3 style="color: var(--dark-blue); margin-top: 2.5rem; font-size: 1.3rem; margin-bottom: 1.5rem;">Contacto Directo</h3>
+                
                 <ul class="contact-methods">
-                    <li>📍 <strong>Ubicación:</strong> Servicio en todo México.</li>
-                    <li>✉️ <strong>Email:</strong> <a href="mailto:hola@digitalcore.mx">hola@digitalcore.mx</a></li>
-                    <li>📱 <strong>Facebook:</strong> <a href="https://facebook.com/DigitalCoreMx" target="_blank">@DigitalCoreMx</a></li>
+                    <li><i class='bx bx-map'></i> <strong>Ubicación:</strong> Servicio en todo México</li>
+                    <li><i class='bx bxl-whatsapp'></i> <strong>WhatsApp:</strong> <a href="https://wa.me/524425097357" target="_blank">442 509 7357</a></li>
+                    <li><i class='bx bxl-facebook-circle'></i> <strong>Facebook:</strong> <a href="https://facebook.com/DigitalCoreMx" target="_blank">@DigitalCoreMx</a></li>
+                    <li><i class='bx bx-envelope'></i> <strong>General:</strong> <a href="mailto:hola@digitalcoremx.com">hola@digitalcoremx.com</a></li>
+                    <li><i class='bx bx-cart'></i> <strong>Ventas:</strong> <a href="mailto:ventas@digitalcoremx.com">ventas@digitalcoremx.com</a></li>
+                    <li><i class='bx bx-support'></i> <strong>Soporte:</strong> <a href="mailto:soporte@digitalcoremx.com">soporte@digitalcoremx.com</a></li>
                 </ul>
             </div>
 
             <div class="contact-form-container">
-                <form action="#" method="POST">
+                <form action="https://formsubmit.co/hola@digitalcoremx.com" method="POST">
+                    
+                    <input type="hidden" name="_subject" value="¡Nuevo prospecto desde la web Digital Core!">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_next" value="https://digitalcoremx.com">
                     
                     <div class="form-group">
                         <label for="nombre">Nombre Completo</label>
@@ -61,13 +99,13 @@
                         <label for="servicio">Servicio de Interés</label>
                         <select id="servicio" name="servicio" class="form-control" required>
                             <option value="" disabled selected>Selecciona una opción...</option>
-                            <option value="desarrollo_web">Desarrollo Web Estratégico</option>
-                            <option value="sistemas_datos">Sistemas de Datos</option>
-                            <option value="infraestructura">Soporte e Infraestructura</option>
-                            <option value="capacitacion">Capacitación y Consultoría</option>
-                            <option value="identidad">Identidad y Diseño Visual</option>
-                            <option value="automatizacion">Automatización y Chatbots</option>
-                            <option value="otro">Otro</option>
+                            <option value="Desarrollo Web Estratégico">Desarrollo Web Estratégico</option>
+                            <option value="Sistemas de Datos">Sistemas de Datos</option>
+                            <option value="Soporte e Infraestructura">Soporte e Infraestructura</option>
+                            <option value="Capacitación y Consultoría">Capacitación y Consultoría</option>
+                            <option value="Identidad y Diseño Visual">Identidad y Diseño Visual</option>
+                            <option value="Automatización y Chatbots">Automatización y Chatbots</option>
+                            <option value="Otro">Otro</option>
                         </select>
                     </div>
 
@@ -91,7 +129,6 @@
     </footer>
 
     <script>
-        // Movimiento del fondo Hero
         const subHero = document.getElementById('subHero');
         subHero.addEventListener('mousemove', (e) => {
             const x = (window.innerWidth / 2 - e.clientX) / 30;
@@ -100,7 +137,6 @@
             subHero.style.setProperty('--mouse-y', y + 'px');
         });
 
-        // Luz dinámica en el botón de enviar
         const submitBtn = document.getElementById('submitBtn');
         const btnContainer = document.querySelector('.contact-form-container .btn-glow-container');
         btnContainer.addEventListener('mousemove', (e) => {
