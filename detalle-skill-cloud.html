@@ -9,17 +9,41 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
     <header>
-        <div class="logo-container"><img src="Digital Core original.png" alt="Digital Core"></div>
-        <nav>
-            <ul><li><a href="index.html">Inicio</a></li><li><a href="capacitacion.html">Educación & Estrategia</a></li><li><a href="contacto.html">Contacto</a></li></ul>
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="Digital Core original.png" alt="Digital Core" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            </a>
+        </div>
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav id="nav-menu">
+            <ul style="display: flex; align-items: center;">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="capacitacion.html">Educación & Estrategia</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li style="margin-left: 20px;">
+                    <a href="login-empleados.html" title="Acceso a Empleados" style="display: flex; align-items: center; justify-content: center; background: rgba(0, 156, 225, 0.1); padding: 8px; border-radius: 50%; transition: all 0.3s ease; color: var(--dark-blue);" onmouseover="this.style.background='var(--neon-blue)'; this.style.transform='scale(1.05)';" onmouseout="this.style.background='rgba(0, 156, 225, 0.1)'; this.style.transform='scale(1)';">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
         </nav>
     </header>
 
     <section class="hero detail-hero" id="subHero" style="padding: 45px 5% 30px;">
         <h1>Skill <span>Cloud</span></h1>
         <p class="price-hero">Desde $1,200 MXN</p>
-        <p>Tu oficina en cualquier lugar. Aprende a trabajar en la nube, hacer videollamadas y organizar tu vida digital moderna.</p>
+        <p>Aprende a trabajar en la nube. Domina las videollamadas, el trabajo en equipo a distancia y organiza tu vida digital para siempre.</p>
     </section>
 
     <main class="package-detail-section">
@@ -27,49 +51,56 @@
 
         <div class="package-detail-grid">
             <div class="detail-description">
-                <div class="alert-box" style="border-left-color: #3498db; background: rgba(52, 152, 219, 0.05);">
-                    <div class="alert-title" style="color: #2980b9;">✅ Ventaja Principal: Nunca más pierdas un archivo</div>
-                    <p>Olvídate de las memorias USB (pendrives) con virus o del miedo a que se descomponga tu computadora y pierdas tus fotos o documentos. Aprende a guardar todo de forma segura en internet para abrirlo desde tu celular o cualquier otra PC.</p>
+                <div class="alert-box" style="border-left-color: #f39c12; background: rgba(243, 156, 18, 0.05);">
+                    <div class="alert-title" style="color: #d68910;">✅ Ventaja Principal: Trabajo Colaborativo e Híbrido</div>
+                    <p>Ya no envíes mil correos con versiones del mismo archivo (documento_final_v3.docx). Aprende a crear un solo archivo en internet donde tú y tus compañeros pueden escribir al mismo tiempo sin borrar el trabajo del otro.</p>
                     
-                    <div class="alert-title" style="margin-top: 1.5rem; color: #16a085;">💡 ¿Quieres llevar tus habilidades al siguiente nivel?</div>
-                    <p>Si ya dominas el trabajo colaborativo en internet y quieres volverte una pieza clave en cualquier empresa, necesitas aprender a analizar información. Te sugerimos nuestro curso <strong>Skill Data</strong>.</p>
-                    <a href="detalle-skill-data.html" class="btn-upsell" style="background-color: #16a085;">Ver Skill Data</a>
+                    <div class="alert-title" style="margin-top: 1.5rem; color: #27ae60;">💡 ¿Quieres ir más allá y analizar datos?</div>
+                    <p>Si la nube ya la dominas y lo que buscas es especializarte en crear reportes financieros o gráficos estadísticos, salta directo a <strong>Skill Data</strong>.</p>
+                    <a href="detalle-skill-data.html" class="btn-upsell" style="background-color: #27ae60;">Ver Skill Data</a>
                 </div>
 
-                <h2>¿Qué es exactamente el curso Skill Cloud?</h2>
-                <p>Es un entrenamiento diseñado para actualizarte a las formas de trabajo de hoy en día. Si alguna vez te han dicho <em>"Súbelo al Drive"</em> o <em>"Te mando la liga de Meet"</em> y no supiste qué hacer, este curso es para ti.</p>
-                <p>Te enseñaremos cómo funcionan los "Discos Duros Virtuales" de Google y Microsoft. Aprenderás que no necesitas instalar programas pesados para trabajar, ya que ahora puedes escribir documentos, hacer presentaciones y tener reuniones virtuales directamente desde tu navegador web de forma totalmente gratuita.</p>
+                <h2>¿Para quién es este curso?</h2>
+                <p>El mundo cambió y el trabajo remoto llegó para quedarse. Este curso es para <strong>profesionistas independientes, maestros o empleados de oficina</strong> que se sienten abrumados por herramientas como Zoom, Google Drive o Microsoft Teams.</p>
+                <p>Te enseñaremos a respaldar tus fotos y documentos para que nunca más pierdas información si se te descompone la computadora o pierdes el celular.</p>
 
-                <h2 style="margin-top: 2.5rem;">Alcances ¿Qué INCLUYE el temario?</h2>
+                <h2 style="margin-top: 2.5rem;">Temario ¿Qué vas a aprender?</h2>
                 <ul class="detail-features">
-                    <li><strong>Almacenamiento en la Nube:</strong> Dominio de Google Drive y OneDrive. Aprenderás a subir archivos, organizarlos en carpetas y, lo más importante, crear "enlaces para compartir" correctamente.</li>
-                    <li><strong>Videoconferencias Profesionales:</strong> Uso experto de Zoom y Google Meet. Aprende a crear reuniones, enviar invitaciones, compartir tu pantalla con audio y usar fondos virtuales.</li>
-                    <li><strong>Documentos Colaborativos:</strong> Cómo usar Google Docs y Google Sheets para que tú y otras tres personas puedan escribir en el mismo archivo al mismo tiempo estando en diferentes casas.</li>
-                    <li><strong>Seguridad Digital:</strong> Gestión de contraseñas, verificación en dos pasos (2FA) y cómo evitar que personas no deseadas tengan acceso a tu nube personal.</li>
+                    <li><strong>Almacenamiento en la Nube:</strong> Uso de Google Drive y Microsoft OneDrive. Aprenderás a subir archivos, crear carpetas y generar "enlaces mágicos" para enviar archivos pesados que no caben por correo.</li>
+                    <li><strong>Videoconferencias (Zoom & Meet):</strong> Cómo agendar reuniones, invitar personas, compartir tu pantalla correctamente, cambiar tu fondo virtual y usar el chat de la sesión.</li>
+                    <li><strong>Documentos Compartidos:</strong> Uso de Google Docs y Google Sheets para que varias personas editen el mismo archivo simultáneamente desde distintas partes del mundo.</li>
+                    <li><strong>Organización y Agendas:</strong> Uso de Google Calendar para sincronizar tus citas del trabajo directamente con tu teléfono celular.</li>
                 </ul>
 
                 <h2>Lo que NO incluye este curso</h2>
                 <ul class="detail-features exclusions-list">
-                    <li>Pago de suscripciones por espacio extra (Google One, Microsoft 365). Te enseñaremos usando las versiones gratuitas que te dan de 5 a 15 GB de espacio.</li>
-                    <li>Configuración de servidores en la nube empresariales (AWS, Azure) o redes locales. <em>(Esto es infraestructura técnica corporativa)</em>.</li>
+                    <li>Configuración de servidores físicos o redes locales en oficinas.</li>
+                    <li>Desarrollo o programación web.</li>
                 </ul>
+
+                <div style="background: var(--white); border: 1px solid rgba(0, 156, 225, 0.2); border-left: 5px solid var(--dark-blue); padding: 2rem; border-radius: 8px; margin-top: 3.5rem; box-shadow: 0 5px 15px rgba(4, 31, 61, 0.05);">
+                    <h4 style="color: var(--dark-blue); margin-bottom: 15px; font-size: 1.1rem; font-weight: 800;">Términos y Condiciones de Capacitación</h4>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px; color: #555; line-height: 1.6;"><strong>1. Requerimientos Técnicos:</strong> El alumno deberá contar con su propia computadora (portátil o de escritorio) en buen estado y una conexión estable a internet para poder realizar las prácticas en la nube sin interrupciones.</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px; color: #555; line-height: 1.6;"><strong>2. Reprogramación de Sesiones:</strong> Las clases agendadas deberán ser canceladas o reprogramadas con un mínimo de <strong>24 horas de anticipación</strong>. Las cancelaciones de último minuto o inasistencias sin previo aviso se contabilizarán como horas de clase impartidas.</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 0; color: #555; line-height: 1.6;"><strong>3. Alcance de la Mentoría:</strong> Los cursos tienen fines estrictamente educativos. Los instructores guiarán al alumno a través de los temas del programa, pero el servicio no contempla la resolución o maquila de trabajos escolares, proyectos de oficina o trámites legales personales del cliente.</p>
+                </div>
             </div>
             
             <div class="detail-action" style="position: sticky; top: 100px;">
                 <div style="background: var(--white); border: 1px solid var(--light-blue); padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 10px 30px rgba(4, 31, 61, 0.08);">
                     <h3 style="color: var(--dark-blue); margin-bottom: 1rem; font-weight: 800; border-bottom: 2px solid var(--neon-blue); padding-bottom: 0.5rem; font-size: 1.2rem;">Resumen del Curso</h3>
                     <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.8rem;">
-                        <li style="font-size: 0.95rem; color: #444;"><strong>🎓 Nivel:</strong> Básico - Intermedio</li>
-                        <li style="font-size: 0.95rem; color: #444;"><strong>💻 Modalidad:</strong> Presencial o Remoto en vivo</li>
-                        <li style="font-size: 0.95rem; color: #444;"><strong>🎯 Enfoque:</strong> Productividad y Teletrabajo</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>🎓 Nivel:</strong> Principiante / Intermedio</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>💻 Modalidad:</strong> Recomendado en línea (Zoom)</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>🎯 Enfoque:</strong> Colaboración y Productividad</li>
                         <li style="font-size: 0.95rem; color: #444;"><strong>🕒 Duración:</strong> 10 a 12 horas prácticas</li>
-                        <li style="font-size: 0.95rem; color: #444;"><strong>🏅 Entregable:</strong> Constancia de participación</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>🔒 Extra:</strong> Buenas prácticas de seguridad</li>
                     </ul>
                 </div>
 
                 <div class="action-card" style="position: static; box-shadow: 0 10px 30px rgba(4, 31, 61, 0.08);">
-                    <h3>¿Te frustra el trabajo a distancia?</h3>
-                    <p>Actualízate al mundo moderno y domina las herramientas de comunicación y almacenamiento que hoy son obligatorias.</p>
+                    <h3>¿Cansado de los correos interminables?</h3>
+                    <p>Moderniza tu forma de trabajar, respalda tu vida en internet y comunícate sin fronteras.</p>
                     <a href="contacto.html" class="btn-order">Inscribirme al Curso</a>
                 </div>
             </div>
@@ -80,12 +111,14 @@
 
     <script>
         const subHero = document.getElementById('subHero');
-        subHero.addEventListener('mousemove', (e) => {
-            const x = (window.innerWidth / 2 - e.clientX) / 30;
-            const y = (window.innerHeight / 2 - e.clientY) / 30;
-            subHero.style.setProperty('--mouse-x', x + 'px');
-            subHero.style.setProperty('--mouse-y', y + 'px');
-        });
+        if (subHero) {
+            subHero.addEventListener('mousemove', (e) => {
+                const x = (window.innerWidth / 2 - e.clientX) / 30;
+                const y = (window.innerHeight / 2 - e.clientY) / 30;
+                subHero.style.setProperty('--mouse-x', x + 'px');
+                subHero.style.setProperty('--mouse-y', y + 'px');
+            });
+        }
 
         document.querySelectorAll('.btn-order').forEach(btn => {
             btn.addEventListener('mousemove', (e) => {
@@ -94,6 +127,15 @@
                 btn.style.setProperty('--btn-y', (e.clientY - rect.top) + 'px');
             });
         });
+
+        // Lógica del Menú Hamburguesa
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+        if (mobileMenu && navMenu) {
+            mobileMenu.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
     </script>
 </body>
 </html>

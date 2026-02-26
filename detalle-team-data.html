@@ -9,9 +9,35 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
     <header>
-        <div class="logo-container"><img src="Digital Core original.png" alt="Digital Core"></div>
-        <nav><ul><li><a href="index.html">Inicio</a></li><li><a href="capacitacion.html">Educación & Estrategia</a></li><li><a href="contacto.html">Contacto</a></li></ul></nav>
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="Digital Core original.png" alt="Digital Core" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            </a>
+        </div>
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav id="nav-menu">
+            <ul style="display: flex; align-items: center;">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="capacitacion.html">Educación & Estrategia</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li style="margin-left: 20px;">
+                    <a href="login-empleados.html" title="Acceso a Empleados" style="display: flex; align-items: center; justify-content: center; background: rgba(0, 156, 225, 0.1); padding: 8px; border-radius: 50%; transition: all 0.3s ease; color: var(--dark-blue);" onmouseover="this.style.background='var(--neon-blue)'; this.style.transform='scale(1.05)';" onmouseout="this.style.background='rgba(0, 156, 225, 0.1)'; this.style.transform='scale(1)';">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </header>
 
     <section class="hero detail-hero" id="subHero" style="padding: 45px 5% 30px;">
@@ -50,6 +76,13 @@
                     <li>Enseñanza de programación (Macros en VBA). <em>(Eso es parte de nuestros servicios de desarrollo Data Flow)</em>.</li>
                     <li>Formatos básicos o sumas y restas simples. <em>(Sugerimos Team Office primero)</em>.</li>
                 </ul>
+
+                <div style="background: var(--white); border: 1px solid rgba(0, 156, 225, 0.2); border-left: 5px solid var(--dark-blue); padding: 2rem; border-radius: 8px; margin-top: 3.5rem; box-shadow: 0 5px 15px rgba(4, 31, 61, 0.05);">
+                    <h4 style="color: var(--dark-blue); margin-bottom: 15px; font-size: 1.1rem; font-weight: 800;">Términos y Condiciones de Capacitación Corporativa</h4>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px; color: #555; line-height: 1.6;"><strong>1. Requerimientos de Infraestructura:</strong> Para modalidades presenciales (In-Company), la empresa cliente deberá proporcionar un espacio adecuado y asegurar que cada colaborador cuente con equipo de cómputo con Microsoft Excel instalado (versión 2016 en adelante). Digital Core no provee equipos físicos ni licencias de software comercial.</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px; color: #555; line-height: 1.6;"><strong>2. Reprogramación y Quórum:</strong> Las sesiones agendadas deberán ser canceladas o reprogramadas con un mínimo de <strong>48 horas de anticipación</strong>. Las ausencias individuales de colaboradores no eximen el cobro de la sesión grupal, y las cancelaciones de último minuto se contabilizarán como horas de capacitación impartidas.</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 0; color: #555; line-height: 1.6;"><strong>3. Alcance Práctico:</strong> El entrenamiento es de carácter educativo. Aunque se utilicen ejemplos reales de la empresa para facilitar el aprendizaje, los instructores no fungirán como analistas de datos para resolver atrasos operativos, auditorías o procesar bases de datos confidenciales reales durante las horas de clase.</p>
+                </div>
             </div>
             
             <div class="detail-action" style="position: sticky; top: 100px;">
@@ -60,6 +93,7 @@
                         <li style="font-size: 0.95rem; color: #444;"><strong>💻 Modalidad:</strong> In-Company (Presencial) o Remoto</li>
                         <li style="font-size: 0.95rem; color: #444;"><strong>🎯 Enfoque:</strong> Excel Intermedio-Avanzado</li>
                         <li style="font-size: 0.95rem; color: #444;"><strong>🕒 Duración:</strong> 20 a 25 horas (Bloques)</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>🏅 Entregable:</strong> Diplomas / Constancias de Habilidades</li>
                     </ul>
                 </div>
                 <div class="action-card" style="position: static; box-shadow: 0 10px 30px rgba(4, 31, 61, 0.08);">
@@ -70,6 +104,35 @@
             </div>
         </div>
     </main>
-    <footer><p>&copy; 2026 Digital Core.</p></footer>
+    <footer><p>&copy; 2026 Digital Core. Todos los derechos reservados.</p></footer>
+
+    <script>
+        const subHero = document.getElementById('subHero');
+        if (subHero) {
+            subHero.addEventListener('mousemove', (e) => {
+                const x = (window.innerWidth / 2 - e.clientX) / 30;
+                const y = (window.innerHeight / 2 - e.clientY) / 30;
+                subHero.style.setProperty('--mouse-x', x + 'px');
+                subHero.style.setProperty('--mouse-y', y + 'px');
+            });
+        }
+
+        document.querySelectorAll('.btn-order').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                btn.style.setProperty('--btn-x', (e.clientX - rect.left) + 'px');
+                btn.style.setProperty('--btn-y', (e.clientY - rect.top) + 'px');
+            });
+        });
+
+        // Lógica del Menú Hamburguesa
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+        if (mobileMenu && navMenu) {
+            mobileMenu.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
+    </script>
 </body>
 </html>

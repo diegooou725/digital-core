@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso a Empleados | Digital Core</title>
+    <link rel="icon" href="Isotipo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body style="display: flex; flex-direction: column; min-height: 100vh; background: #f8f9fa;">
+
+    <header>
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="Digital Core original.png" alt="Digital Core" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            </a>
+        </div>
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav id="nav-menu">
+            <ul style="display: flex; align-items: center;">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="paginas-web.html">Desarrollo Web</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 120px 20px 60px; position: relative; overflow: hidden;">
+        <div style="position: absolute; top: -10%; left: -10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(0,156,225,0.08) 0%, rgba(255,255,255,0) 70%); z-index: 0;"></div>
+        <div style="position: absolute; bottom: -10%; right: -10%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(4,31,61,0.05) 0%, rgba(255,255,255,0) 70%); z-index: 0;"></div>
+
+        <div style="background: var(--white); padding: 3rem 2.5rem; border-radius: 16px; box-shadow: 0 15px 35px rgba(4,31,61,0.08); width: 100%; max-width: 420px; position: relative; z-index: 1; border: 1px solid rgba(0, 156, 225, 0.1);">
+            
+            <div style="text-align: center; margin-bottom: 2.5rem;">
+                <div style="background: rgba(0, 156, 225, 0.1); width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; color: var(--neon-blue);">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </div>
+                <h1 style="color: var(--dark-blue); font-size: 1.8rem; font-weight: 900; margin-bottom: 0.5rem; letter-spacing: -0.5px;">Portal Interno</h1>
+                <p style="color: #666; font-size: 0.95rem;">Ingresa tus credenciales para continuar</p>
+            </div>
+
+            <form action="#" method="POST" style="display: flex; flex-direction: column; gap: 1.5rem;">
+                <div>
+                    <label for="email" style="display: block; font-size: 0.9rem; color: var(--dark-blue); font-weight: 700; margin-bottom: 0.5rem;">Correo Corporativo</label>
+                    <input type="email" id="email" name="email" placeholder="ejemplo@digitalcore.com" required style="width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; font-family: 'Inter', sans-serif; outline: none; transition: border-color 0.3s ease, box-shadow 0.3s ease; box-sizing: border-box;" onfocus="this.style.borderColor='var(--neon-blue)'; this.style.boxShadow='0 0 0 3px rgba(0,156,225,0.1)';" onblur="this.style.borderColor='#ddd'; this.style.boxShadow='none';">
+                </div>
+                
+                <div>
+                    <label for="password" style="display: block; font-size: 0.9rem; color: var(--dark-blue); font-weight: 700; margin-bottom: 0.5rem;">Contraseña</label>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required style="width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; font-family: 'Inter', sans-serif; outline: none; transition: border-color 0.3s ease, box-shadow 0.3s ease; box-sizing: border-box;" onfocus="this.style.borderColor='var(--neon-blue)'; this.style.boxShadow='0 0 0 3px rgba(0,156,225,0.1)';" onblur="this.style.borderColor='#ddd'; this.style.boxShadow='none';">
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem;">
+                    <label style="display: flex; align-items: center; gap: 6px; color: #555; cursor: pointer; font-weight: 500;">
+                        <input type="checkbox" style="accent-color: var(--neon-blue); width: 16px; height: 16px;"> Recordarme
+                    </label>
+                    <a href="#" style="color: var(--neon-blue); text-decoration: none; font-weight: 600; transition: color 0.3s ease;" onmouseover="this.style.color='var(--dark-blue)'" onmouseout="this.style.color='var(--neon-blue)'">¿Olvidaste tu contraseña?</a>
+                </div>
+
+                <button type="submit" class="btn-order" style="width: 100%; text-align: center; border: none; cursor: pointer; padding: 14px; font-size: 1.05rem; font-weight: 700; margin-top: 0.5rem; border-radius: 8px;">
+                    Iniciar Sesión
+                </button>
+            </form>
+
+            <div style="text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #eee;">
+                <p style="font-size: 0.75rem; color: #999; line-height: 1.5;">Acceso estrictamente restringido a personal autorizado de Digital Core. Todo intento de acceso no autorizado será registrado.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer style="margin-top: auto;">
+        <p>&copy; 2026 Digital Core. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Lógica del Menú Hamburguesa
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+        if (mobileMenu && navMenu) {
+            mobileMenu.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
+
+        // Efecto hover magnético en el botón (reutilizado de tu CSS)
+        const btn = document.querySelector('.btn-order');
+        if(btn){
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                btn.style.setProperty('--btn-x', (e.clientX - rect.left) + 'px');
+                btn.style.setProperty('--btn-y', (e.clientY - rect.top) + 'px');
+            });
+        }
+    </script>
+</body>
+</html>

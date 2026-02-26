@@ -12,129 +12,146 @@
 
     <header>
         <div class="logo-container">
-            <img src="Digital Core original.png" alt="Digital Core">
+            <a href="index.html">
+                <img src="Digital Core original.png" alt="Digital Core" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            </a>
         </div>
-        <nav>
-            <ul>
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav id="nav-menu">
+            <ul style="display: flex; align-items: center;">
                 <li><a href="index.html">Inicio</a></li>
                 <li><a href="capacitacion.html">Educación & Estrategia</a></li>
                 <li><a href="contacto.html">Contacto</a></li>
+                <li style="margin-left: 20px;">
+                    <a href="login-empleados.html" title="Acceso a Empleados" style="display: flex; align-items: center; justify-content: center; background: rgba(0, 156, 225, 0.1); padding: 8px; border-radius: 50%; transition: all 0.3s ease; color: var(--dark-blue);" onmouseover="this.style.background='var(--neon-blue)'; this.style.transform='scale(1.05)';" onmouseout="this.style.background='rgba(0, 156, 225, 0.1)'; this.style.transform='scale(1)';">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </a>
+                </li>
             </ul>
         </nav>
     </header>
 
     <section class="hero detail-hero" id="subHero" style="padding: 100px 5% 60px;">
         <h1>Consultoría <span>Tecnológica</span></h1>
-        <p>Toma decisiones inteligentes respaldadas por expertos. Diagnosticamos, asesoramos y actuamos como tu aliado estratégico en sistemas.</p>
+        <p>Toma decisiones inteligentes. Te asesoramos para que inviertas en el software y hardware correcto, evitando gastos innecesarios.</p>
         
         <div class="nav-buttons">
             <a href="capacitacion.html" class="btn-secondary">← Volver a Categorías</a>
         </div>
     </section>
 
-    <h2 class="section-title">Servicios Strategy</h2>
+    <h2 class="section-title">Planes Strategy</h2>
     <main class="pricing-grid">
         
-        <div class="package-card">
-            <div class="package-header">
-                <h3>Strategy<br>Support</h3>
-                <span class="price-tag">Desde $800</span>
-            </div>
-            <p class="short-desc">Asistencia técnica y resolución de problemas para equipos, redes y software de tu oficina.</p>
-            <button class="details-toggle">Detalles <span class="arrow-icon">▼</span></button>
-            <div class="extra-info">
-                <ul>
-                    <li>Diagnóstico de fallos en red</li>
-                    <li>Mantenimiento de computadoras</li>
-                    <li>Respaldo y recuperación de datos</li>
-                </ul>
-            </div>
-            <a href="detalle-strategy-support.html" class="btn-order">Ver alcances</a>
-        </div>
-
         <div class="package-card">
             <div class="package-header">
                 <h3>Strategy<br>Audit</h3>
                 <span class="price-tag">Desde $1,500</span>
             </div>
-            <p class="short-desc">Auditoría completa de tus sistemas actuales para encontrar cuellos de botella y vulnerabilidades.</p>
-            <button class="details-toggle">Detalles <span class="arrow-icon">▼</span></button>
+            <p class="short-desc">Revisión profunda de los sistemas actuales de tu empresa. Detectamos cuellos de botella y fallas de seguridad.</p>
+            <button class="details-toggle">Entregables <span class="arrow-icon">▼</span></button>
             <div class="extra-info">
                 <ul>
-                    <li>Revisión de infraestructura local</li>
-                    <li>Evaluación de software actual</li>
-                    <li>Reporte de mejoras y plan de acción</li>
+                    <li>Análisis de vulnerabilidades</li>
+                    <li>Evaluación de rendimiento</li>
+                    <li>Reporte de mejoras urgentes</li>
                 </ul>
             </div>
-            <a href="detalle-strategy-audit.html" class="btn-order">Ver alcances</a>
-        </div>
-
-        <div class="package-card">
-            <div class="package-header">
-                <h3>Strategy<br>Tech</h3>
-                <span class="price-tag">Desde $1,500</span>
-            </div>
-            <p class="short-desc">Te ayudamos a elegir el mejor CRM, ERP o sistema de facturación para tu negocio sin tirar dinero.</p>
-            <button class="details-toggle">Detalles <span class="arrow-icon">▼</span></button>
-            <div class="extra-info">
-                <ul>
-                    <li>Comparativa de herramientas del mercado</li>
-                    <li>Análisis de costo / beneficio</li>
-                    <li>Acompañamiento en la contratación</li>
-                </ul>
-            </div>
-            <a href="detalle-strategy-tech.html" class="btn-order">Ver alcances</a>
-        </div>
-
-        <div class="package-card">
-            <div class="package-header">
-                <h3>Strategy<br>Cloud</h3>
-                <span class="price-tag">Desde $2,000</span>
-            </div>
-            <p class="short-desc">Diseñamos el plan perfecto para migrar la información de tu empresa a la nube de forma segura.</p>
-            <button class="details-toggle">Detalles <span class="arrow-icon">▼</span></button>
-            <div class="extra-info">
-                <ul>
-                    <li>Estructuración de Google Workspace / Microsoft 365</li>
-                    <li>Protocolos de seguridad de información</li>
-                    <li>Jerarquía de permisos para empleados</li>
-                </ul>
-            </div>
-            <a href="detalle-strategy-cloud.html" class="btn-order">Ver alcances</a>
+            <a href="detalle-strategy-audit.html" class="btn-order">Ver detalles</a>
         </div>
 
         <div class="package-card">
             <div class="package-header">
                 <h3>Strategy<br>Digital</h3>
-                <span class="price-tag">Desde $5,000</span>
+                <span class="price-tag">Desde $2,500</span>
             </div>
-            <p class="short-desc">Acompañamiento directivo a largo plazo. Actuamos como el departamento de sistemas externo de tu empresa.</p>
-            <button class="details-toggle">Detalles <span class="arrow-icon">▼</span></button>
+            <p class="short-desc">Trazamos el mapa de ruta para que tu negocio tradicional comience a vender por internet paso a paso.</p>
+            <button class="details-toggle">Entregables <span class="arrow-icon">▼</span></button>
             <div class="extra-info">
                 <ul>
-                    <li>Digitalización integral de procesos</li>
-                    <li>Implementación tecnológica en fases</li>
-                    <li>Gestión de tus proveedores tecnológicos</li>
+                    <li>Análisis de competencia web</li>
+                    <li>Elección de plataformas viables</li>
+                    <li>Proyección de costos digitales</li>
                 </ul>
             </div>
-            <a href="detalle-strategy-digital.html" class="btn-order">Ver alcances</a>
+            <a href="detalle-strategy-digital.html" class="btn-order">Ver detalles</a>
+        </div>
+
+        <div class="package-card">
+            <div class="package-header">
+                <h3>Strategy<br>Tech</h3>
+                <span class="price-tag">Desde $3,000</span>
+            </div>
+            <p class="short-desc">Asesoría imparcial para la compra de nuevo software comercial, hardware o servidores para tu oficina.</p>
+            <button class="details-toggle">Entregables <span class="arrow-icon">▼</span></button>
+            <div class="extra-info">
+                <ul>
+                    <li>Comparativa de proveedores</li>
+                    <li>Cotización de licencias</li>
+                    <li>Recomendación costo/beneficio</li>
+                </ul>
+            </div>
+            <a href="detalle-strategy-tech.html" class="btn-order">Ver detalles</a>
+        </div>
+
+        <div class="package-card">
+            <div class="package-header">
+                <h3>Strategy<br>Cloud</h3>
+                <span class="price-tag">Desde $3,500</span>
+            </div>
+            <p class="short-desc">Consultoría para migrar los servidores físicos de tu empresa hacia soluciones seguras en la nube.</p>
+            <button class="details-toggle">Entregables <span class="arrow-icon">▼</span></button>
+            <div class="extra-info">
+                <ul>
+                    <li>Plan de migración sin cortes</li>
+                    <li>Arquitectura AWS / Azure</li>
+                    <li>Estrategia de respaldos</li>
+                </ul>
+            </div>
+            <a href="detalle-strategy-cloud.html" class="btn-order">Ver detalles</a>
         </div>
 
         <div class="package-card">
             <div class="package-header">
                 <h3>Strategy<br>Custom</h3>
-                <span class="price-tag">Por Hora</span>
+                <span class="price-tag">A Medida</span>
             </div>
-            <p class="short-desc">Sesiones privadas de asesoría para resolver dudas o problemas muy específicos de tu proyecto.</p>
-            <button class="details-toggle">Detalles <span class="arrow-icon">▼</span></button>
+            <p class="short-desc">Acompañamiento a largo plazo como tu departamento de sistemas externo (CTO as a Service).</p>
+            <button class="details-toggle">Entregables <span class="arrow-icon">▼</span></button>
             <div class="extra-info">
                 <ul>
-                    <li>Atención 100% personalizada</li>
-                    <li>Enfoque directo a tu problema</li>
-                    <li>Modalidad presencial o por videollamada</li>
+                    <li>Director de TI dedicado</li>
+                    <li>Toma de decisiones ejecutivas</li>
+                    <li>Contratación por horas/mes</li>
                 </ul>
             </div>
-            <a href="detalle-strategy-custom.html" class="btn-order">Ver alcances</a>
+            <a href="detalle-strategy-custom.html" class="btn-order">Ver detalles</a>
+        </div>
+
+        <div class="package-card">
+            <div class="package-header">
+                <h3>Strategy<br>Support</h3>
+                <span class="price-tag">Póliza Mensual</span>
+            </div>
+            <p class="short-desc">Póliza de mantenimiento y soporte técnico continuo para los sistemas, redes y equipos de tu empresa.</p>
+            <button class="details-toggle">Entregables <span class="arrow-icon">▼</span></button>
+            <div class="extra-info">
+                <ul>
+                    <li>Soporte técnico remoto/sitio</li>
+                    <li>Mantenimiento preventivo</li>
+                    <li>Gestión de respaldos y redes</li>
+                </ul>
+            </div>
+            <a href="detalle-strategy-support.html" class="btn-order">Ver detalles</a>
         </div>
 
     </main>
@@ -145,12 +162,14 @@
 
     <script>
         const subHero = document.getElementById('subHero');
-        subHero.addEventListener('mousemove', (e) => {
-            const x = (window.innerWidth / 2 - e.clientX) / 30;
-            const y = (window.innerHeight / 2 - e.clientY) / 30;
-            subHero.style.setProperty('--mouse-x', x + 'px');
-            subHero.style.setProperty('--mouse-y', y + 'px');
-        });
+        if (subHero) {
+            subHero.addEventListener('mousemove', (e) => {
+                const x = (window.innerWidth / 2 - e.clientX) / 30;
+                const y = (window.innerHeight / 2 - e.clientY) / 30;
+                subHero.style.setProperty('--mouse-x', x + 'px');
+                subHero.style.setProperty('--mouse-y', y + 'px');
+            });
+        }
 
         document.querySelectorAll('.details-toggle').forEach(toggle => {
             toggle.addEventListener('click', () => {
@@ -170,6 +189,15 @@
                 btn.style.setProperty('--btn-y', (e.clientY - rect.top) + 'px');
             });
         });
+
+        // Lógica del Menú Hamburguesa
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+        if (mobileMenu && navMenu) {
+            mobileMenu.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
     </script>
 </body>
 </html>

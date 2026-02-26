@@ -3,82 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paquete Core Flash | Digital Core</title>
+    <title>Core Flash - Tarjeta Digital | Digital Core</title>
     <link rel="icon" href="Isotipo.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <div class="logo-container"><img src="Digital Core original.png" alt="Digital Core"></div>
-        <nav>
-            <ul><li><a href="index.html">Inicio</a></li><li><a href="index.html#servicios">Servicios</a></li><li><a href="contacto.html">Contacto</a></li></ul>
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="Digital Core original.png" alt="Digital Core" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            </a>
+        </div>
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav id="nav-menu">
+            <ul style="display: flex; align-items: center;">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="paginas-web.html">Desarrollo Web</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li style="margin-left: 20px;">
+                    <a href="login-empleados.html" title="Acceso a Empleados" style="display: flex; align-items: center; justify-content: center; background: rgba(0, 156, 225, 0.1); padding: 8px; border-radius: 50%; transition: all 0.3s ease; color: var(--dark-blue);" onmouseover="this.style.background='var(--neon-blue)'; this.style.transform='scale(1.05)';" onmouseout="this.style.background='rgba(0, 156, 225, 0.1)'; this.style.transform='scale(1)';">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
         </nav>
     </header>
 
     <section class="hero detail-hero" id="subHero">
-        <h1>Paquete <span>Core Flash</span></h1>
+        <h1>Core <span>Flash</span></h1>
         <p class="price-hero">$500 MXN</p>
-        <p>Tu tarjeta de presentación digital en código puro. Lista en 24 horas.</p>
+        <p>Tu tarjeta de presentación digital (Bio-Link). Concentra todo tu contacto, redes sociales y ubicación en un solo enlace.</p>
     </section>
 
     <main class="package-detail-section">
-        <a href="paginas-web.html#paquetes-principales" class="btn-back">← Volver a todos los paquetes</a>
+        <a href="paginas-web.html" class="btn-back">← Volver a Paquetes Web</a>
 
         <div class="package-detail-grid">
             <div class="detail-description">
                 <div class="alert-box">
-                    <div class="alert-title">⚠️ Importante: Requisitos de Hosting y Dominio</div>
-                    <p>El costo de $500 MXN cubre únicamente la <strong>programación y diseño</strong> de tu web. Para que sea visible en internet necesitas alojamiento (Hosting) y un nombre (Dominio).</p>
-                    <div class="alert-title" style="margin-top: 1.5rem;">💡 Opciones si no tienes hosting:</div>
+                    <div class="alert-title">✅ Ventaja Principal: Presencia Inmediata</div>
+                    <p>Ideal para poner en tu biografía de Instagram o enviarla por WhatsApp. En un diseño de 1 sola pantalla vertical, tus clientes tendrán a la mano botones directos para llamarte o enviarte un correo sin tener que teclear nada.</p>
                     
-                    <p><strong>1. Combo Eco-Flash:</strong> Alojamos tu página y registramos tu dominio. Todo listo por <strong>$900 MXN anuales adicionales</strong>.<br>
-                    <strong>2. Upgrade a Core Start:</strong> Por solo <strong>$1,200 MXN</strong> (pago único) te llevas un diseño más grande de 3 secciones y el primer año completo de Hosting incluido.</p>
-                    
-                    <div style="margin-top: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
-                        <a href="contacto.html" class="btn-upsell">Cotizar Combo Eco-Flash</a>
-                        <a href="detalle-start.html" class="btn-upsell" style="background-color: transparent; border: 2px solid var(--medium-blue); color: var(--medium-blue);">Ver Core Start</a>
-                    </div>
+                    <div class="alert-title" style="margin-top: 1.5rem;">💡 ¿Necesitas explicar tus servicios a detalle?</div>
+                    <p>Si además del contacto necesitas secciones de "Quiénes Somos" y "Catálogo de Servicios", te recomendamos pasar a una página formal con el paquete <strong>Core Start</strong>.</p>
+                    <a href="detalle-start.html" class="btn-upsell">Ver Core Start</a>
                 </div>
 
-                <h2>Alcances ¿Qué INCLUYE exactamente?</h2>
-                <p>El paquete Core Flash es una solución de desarrollo web minimalista. Su mayor ventaja es la velocidad extrema.</p>
+                <h2>¿Qué incluye tu Tarjeta Digital?</h2>
                 <ul class="detail-features">
-                    <li><strong>Estructura Básica (1 Sección):</strong> Todo el contenido en una sola vista rápida.</li>
-                    <li><strong>Código Puro y Ligero:</strong> Programación 100% manual (HTML5 y CSS3).</li>
-                    <li><strong>Diseño Responsivo:</strong> Adaptable a celulares, tablets y computadoras.</li>
-                    <li><strong>Botón de Acción:</strong> Botón flotante directo a tu WhatsApp.</li>
-                    <li><strong>Entrega de Archivos:</strong> Te entregamos una carpeta (.zip) con todo el código e imágenes.</li>
+                    <li><strong>Diseño One-Page:</strong> Una sola pantalla optimizada para celulares (estilo Linktree pero con tu propia identidad).</li>
+                    <li><strong>Botones de Contacto Rápido:</strong> Enlaces directos programados para abrir automáticamente WhatsApp, llamadas telefónicas o redactar un correo.</li>
+                    <li><strong>Conexión a Redes Sociales:</strong> Iconos enlazados a tus perfiles de Facebook, Instagram, LinkedIn, TikTok, etc.</li>
+                    <li><strong>Código HTML Ligero:</strong> Desarrollado en código puro (sin gestores pesados) para que cargue en menos de 1 segundo incluso con mala conexión a internet.</li>
+                    <li><strong>Fotografía y Logotipo:</strong> Integración de tu foto de perfil profesional o el logotipo de tu marca en la cabecera.</li>
                 </ul>
 
                 <h2>Lo que NO incluye este paquete</h2>
                 <ul class="detail-features exclusions-list">
-                    <li>Servicio de Hosting ni Registro de Dominio (.com o .mx).</li>
-                    <li>Cuentas de correo electrónico corporativo.</li>
-                    <li>Panel de administración para cambiar textos tú mismo.</li>
+                    <li>Formularios de contacto para que el cliente deje sus datos.</li>
+                    <li>Dominio personalizado (ej. tu-nombre.com). El proyecto se entrega alojado en una ruta compartida de Digital Core o te entregamos los archivos para que los alojes en tu propio hosting.</li>
                 </ul>
+
+                <div style="background: var(--white); border: 1px solid rgba(0, 156, 225, 0.2); border-left: 5px solid var(--dark-blue); padding: 2rem; border-radius: 8px; margin-top: 3.5rem; box-shadow: 0 5px 15px rgba(4, 31, 61, 0.05);">
+                    <h4 style="color: var(--dark-blue); margin-bottom: 15px; font-size: 1.1rem; font-weight: 800;">Términos y Condiciones del Servicio</h4>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px; color: #555; line-height: 1.6;"><strong>1. Alcances no listados:</strong> Las características mencionadas son ilustrativas. Todo alcance final será definido estrictamente mediante un Contrato Digital firmado por ambas partes antes de iniciar.</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px; color: #555; line-height: 1.6;"><strong>2. Modificaciones y Cambios:</strong> Tras la revisión y aprobación del diseño inicial, <strong>no se incluye ninguna ronda de modificaciones gratuitas</strong>. Cualquier cambio visual, de contenido o estructural posterior a la aprobación generará honorarios adicionales cotizados por evento.</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 0; color: #555; line-height: 1.6;"><strong>3. Disponibilidad:</strong> Todos los tiempos de entrega están sujetos a la disponibilidad de la agenda técnica de Digital Core al momento de la firma.</p>
+                </div>
             </div>
             
-            <div class="detail-action" style="position: sticky; top: 100px;">
-                <div style="background: var(--white); border: 1px solid var(--light-blue); padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 10px 30px rgba(4, 31, 61, 0.08);">
-                    <h3 style="color: var(--dark-blue); margin-bottom: 1rem; font-weight: 800; border-bottom: 2px solid var(--neon-blue); padding-bottom: 0.5rem; font-size: 1.2rem;">Resumen de Entregables</h3>
+            <div class="detail-action">
+                <div style="background: var(--white); border: 1px solid rgba(0,156,225,0.2); padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem;">
+                    <h3 style="color: var(--dark-blue); margin-bottom: 1rem; font-weight: 800; border-bottom: 2px solid var(--neon-blue); padding-bottom: 0.5rem; font-size: 1.2rem;">Resumen del Proyecto</h3>
                     <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.8rem;">
-                        <li style="font-size: 0.95rem; color: #444;"><strong>🖥️ Diseño:</strong> Tarjeta Digital (1 sección)</li>
-                        <li style="font-size: 0.95rem; color: #444;"><strong>☁️ Hosting:</strong> No incluido</li>
-                        <li style="font-size: 0.95rem; color: #444;"><strong>🌐 Dominio:</strong> No incluido</li>
-                        <li style="font-size: 0.95rem; color: #444;"><strong>📧 Correos:</strong> No incluye</li>
-                        <li style="font-size: 0.95rem; color: #444;"><strong>⚡ Entrega:</strong> 24 horas</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>🚀 Entrega:</strong> 2 a 4 días hábiles</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>💻 Hosting:</strong> Incluido (Archivos Ligeros)</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>📱 Responsivo:</strong> 100% Mobile-First</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>🔄 Modificaciones:</strong> 0 (Sujetas a cotización)</li>
                     </ul>
                 </div>
-                <div class="action-card" style="position: static; box-shadow: 0 10px 30px rgba(4, 31, 61, 0.08);">
-                    <h3>¿Lo necesitas para mañana?</h3>
-                    <p>La opción más rápida del mercado. Presencia profesional inmediata y código ultra ligero.</p>
+
+                <div class="action-card">
+                    <h3>¿Listo para profesionalizar tu contacto?</h3>
+                    <p>Reúne todo tu ecosistema digital en un solo enlace fácil de compartir.</p>
                     <a href="contacto.html" class="btn-order">Contratar Core Flash</a>
                 </div>
             </div>
         </div>
     </main>
 
-    <footer><p>&copy; 2026 Digital Core. Todos los derechos reservados.</p></footer>
+    <footer>
+        <p>&copy; 2026 Digital Core. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        const subHero = document.getElementById('subHero');
+        if (subHero) {
+            subHero.addEventListener('mousemove', (e) => {
+                const x = (window.innerWidth / 2 - e.clientX) / 30;
+                const y = (window.innerHeight / 2 - e.clientY) / 30;
+                subHero.style.setProperty('--mouse-x', x + 'px');
+                subHero.style.setProperty('--mouse-y', y + 'px');
+            });
+        }
+
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+        if (mobileMenu && navMenu) {
+            mobileMenu.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
+    </script>
 </body>
 </html>

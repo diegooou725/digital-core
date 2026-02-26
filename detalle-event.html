@@ -3,74 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paquete Core Event | Digital Core</title>
+    <title>Core Event - Invitación Digital | Digital Core</title>
     <link rel="icon" href="Isotipo.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <div class="logo-container"><img src="Digital Core original.png" alt="Digital Core"></div>
-        <nav>
-            <ul><li><a href="index.html">Inicio</a></li><li><a href="index.html#servicios">Servicios</a></li><li><a href="contacto.html">Contacto</a></li></ul>
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="Digital Core original.png" alt="Digital Core" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            </a>
+        </div>
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav id="nav-menu">
+            <ul style="display: flex; align-items: center;">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="paginas-web.html">Desarrollo Web</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li style="margin-left: 20px;">
+                    <a href="login-empleados.html" title="Acceso a Empleados" style="display: flex; align-items: center; justify-content: center; background: rgba(0, 156, 225, 0.1); padding: 8px; border-radius: 50%; transition: all 0.3s ease; color: var(--dark-blue);" onmouseover="this.style.background='var(--neon-blue)'; this.style.transform='scale(1.05)';" onmouseout="this.style.background='rgba(0, 156, 225, 0.1)'; this.style.transform='scale(1)';">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
         </nav>
     </header>
 
     <section class="hero detail-hero" id="subHero">
-        <h1>Paquete <span>Core Event</span></h1>
+        <h1>Core <span>Event</span></h1>
         <p class="price-hero">$450 MXN</p>
-        <p>Invitaciones digitales interactivas para impresionar a tus invitados desde el primer clic.</p>
+        <p>La forma más moderna, ecológica y elegante de invitar a tus seres queridos o clientes a tu próximo gran evento.</p>
     </section>
 
     <main class="package-detail-section">
-        <a href="paginas-web.html#paquetes-principales" class="btn-back">← Volver a todos los paquetes</a>
+        <a href="paginas-web.html" class="btn-back">← Volver a Paquetes Web</a>
 
         <div class="package-detail-grid">
             <div class="detail-description">
-                <div class="alert-box" style="border-left-color: #f1c40f; background: rgba(241, 196, 15, 0.05);">
-                    <div class="alert-title" style="color: #f39c12;">✅ Ventaja Principal: Modernidad y Practicidad</div>
-                    <p>Olvídate de las invitaciones de papel. Envía un enlace personalizado donde tus invitados podrán confirmar asistencia, ver la ubicación y conocer los detalles de tu evento de forma interactiva.</p>
+                <div class="alert-box">
+                    <div class="alert-title">✅ Ventaja Principal: Experiencia Interactiva</div>
+                    <p>Olvídate del papel y de perseguir a los invitados para que confirmen. Con un solo enlace, tus invitados verán la cuenta regresiva, el código de vestimenta y podrán confirmar su asistencia directamente a tu WhatsApp.</p>
                     
-                    <div class="alert-title" style="margin-top: 1.5rem; color: #2980b9;">💡 ¿Buscas una página web para tu negocio?</div>
-                    <p>Este paquete es exclusivo para eventos temporales (bodas, cumpleaños). Si buscas presencia rápida para tu marca o negocio, te sugerimos el paquete <strong>Core Flash</strong> por solo $500 MXN.</p>
-                    <a href="detalle-flash.html" class="btn-upsell" style="background-color: #2980b9;">Ver Paquete Core Flash</a>
+                    <div class="alert-title" style="margin-top: 1.5rem;">💡 ¿Buscas algo para tu negocio, no para un evento?</div>
+                    <p>Si lo que necesitas es una tarjeta de presentación digital para ti como profesional o para tu empresa, te recomendamos el paquete <strong>Core Flash</strong>.</p>
+                    <a href="detalle-flash.html" class="btn-upsell">Ver Core Flash</a>
                 </div>
 
-                <h2>Alcances ¿Qué INCLUYE exactamente?</h2>
+                <h2>¿Qué incluye tu Invitación Digital?</h2>
                 <ul class="detail-features">
-                    <li><strong>Diseño Temático:</strong> Adaptado a los colores y estilo de tu boda, XV años o evento corporativo.</li>
-                    <li><strong>Cuenta Regresiva:</strong> Un reloj dinámico marcando los días y horas faltantes para el gran evento.</li>
-                    <li><strong>Confirmación de Asistencia (RSVP):</strong> Botón conectado directamente a tu WhatsApp para que te confirmen con un clic.</li>
-                    <li><strong>Google Maps Integrado:</strong> Mapa interactivo para que tus invitados lleguen a la ceremonia o recepción sin perderse.</li>
-                    <li><strong>Enlace a Mesa de Regalos:</strong> Botones directos a tu lista de regalos en tiendas departamentales o datos de cuenta bancaria.</li>
+                    <li><strong>Diseño Personalizado:</strong> Adaptamos los colores, tipografías y el estilo visual a la temática de tu evento.</li>
+                    <li><strong>Cuenta Regresiva:</strong> Un temporizador dinámico que marca los días, horas y minutos exactos que faltan.</li>
+                    <li><strong>Integración con Google Maps:</strong> Botones directos para que los invitados abran la ubicación en su GPS.</li>
+                    <li><strong>Confirmación (RSVP) Inteligente:</strong> Un botón que genera un mensaje automático de WhatsApp a tu número.</li>
+                    <li><strong>Sugerencia de Regalos:</strong> Sección discreta para agregar datos bancarios o sobres en efectivo.</li>
                 </ul>
 
-                <h2>Lo que NO incluye este paquete</h2>
-                <ul class="detail-features exclusions-list">
-                    <li>Dominio web personalizado (.com). Se entrega en un enlace genérico seguro.</li>
-                    <li>Correos electrónicos o hosting anual (la invitación caduca después del evento).</li>
-                </ul>
+                <div style="background: var(--white); border: 1px solid rgba(0, 156, 225, 0.2); border-left: 5px solid var(--dark-blue); padding: 2rem; border-radius: 8px; margin-top: 3.5rem; box-shadow: 0 5px 15px rgba(4, 31, 61, 0.05);">
+                    <h4 style="color: var(--dark-blue); margin-bottom: 15px; font-size: 1.1rem; font-weight: 800;">Términos y Condiciones del Servicio</h4>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px; color: #555; line-height: 1.6;"><strong>1. Alcances no listados:</strong> Las características mencionadas son ilustrativas. Todo alcance final será definido estrictamente mediante un Contrato Digital firmado por ambas partes antes de iniciar.</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px; color: #555; line-height: 1.6;"><strong>2. Modificaciones y Cambios:</strong> Tras la revisión y aprobación del diseño inicial o maqueta, <strong>no se incluye ninguna ronda de modificaciones gratuitas</strong>. Cualquier cambio visual, de contenido o estructural posterior a la aprobación generará honorarios adicionales cotizados por evento.</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 0; color: #555; line-height: 1.6;"><strong>3. Disponibilidad:</strong> Todos los tiempos de entrega están sujetos a la disponibilidad de la agenda técnica de Digital Core al momento de la firma.</p>
+                </div>
+
             </div>
             
-            <div class="detail-action" style="position: sticky; top: 100px;">
-                <div style="background: var(--white); border: 1px solid var(--light-blue); padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 10px 30px rgba(4, 31, 61, 0.08);">
-                    <h3 style="color: var(--dark-blue); margin-bottom: 1rem; font-weight: 800; border-bottom: 2px solid var(--neon-blue); padding-bottom: 0.5rem; font-size: 1.2rem;">Resumen de Entregables</h3>
+            <div class="detail-action">
+                <div style="background: var(--white); border: 1px solid rgba(0,156,225,0.2); padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem;">
+                    <h3 style="color: var(--dark-blue); margin-bottom: 1rem; font-weight: 800; border-bottom: 2px solid var(--neon-blue); padding-bottom: 0.5rem; font-size: 1.2rem;">Resumen del Proyecto</h3>
                     <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.8rem;">
-                        <li style="font-size: 0.95rem; color: #444;"><strong>🖥️ Diseño:</strong> Invitación Interactiva</li>
-                        <li style="font-size: 0.95rem; color: #444;"><strong>☁️ Hosting:</strong> Temporal (hasta el evento)</li>
-                        <li style="font-size: 0.95rem; color: #444;"><strong>🌐 Dominio:</strong> Genérico</li>
-                        <li style="font-size: 0.95rem; color: #444;"><strong>📍 Funciones:</strong> Maps, RSVP, Reloj</li>
-                        <li style="font-size: 0.95rem; color: #444;"><strong>⚡ Entrega:</strong> 48 horas</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>🚀 Entrega:</strong> 3 a 5 días hábiles</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>💻 Hosting:</strong> Incluido (Por 3 meses)</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>📱 Responsivo:</strong> 100% Adaptable a celulares</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>🔄 Modificaciones:</strong> 0 (Sujetas a cotización)</li>
                     </ul>
                 </div>
-                <div class="action-card" style="position: static; box-shadow: 0 10px 30px rgba(4, 31, 61, 0.08);">
-                    <h3>¿Listo para tu evento?</h3>
-                    <p>Sorprende a todos tus invitados con tecnología de punta.</p>
+
+                <div class="action-card">
+                    <h3>¿Listo para sorprender a tus invitados?</h3>
+                    <p>Iniciemos hoy mismo con el diseño de tu invitación interactiva.</p>
                     <a href="contacto.html" class="btn-order">Contratar Core Event</a>
                 </div>
             </div>
         </div>
     </main>
-    <footer><p>&copy; 2026 Digital Core. Todos los derechos reservados.</p></footer>
+
+    <footer>
+        <p>&copy; 2026 Digital Core. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        const subHero = document.getElementById('subHero');
+        if (subHero) {
+            subHero.addEventListener('mousemove', (e) => {
+                const x = (window.innerWidth / 2 - e.clientX) / 30;
+                const y = (window.innerHeight / 2 - e.clientY) / 30;
+                subHero.style.setProperty('--mouse-x', x + 'px');
+                subHero.style.setProperty('--mouse-y', y + 'px');
+            });
+        }
+
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+        if (mobileMenu && navMenu) {
+            mobileMenu.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
+    </script>
 </body>
 </html>

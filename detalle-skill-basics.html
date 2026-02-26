@@ -9,67 +9,96 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
     <header>
-        <div class="logo-container"><img src="Digital Core original.png" alt="Digital Core"></div>
-        <nav>
-            <ul><li><a href="index.html">Inicio</a></li><li><a href="capacitacion.html">Educación & Estrategia</a></li><li><a href="contacto.html">Contacto</a></li></ul>
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="Digital Core original.png" alt="Digital Core" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            </a>
+        </div>
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav id="nav-menu">
+            <ul style="display: flex; align-items: center;">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="capacitacion.html">Educación & Estrategia</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li style="margin-left: 20px;">
+                    <a href="login-empleados.html" title="Acceso a Empleados" style="display: flex; align-items: center; justify-content: center; background: rgba(0, 156, 225, 0.1); padding: 8px; border-radius: 50%; transition: all 0.3s ease; color: var(--dark-blue);" onmouseover="this.style.background='var(--neon-blue)'; this.style.transform='scale(1.05)';" onmouseout="this.style.background='rgba(0, 156, 225, 0.1)'; this.style.transform='scale(1)';">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
         </nav>
     </header>
 
     <section class="hero detail-hero" id="subHero" style="padding: 45px 5% 30px;">
         <h1>Skill <span>Basics</span></h1>
         <p class="price-hero">Desde $1,200 MXN</p>
-        <p>Pierde el miedo a la computadora. Un curso diseñado para aprender desde cero con paciencia y práctica real.</p>
+        <p>Pierde el miedo a la computadora. Aprende a navegar, buscar información y comunicarte por internet de forma segura y confiable.</p>
     </section>
 
     <main class="package-detail-section">
-        <a href="paquetes-cursos.html" class="btn-back">← Volver a Catálogo Skill</a>
+        <a href="paquetes-cursos.html" class="btn-back">← Volver a Cursos</a>
 
         <div class="package-detail-grid">
             <div class="detail-description">
                 <div class="alert-box" style="border-left-color: #3498db; background: rgba(52, 152, 219, 0.05);">
-                    <div class="alert-title" style="color: #2980b9;">✅ Ventaja Principal: Aprende a tu propio ritmo</div>
-                    <p>Sabemos que la tecnología puede ser intimidante. Nuestros instructores tienen la paciencia y experiencia para guiarte paso a paso, asegurándose de que entiendas cada clic sin tecnicismos complicados y en un ambiente de total confianza.</p>
+                    <div class="alert-title" style="color: #2980b9;">✅ Ventaja Principal: Independencia Digital</div>
+                    <p>Deja de depender de familiares o amigos para hacer trámites en línea, enviar correos o descargar documentos. Aprenderás paso a paso, con mucha paciencia y a tu propio ritmo.</p>
                     
-                    <div class="alert-title" style="margin-top: 1.5rem; color: #f39c12;">💡 ¿Ya dominas el ratón y el internet?</div>
-                    <p>Si ya sabes navegar por la web y crear carpetas, y lo que buscas es aprender a redactar documentos formales o crear presentaciones, te sugerimos subir al curso <strong>Skill Office</strong>.</p>
-                    <a href="detalle-skill-office.html" class="btn-upsell" style="background-color: #f39c12;">Ver Skill Office</a>
+                    <div class="alert-title" style="margin-top: 1.5rem; color: #16a085;">💡 ¿Ya sabes lo básico pero necesitas usar Word o Excel?</div>
+                    <p>Si ya sabes navegar por internet pero necesitas aprender a redactar oficios o hacer tablas para tu trabajo, te recomendamos el curso <strong>Skill Office</strong>.</p>
+                    <a href="detalle-skill-office.html" class="btn-upsell" style="background-color: #16a085;">Ver Skill Office</a>
                 </div>
 
-                <h2>¿Qué es exactamente el curso Skill Basics?</h2>
-                <p>Es un entrenamiento de inmersión para personas que nunca han usado una computadora o que solo saben prenderla pero tienen miedo de "borrar algo o descomponerla". Es ideal para <strong>adultos mayores, emprendedores o cualquier persona que quiera actualizarse</strong> al mundo digital moderno.</p>
-                <p>El enfoque es 100% práctico. Desde el primer día tendrás el ratón (mouse) en la mano y comenzarás a realizar ejercicios de la vida diaria, como buscar una receta en Google, enviar un correo electrónico o guardar fotografías en una memoria USB.</p>
+                <h2>¿Para quién es este curso?</h2>
+                <p>Este programa está diseñado para <strong>adultos, emprendedores o cualquier persona que nunca ha tenido un acercamiento formal a una computadora</strong>. No importa tu edad ni tu experiencia previa; empezaremos desde cómo encender el equipo y usar el ratón.</p>
 
-                <h2 style="margin-top: 2.5rem;">Alcances ¿Qué INCLUYE el temario?</h2>
+                <h2 style="margin-top: 2.5rem;">Temario ¿Qué vas a aprender?</h2>
                 <ul class="detail-features">
-                    <li><strong>Manejo de Windows:</strong> Aprende a usar el ratón, el teclado, crear carpetas, copiar, pegar y organizar tus archivos para que nunca pierdas nada en la pantalla.</li>
-                    <li><strong>Navegación en Internet:</strong> Cómo usar Google Chrome, buscar información con precisión, identificar páginas seguras y evitar virus o fraudes en la web.</li>
-                    <li><strong>Comunicación Digital:</strong> Creación y uso de tu propio correo electrónico (Gmail o Outlook). Aprenderás a redactar, leer y adjuntar archivos o documentos.</li>
-                    <li><strong>Mantenimiento Básico del Usuario:</strong> Cómo conectarte a redes Wi-Fi, conectar memorias USB (pendrives) y encender/apagar el equipo correctamente para alargar su vida útil.</li>
+                    <li><strong>Conociendo el Equipo:</strong> Uso correcto del teclado, el ratón (clic derecho e izquierdo) y el escritorio de Windows (Crear carpetas y organizar archivos).</li>
+                    <li><strong>Navegación Web:</strong> Cómo usar Google Chrome para buscar información, ver noticias, buscar direcciones y descargar imágenes.</li>
+                    <li><strong>Correo Electrónico (Gmail):</strong> Crear tu propia cuenta, enviar mensajes, adjuntar archivos (fotos o PDFs) y detectar correos falsos (spam o virus).</li>
+                    <li><strong>Seguridad Básica:</strong> Aprenderás a crear contraseñas seguras y a identificar páginas web fraudulentas para no caer en estafas por internet.</li>
                 </ul>
 
                 <h2>Lo que NO incluye este curso</h2>
                 <ul class="detail-features exclusions-list">
-                    <li>Enseñanza de programas de oficina avanzados como Word, Excel o PowerPoint. <em>(Esto se ve a detalle en Skill Office)</em>.</li>
-                    <li>Mantenimiento técnico interno, instalación de piezas o reparación de computadoras dañadas. <em>(Corresponde a nuestro departamento de Soporte Técnico)</em>.</li>
+                    <li>Reparación de computadoras (No es un curso de servicio técnico).</li>
+                    <li>Manejo avanzado de redes sociales para empresas (Ventas por Facebook/Instagram).</li>
                 </ul>
+
+                <div style="background: var(--white); border: 1px solid rgba(0, 156, 225, 0.2); border-left: 5px solid var(--dark-blue); padding: 2rem; border-radius: 8px; margin-top: 3.5rem; box-shadow: 0 5px 15px rgba(4, 31, 61, 0.05);">
+                    <h4 style="color: var(--dark-blue); margin-bottom: 15px; font-size: 1.1rem; font-weight: 800;">Términos y Condiciones de Capacitación</h4>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px; color: #555; line-height: 1.6;"><strong>1. Requerimientos Técnicos:</strong> El alumno deberá contar con su propia computadora (portátil o de escritorio) en buen estado de funcionamiento. En caso de modalidad virtual, se requerirá una conexión estable a internet.</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px; color: #555; line-height: 1.6;"><strong>2. Reprogramación de Sesiones:</strong> Las clases agendadas deberán ser canceladas o reprogramadas con un mínimo de <strong>24 horas de anticipación</strong>. Las cancelaciones de último minuto o inasistencias sin previo aviso se contabilizarán como horas de clase impartidas.</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 0; color: #555; line-height: 1.6;"><strong>3. Alcance de la Mentoría:</strong> Los cursos tienen fines estrictamente educativos. Los instructores guiarán al alumno a través de los temas del programa, pero el servicio no contempla la resolución o maquila de trabajos escolares, proyectos de oficina o trámites legales personales del cliente.</p>
+                </div>
             </div>
             
             <div class="detail-action" style="position: sticky; top: 100px;">
                 <div style="background: var(--white); border: 1px solid var(--light-blue); padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 10px 30px rgba(4, 31, 61, 0.08);">
                     <h3 style="color: var(--dark-blue); margin-bottom: 1rem; font-weight: 800; border-bottom: 2px solid var(--neon-blue); padding-bottom: 0.5rem; font-size: 1.2rem;">Resumen del Curso</h3>
                     <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.8rem;">
-                        <li style="font-size: 0.95rem; color: #444;"><strong>🎓 Nivel:</strong> Principiante (Desde cero)</li>
-                        <li style="font-size: 0.95rem; color: #444;"><strong>💻 Modalidad:</strong> Presencial o Remoto en vivo</li>
-                        <li style="font-size: 0.95rem; color: #444;"><strong>🎯 Enfoque:</strong> Uso general de PC e Internet</li>
-                        <li style="font-size: 0.95rem; color: #444;"><strong>🕒 Duración:</strong> 10 a 12 horas prácticas</li>
-                        <li style="font-size: 0.95rem; color: #444;"><strong>🏅 Entregable:</strong> Constancia de participación</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>⏱️ Duración:</strong> 10 Horas Totales</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>📍 Modalidad:</strong> Presencial o Videollamada</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>👤 Enfoque:</strong> 1 a 1 (Personalizado)</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>🎓 Requisito:</strong> Contar con computadora propia</li>
                     </ul>
                 </div>
 
                 <div class="action-card" style="position: static; box-shadow: 0 10px 30px rgba(4, 31, 61, 0.08);">
-                    <h3>¿Listo para perder el miedo?</h3>
-                    <p>Nunca es tarde para aprender. Da el primer paso hacia tu independencia tecnológica hoy mismo.</p>
+                    <h3>¿Listo para dar el primer paso?</h3>
+                    <p>Inscríbete hoy mismo y descubre todo lo que el internet tiene para ofrecerte.</p>
                     <a href="contacto.html" class="btn-order">Inscribirme al Curso</a>
                 </div>
             </div>
@@ -80,12 +109,14 @@
 
     <script>
         const subHero = document.getElementById('subHero');
-        subHero.addEventListener('mousemove', (e) => {
-            const x = (window.innerWidth / 2 - e.clientX) / 30;
-            const y = (window.innerHeight / 2 - e.clientY) / 30;
-            subHero.style.setProperty('--mouse-x', x + 'px');
-            subHero.style.setProperty('--mouse-y', y + 'px');
-        });
+        if (subHero) {
+            subHero.addEventListener('mousemove', (e) => {
+                const x = (window.innerWidth / 2 - e.clientX) / 30;
+                const y = (window.innerHeight / 2 - e.clientY) / 30;
+                subHero.style.setProperty('--mouse-x', x + 'px');
+                subHero.style.setProperty('--mouse-y', y + 'px');
+            });
+        }
 
         document.querySelectorAll('.btn-order').forEach(btn => {
             btn.addEventListener('mousemove', (e) => {
@@ -94,6 +125,15 @@
                 btn.style.setProperty('--btn-y', (e.clientY - rect.top) + 'px');
             });
         });
+
+        // Lógica del Menú Hamburguesa
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+        if (mobileMenu && navMenu) {
+            mobileMenu.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
     </script>
 </body>
 </html>

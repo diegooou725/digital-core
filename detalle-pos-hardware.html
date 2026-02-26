@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hardware POS Completo | Digital Core</title>
+    <link rel="icon" href="Isotipo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    
+    <header>
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="Digital Core original.png" alt="Digital Core" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            </a>
+        </div>
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav id="nav-menu">
+            <ul style="display: flex; align-items: center;">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="sistemas.html">Sistemas de Datos</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li style="margin-left: 20px;">
+                    <a href="login-empleados.html" title="Acceso a Empleados" style="display: flex; align-items: center; justify-content: center; background: rgba(0, 156, 225, 0.1); padding: 8px; border-radius: 50%; transition: all 0.3s ease; color: var(--dark-blue);" onmouseover="this.style.background='var(--neon-blue)'; this.style.transform='scale(1.05)';" onmouseout="this.style.background='rgba(0, 156, 225, 0.1)'; this.style.transform='scale(1)';">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero detail-hero" id="subHero" style="position: relative; padding: 45px 5% 30px;">
+        
+        <a href="sistemas.html" style="position: absolute; top: 30px; left: 5%; color: #ffffff; font-weight: 600; text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; background: rgba(0, 156, 225, 0.1); padding: 8px 16px; border-radius: 30px; border: 1px solid rgba(0, 156, 225, 0.4); backdrop-filter: blur(10px); transition: all 0.3s ease; z-index: 50;" onmouseover="this.style.background='rgba(0, 156, 225, 0.25)'; this.style.transform='translateX(-5px)';" onmouseout="this.style.background='rgba(0, 156, 225, 0.1)'; this.style.transform='translateX(0)';">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg> Volver a Puntos de Venta
+        </a>
+
+        <h1>Hardware <span>POS Completo</span></h1>
+        <p class="price-hero">Previa Cotización</p>
+        <p>La experiencia de cobro definitiva. Equipamos tu local con computadora, cajón de dinero, impresora de tickets y lector de códigos láser.</p>
+    </section>
+
+    <main class="package-detail-section">
+        <div class="package-detail-grid">
+            <div class="detail-description">
+                <div class="alert-box" style="border-left-color: #f1c40f; background: rgba(241, 196, 15, 0.05);">
+                    <div class="alert-title" style="color: #f39c12;">✅ Ventaja Principal: Velocidad y Profesionalismo</div>
+                    <p>Agiliza el flujo de clientes en tu mostrador. Escanea productos en un segundo, evita errores al dar el cambio y entrégale a tus clientes un recibo profesional impreso que proyecta confianza y formalidad.</p>
+                    
+                    <div class="alert-title" style="margin-top: 1.5rem; color: #e67e22;">💡 ¿Necesitas proteger tu inversión a futuro?</div>
+                    <p>El equipo físico requiere mantenimiento y limpieza (polvo, actualizaciones) para no fallar. Protege tus ventas con nuestro servicio de póliza de mantenimiento: <strong>Strategy Support</strong>.</p>
+                    <a href="detalle-strategy-support.html" class="btn-upsell" style="background-color: #e67e22;">Ver Strategy Support</a>
+                </div>
+
+                <h2>¿Qué es exactamente el Hardware POS?</h2>
+                <p>Es un servicio integral de <strong>Venta e Instalación Física de Periféricos de Venta</strong>. Está diseñado para negocios de alto tráfico de personas que no pueden perder tiempo tecleando nombres de productos a mano en una computadora normal.</p>
+                <p>Nosotros somos los arquitectos de tu mostrador. Te armamos el "combo" perfecto según tu tipo de negocio, te llevamos las cajas, te instalamos los equipos físicamente ocultando cables para que todo se vea pulcro, y conectamos los drivers para que, al darle "Cobrar" en la pantalla, el cajón suene y se abra automáticamente.</p>
+
+                <h2 style="margin-top: 2.5rem;">Alcances ¿Qué INCLUYE la instalación?</h2>
+                <ul class="detail-features">
+                    <li><strong>Suministro de Equipo:</strong> Venta de equipo nuevo (All-In-One o PC de escritorio armada) o utilización de tu equipo actual si cumple con los requisitos.</li>
+                    <li><strong>Instalación de Periféricos:</strong> Conexión de Escáner de Códigos de Barras (láser o CCD), Impresora Térmica (58mm u 80mm) y Cajón de Dinero (RJ11) de apertura electrónica.</li>
+                    <li><strong>Sincronización de Drivers:</strong> Configuramos el "cerebro" de tu computadora para que reconozca los aparatos y trabajen en armonía con tu licencia de software POS.</li>
+                    <li><strong>Acomodo Estético (Cable Management):</strong> No te dejamos una "sopa de cables" en el mostrador. Ordenamos y sujetamos las conexiones para evitar desconexiones accidentales por parte de los cajeros.</li>
+                </ul>
+
+                <h2>Lo que NO incluye este servicio</h2>
+                <ul class="detail-features exclusions-list">
+                    <li>Instalaciones eléctricas o adecuaciones de carpintería a tu mostrador. <em>(Tu local debe contar con contactos de corriente regulados donde quieres la caja)</em>.</li>
+                    <li>Licencia del software. <em>(El hardware incluye la configuración física; la licencia del programa se cobra bajo el esquema <strong>Licencia POS Básico</strong>)</em>.</li>
+                </ul>
+
+                <div style="background: var(--white); border: 1px solid rgba(0, 156, 225, 0.2); border-left: 5px solid var(--dark-blue); padding: 2rem; border-radius: 8px; margin-top: 3.5rem; box-shadow: 0 5px 15px rgba(4, 31, 61, 0.05);">
+                    <h4 style="color: var(--dark-blue); margin-bottom: 15px; font-size: 1.1rem; font-weight: 800;">Términos y Condiciones de Equipamiento</h4>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px; color: #555; line-height: 1.6;"><strong>1. Garantía de Hardware:</strong> La garantía de los componentes físicos (impresoras, lectores, cajones, computadoras) es provista directamente por el fabricante o proveedor mayorista. Digital Core garantiza de forma exclusiva que la configuración e instalación inicial funcionen correctamente al momento de la entrega operativa.</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px; color: #555; line-height: 1.6;"><strong>2. Condiciones del Entorno Físico:</strong> El cliente es responsable de proporcionar un mostrador limpio, seguro y las instalaciones eléctricas necesarias (contactos y supresores de picos/No-Breaks) a una distancia no mayor a 1 metro de la zona de instalación. El servicio no ampara perforaciones, cableado estructurado ni trabajos de albañilería.</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 0; color: #555; line-height: 1.6;"><strong>3. Soporte Post-Instalación:</strong> Las visitas de revisión técnica derivadas de desconexiones accidentales, cortes de cables, derrame de líquidos, variaciones de voltaje en el local, o desconfiguración por parte del personal del cliente, se cotizarán como un servicio de soporte técnico independiente por evento.</p>
+                </div>
+            </div>
+            
+            <div class="detail-action" style="position: sticky; top: 100px;">
+                <div style="background: var(--white); border: 1px solid var(--light-blue); padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 10px 30px rgba(4, 31, 61, 0.08);">
+                    <h3 style="color: var(--dark-blue); margin-bottom: 1rem; font-weight: 800; border-bottom: 2px solid var(--neon-blue); padding-bottom: 0.5rem; font-size: 1.2rem;">Resumen de Equipamiento</h3>
+                    <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.8rem;">
+                        <li style="font-size: 0.95rem; color: #444;"><strong>👥 Capacidad:</strong> 1 Módulo de Caja Registradora</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>📍 Modalidad:</strong> Presencial (En tu local)</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>🎯 Enfoque:</strong> Periféricos y Hardware de Cobro</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>📦 Equipos:</strong> Nuevos y con garantía de fabricante</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>⚡ Extra:</strong> Instalación de drivers incluida</li>
+                    </ul>
+                </div>
+
+                <div class="action-card" style="position: static; box-shadow: 0 10px 30px rgba(4, 31, 61, 0.08);">
+                    <h3>¿Listo para abrir tu negocio?</h3>
+                    <p>Danos las medidas de tu mostrador y nosotros te armamos el combo de venta perfecto para tu giro comercial.</p>
+                    <a href="contacto.html" class="btn-order">Cotizar Equipo POS</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer><p>&copy; 2026 Digital Core. Todos los derechos reservados.</p></footer>
+
+    <script>
+        const subHero = document.getElementById('subHero');
+        if(subHero) {
+            subHero.addEventListener('mousemove', (e) => {
+                const x = (window.innerWidth / 2 - e.clientX) / 30;
+                const y = (window.innerHeight / 2 - e.clientY) / 30;
+                subHero.style.setProperty('--mouse-x', x + 'px');
+                subHero.style.setProperty('--mouse-y', y + 'px');
+            });
+        }
+
+        document.querySelectorAll('.btn-order').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                btn.style.setProperty('--btn-x', (e.clientX - rect.left) + 'px');
+                btn.style.setProperty('--btn-y', (e.clientY - rect.top) + 'px');
+            });
+        });
+
+        // Lógica del Menú Hamburguesa
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+        if (mobileMenu && navMenu) {
+            mobileMenu.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
+    </script>
+</body>
+</html>

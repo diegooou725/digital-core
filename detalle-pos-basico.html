@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Licencia POS Básico | Digital Core</title>
+    <link rel="icon" href="Isotipo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="Digital Core original.png" alt="Digital Core" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            </a>
+        </div>
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav id="nav-menu">
+            <ul style="display: flex; align-items: center;">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="sistemas.html">Sistemas de Datos</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li style="margin-left: 20px;">
+                    <a href="login-empleados.html" title="Acceso a Empleados" style="display: flex; align-items: center; justify-content: center; background: rgba(0, 156, 225, 0.1); padding: 8px; border-radius: 50%; transition: all 0.3s ease; color: var(--dark-blue);" onmouseover="this.style.background='var(--neon-blue)'; this.style.transform='scale(1.05)';" onmouseout="this.style.background='rgba(0, 156, 225, 0.1)'; this.style.transform='scale(1)';">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero detail-hero" id="subHero" style="padding: 45px 5% 30px;">
+        <h1>Licencia <span>POS Básico</span></h1>
+        <p class="price-hero">Previa Cotización</p>
+        <p>Convierte la computadora que ya tienes en una caja registradora profesional. Dile adiós a las libretas y a las fugas de dinero.</p>
+    </section>
+
+    <main class="package-detail-section">
+        <a href="sistemas.html" class="btn-back">← Volver a Puntos de Venta</a>
+
+        <div class="package-detail-grid">
+            <div class="detail-description">
+                <div class="alert-box" style="border-left-color: #2ecc71; background: rgba(46, 204, 113, 0.05);">
+                    <div class="alert-title" style="color: #27ae60;">✅ Ventaja Principal: Bajo costo de entrada</div>
+                    <p>Moderniza tu comercio sin hacer una inversión gigante. Instalamos el sistema de Punto de Venta directamente en la computadora portátil o de escritorio que ya utilizas en tu local.</p>
+                    
+                    <div class="alert-title" style="margin-top: 1.5rem; color: #8e44ad;">💡 ¿Quieres la experiencia de cobro completa?</div>
+                    <p>Si además del programa necesitas que el cajón de monedas se abra solo y entregar un ticket impreso a tus clientes, conoce nuestro paquete de <strong>Hardware POS Completo</strong>.</p>
+                    <a href="detalle-pos-hardware.html" class="btn-upsell" style="background-color: #8e44ad;">Ver Hardware POS</a>
+                </div>
+
+                <h2>¿Qué es exactamente la Licencia POS Básico?</h2>
+                <p>Es un servicio de <strong>Instalación y Configuración de Software de Punto de Venta (Point of Sale)</strong>. Está diseñado para boutiques, mini-supers, refaccionarias o cualquier negocio local que necesita empezar a escanear productos y llevar un control exacto de su inventario.</p>
+                <p>Nosotros evaluamos qué tipo de comercio tienes, seleccionamos la licencia de software comercial que mejor se adapte a ti (ej. Eleventa, Sicar, Abarrotes POS), lo instalamos de forma segura en tu equipo y lo dejamos listo para que empieces a cobrar en ese mismo instante.</p>
+
+                <h2 style="margin-top: 2.5rem;">Alcances ¿Qué INCLUYE el servicio?</h2>
+                <ul class="detail-features">
+                    <li><strong>Auditoría de Equipo:</strong> Revisamos que tu computadora actual tenga la memoria y velocidad suficiente para correr el sistema sin trabarse frente a los clientes.</li>
+                    <li><strong>Instalación y Licenciamiento:</strong> Gestión de la compra y activación de la licencia original del software para que no tengas problemas de bloqueos en el futuro.</li>
+                    <li><strong>Configuración del Negocio:</strong> Personalizamos el sistema con el nombre de tu local, tu logotipo, y configuramos los permisos para que tus cajeros no puedan borrar ventas.</li>
+                    <li><strong>Capacitación Básica:</strong> Te enseñamos a ti y a tu personal cómo dar de alta nuevos productos, cómo cobrar, y el paso más importante: cómo hacer el "Corte de Caja" al final del día.</li>
+                </ul>
+
+                <h2>Lo que NO incluye este servicio</h2>
+                <ul class="detail-features exclusions-list">
+                    <li>Venta o instalación de aparatos físicos (Lectores de código de barras, impresoras térmicas, cajones de dinero o básculas). <em>(Para esto, cotiza nuestro paquete de Hardware)</em>.</li>
+                    <li>Captura masiva de tu inventario. <em>(Nosotros te enseñamos cómo meter tus productos, pero la captura manual de todo tu catálogo corre por tu cuenta)</em>.</li>
+                </ul>
+
+                <div style="background: var(--white); border: 1px solid rgba(0, 156, 225, 0.2); border-left: 5px solid var(--dark-blue); padding: 2rem; border-radius: 8px; margin-top: 3.5rem; box-shadow: 0 5px 15px rgba(4, 31, 61, 0.05);">
+                    <h4 style="color: var(--dark-blue); margin-bottom: 15px; font-size: 1.1rem; font-weight: 800;">Términos y Condiciones de Instalación</h4>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px; color: #555; line-height: 1.6;"><strong>1. Estado del Equipo:</strong> La instalación se realiza asumiendo que el equipo (computadora) proporcionado por el cliente está libre de virus y cuenta con un sistema operativo estable. Digital Core no se hace responsable por lentitud, fallas o pérdida de información derivadas de problemas físicos en el disco duro o memoria ajenos a nuestro software.</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px; color: #555; line-height: 1.6;"><strong>2. Alcance del Soporte:</strong> El servicio incluye la instalación, configuración inicial y una única sesión de inducción operativa. Las visitas o llamadas de soporte posteriores por olvido de contraseñas, desconfiguración por mal uso del personal, o reinstalación por formateo del equipo se cotizarán como soporte técnico independiente por evento.</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 0; color: #555; line-height: 1.6;"><strong>3. Propiedad de Licencias:</strong> La licencia comercial adquirida queda a nombre del cliente. Es su entera responsabilidad resguardar las llaves o códigos de activación entregados al finalizar el servicio para futuras instalaciones.</p>
+                </div>
+            </div>
+            
+            <div class="detail-action" style="position: sticky; top: 100px;">
+                <div style="background: var(--white); border: 1px solid var(--light-blue); padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 10px 30px rgba(4, 31, 61, 0.08);">
+                    <h3 style="color: var(--dark-blue); margin-bottom: 1rem; font-weight: 800; border-bottom: 2px solid var(--neon-blue); padding-bottom: 0.5rem; font-size: 1.2rem;">Resumen de Instalación</h3>
+                    <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.8rem;">
+                        <li style="font-size: 0.95rem; color: #444;"><strong>👥 Capacidad:</strong> 1 Equipo / Caja Local</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>📍 Modalidad:</strong> Presencial (En tu local)</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>🎯 Enfoque:</strong> Control de Ventas e Inventario</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>🕒 Tiempo de entrega:</strong> 1 a 2 días hábiles</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>🎓 Extra:</strong> Incluye inducción operativa</li>
+                    </ul>
+                </div>
+
+                <div class="action-card" style="position: static; box-shadow: 0 10px 30px rgba(4, 31, 61, 0.08);">
+                    <h3>¿Aún anotas las ventas a mano?</h3>
+                    <p>Detén el robo hormiga y las cuentas mal hechas. Instala un Punto de Venta profesional hoy mismo.</p>
+                    <a href="contacto.html" class="btn-order">Cotizar Instalación POS</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer><p>&copy; 2026 Digital Core. Todos los derechos reservados.</p></footer>
+
+    <script>
+        const subHero = document.getElementById('subHero');
+        if (subHero) {
+            subHero.addEventListener('mousemove', (e) => {
+                const x = (window.innerWidth / 2 - e.clientX) / 30;
+                const y = (window.innerHeight / 2 - e.clientY) / 30;
+                subHero.style.setProperty('--mouse-x', x + 'px');
+                subHero.style.setProperty('--mouse-y', y + 'px');
+            });
+        }
+
+        document.querySelectorAll('.btn-order').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                btn.style.setProperty('--btn-x', (e.clientX - rect.left) + 'px');
+                btn.style.setProperty('--btn-y', (e.clientY - rect.top) + 'px');
+            });
+        });
+
+        // Lógica del Menú Hamburguesa
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+        if (mobileMenu && navMenu) {
+            mobileMenu.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
+    </script>
+</body>
+</html>

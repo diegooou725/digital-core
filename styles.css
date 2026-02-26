@@ -393,15 +393,12 @@ nav a:hover::after {
     border-color: var(--light-blue);
 }
 
-/* =========================================
-   CORRECCIÓN DE ALINEACIÓN DE ENCABEZADO Y PRECIO
-   ========================================= */
 .package-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-end; 
-    gap: 10px; /* Reducimos el espacio un poco para que respire */
-    flex-wrap: wrap; /* Seguro de vida: Si no cabe, baja al siguiente renglón en lugar de cortarse */
+    gap: 10px;
+    flex-wrap: wrap; 
     margin-bottom: 1rem;
     border-bottom: 1px solid rgba(4, 31, 61, 0.1);
     padding-bottom: 1rem;
@@ -409,20 +406,20 @@ nav a:hover::after {
 
 .package-header h3 {
     color: var(--dark-blue);
-    font-size: 1.4rem; /* Ligeramente más chico para dar espacio a nombres muy largos */
+    font-size: 1.4rem; 
     font-weight: 800;
     line-height: 1.2;
     margin: 0;
-    flex: 1 1 120px; /* Le permite ser flexible pero con un tamaño mínimo para no aplastarse */
-    word-wrap: break-word; /* Evita que palabras súper largas rompan el diseño */
+    flex: 1 1 120px; 
+    word-wrap: break-word; 
 }
 
 .price-tag {
     color: var(--light-blue);
     font-weight: 900;
-    font-size: 1.15rem; /* Ajustado para encajar mejor con el texto "Desde" */
-    white-space: nowrap; /* Evita que el precio en sí se rompa a la mitad */
-    flex-shrink: 0; /* Evita que se aplaste */
+    font-size: 1.15rem; 
+    white-space: nowrap; 
+    flex-shrink: 0; 
 }
 
 .short-desc {
@@ -839,8 +836,23 @@ footer::before {
 }
 
 /* =========================================
-   MEDIA QUERIES (RESPONSIVIDAD MÓVIL)
+   MEDIA QUERIES (RESPONSIVIDAD MÓVIL Y HAMBURGUESA)
    ========================================= */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 6px;
+}
+
+.menu-toggle span {
+    width: 30px;
+    height: 3px;
+    background-color: var(--dark-blue);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
 @media (max-width: 900px) {
     .package-detail-grid {
         grid-template-columns: 1fr;
@@ -859,8 +871,28 @@ footer::before {
 }
 
 @media (max-width: 768px) {
+    header {
+        flex-wrap: wrap; /* Permite que el menú caiga abajo del logo */
+    }
+    .menu-toggle {
+        display: flex; /* Muestra el botón de hamburguesa */
+    }
+    nav {
+        width: 100%; /* El menú ocupa todo el ancho abajo */
+    }
     nav ul {
-        display: none;
+        display: none; /* Oculto por defecto en móvil */
+        flex-direction: column;
+        width: 100%;
+        margin-top: 1rem;
+        padding: 1rem 0;
+        background: var(--white);
+        border-radius: 8px;
+        gap: 1.5rem;
+        text-align: center;
+    }
+    nav.active ul {
+        display: flex; /* Se muestra al darle clic a la hamburguesa */
     }
     .hero h1 {
         font-size: 2.5rem;
@@ -873,7 +905,11 @@ footer::before {
         gap: 1rem;
     }
     .package-header {
-        flex-direction: column; /* En celulares pequeños, baja el precio */
+        flex-direction: column;
         align-items: flex-start;
     }
+}
+/* Quitar la línea animada únicamente al botón de Login */
+nav a[href="login-empleados.html"]::after {
+    display: none !important;
 }
