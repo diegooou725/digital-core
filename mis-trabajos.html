@@ -8,33 +8,27 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <style>
-        /* ESTILOS MAESTROS UNIFICADOS (Igual al Dashboard) */
         :root { --sidebar-width: 260px; --dark-blue: #0f172a; --neon-blue: #009ce1; --light-blue: #38bdf8; }
         body { display: flex; background: #f0f4f8; min-height: 100vh; margin: 0; font-family: 'Inter', sans-serif; }
         
-        /* SIDEBAR */
         .sidebar { width: var(--sidebar-width); height: 100vh; background: var(--dark-blue); color: white; position: fixed; padding: 2rem 1rem; display: flex; flex-direction: column; z-index: 100; box-sizing: border-box; }
         .sidebar-logo { width: 80%; margin-bottom: 3rem; padding-left: 1rem; }
         .nav-links { list-style: none; flex-grow: 1; padding: 0; margin: 0; }
-        .nav-links a { display: flex; align-items: center; gap: 15px; color: rgba(255,255,255,0.7); text-decoration: none; padding: 12px 1rem; border-radius: 8px; transition: 0.3s; font-weight: 600; margin-bottom: 5px; }
+        .nav-links a { display: flex; align-items: center; gap: 15px; color: rgba(255,255,255,0.7); text-decoration: none; padding: 12px 1rem; border-radius: 8px; transition: 0.3s; font-weight: 600; margin-bottom: 5px; position: relative;}
         .nav-links a:hover, .nav-links a.active { background: rgba(0, 156, 225, 0.2); color: var(--neon-blue); }
         
-        /* CONTENIDO PRINCIPAL */
         .main-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 2rem 3rem; box-sizing: border-box; }
         .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; background: white; padding: 1.5rem 2rem; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         
-        /* TARJETAS DE TAREAS */
         .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
         .task-card { background: white; padding: 20px; border-radius: 12px; border-left: 5px solid #cbd5e0; cursor:pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.2s; }
         .task-card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px rgba(0,0,0,0.05); }
         
-        /* ESTADOS DE ETIQUETAS */
         .st-demorada { border-left-color: #e53e3e; } .badge-demorada { background: #fff5f5; color:#e53e3e; font-size: 0.7rem; padding: 4px 10px; border-radius: 50px; font-weight: 800; }
         .st-proceso { border-left-color: #3182ce; } .badge-proceso { background: #ebf8ff; color:#3182ce; font-size: 0.7rem; padding: 4px 10px; border-radius: 50px; font-weight: 800; }
         .st-asignada { border-left-color: #718096; } .badge-asignada { background: #f7fafc; color:#718096; font-size: 0.7rem; padding: 4px 10px; border-radius: 50px; font-weight: 800; }
         .st-completada { border-left-color: #38a169; opacity: 0.85; } .badge-completada { background: #f0fff4; color:#38a169; font-size: 0.7rem; padding: 4px 10px; border-radius: 50px; font-weight: 800; }
         
-        /* ELEMENTOS EXTRA */
         .filter-badge { display: inline-block; background: var(--neon-blue); color: white; padding: 5px 15px; border-radius: 50px; font-size: 0.8rem; font-weight: bold; margin-left: 10px; text-transform: uppercase;}
         .btn-clear-filter { padding: 10px 20px; border-radius: 8px; border: 1px solid #cbd5e0; background: white; cursor: pointer; font-weight: 700; color: #4a5568; transition: 0.2s; display: inline-flex; align-items: center; gap: 8px; }
         .btn-clear-filter:hover { background: #edf2f7; }
@@ -43,7 +37,6 @@
            MÓDULO DE OPTIMIZACIÓN MÓVIL (APP NATIVA)
            ========================================= */
         @media (max-width: 768px) {
-            /* 1. Transformar Sidebar en Menú Inferior Flotante */
             body { display: block; }
             .sidebar { width: 100%; height: 75px; position: fixed; bottom: 0; left: 0; top: auto; flex-direction: row; justify-content: space-around; padding: 0 5px; z-index: 9999; border-top: 1px solid #1e293b; box-shadow: 0 -5px 20px rgba(0,0,0,0.15); border-radius: 20px 20px 0 0; }
             .sidebar h2, .sidebar-logo { display: none; }
@@ -53,46 +46,19 @@
             .nav-links a i { font-size: 1.6rem; margin: 0; }
             .nav-links a span { font-size: 0.65rem; display: block; font-weight: 800; }
             
-            /* Botón de salida móvil */
-            #logoutBtn { padding: 10px; flex-direction: column; gap: 4px; margin: 0; }
+            #logoutBtn { padding: 10px; flex-direction: column; gap: 4px; margin: 0; width: auto;}
             #logoutBtn span { display: none; }
             #logoutBtn i { font-size: 1.6rem; margin: 0; }
 
-            /* Burbuja de notificaciones en el menú móvil */
-            .notif-badge-menu { position: absolute; right: 25%; top: 5px; padding: 2px 6px; }
-
-            /* 2. Ajustar Contenido Principal (Evitar que el menú lo tape) */
             .main-content { margin-left: 0; width: 100%; padding: 1.5rem 1rem 95px 1rem; }
             .top-bar { flex-direction: column; align-items: flex-start; gap: 15px; padding: 1.2rem; }
-            
-            /* 3. Reorganizar Cuadrículas (Grids) */
-            .stats-grid { grid-template-columns: 1fr 1fr; } /* KPIs en 2 columnas en móvil */
-            .card-grid, .form-grid, .user-grid, .catalog-grid { grid-template-columns: 1fr; }
-            
-            /* 4. Correcciones Específicas para Fichas Técnicas */
-            .detail-card { padding: 1.5rem; }
-            div[style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; gap: 10px !important; }
-            
-            /* Botones de Avance (+10/-10) táctiles */
-            #progressControlBox > div:first-of-type { flex-direction: column; gap: 10px; }
-            .btn-control { width: 100%; height: 50px; font-size: 2rem; }
-            #uiProgressBar { border-radius: 10px; }
-            
-            /* 5. Ajustes Universales */
+            .card-grid { grid-template-columns: 1fr; }
             h1 { font-size: 1.6rem !important; line-height: 1.2; }
-            .btn-action, .btn-secondary { width: 100%; justify-content: center; padding: 15px; font-size: 1rem; }
-            .cat-header { flex-direction: column; text-align: center; padding: 15px; }
-            
-            /* Ajuste de Chips de Colaboradores (Admin) */
-            #equipoActualChips { flex-direction: column; }
-            .user-chip { width: 100%; justify-content: space-between; padding: 10px 20px; box-sizing: border-box;}
+            .btn-clear-filter { width: 100%; justify-content: center; }
         }
-
-        /* Ajuste extra para celulares muy pequeños (iPhone SE, etc) */
         @media (max-width: 480px) {
-            .stats-grid { grid-template-columns: 1fr; } /* KPIs a 1 sola columna */
             .top-bar > div:last-child { width: 100%; justify-content: center; }
-            .nav-links a span { display: none; } /* Ocultar texto del menú, dejar solo íconos */
+            .nav-links a span { display: none; }
         }
     </style>
 </head>
@@ -103,11 +69,11 @@
         <ul class="nav-links">
             <li><a href="panel-control.html"><i class='bx bxs-dashboard'></i> <span>Dashboard</span></a></li>
             <li><a href="mis-trabajos.html" class="active"><i class='bx bxs-briefcase'></i> <span>Mis Trabajos</span></a></li>
-            <li id="navColaboradores" style="display: none;"><a href="colaboradores.html"><i class='bx bxs-group'></i> <span>Colaboradores</span></a></li>
+            <li id="navColaboradores" style="display: none;"><a href="colaboradores.html"><i class='bx bxs-group'></i> <span>Equipo</span></a></li>
             <li><a href="catalogo.html"><i class='bx bxs-package'></i> <span>Catálogo</span></a></li>
         </ul>
         <button id="logoutBtn" style="background:none; border:none; color:#ff6b6b; cursor:pointer; display:flex; align-items:center; gap:15px; padding:12px 1rem; font-weight:600; margin-top: auto;">
-            <i class='bx bx-log-out'></i> <span>Cerrar Sesión</span>
+            <i class='bx bx-log-out'></i> <span>Salir</span>
         </button>
     </aside>
 
@@ -123,9 +89,9 @@
             </div>
         </header>
 
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
-            <h2 style="color: var(--dark-blue); font-weight: 900; margin: 0; display: flex; align-items: center;">
-                <i class='bx bx-archive' style="margin-right: 10px;"></i> Histórico de Proyectos 
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+            <h2 style="color: var(--dark-blue); font-weight: 900; margin: 0; display: flex; align-items: center; flex-wrap: wrap; gap: 10px;">
+                <i class='bx bx-archive'></i> Histórico de Proyectos 
                 <span id="labelFiltro" class="filter-badge" style="display:none;"></span>
             </h2>
             
@@ -145,20 +111,14 @@
         import { getFirestore, collection, onSnapshot, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
         const firebaseConfig = { apiKey: "AIzaSyBlouup64jteDrbUkOkSSEqsjesnuT6mdQ", authDomain: "digital-core-app.firebaseapp.com", projectId: "digital-core-app", storageBucket: "digital-core-app.firebasestorage.app", messagingSenderId: "1003292240722", appId: "1:1003292240722:web:b2a2af0665df1ef00fe88b" };
-        const app = initializeApp(firebaseConfig); 
-        const auth = getAuth(app); 
-        const db = getFirestore(app);
+        const app = initializeApp(firebaseConfig); const auth = getAuth(app); const db = getFirestore(app);
 
-        // LECTURA DEL FILTRO EN LA URL (Deep Linking)
         const urlParams = new URLSearchParams(window.location.search);
         const filtroSolicitado = urlParams.get('filtro') || 'todas';
 
         if(filtroSolicitado !== 'todas') {
             const lbl = document.getElementById('labelFiltro');
-            lbl.style.display = 'inline-block';
-            lbl.innerText = "Filtrando: " + filtroSolicitado;
-            
-            // Mostrar botón para limpiar filtro si hay uno activo
+            lbl.style.display = 'inline-block'; lbl.innerText = "Filtrando: " + filtroSolicitado;
             document.getElementById('btnMostrarTodas').style.display = 'inline-flex';
         }
 
@@ -167,12 +127,8 @@
                 const email = user.email.toLowerCase().trim();
                 const isAdmin = email === 'diego.725.reyes@gmail.com';
                 
-                // Mostrar Menú de Colaboradores si es Admin
-                if (isAdmin) {
-                    document.getElementById('navColaboradores').style.display = 'flex';
-                }
+                if (isAdmin) { document.getElementById('navColaboradores').style.display = 'flex'; }
 
-                // Llenar datos de la barra superior
                 document.getElementById('userEmailLabel').innerText = email;
                 const userSnap = await getDocs(query(collection(db, "usuarios"), where("correo", "==", email)));
                 if (!userSnap.empty) {
@@ -182,55 +138,37 @@
                 }
 
                 renderizarHistorico(email, isAdmin);
-            } else {
-                window.location.href = 'intranet.html';
-            }
+            } else { window.location.href = 'intranet.html'; }
         });
 
         function renderizarHistorico(email, isAdmin) {
-            // Regla de Negocio: El Admin ve todo, el colaborador ve solo lo suyo.
             const q = isAdmin ? collection(db, "proyectos") : query(collection(db, "proyectos"), where("asignado_a", "array-contains", email));
-            
             onSnapshot(q, (snap) => {
-                let tareas = [];
-                snap.forEach(d => tareas.push({ id: d.id, ...d.data() }));
-
+                let tareas = []; snap.forEach(d => tareas.push({ id: d.id, ...d.data() }));
                 const hoy = new Date().toISOString().split('T')[0];
 
-                // Ordenar: Las más recientes/urgentes arriba
                 tareas.sort((a, b) => new Date(b.entrega) - new Date(a.entrega));
 
-                const container = document.getElementById('fullBoard');
-                container.innerHTML = "";
-
-                if(tareas.length === 0) {
-                    container.innerHTML = `<p style="grid-column: 1/-1; color: #718096; text-align: center; padding: 2rem;">No hay proyectos registrados.</p>`;
-                    return;
-                }
+                const container = document.getElementById('fullBoard'); container.innerHTML = "";
+                if(tareas.length === 0) { container.innerHTML = `<p style="grid-column: 1/-1; color: #718096; text-align: center; padding: 2rem;">No hay proyectos registrados.</p>`; return; }
 
                 let proyectosMostrados = 0;
 
                 tareas.forEach(p => {
-                    // CALCULAR ESTADO REAL
                     if (p.completado) p._estadoReal = "completadas";
                     else if (p.en_proceso) p._estadoReal = "proceso";
                     else if (p.entrega < hoy) p._estadoReal = "demoradas";
                     else p._estadoReal = "asignadas";
 
-                    // APLICAR FILTRO DE LA URL
-                    if (filtroSolicitado !== 'todas' && p._estadoReal !== filtroSolicitado) {
-                        return; // Salta esta iteración y no dibuja la tarjeta
-                    }
+                    if (filtroSolicitado !== 'todas' && p._estadoReal !== filtroSolicitado) return; 
 
                     proyectosMostrados++;
 
-                    // ESTILOS SEMÁNTICOS
                     let claseEst = "st-asignada"; let badgeClass = "badge-asignada"; let txtEstado = "ASIGNADA";
                     if (p._estadoReal === "demoradas") { claseEst = "st-demorada"; badgeClass = "badge-demorada"; txtEstado = "DEMORADA"; }
                     else if (p._estadoReal === "proceso") { claseEst = "st-proceso"; badgeClass = "badge-proceso"; txtEstado = "EN PROCESO"; }
                     else if (p._estadoReal === "completadas") { claseEst = "st-completada"; badgeClass = "badge-completada"; txtEstado = "COMPLETADA"; }
 
-                    // Formatear responsables para la vista
                     let responsables = Array.isArray(p.asignado_a) ? p.asignado_a[0].split('@')[0] + (p.asignado_a.length > 1 ? ' +' : '') : p.asignado_a.split('@')[0];
 
                     container.innerHTML += `
@@ -241,27 +179,15 @@
                             </div>
                             <h3 style="margin:8px 0; font-size:1.1rem; color:var(--dark-blue);">${p.producto}</h3>
                             <p style="font-size:0.8rem; color:#718096; margin: 0 0 10px 0;">Cliente: <b>${p.cliente}</b></p>
-                            
-                            <div style="background:#edf2f7; height:8px; border-radius:10px; margin:15px 0 10px 0;">
-                                <div style="width:${p.progreso}%; background: ${p.completado ? '#38a169' : 'var(--neon-blue)'}; height:100%; border-radius:10px; transition:0.5s;"></div>
-                            </div>
-                            
-                            <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:#718096; font-weight:600;">
-                                <span>Avance: ${p.progreso}%</span>
-                                <span><i class='bx bx-user'></i> ${isAdmin ? responsables : 'Tú'}</span>
-                            </div>
+                            <div style="background:#edf2f7; height:8px; border-radius:10px; margin:15px 0 10px 0;"><div style="width:${p.progreso}%; background: ${p.completado ? '#38a169' : 'var(--neon-blue)'}; height:100%; border-radius:10px;"></div></div>
+                            <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:#718096; font-weight:600;"><span>Avance: ${p.progreso}%</span><span><i class='bx bx-user'></i> ${isAdmin ? responsables : 'Tú'}</span></div>
                         </div>`;
                 });
 
-                if (proyectosMostrados === 0) {
-                    container.innerHTML = `<p style="grid-column: 1/-1; color: #718096; text-align: center; padding: 2rem;">No hay proyectos que coincidan con este filtro.</p>`;
-                }
+                if (proyectosMostrados === 0) container.innerHTML = `<p style="grid-column: 1/-1; color: #718096; text-align: center; padding: 2rem;">No hay proyectos que coincidan con este filtro.</p>`;
             });
         }
-        
         document.getElementById('logoutBtn').onclick = () => signOut(auth).then(() => window.location.href = 'index.html');
     </script>
 </body>
 </html>
-
-
