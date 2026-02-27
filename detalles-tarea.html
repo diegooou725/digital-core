@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles de Tarea | Digital Core</title>
+    <link rel="icon" href="Isotipo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root { --sidebar-width: 260px; }
+        body { display: flex; background: #f0f4f8; min-height: 100vh; margin: 0; font-family: 'Inter', sans-serif; }
+        .main-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 2rem 3rem; }
+        .detail-card { background: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); max-width: 800px; margin: auto; }
+        .status-pill { padding: 5px 15px; border-radius: 50px; font-size: 0.8rem; font-weight: 800; display: inline-block; margin-bottom: 1rem; }
+        .completed { background: #c6f6d5; color: #22543d; }
+        .pending { background: #feebc8; color: #744210; }
+        .action-group { display: flex; gap: 10px; margin-top: 2rem; flex-wrap: wrap; }
+        .btn-action { padding: 12px 20px; border-radius: 10px; border: none; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.3s; }
+        .btn-delete { background: #fff5f5; color: #c53030; }
+        .btn-complete { background: var(--neon-blue); color: white; }
+        .btn-request { background: #edf2f7; color: #4a5568; }
+        .admin-section { border-top: 1px solid #eee; margin-top: 2rem; padding-top: 2rem; }
+    </style>
+</head>
+<body>
+    <main class="main-content">
+        <div id="loading" style="text-align: center; padding: 5rem;">Cargando ficha técnica...</div>
+        
+        <div id="taskDetail" class="detail-card" style="display: none;">
+            <div id="statusBadge" class="status-pill"></div>
+            <h1 id="tProduct" style="color: var(--dark-blue); font-weight: 900; font-size: 2.5rem; margin: 0;"></h1>
+            <p id="tCategory" style="color: var(--light-blue); font-weight: 700; margin-bottom: 2rem;"></p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; color: #4a5568;">
+                <div><strong>Cliente:</strong> <span id="tClient"></span></div>
+                <div><strong>Entrega:</strong> <span id="tDeadline"></span></div>
+                <div><strong>Asignados:</strong> <span id="tAssignees"></span></div>
+                <div><strong>Progreso:</strong> <span id="tProgress"></span>%</div>
+            </div>
+
+            <div class="action-group">
+                <button id="btnMarkComplete" class="btn-action btn-complete"><i class='bx bx-check-double'></i> Marcar como Completada</button>
+                
+                <button id="btnRequestDelete" class="btn-action btn-request" style="display:none;"><i class='bx bx-trash'></i> Solicitar Eliminación</button>
+                <button id="btnRequestUnmark" class="btn-action btn-request" style="display:none;"><i class='bx bx-undo'></i> Solicitar Desmarcar</button>
+            </div>
+
+            <div id="adminOnlyPanel" class="admin-section" style="display: none;">
+                <h3 style="color: var(--dark-blue);"><i class='bx bxs-shield-quarter'></i> Panel de Control Maestro</h3>
+                <div class="action-group">
+                    <button id="btnAdminDelete" class="btn-action btn-delete"><i class='bx bxs-trash-alt'></i> Eliminar Definitivamente</button>
+                    <button id="btnAdminUnmark" class="btn-action btn-request"><i class='bx bx-reset'></i> Forzar Desmarcar</button>
+                </div>
+                <div style="margin-top: 1.5rem;">
+                    <label>Reasignar o Agregar Colaboradores (Correos separados por coma):</label>
+                    <input type="text" id="newAssignees" class="form-control" style="margin-top:10px;">
+                    <button id="btnUpdateAssignees" class="btn-primary" style="margin-top:10px; width: auto; padding: 10px 20px;">Actualizar Equipo</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+        import { getFirestore, doc, onSnapshot, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+
+        // Configuración de Firebase igual a la tuya...
+        const firebaseConfig = { /* ... */ };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const taskId = urlParams.get('id');
+
+        onAuthStateChanged(auth, (user) => {
+            if (user && taskId) {
+                const isAdmin = user.email === 'diego.725.reyes@gmail.com';
+                cargarDetalles(taskId, user.email, isAdmin);
+            } else { window.location.href = 'intranet.html'; }
+        });
+
+        function cargarDetalles(id, myEmail, isAdmin) {
+            onSnapshot(doc(db, "proyectos", id), (snap) => {
+                if (!snap.exists()) { alert("La tarea ya no existe."); window.location.href = 'panel-control.html'; return; }
+                const t = snap.data();
+                
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('taskDetail').style.display = 'block';
+
+                // Llenar datos
+                document.getElementById('tProduct').innerText = t.producto;
+                document.getElementById('tCategory').innerText = t.categoria;
+                document.getElementById('tClient').innerText = t.cliente;
+                document.getElementById('tDeadline').innerText = t.entrega;
+                document.getElementById('tProgress').innerText = t.progreso;
+                document.getElementById('tAssignees').innerText = Array.isArray(t.asignado_a) ? t.asignado_a.join(', ') : t.asignado_a;
+
+                // Estado Visual
+                const badge = document.getElementById('statusBadge');
+                badge.innerText = t.completado ? "COMPLETADA" : "EN CURSO";
+                badge.className = `status-pill ${t.completado ? 'completed' : 'pending'}`;
+
+                // Lógica de Botones
+                const btnComplete = document.getElementById('btnMarkComplete');
+                btnComplete.disabled = t.completado;
+                btnComplete.style.opacity = t.completado ? "0.5" : "1";
+
+                if (isAdmin) {
+                    document.getElementById('adminOnlyPanel').style.display = 'block';
+                } else {
+                    document.getElementById('btnRequestDelete').style.display = 'block';
+                    if (t.completado) document.getElementById('btnRequestUnmark').style.display = 'block';
+                }
+
+                // Eventos de Botones
+                btnComplete.onclick = () => updateDoc(doc(db, "proyectos", id), { completado: true, progreso: 100 });
+                document.getElementById('btnRequestDelete').onclick = () => {
+                    updateDoc(doc(db, "proyectos", id), { solicitud_eliminacion: true });
+                    alert("Solicitud de eliminación enviada al Lead Engineer.");
+                };
+                document.getElementById('btnAdminDelete').onclick = () => { if(confirm("¿Borrar tarea para siempre?")) deleteDoc(doc(db, "proyectos", id)); };
+                document.getElementById('btnAdminUnmark').onclick = () => updateDoc(doc(db, "proyectos", id), { completado: false, solicitud_desmarcar: false });
+                document.getElementById('btnUpdateAssignees').onclick = () => {
+                    const list = document.getElementById('newAssignees').value.split(',').map(e => e.trim().toLowerCase());
+                    updateDoc(doc(db, "proyectos", id), { asignado_a: list });
+                    alert("Equipo actualizado.");
+                };
+            });
+        }
+    </script>
+</body>
+</html>
