@@ -74,7 +74,6 @@
 <body>
     <aside class="sidebar">
         <img src="DigitalCore-blanco.png" alt="Digital Core" class="sidebar-logo">
-
         <ul class="nav-links">
             <li><a href="panel-control.html"><i class='bx bxs-dashboard'></i> <span>Dashboard</span></a></li>
             <li><a href="mis-trabajos.html"><i class='bx bxs-briefcase'></i> <span>Mis Trabajos</span></a></li>
@@ -262,23 +261,27 @@
                 }
 
                 // ===============================================
-                // MODO DIOS CORREGIDO: ADMIN INICIA LO QUE SEA
+                // MODO DIOS: ADMIN INICIA/PAUSA LO QUE SEA (CORREGIDO Y BLINDADO)
                 // ===============================================
                 btnStart.onclick = async () => {
-                    if (!esAdminGlobal) {
-                        const q = query(collection(db, "proyectos"), where("asignado_a", "array-contains", currentUserEmail), where("en_proceso", "==", true));
-                        const activas = await getDocs(q);
-                        if (!activas.empty && activas.docs[0].id !== id) { alert(`✋ ALTO AHI: Ya tienes la tarea "${activas.docs[0].data().producto}" iniciada. Termínala o páusala primero.`); return; }
-                    }
-                    const fechaHora = new Date().toLocaleString('es-MX');
-                    let nombreAutor = esAdminGlobal ? "Administrador (Diego)" : currentUserName;
-                    await updateDoc(docRef, { en_proceso: true, historial_avance: arrayUnion({ fecha: fechaHora, porcentaje: dbProgreso, comentario: esAdminGlobal ? "▶ Tarea INICIADA forzada por Administrador." : "▶ Tarea INICIADA.", autor: nombreAutor }) });
+                    try {
+                        if (!esAdminGlobal) {
+                            const q = query(collection(db, "proyectos"), where("asignado_a", "array-contains", currentUserEmail), where("en_proceso", "==", true));
+                            const activas = await getDocs(q);
+                            if (!activas.empty && activas.docs[0].id !== id) { alert(`✋ ALTO AHI: Ya tienes la tarea "${activas.docs[0].data().producto}" iniciada. Termínala o páusala primero.`); return; }
+                        }
+                        const fechaHora = new Date().toLocaleString('es-MX');
+                        let nombreAutor = esAdminGlobal ? "Administrador (Diego)" : currentUserName;
+                        await updateDoc(docRef, { en_proceso: true, historial_avance: arrayUnion({ fecha: fechaHora, porcentaje: dbProgreso, comentario: esAdminGlobal ? "▶ Tarea INICIADA forzada por Administrador." : "▶ Tarea INICIADA.", autor: nombreAutor }) });
+                    } catch(e) { alert("Error de conexión al iniciar: " + e.message); console.error(e); }
                 };
 
                 btnPause.onclick = async () => {
-                    const fechaHora = new Date().toLocaleString('es-MX');
-                    let nombreAutor = esAdminGlobal ? "Administrador (Diego)" : currentUserName;
-                    await updateDoc(docRef, { en_proceso: false, historial_avance: arrayUnion({ fecha: fechaHora, porcentaje: dbProgreso, comentario: esAdminGlobal ? "⏸ Tarea PAUSADA forzada por Administrador." : "⏸ Tarea PAUSADA.", autor: nombreAutor }) });
+                    try {
+                        const fechaHora = new Date().toLocaleString('es-MX');
+                        let nombreAutor = esAdminGlobal ? "Administrador (Diego)" : currentUserName;
+                        await updateDoc(docRef, { en_proceso: false, historial_avance: arrayUnion({ fecha: fechaHora, porcentaje: dbProgreso, comentario: esAdminGlobal ? "⏸ Tarea PAUSADA forzada por Administrador." : "⏸ Tarea PAUSADA.", autor: nombreAutor }) });
+                    } catch(e) { alert("Error de conexión al pausar: " + e.message); console.error(e); }
                 };
 
                 document.getElementById('btnPlus').onclick = () => { if(uiProgreso <= 90) { uiProgreso += 10; actualizarBarraUI(); } };
@@ -327,19 +330,27 @@
 
                 if(esAdminGlobal) {
                     document.getElementById('btnAdminUnmark').onclick = async () => {
-                        const fechaHora = new Date().toLocaleString('es-MX');
-                        await updateDoc(docRef, { completado: false, solicitud_desmarcar: false, progreso: 90, en_proceso: false, historial_avance: arrayUnion({ fecha: fechaHora, porcentaje: 90, comentario: "Reapertura Forzada por Administrador.", autor: "Administrador (Diego)" }) });
-                        arrayAsignados.forEach(async (correoColab) => { if (correoColab !== currentUserEmail) { try { await addDoc(collection(db, "notificaciones"), { destinatario: correoColab, titulo: `¡TAREA REABIERTA!`, mensaje: `Diego ha reabierto el proyecto "${t.producto}" al 90%.`, tipo: "ALERTA", proyectoId: docRef.id, creado: serverTimestamp() }); } catch (e) {} } });
-                        alert("Tarea reabierta al 90%.");
+                        try {
+                            const fechaHora = new Date().toLocaleString('es-MX');
+                            await updateDoc(docRef, { completado: false, solicitud_desmarcar: false, progreso: 90, en_proceso: false, historial_avance: arrayUnion({ fecha: fechaHora, porcentaje: 90, comentario: "Reapertura Forzada por Administrador.", autor: "Administrador (Diego)" }) });
+                            arrayAsignados.forEach(async (correoColab) => { if (correoColab !== currentUserEmail) { try { await addDoc(collection(db, "notificaciones"), { destinatario: correoColab, titulo: `¡TAREA REABIERTA!`, mensaje: `Diego ha reabierto el proyecto "${t.producto}" al 90%.`, tipo: "ALERTA", proyectoId: docRef.id, creado: serverTimestamp() }); } catch (e) {} } });
+                            alert("Tarea reabierta al 90%.");
+                        } catch(e) { alert("Error al reabrir la tarea: " + e.message); console.error(e); }
                     };
-                    document.getElementById('btnAdminDelete').onclick = async () => { if(confirm("¿Eliminar tarea definitivamente?")) { await deleteDoc(docRef); window.location.href = 'panel-control.html'; } };
+                    document.getElementById('btnAdminDelete').onclick = async () => { 
+                        if(confirm("¿Seguro que deseas Eliminar la tarea definitivamente de la base de datos?")) { 
+                            try { await deleteDoc(docRef); window.location.href = 'panel-control.html'; } catch(e) { alert("Error al borrar: " + e.message); console.error(e); }
+                        } 
+                    };
                     document.getElementById('btnUpdateAssignees').onclick = async () => {
-                        const selectoresNuevos = document.querySelectorAll('.admin-collab-select'); let agregados = Array.from(selectoresNuevos).map(s => s.value.toLowerCase().trim()).filter(v => v !== "");
-                        let equipoFinal = [...asignadosActualesDB, ...agregados]; equipoFinal = [...new Set(equipoFinal)]; 
-                        if (equipoFinal.length === 0) return alert("La tarea debe tener al menos 1 asignado.");
-                        const fechaHora = new Date().toLocaleString('es-MX');
-                        await updateDoc(docRef, { asignado_a: equipoFinal, solicitud_eliminacion: false, historial_avance: arrayUnion({ fecha: fechaHora, porcentaje: dbProgreso, comentario: `Modificación de equipo. Asignados ahora: ${equipoFinal.join(', ')}`, autor: "Administrador (Diego)" }) });
-                        document.getElementById('nuevosAsignadosContainer').innerHTML = ''; alert("Equipo actualizado con éxito.");
+                        try {
+                            const selectoresNuevos = document.querySelectorAll('.admin-collab-select'); let agregados = Array.from(selectoresNuevos).map(s => s.value.toLowerCase().trim()).filter(v => v !== "");
+                            let equipoFinal = [...asignadosActualesDB, ...agregados]; equipoFinal = [...new Set(equipoFinal)]; 
+                            if (equipoFinal.length === 0) return alert("La tarea debe tener al menos 1 asignado.");
+                            const fechaHora = new Date().toLocaleString('es-MX');
+                            await updateDoc(docRef, { asignado_a: equipoFinal, solicitud_eliminacion: false, historial_avance: arrayUnion({ fecha: fechaHora, porcentaje: dbProgreso, comentario: `Modificación de equipo. Asignados ahora: ${equipoFinal.join(', ')}`, autor: "Administrador (Diego)" }) });
+                            document.getElementById('nuevosAsignadosContainer').innerHTML = ''; alert("Equipo actualizado con éxito.");
+                        } catch(e) { alert("Error al asignar: " + e.message); console.error(e); }
                     };
                 }
             });
