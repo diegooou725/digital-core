@@ -22,6 +22,8 @@
         
         .btn-action { padding: 12px 20px; border-radius: 8px; border: none; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-family: inherit; transition: 0.2s; width: 100%;}
         .btn-action:hover { opacity: 0.9; }
+        .btn-secondary { background: #edf2f7; color: #4a5568; border: 1px dashed #cbd5e0; padding: 10px; border-radius: 8px; font-weight: 700; cursor: pointer; width: 100%; margin-bottom: 15px; transition: 0.3s; }
+        .btn-secondary:hover { background: #e2e8f0; }
         
         .btn-control { background: #edf2f7; border: none; border-radius: 8px; font-size: 1.5rem; font-weight: 900; color: var(--dark-blue); width: 50px; height: 40px; cursor: pointer; transition: 0.2s; }
         .btn-control:hover:not(:disabled) { background: #e2e8f0; }
@@ -33,6 +35,11 @@
         
         .admin-panel { background: #fff5f5; border: 2px dashed #feb2b2; padding: 20px; border-radius: 12px; margin-top: 30px; }
         .collab-panel { background: #f7fafc; border: 1px solid #e2e8f0; padding: 20px; border-radius: 12px; margin-top: 30px; }
+
+        /* Chips para usuarios */
+        .user-chip { background: var(--dark-blue); color: white; padding: 6px 15px; border-radius: 50px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 8px; font-weight: 600; }
+        .user-chip i { cursor: pointer; font-size: 1.2rem; background: rgba(255,255,255,0.2); border-radius: 50%; padding: 2px; transition: 0.2s; }
+        .user-chip i:hover { background: #e53e3e; }
     </style>
 </head>
 <body>
@@ -63,20 +70,22 @@
                 <div style="grid-column: 1 / -1;"><small style="color:#718096; font-weight:800;">EQUIPO ASIGNADO:</small><br><b id="tAssignees" style="color: var(--dark-blue);"></b></div>
             </div>
 
+            <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #e2e8f0;">
+                <h4 style="margin-top:0; color:var(--dark-blue);"><i class='bx bx-file'></i> Requerimientos del Proyecto</h4>
+                <p id="tRequerimientos" style="color: #4a5568; font-size: 0.95rem; white-space: pre-wrap; margin-bottom: 0; line-height: 1.6;"></p>
+            </div>
+
             <div id="progressControlBox" style="border: 2px solid #e2e8f0; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
                 <h3 style="margin-top:0; color:var(--dark-blue);"><i class='bx bx-slider-alt'></i> Panel de Avance</h3>
-                
                 <div style="display:flex; align-items:center; gap:15px; margin-bottom: 15px;">
                     <button id="btnMinus" class="btn-control">-</button>
                     <div style="background: #edf2f7; width: 100%; height: 25px; border-radius: 50px; position: relative; overflow: hidden;">
                         <div id="uiProgressBar" style="background: linear-gradient(90deg, var(--light-blue), var(--neon-blue)); height: 100%; transition: 0.3s; width: 0%;"></div>
-                        <span id="uiProgressText" style="position: absolute; width: 100%; text-align: center; top: 0; font-weight: 900; font-size: 0.85rem; line-height: 25px; color: var(--dark-blue); text-shadow: 1px 1px 2px rgba(255,255,255,0.8);">0%</span>
+                        <span id="uiProgressText" style="position: absolute; width: 100%; text-align: center; top: 0; font-weight: 900; font-size: 0.85rem; line-height: 25px; color: var(--dark-blue);">0%</span>
                     </div>
                     <button id="btnPlus" class="btn-control">+</button>
                 </div>
-                
                 <textarea id="txtComentario" class="form-control" rows="2" placeholder="Comentario obligatorio para la bitácora..." style="margin-bottom: 10px;"></textarea>
-                
                 <div style="display: flex; gap: 10px;">
                     <button id="btnConfirmProgress" class="btn-action" style="background: var(--dark-blue); color:white;"><i class='bx bx-save'></i> Registrar Avance</button>
                     <button id="btnMarkComplete" class="btn-action" style="background: #38a169; color: white;"><i class='bx bx-check-double'></i> Tarea Completada (100%)</button>
@@ -100,15 +109,21 @@
             <div id="adminPanel" class="admin-panel" style="display: none;">
                 <h3 style="margin-top:0; color: #c53030;"><i class='bx bxs-crown'></i> Panel de Lead Engineer</h3>
                 
-                <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
-                    <label style="font-size: 0.85rem; font-weight: 800; color: #4a5568;">MODIFICAR EQUIPO (Separa con comas):</label>
-                    <input type="text" id="adminAssignees" class="form-control" style="margin: 10px 0;">
-                    <button id="btnUpdateAssignees" class="btn-action" style="background: var(--dark-blue); color: white;"><i class='bx bx-refresh'></i> Reasignar Colaboradores</button>
+                <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #fed7d7;">
+                    <label style="font-size: 0.85rem; font-weight: 800; color: #4a5568;"><i class='bx bx-group'></i> GESTIONAR EQUIPO ASIGNADO:</label>
+                    
+                    <div id="equipoActualChips" style="display: flex; gap: 10px; flex-wrap: wrap; margin: 15px 0;">
+                        </div>
+                    
+                    <div id="nuevosAsignadosContainer" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 10px;"></div>
+                    
+                    <button id="btnAddSelect" class="btn-secondary"><i class='bx bx-user-plus'></i> Asignar a otro colaborador</button>
+                    <button id="btnUpdateAssignees" class="btn-action" style="background: var(--dark-blue); color: white;"><i class='bx bx-check-circle'></i> Guardar Nuevo Equipo</button>
                 </div>
                 
                 <div style="display: flex; gap: 10px;">
                     <button id="btnAdminUnmark" class="btn-action" style="background: white; border: 1px solid #cbd5e0; color: #4a5568;"><i class='bx bx-reset'></i> Forzar Apertura (Baja a 90%)</button>
-                    <button id="btnAdminDelete" class="btn-action" style="background: #c53030; color: white;"><i class='bx bx-trash'></i> Eliminar Tarea</button>
+                    <button id="btnAdminDelete" class="btn-action" style="background: #c53030; color: white;"><i class='bx bx-trash'></i> Eliminar Tarea Definitivamente</button>
                 </div>
             </div>
         </div>
@@ -117,7 +132,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
-        import { getFirestore, doc, onSnapshot, updateDoc, deleteDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+        import { getFirestore, doc, collection, onSnapshot, query, where, updateDoc, deleteDoc, arrayUnion, getDocs } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
         const firebaseConfig = { apiKey: "AIzaSyBlouup64jteDrbUkOkSSEqsjesnuT6mdQ", authDomain: "digital-core-app.firebaseapp.com", projectId: "digital-core-app", storageBucket: "digital-core-app.firebasestorage.app", messagingSenderId: "1003292240722", appId: "1:1003292240722:web:b2a2af0665df1ef00fe88b" };
         const app = initializeApp(firebaseConfig);
@@ -125,15 +140,57 @@
         const db = getFirestore(app);
 
         const taskId = new URLSearchParams(window.location.search).get('id');
-        let dbProgreso = 0; 
-        let uiProgreso = 0;
-        let currentUserEmail = "";
-        let esAdminGlobal = false;
+        let dbProgreso = 0; let uiProgreso = 0;
+        let currentUserEmail = ""; let currentUserName = ""; let esAdminGlobal = false;
+        
+        let opcionesEquipoHTML = '<option value="">Selecciona un colaborador...</option>';
+        let asignadosActualesDB = []; // Para las Chips
 
-        onAuthStateChanged(auth, (user) => {
+        // CARGAR CATÁLOGO DE USUARIOS PARA LOS DROPDOWNS
+        async function prepararEquipo() {
+            onSnapshot(collection(db, "usuarios"), (snap) => {
+                opcionesEquipoHTML = '<option value="">Selecciona un colaborador...</option>';
+                snap.forEach(d => { const u = d.data(); opcionesEquipoHTML += `<option value="${u.correo.toLowerCase()}">${u.nombre} (${u.rol})</option>`; });
+            });
+        }
+
+        // CONTROL DE LAS CHIPS (QUITAR COLABORADORES)
+        window.quitarColaborador = function(correoABorrar) {
+            asignadosActualesDB = asignadosActualesDB.filter(c => c !== correoABorrar);
+            renderizarChips();
+        };
+
+        function renderizarChips() {
+            const box = document.getElementById('equipoActualChips');
+            box.innerHTML = '';
+            if(asignadosActualesDB.length === 0) {
+                box.innerHTML = '<span style="color:#e53e3e; font-size:0.85rem; font-weight:bold;">¡La tarea quedará sin responsables!</span>';
+            }
+            asignadosActualesDB.forEach(correo => {
+                box.innerHTML += `<div class="user-chip">${correo.split('@')[0]} <i class='bx bx-x' onclick="quitarColaborador('${correo}')" title="Desasignar"></i></div>`;
+            });
+        }
+
+        // AGREGAR NUEVO DESPLEGABLE
+        document.getElementById('btnAddSelect').addEventListener('click', () => {
+            const container = document.getElementById('nuevosAsignadosContainer');
+            const nuevoSelect = document.createElement('select');
+            nuevoSelect.className = 'form-control admin-collab-select';
+            nuevoSelect.innerHTML = opcionesEquipoHTML;
+            container.appendChild(nuevoSelect);
+        });
+
+        onAuthStateChanged(auth, async (user) => {
             if (user && taskId) {
                 currentUserEmail = user.email.toLowerCase().trim();
                 esAdminGlobal = currentUserEmail === 'diego.725.reyes@gmail.com';
+                
+                // Obtener nombre real del usuario logueado para las notificaciones
+                const userSnap = await getDocs(query(collection(db, "usuarios"), where("correo", "==", currentUserEmail)));
+                if (!userSnap.empty) currentUserName = userSnap.docs[0].data().nombre;
+                else currentUserName = currentUserEmail.split('@')[0];
+
+                if (esAdminGlobal) prepararEquipo();
                 abrirFicha(taskId);
             } else { window.location.href = 'intranet.html'; }
         });
@@ -142,23 +199,15 @@
             document.getElementById('uiProgressBar').style.width = uiProgreso + "%";
             document.getElementById('uiProgressText').innerText = uiProgreso + "%";
             document.getElementById('btnPlus').disabled = uiProgreso >= 100;
-            
-            // Si es admin, puede bajar todo lo que quiera (hasta 0). Si es colaborador, no puede bajar de dbProgreso.
-            if (esAdminGlobal) {
-                document.getElementById('btnMinus').disabled = uiProgreso <= 0;
-            } else {
-                document.getElementById('btnMinus').disabled = uiProgreso <= dbProgreso;
-            }
+            if (esAdminGlobal) document.getElementById('btnMinus').disabled = uiProgreso <= 0;
+            else document.getElementById('btnMinus').disabled = uiProgreso <= dbProgreso;
         }
 
         function abrirFicha(id) {
             const docRef = doc(db, "proyectos", id);
             
             onSnapshot(docRef, (snap) => {
-                if (!snap.exists()) {
-                    document.getElementById('loaderStatus').innerHTML = "<b style='color:#e53e3e'>ERROR:</b> La tarea no existe.";
-                    return;
-                }
+                if (!snap.exists()) return alert("La tarea no existe.");
                 const t = snap.data();
                 
                 document.getElementById('loader').style.display = 'none';
@@ -168,55 +217,47 @@
                 document.getElementById('tCategory').innerText = t.categoria;
                 document.getElementById('tClient').innerText = t.cliente;
                 document.getElementById('tDeadline').innerText = t.entrega;
+                document.getElementById('tRequerimientos').innerText = t.requerimientos || "Sin requerimientos especificados.";
                 
-                let asignadosTexto = Array.isArray(t.asignado_a) ? t.asignado_a.join(', ') : t.asignado_a;
-                document.getElementById('tAssignees').innerText = asignadosTexto;
+                let arrayAsignados = Array.isArray(t.asignado_a) ? t.asignado_a : [t.asignado_a];
+                document.getElementById('tAssignees').innerText = arrayAsignados.join(', ');
+                
+                // Cargar Chips para Admin
+                asignadosActualesDB = [...arrayAsignados];
+                renderizarChips();
                 
                 dbProgreso = t.progreso || 0;
                 uiProgreso = dbProgreso; 
                 actualizarBarraUI();
 
-                // PINTAR HISTORIAL
                 const histList = document.getElementById('historyList');
                 if (t.historial_avance && t.historial_avance.length > 0) {
                     histList.innerHTML = t.historial_avance.slice().reverse().map(h => {
-                        // Si el autor contiene la palabra "Administrador", lo pintamos rojo para destacar su autoridad
                         const colorAutor = h.autor.includes("Administrador") ? "#c53030" : "var(--dark-blue)";
-                        return `
-                        <div class="history-item">
-                            <div style="display:flex; justify-content:space-between; align-items:center;">
-                                <span><i class='bx bx-time'></i> ${h.fecha} | <b style="color:${colorAutor};">${h.autor}</b></span>
-                                <span style="background:var(--neon-blue); color:white; padding:2px 8px; border-radius:5px; font-weight:bold; font-size:0.75rem;">${h.porcentaje}%</span>
-                            </div>
-                            ${h.comentario ? `<p style="margin:5px 0 0 0; font-style:italic;">"${h.comentario}"</p>` : ''}
-                        </div>`;
+                        return `<div class="history-item">
+                                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                                        <span><i class='bx bx-time'></i> ${h.fecha} | <b style="color:${colorAutor};">${h.autor}</b></span>
+                                        <span style="background:var(--neon-blue); color:white; padding:2px 8px; border-radius:5px; font-weight:bold; font-size:0.75rem;">${h.porcentaje}%</span>
+                                    </div>
+                                    ${h.comentario ? `<p style="margin:5px 0 0 0; font-style:italic;">"${h.comentario}"</p>` : ''}
+                                </div>`;
                     }).join('');
-                } else {
-                    histList.innerHTML = "<p style='color:#a0aec0; font-size:0.8rem;'>Aún no hay registros de actividad.</p>";
-                }
+                } else { histList.innerHTML = "<p style='color:#a0aec0; font-size:0.8rem;'>Aún no hay registros.</p>"; }
 
-                // ESTADOS
                 const badge = document.getElementById('statusBadge');
                 badge.innerText = t.completado ? "✓ TAREA COMPLETADA" : "⟳ TAREA EN CURSO";
                 badge.className = `status-pill ${t.completado ? 'completed' : 'pending'}`;
 
-                // ==========================================
-                // LÓGICA IMPLACABLE DE PANELES (ADMIN VS COLLAB)
-                // ==========================================
-                
                 if (esAdminGlobal) {
-                    // EL ADMIN VE TODO
                     document.getElementById('adminPanel').style.display = 'block';
                     document.getElementById('collabRequests').style.display = 'none';
-                    document.getElementById('adminAssignees').value = asignadosTexto;
-                    document.getElementById('progressControlBox').style.display = 'block'; // Admin siempre puede editar progreso
+                    document.getElementById('progressControlBox').style.display = 'block'; 
                     document.getElementById('btnMarkComplete').style.display = t.completado ? 'none' : 'block';
                     document.getElementById('progressWarning').innerText = "Modo Dios: Puedes aumentar o reducir el progreso a voluntad.";
                 } else {
-                    // EL COLABORADOR ESTÁ RESTRINGIDO
                     document.getElementById('adminPanel').style.display = 'none';
                     document.getElementById('collabRequests').style.display = 'block';
-                    document.getElementById('progressWarning').innerText = "El progreso no puede retroceder una vez confirmado.";
+                    document.getElementById('progressWarning').innerText = "El progreso no puede retroceder.";
                     
                     if (t.completado) {
                         document.getElementById('progressControlBox').style.display = 'none';
@@ -229,35 +270,28 @@
                     }
                 }
 
-                // ==========================================
-                // EVENTOS DE BOTONES
-                // ==========================================
-                
                 document.getElementById('btnPlus').onclick = () => { if(uiProgreso <= 90) { uiProgreso += 10; actualizarBarraUI(); } };
                 document.getElementById('btnMinus').onclick = () => { 
                     if (esAdminGlobal && uiProgreso >= 10) { uiProgreso -= 10; actualizarBarraUI(); }
                     else if (!esAdminGlobal && uiProgreso > dbProgreso) { uiProgreso -= 10; actualizarBarraUI(); }
                 };
 
-                // GUARDAR AVANCE
                 document.getElementById('btnConfirmProgress').onclick = async () => {
                     if (uiProgreso === dbProgreso) return alert("Modifica el progreso con los botones antes de guardar.");
                     const comentario = document.getElementById('txtComentario').value.trim();
-                    
-                    let esReduccion = uiProgreso < dbProgreso;
-                    if (esReduccion && !esAdminGlobal) return alert("Solo el administrador puede reducir el avance.");
-                    if (comentario === "") return alert("La bitácora exige un comentario describiendo el cambio.");
+                    if (uiProgreso < dbProgreso && !esAdminGlobal) return alert("Solo el administrador puede reducir el avance.");
+                    if (comentario === "") return alert("Debes incluir un comentario para la bitácora.");
 
-                    let autorFinal = esAdminGlobal ? "Administrador (Diego)" : currentUserEmail.split('@')[0];
-                    let comentarioFinal = esReduccion ? `[Corrección de Admin] ${comentario}` : comentario;
+                    let autorFinal = esAdminGlobal ? "Administrador (Diego)" : currentUserName;
+                    let comentarioFinal = (uiProgreso < dbProgreso) ? `[Corrección de Admin] ${comentario}` : comentario;
 
                     if(confirm(`Se registrará el avance al ${uiProgreso}%. ¿Continuar?`)) {
                         const fechaHora = new Date().toLocaleString('es-MX');
                         await updateDoc(docRef, {
-                            progreso: uiProgreso,
-                            completado: uiProgreso === 100,
+                            progreso: uiProgreso, completado: uiProgreso === 100,
                             historial_avance: arrayUnion({ fecha: fechaHora, porcentaje: uiProgreso, comentario: comentarioFinal, autor: autorFinal }),
-                            notificar_admin: !esAdminGlobal // Avisar a Diego solo si lo hizo un colaborador
+                            notificar_admin: !esAdminGlobal,
+                            solicitante_notificacion: currentUserName
                         });
                         document.getElementById('txtComentario').value = ""; 
                     }
@@ -265,59 +299,53 @@
 
                 document.getElementById('btnMarkComplete').onclick = async () => {
                     const comentario = document.getElementById('txtComentario').value.trim() || "Tarea Finalizada.";
-                    let autorFinal = esAdminGlobal ? "Administrador (Diego)" : currentUserEmail.split('@')[0];
+                    let autorFinal = esAdminGlobal ? "Administrador (Diego)" : currentUserName;
                     if(confirm("¿Confirmas que la tarea está al 100%?")) {
                         const fechaHora = new Date().toLocaleString('es-MX');
                         await updateDoc(docRef, { 
                             completado: true, progreso: 100, 
                             historial_avance: arrayUnion({ fecha: fechaHora, porcentaje: 100, comentario: comentario, autor: autorFinal }),
-                            notificar_admin: !esAdminGlobal
+                            notificar_admin: !esAdminGlobal, solicitante_notificacion: currentUserName
                         });
                     }
                 };
 
-                // SOLICITUDES COLABORADOR
+                // SOLICITUDES CON NOMBRE
                 document.getElementById('btnRequestUnmark').onclick = async () => { 
-                    await updateDoc(docRef, { solicitud_desmarcar: true, notificar_admin: true }); 
-                    alert("Se ha notificado a Diego para que reabra la tarea."); 
+                    await updateDoc(docRef, { solicitud_desmarcar: true, notificar_admin: true, solicitante_notificacion: currentUserName }); 
+                    alert("Notificación de reapertura enviada."); 
                 };
                 document.getElementById('btnRequestRemove').onclick = async () => { 
-                    await updateDoc(docRef, { solicitud_eliminacion: true, notificar_admin: true }); 
-                    alert("Se ha notificado a Diego para que te retire de la tarea."); 
+                    await updateDoc(docRef, { solicitud_eliminacion: true, notificar_admin: true, solicitante_notificacion: currentUserName }); 
+                    alert("Notificación de desasignación enviada."); 
                 };
 
-                // ACCIONES EXCLUSIVAS DEL LEAD ENGINEER
+                // ACCIONES ADMIN RECONSTRUIDAS
                 if(esAdminGlobal) {
-                    // Forzar Apertura (Baja a 90% y deja rastro)
                     document.getElementById('btnAdminUnmark').onclick = async () => {
                         const fechaHora = new Date().toLocaleString('es-MX');
-                        await updateDoc(docRef, { 
-                            completado: false, 
-                            solicitud_desmarcar: false, 
-                            notificar_admin: false,
-                            progreso: 90,
-                            historial_avance: arrayUnion({ fecha: fechaHora, porcentaje: 90, comentario: "Reapertura Forzada: Se restó 10% para correcciones.", autor: "Administrador (Diego)" })
-                        });
-                        alert("Tarea reabierta. El progreso se ajustó al 90%.");
+                        await updateDoc(docRef, { completado: false, solicitud_desmarcar: false, notificar_admin: false, progreso: 90, historial_avance: arrayUnion({ fecha: fechaHora, porcentaje: 90, comentario: "Reapertura Forzada por Admin.", autor: "Administrador (Diego)" }) });
+                        alert("Tarea reabierta al 90%.");
                     };
                     
-                    document.getElementById('btnAdminDelete').onclick = async () => { 
-                        if(confirm("ESTO ES IRREVERSIBLE. ¿Eliminar tarea del sistema?")) {
-                            await deleteDoc(docRef);
-                            window.location.href = 'panel-control.html';
-                        }
-                    };
+                    document.getElementById('btnAdminDelete').onclick = async () => { if(confirm("¿Eliminar tarea definitivamente?")) { await deleteDoc(docRef); window.location.href = 'panel-control.html'; } };
                     
                     document.getElementById('btnUpdateAssignees').onclick = async () => {
-                        const listaCorreos = document.getElementById('adminAssignees').value.split(',').map(e => e.trim().toLowerCase()).filter(e => e !== "");
+                        const selectoresNuevos = document.querySelectorAll('.admin-collab-select');
+                        let agregados = Array.from(selectoresNuevos).map(s => s.value.toLowerCase().trim()).filter(v => v !== "");
+                        
+                        let equipoFinal = [...asignadosActualesDB, ...agregados];
+                        equipoFinal = [...new Set(equipoFinal)]; // Quitar duplicados
+                        
+                        if (equipoFinal.length === 0) return alert("La tarea debe tener al menos 1 asignado.");
+                        
                         const fechaHora = new Date().toLocaleString('es-MX');
                         await updateDoc(docRef, { 
-                            asignado_a: listaCorreos,
-                            solicitud_eliminacion: false, 
-                            notificar_admin: false,
-                            historial_avance: arrayUnion({ fecha: fechaHora, porcentaje: dbProgreso, comentario: `Cambio de equipo. Nuevos asignados: ${listaCorreos.join(', ')}`, autor: "Administrador (Diego)" })
+                            asignado_a: equipoFinal, solicitud_eliminacion: false, notificar_admin: false,
+                            historial_avance: arrayUnion({ fecha: fechaHora, porcentaje: dbProgreso, comentario: `Modificación de equipo. Asignados ahora: ${equipoFinal.join(', ')}`, autor: "Administrador (Diego)" })
                         });
-                        alert("Equipo reasignado y guardado en la bitácora.");
+                        document.getElementById('nuevosAsignadosContainer').innerHTML = ''; // Limpiar selectores vacíos
+                        alert("Equipo actualizado con éxito.");
                     };
                 }
             });
