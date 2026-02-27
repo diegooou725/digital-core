@@ -21,6 +21,7 @@
         .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; background: white; padding: 1.5rem 2rem; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         .content-card { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 2rem; }
         
+        /* ESTADÍSTICAS CLICKABLES */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
         .stat-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.5rem; text-align: center; cursor: pointer; transition: 0.2s; }
         .stat-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.05); border-color: var(--neon-blue); }
@@ -28,29 +29,47 @@
         .stat-card p { margin: 5px 0 0 0; font-size: 0.85rem; color: #64748b; font-weight: 700; text-transform: uppercase; }
         .report-box { background: #ebf8ff; border-left: 5px solid var(--neon-blue); padding: 15px 20px; border-radius: 8px; margin-bottom: 2rem; display: flex; align-items: center; gap: 15px; }
         
-        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
-        .task-card { background: white; padding: 20px; border-radius: 12px; border-left: 5px solid #cbd5e0; cursor:pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.2s; }
-        .task-card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px rgba(0,0,0,0.05); }
-        .st-demorada { border-left-color: #e53e3e; } .badge-demorada { background: #fff5f5; color:#e53e3e; font-size: 0.7rem; padding: 4px 10px; border-radius: 50px; font-weight: 800; }
-        .st-proceso { border-left-color: #3182ce; } .badge-proceso { background: #ebf8ff; color:#3182ce; font-size: 0.7rem; padding: 4px 10px; border-radius: 50px; font-weight: 800; }
-        .st-asignada { border-left-color: #718096; } .badge-asignada { background: #f7fafc; color:#718096; font-size: 0.7rem; padding: 4px 10px; border-radius: 50px; font-weight: 800; }
-        
+        /* FORMULARIO */
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .form-control { padding: 12px; border: 1px solid #cbd5e0; border-radius: 8px; width: 100%; box-sizing: border-box; font-family: inherit; }
         .form-group { display: flex; flex-direction: column; gap: 5px; }
         .form-group label { font-weight: 700; color: var(--dark-blue); font-size: 0.9rem; }
-        
         .btn-primary { background: var(--neon-blue); color: white; border: none; padding: 14px; border-radius: 8px; font-weight: 800; cursor: pointer; width: 100%; margin-top: 20px; transition: 0.3s; }
         .btn-secondary { background: #edf2f7; color: #4a5568; border: 1px dashed #cbd5e0; padding: 10px; border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.3s; width: 100%; margin-top: 10px; }
+        .accordion-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; padding-bottom: 10px; }
         
+        /* NOTIFICACIONES */
         .notif-badge-menu { background: #e53e3e; color: white; border-radius: 50%; padding: 2px 7px; font-size: 0.65rem; font-weight: 900; position: absolute; right: 10px; }
         .notif-item { background: white; border-left: 4px solid var(--neon-blue); padding: 15px; border-radius: 8px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: 0.2s;}
         .notif-item.n-alerta { border-left-color: #e53e3e; background: #fff5f5; }
         .btn-ignorar { background: transparent; border: none; color: #a0aec0; cursor: pointer; font-size: 1.5rem; transition: 0.2s; padding: 5px; border-radius: 50%; }
         .btn-ignorar:hover { background: #fed7d7; color: #e53e3e; }
 
-        .accordion-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; padding-bottom: 10px; }
+        /* =========================================
+           NUEVO: TABLERO SCRUM / KANBAN
+           ========================================= */
+        .kanban-board { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 15px; }
+        .kanban-col { background: #e2e8f0; border-radius: 12px; min-width: 320px; flex: 1; padding: 15px; display: flex; flex-direction: column; gap: 15px; }
+        .kanban-col h3 { margin: 0 0 10px 0; color: var(--dark-blue); font-size: 1.1rem; display: flex; justify-content: space-between; align-items: center;}
+        .kanban-col h3 span { background: white; padding: 2px 10px; border-radius: 50px; font-size: 0.8rem; color: #718096; }
         
+        .k-card { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border-left: 4px solid #cbd5e0; position: relative;}
+        .k-card-demorada { border-left-color: #e53e3e; }
+        .k-card-proceso { border-left-color: #3182ce; }
+        .k-card-completada { border-left-color: #38a169; opacity: 0.8; }
+        
+        .k-title { font-weight: 800; color: var(--dark-blue); margin: 0 0 5px 0; font-size: 1.05rem; cursor: pointer;}
+        .k-title:hover { text-decoration: underline; color: var(--neon-blue); }
+        .k-client { font-size: 0.8rem; color: #718096; margin: 0 0 10px 0; }
+        .k-meta { display: flex; justify-content: space-between; font-size: 0.75rem; color: #a0aec0; margin-bottom: 15px; font-weight: 700;}
+        .k-meta-danger { color: #e53e3e !important; }
+        
+        .k-actions { display: flex; gap: 5px; border-top: 1px dashed #edf2f7; padding-top: 10px; }
+        .k-btn { flex: 1; border: none; padding: 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; transition: 0.2s;}
+        .k-btn-start { background: #ebf8ff; color: #3182ce; } .k-btn-start:hover { background: #3182ce; color: white; }
+        .k-btn-done { background: #f0fff4; color: #38a169; } .k-btn-done:hover { background: #38a169; color: white; }
+        .k-btn-pause { background: #fff5f5; color: #e53e3e; } .k-btn-pause:hover { background: #e53e3e; color: white; }
+
         /* =========================================
            PARCHE MÓVIL ESTRICTO (APP NATIVA V2.0)
            ========================================= */
@@ -73,16 +92,21 @@
             .nav-links a i, #logoutBtn i { font-size: 1.6rem; margin: 0; }
             .nav-links a span, #logoutBtn span { font-size: 0.65rem; display: block; font-weight: 800; margin: 0; text-align: center; }
             .notif-badge-menu { position: absolute; right: 20%; top: 2px; padding: 2px 6px; }
+            
             .main-content { margin-left: 0; width: 100vw; padding: 1.5rem 1rem; box-sizing: border-box; }
             .top-bar { flex-direction: column; align-items: center; text-align: center; gap: 15px; padding: 1.5rem; width: 100%; box-sizing: border-box; }
             .top-bar > div { width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-            .content-card, .detail-card, .task-card, .stat-card, .user-card, .cat-card { width: 100%; box-sizing: border-box; }
+            .content-card, .form-grid { width: 100%; box-sizing: border-box; }
             .stats-grid { grid-template-columns: 1fr 1fr; }
-            .card-grid, .form-grid, .user-grid, .catalog-grid { grid-template-columns: 1fr; width: 100%; }
-            div[style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; gap: 15px !important; }
+            .form-grid { grid-template-columns: 1fr; }
+            
+            /* Ajuste Scrum móvil */
+            .kanban-board { flex-direction: column; }
+            .kanban-col { min-width: 100%; width: 100%; box-sizing: border-box; }
+            
             h1, h2 { text-align: center; word-wrap: break-word; font-size: 1.8rem !important; line-height: 1.2; margin-bottom: 10px;}
             p { text-align: center; }
-            .btn-action, .btn-secondary, .btn-clear-filter { width: 100%; justify-content: center; padding: 15px; font-size: 1rem; box-sizing: border-box; }
+            .btn-action, .btn-secondary { width: 100%; justify-content: center; padding: 15px; font-size: 1rem; box-sizing: border-box; }
         }
         @media (max-width: 480px) {
             .nav-links a span, #logoutBtn span { display: none; }
@@ -110,7 +134,7 @@
         <header class="top-bar">
             <div>
                 <h1 id="userNameWelcome" style="color: var(--dark-blue); font-weight: 900; margin:0;">Iniciando...</h1>
-                <p id="roleLabel" style="color: #666; margin:0; font-size: 0.9rem;">Sincronizando Sistema</p>
+                <p id="roleLabel" style="color: #666; margin:0; font-size: 0.9rem;">Sincronizando Scrum</p>
             </div>
             <div style="background: #f8fafc; padding: 8px 15px; border-radius: 50px; display: flex; align-items: center; gap: 10px; border: 1px solid #edf2f7;">
                 <i class='bx bxs-user-circle' style="color: var(--light-blue); font-size: 1.4rem;"></i>
@@ -126,7 +150,7 @@
         <section id="adminOnlySection" style="display: none;">
             <div class="content-card">
                 <div class="accordion-header" onclick="toggleForm()">
-                    <h2 style="color: var(--dark-blue); margin: 0; transition: 0.3s;"><i class='bx bx-plus-circle'></i> Asignar Proyecto</h2>
+                    <h2 style="color: var(--dark-blue); margin: 0; transition: 0.3s;"><i class='bx bx-plus-circle'></i> Asignar Proyecto Nuevo</h2>
                     <i class='bx bx-chevron-down' id="formToggleIcon" style="font-size: 2rem; color: var(--neon-blue); transition: 0.3s;"></i>
                 </div>
                 <div id="formContainer" style="display: none; margin-top: 1.5rem; border-top: 1px solid #edf2f7; padding-top: 1.5rem;">
@@ -135,7 +159,7 @@
                             <div class="form-group"><label>Categoría</label><select id="projCategory" class="form-control" onchange="actualizarProductos()" required><option value="">Selecciona...</option><option value="Desarrollo Web Estratégico">Desarrollo Web Estratégico</option><option value="Sistemas de Datos">Sistemas de Datos</option><option value="Cursos y Capacitación">Cursos y Capacitación</option><option value="Soporte e Infraestructura (Próximamente)">Soporte e Infraestructura (Próximamente)</option><option value="Identidad y Diseño Visual (Próximamente)">Identidad y Diseño Visual (Próximamente)</option><option value="Automatización y Chatbots (Próximamente)">Automatización y Chatbots (Próximamente)</option></select></div>
                             <div class="form-group"><label>Producto</label><select id="projProduct" class="form-control" required disabled><option value="">Selecciona...</option></select></div>
                             <div class="form-group"><label>Cliente</label><input type="text" id="projClient" class="form-control" required></div>
-                            <div class="form-group"><label>Fecha Límite</label><input type="date" id="projDeadline" class="form-control" required></div>
+                            <div class="form-group"><label>Fecha Límite (Deadline)</label><input type="date" id="projDeadline" class="form-control" required></div>
                             <div class="form-group" style="grid-column: 1 / -1; background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0;">
                                 <label><i class='bx bx-group'></i> Equipo Asignado</label>
                                 <div id="assigneesContainer" style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;"><select class="form-control collab-select" required><option value="">Cargando equipo...</option></select></div>
@@ -150,19 +174,36 @@
         </section>
 
         <section>
-            <h2 style="color: var(--dark-blue); margin-bottom: 1rem;"><i class='bx bx-line-chart'></i> Rendimiento Operativo</h2>
+            <h2 style="color: var(--dark-blue); margin-bottom: 1rem;"><i class='bx bx-line-chart'></i> Resumen de Operaciones</h2>
             <div class="stats-grid">
                 <div class="stat-card" onclick="window.location.href='mis-trabajos.html?filtro=todas'"><h3 id="statTotal">0</h3><p>Total Histórico</p></div>
-                <div class="stat-card" onclick="window.location.href='mis-trabajos.html?filtro=asignadas'"><h3 id="statAsignados" style="color: #718096;">0</h3><p>Asignados</p></div>
-                <div class="stat-card" onclick="window.location.href='mis-trabajos.html?filtro=proceso'"><h3 id="statProceso" style="color: #3182ce;">0</h3><p>En Proceso</p></div>
+                <div class="stat-card" onclick="window.location.href='mis-trabajos.html?filtro=asignadas'"><h3 id="statAsignados" style="color: #718096;">0</h3><p>Backlog (Fila)</p></div>
+                <div class="stat-card" onclick="window.location.href='mis-trabajos.html?filtro=proceso'"><h3 id="statProceso" style="color: #3182ce;">0</h3><p>Sprints (Activos)</p></div>
                 <div class="stat-card" style="border-color: #feb2b2;" onclick="window.location.href='mis-trabajos.html?filtro=demoradas'"><h3 id="statAtrasados" style="color: #e53e3e;">0</h3><p>Demorados</p></div>
             </div>
             <div id="reportBox" class="report-box"><i id="reportIcon" class='bx bxs-message-rounded-dots' style="font-size: 2.2rem;"></i><div><span id="reportText" style="font-size: 1rem;">Analizando...</span></div></div>
         </section>
 
         <section>
-            <h2 style="color: var(--dark-blue); margin-bottom: 1rem;"><i class='bx bxs-flame'></i> Top Prioridades</h2>
-            <div id="top3Board" class="card-grid"></div>
+            <h2 style="color: var(--dark-blue); margin-bottom: 1rem; margin-top: 2rem;"><i class='bx bx-columns'></i> Tablero Scrum</h2>
+            <div class="kanban-board">
+                
+                <div class="kanban-col">
+                    <h3>Por Hacer (Backlog) <span id="countAsignadas">0</span></h3>
+                    <div id="colAsignadas" style="display:flex; flex-direction:column; gap:10px; min-height: 100px;"></div>
+                </div>
+
+                <div class="kanban-col" style="background: #ebf8ff;">
+                    <h3 style="color:#3182ce;">Sprints (En Proceso) <span id="countProceso" style="background:#bee3f8; color:#2b6cb0;">0</span></h3>
+                    <div id="colProceso" style="display:flex; flex-direction:column; gap:10px; min-height: 100px;"></div>
+                </div>
+
+                <div class="kanban-col" style="background: #f0fff4;">
+                    <h3 style="color:#38a169;">Terminadas <span id="countCompletadas" style="background:#c6f6d5; color:#22543d;">0</span></h3>
+                    <div id="colCompletadas" style="display:flex; flex-direction:column; gap:10px; min-height: 100px;"></div>
+                </div>
+
+            </div>
         </section>
     </main>
 
@@ -174,13 +215,18 @@
         const firebaseConfig = { apiKey: "AIzaSyBlouup64jteDrbUkOkSSEqsjesnuT6mdQ", authDomain: "digital-core-app.firebaseapp.com", projectId: "digital-core-app", storageBucket: "digital-core-app.firebasestorage.app", messagingSenderId: "1003292240722", appId: "1:1003292240722:web:b2a2af0665df1ef00fe88b" };
         const app = initializeApp(firebaseConfig); const auth = getAuth(app); const db = getFirestore(app);
 
+        // Variables globales
+        let opcionesEquipoHTML = '<option value="">Selecciona un colaborador...</option>';
+        let usuarioActual = "";
+        let esAdmin = false;
+
+        // ACORDEÓN
         window.toggleForm = function() {
             const form = document.getElementById('formContainer'); const icon = document.getElementById('formToggleIcon');
             if (form.style.display === 'none' || form.style.display === '') { form.style.display = 'block'; icon.style.transform = 'rotate(180deg)'; } else { form.style.display = 'none'; icon.style.transform = 'rotate(0deg)'; }
         };
 
-        let opcionesEquipoHTML = '<option value="">Selecciona un colaborador...</option>';
-
+        // CATÁLOGO
         window.actualizarProductos = function() {
             const cat = document.getElementById('projCategory').value; const prod = document.getElementById('projProduct');
             const diccionario = {
@@ -195,6 +241,7 @@
             if (cat && diccionario[cat]) { prod.disabled = false; diccionario[cat].forEach(p => { prod.innerHTML += `<option value="${p}">${p}</option>`; }); } else { prod.disabled = true; }
         };
 
+        // EQUIPO
         async function prepararEquipo() {
             onSnapshot(collection(db, "usuarios"), (snap) => {
                 opcionesEquipoHTML = '<option value="">Selecciona un colaborador...</option>';
@@ -208,27 +255,65 @@
             document.getElementById('assigneesContainer').appendChild(div);
         });
 
+        // NOTIFICACIONES
         window.borrarNotificacion = async function(id) { try { await deleteDoc(doc(db, "notificaciones", id)); } catch(e) { console.error(e); } };
 
+        // =========================================
+        // FUNCIÓN GLOBAL: CAMBIAR ESTADO DESDE EL KANBAN
+        // =========================================
+        window.cambiarEstadoScrum = async function(e, docId, accion) {
+            e.stopPropagation(); // Evita que se abra la ficha técnica al dar clic al botón
+            const docRef = doc(db, "proyectos", docId);
+            const fechaHora = new Date().toLocaleString('es-MX');
+            let nombreAutor = esAdmin ? "Administrador (Diego)" : "Colaborador";
+
+            try {
+                if (accion === 'iniciar') {
+                    // Validar límite de trabajo (solo 1 en proceso a la vez si es colaborador)
+                    if (!esAdmin) {
+                        const q = query(collection(db, "proyectos"), where("asignado_a", "array-contains", usuarioActual), where("en_proceso", "==", true));
+                        const activas = await getDocs(q);
+                        if (!activas.empty) {
+                            alert("✋ Ya tienes una tarea en tu Sprint. Páusala antes de iniciar otra."); return;
+                        }
+                    }
+                    await updateDoc(docRef, { en_proceso: true, historial_avance: window.firebaseArrayUnion({ fecha: fechaHora, porcentaje: 0, comentario: "▶ Tarea INICIADA desde el Tablero Scrum.", autor: nombreAutor }) });
+                } 
+                else if (accion === 'pausar') {
+                    await updateDoc(docRef, { en_proceso: false, historial_avance: window.firebaseArrayUnion({ fecha: fechaHora, porcentaje: 0, comentario: "⏸ Tarea PAUSADA desde el Tablero Scrum.", autor: nombreAutor }) });
+                } 
+                else if (accion === 'terminar') {
+                    if(confirm("¿Seguro que deseas marcar este proyecto como Terminado al 100%?")) {
+                        await updateDoc(docRef, { completado: true, progreso: 100, en_proceso: false, historial_avance: window.firebaseArrayUnion({ fecha: fechaHora, porcentaje: 100, comentario: "✅ Tarea FINALIZADA desde el Tablero Scrum.", autor: nombreAutor }) });
+                    }
+                }
+            } catch (err) { alert("Error al actualizar estado."); console.error(err); }
+        };
+
+        // INICIALIZACIÓN
         onAuthStateChanged(auth, async (user) => {
             if (user) {
-                const email = user.email.toLowerCase().trim();
-                const isAdmin = email === 'diego.725.reyes@gmail.com';
-                document.getElementById('userEmailLabel').innerText = email;
+                usuarioActual = user.email.toLowerCase().trim();
+                esAdmin = usuarioActual === 'diego.725.reyes@gmail.com';
+                document.getElementById('userEmailLabel').innerText = usuarioActual;
 
-                const userSnap = await getDocs(query(collection(db, "usuarios"), where("correo", "==", email)));
+                const userSnap = await getDocs(query(collection(db, "usuarios"), where("correo", "==", usuarioActual)));
                 if (!userSnap.empty) { const u = userSnap.docs[0].data(); document.getElementById('userNameWelcome').innerText = `¡Hola, ${u.nombre.split(' ')[0]}!`; document.getElementById('roleLabel').innerText = u.rol; }
 
-                if (isAdmin) { 
+                if (esAdmin) { 
                     document.getElementById('adminOnlySection').style.display = 'block'; 
                     document.getElementById('navColaboradores').style.display = 'flex';
                     prepararEquipo(); 
                 }
 
-                cargarNotificaciones(email);
-                renderizarDashboard(email, isAdmin);
-            } else { window.location.href = 'intranet.html'; }
+                cargarNotificaciones(usuarioActual);
+                renderizarDashboard(usuarioActual, esAdmin);
+            } else { window.location.href = 'index.html'; }
         });
+
+        // REEMPLAZO DE LA FUNCIÓN NATIVA DE FIREBASE PARA USO EN WINDOW
+        import { arrayUnion as fbArrayUnion } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+        window.firebaseArrayUnion = fbArrayUnion;
 
         function cargarNotificaciones(miCorreo) {
             const q = query(collection(db, "notificaciones"), where("destinatario", "==", miCorreo));
@@ -246,63 +331,132 @@
             });
         }
 
+        // =========================================
+        // MOTOR PRINCIPAL DEL DASHBOARD Y SCRUM
+        // =========================================
         function renderizarDashboard(email, isAdmin) {
             const q = isAdmin ? collection(db, "proyectos") : query(collection(db, "proyectos"), where("asignado_a", "array-contains", email));
             onSnapshot(q, (snap) => {
                 let tareas = []; snap.forEach(d => tareas.push({ id: d.id, ...d.data() }));
+                
                 let cTotal = tareas.length; let cAsignados = 0; let cProceso = 0; let cAtrasados = 0; let cCompletadosTotales = 0; let hayUnaEnProceso = false; 
                 const hoyFecha = new Date(); const hoyString = hoyFecha.toISOString().split('T')[0];
 
-                tareas.sort((a, b) => { if (a.completado === b.completado) return new Date(a.entrega) - new Date(b.entrega); return a.completado ? 1 : -1; });
+                // Arrays para las columnas Scrum
+                let arrAsignadas = []; let arrProceso = []; let arrCompletadas = [];
+
+                tareas.sort((a, b) => new Date(a.entrega) - new Date(b.entrega)); // Ordenar por fecha límite
 
                 tareas.forEach(async (p) => {
-                    if (p.completado) { cCompletadosTotales++; } 
-                    else if (p.en_proceso) { cProceso++; hayUnaEnProceso = true; p._estadoVisual = "EN PROCESO"; } 
-                    else if (p.entrega < hoyString) { cAtrasados++; p._estadoVisual = "DEMORADA"; } 
-                    else { cAsignados++; p._estadoVisual = "ASIGNADA"; }
+                    // Evaluación de estados y distribución en Scrum
+                    if (p.completado) { 
+                        cCompletadosTotales++; 
+                        arrCompletadas.push(p);
+                    } 
+                    else if (p.en_proceso) { 
+                        cProceso++; hayUnaEnProceso = true; p._estadoVisual = "EN PROCESO"; 
+                        arrProceso.push(p);
+                    } 
+                    else {
+                        if (p.entrega < hoyString) { cAtrasados++; p._estadoVisual = "DEMORADA"; } 
+                        else { cAsignados++; p._estadoVisual = "ASIGNADA"; }
+                        arrAsignadas.push(p);
+                    }
 
+                    // Alertas automáticas
                     if (!p.completado) {
                         let msFaltantes = new Date(p.entrega) - hoyFecha; let diasFaltantes = msFaltantes / (1000 * 60 * 60 * 24);
                         if (diasFaltantes > 0 && diasFaltantes <= 2 && !p.alerta_vencimiento) {
                             await updateDoc(doc(db, "proyectos", p.id), { alerta_vencimiento: true });
-                            p.asignado_a.forEach(correoDestino => { addDoc(collection(db, "notificaciones"), { destinatario: correoDestino, titulo: "¡TAREA PRÓXIMA A VENCER!", mensaje: `Tu proyecto "${p.producto}" debe entregarse en menos de 48 horas.`, tipo: "ALERTA", proyectoId: p.id, creado: serverTimestamp() }); });
+                            p.asignado_a.forEach(correoDestino => { addDoc(collection(db, "notificaciones"), { destinatario: correoDestino, titulo: "¡TAREA PRÓXIMA A VENCER!", mensaje: `Tu proyecto "${p.producto}" vence pronto.`, tipo: "ALERTA", proyectoId: p.id, creado: serverTimestamp() }); });
                         }
                     }
                 });
 
-                document.getElementById('statTotal').innerText = cTotal; document.getElementById('statAsignados').innerText = cAsignados; document.getElementById('statProceso').innerText = cProceso; document.getElementById('statAtrasados').innerText = cAtrasados;
+                // Actualizar KPIs superiores
+                document.getElementById('statTotal').innerText = cTotal; document.getElementById('statAsignados').innerText = arrAsignadas.length; 
+                document.getElementById('statProceso').innerText = cProceso; document.getElementById('statAtrasados').innerText = cAtrasados;
 
                 const rBox = document.getElementById('reportBox'); const rText = document.getElementById('reportText'); const rIcon = document.getElementById('reportIcon');
                 if (isAdmin) {
                     rBox.style.borderLeftColor = "var(--dark-blue)"; rIcon.style.color = "var(--dark-blue)"; rIcon.className = "bx bx-world";
-                    rText.innerHTML = `<strong style="display: block; color: var(--dark-blue);">Resumen Global de Digital Core:</strong> En la empresa hay <b>${cProceso}</b> proyectos activos, <b>${cAtrasados}</b> demorados, <b>${cAsignados}</b> en fila y <b>${cCompletadosTotales}</b> completados en la historia.`;
+                    rText.innerHTML = `<strong style="display: block; color: var(--dark-blue);">Resumen Global de Digital Core:</strong> Tienes <b>${cProceso}</b> sprints activos y <b>${arrAsignadas.length}</b> en el Backlog. Hay ${cAtrasados} tareas demoradas.`;
                 } else {
-                    if (cAtrasados > 0) { rBox.style.borderLeftColor = "#e53e3e"; rIcon.className = "bx bxs-error"; rIcon.style.color = "#e53e3e"; rText.innerHTML = `<strong style="display: block; color: var(--dark-blue);">Reporte Personal:</strong> <b>¡Alerta!</b> Tienes ${cAtrasados} tarea(s) demorada(s). Priorízalas.`; }
-                    else if (hayUnaEnProceso) { rBox.style.borderLeftColor = "#38a169"; rIcon.className = "bx bxs-check-circle"; rIcon.style.color = "#38a169"; rText.innerHTML = `<strong style="display: block; color: var(--dark-blue);">Reporte Personal:</strong> Excelente, trabajando en tiempo y forma.`; }
-                    else if (cAsignados > 0) { rBox.style.borderLeftColor = "#3182ce"; rIcon.className = "bx bx-rocket"; rIcon.style.color = "#3182ce"; rText.innerHTML = `<strong style="display: block; color: var(--dark-blue);">Reporte Personal:</strong> Tienes ${cAsignados} proyecto(s) en fila. Comienza a trabajar.`; }
+                    if (cAtrasados > 0) { rBox.style.borderLeftColor = "#e53e3e"; rIcon.className = "bx bxs-error"; rIcon.style.color = "#e53e3e"; rText.innerHTML = `<strong style="display: block; color: var(--dark-blue);">Reporte Personal:</strong> Tienes ${cAtrasados} tarea(s) demorada(s).`; }
+                    else if (hayUnaEnProceso) { rBox.style.borderLeftColor = "#38a169"; rIcon.className = "bx bxs-check-circle"; rIcon.style.color = "#38a169"; rText.innerHTML = `<strong style="display: block; color: var(--dark-blue);">Reporte Personal:</strong> Excelente, estás trabajando enfocado.`; }
+                    else if (cAsignados > 0) { rBox.style.borderLeftColor = "#3182ce"; rIcon.className = "bx bx-rocket"; rIcon.style.color = "#3182ce"; rText.innerHTML = `<strong style="display: block; color: var(--dark-blue);">Reporte Personal:</strong> Tienes ${arrAsignadas.length} proyecto(s) en fila. ¡Inicia un sprint!`; }
                     else { rBox.style.borderLeftColor = "#718096"; rIcon.className = "bx bx-coffee"; rIcon.style.color = "#718096"; rText.innerHTML = `<strong style="display: block; color: var(--dark-blue);">Reporte Personal:</strong> Tu bandeja está limpia.`; }
                 }
 
-                const container = document.getElementById('top3Board'); container.innerHTML = "";
-                const top3 = tareas.filter(t => !t.completado).slice(0, 3);
-                if(top3.length === 0) container.innerHTML = `<p style="grid-column: 1/-1; color: #718096;">No hay tareas pendientes en pantalla.</p>`;
+                // =========================================
+                // RENDERIZAR COLUMNAS DEL TABLERO SCRUM
+                // =========================================
+                document.getElementById('countAsignadas').innerText = arrAsignadas.length;
+                document.getElementById('countProceso').innerText = arrProceso.length;
+                document.getElementById('countCompletadas').innerText = arrCompletadas.slice(0, 10).length; // Solo mostrar las últimas 10 completadas para no saturar
 
-                top3.forEach(p => {
-                    let claseEst = "st-asignada"; let badgeClass = "badge-asignada";
-                    if (p._estadoVisual === "DEMORADA") { claseEst = "st-demorada"; badgeClass = "badge-demorada"; } else if (p._estadoVisual === "EN PROCESO") { claseEst = "st-proceso"; badgeClass = "badge-proceso"; }
-                    let reps = Array.isArray(p.asignado_a) ? p.asignado_a[0].split('@')[0] : p.asignado_a.split('@')[0];
-                    container.innerHTML += `<div class="task-card ${claseEst}" onclick="window.location.href='detalles-tarea.html?id=${p.id}'"><div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span class="${badgeClass}">${p._estadoVisual}</span><span style="font-size:0.75rem; color:#a0aec0;">Vence: ${p.entrega}</span></div><h3 style="margin:8px 0; font-size:1.1rem;">${p.producto}</h3><div style="background:#edf2f7; height:8px; border-radius:10px; margin:15px 0 10px 0;"><div style="width:${p.progreso}%; background:var(--neon-blue); height:100%; border-radius:10px;"></div></div><div style="display:flex; justify-content:space-between; font-size:0.75rem; color:#718096; font-weight:600;"><span>Avance: ${p.progreso}%</span><span><i class='bx bx-user'></i> ${isAdmin ? reps : 'Tú'}</span></div></div>`;
+                const colAsig = document.getElementById('colAsignadas'); colAsig.innerHTML = '';
+                const colProc = document.getElementById('colProceso'); colProc.innerHTML = '';
+                const colComp = document.getElementById('colCompletadas'); colComp.innerHTML = '';
+
+                // DIBUJAR: POR HACER (BACKLOG)
+                arrAsignadas.forEach(p => {
+                    let esDemorada = p.entrega < hoyString;
+                    let claseCard = esDemorada ? "k-card k-card-demorada" : "k-card";
+                    let claseFecha = esDemorada ? "k-meta k-meta-danger" : "k-meta";
+                    let iconFecha = esDemorada ? "bx-error-circle bx-tada" : "bx-calendar";
+
+                    colAsig.innerHTML += `
+                        <div class="${claseCard}">
+                            <div class="${claseFecha}"><span><i class='bx ${iconFecha}'></i> ${p.entrega}</span> <span>${p.progreso}%</span></div>
+                            <p class="k-title" onclick="window.location.href='detalles-tarea.html?id=${p.id}'">${p.producto}</p>
+                            <p class="k-client">${p.cliente}</p>
+                            <div class="k-actions">
+                                <button class="k-btn k-btn-start" onclick="cambiarEstadoScrum(event, '${p.id}', 'iniciar')"><i class='bx bx-play'></i> Iniciar Sprint</button>
+                            </div>
+                        </div>`;
                 });
+
+                // DIBUJAR: EN PROCESO (SPRINTS)
+                arrProceso.forEach(p => {
+                    let esDemorada = p.entrega < hoyString;
+                    let claseFecha = esDemorada ? "k-meta k-meta-danger" : "k-meta";
+                    let iconFecha = esDemorada ? "bx-error-circle bx-tada" : "bx-calendar";
+
+                    colProc.innerHTML += `
+                        <div class="k-card k-card-proceso">
+                            <div class="${claseFecha}"><span><i class='bx ${iconFecha}'></i> ${p.entrega}</span> <span>${p.progreso}%</span></div>
+                            <p class="k-title" onclick="window.location.href='detalles-tarea.html?id=${p.id}'">${p.producto}</p>
+                            <p class="k-client">${p.cliente}</p>
+                            <div style="background:#edf2f7; height:5px; border-radius:10px; margin-bottom:10px;"><div style="width:${p.progreso}%; background:#3182ce; height:100%; border-radius:10px;"></div></div>
+                            <div class="k-actions">
+                                <button class="k-btn k-btn-pause" onclick="cambiarEstadoScrum(event, '${p.id}', 'pausar')"><i class='bx bx-pause'></i> Pausar</button>
+                                <button class="k-btn k-btn-done" onclick="cambiarEstadoScrum(event, '${p.id}', 'terminar')"><i class='bx bx-check'></i> Terminar</button>
+                            </div>
+                        </div>`;
+                });
+
+                // DIBUJAR: TERMINADAS (Muestra solo las 10 más recientes)
+                arrCompletadas.slice(0, 10).forEach(p => {
+                    colComp.innerHTML += `
+                        <div class="k-card k-card-completada" onclick="window.location.href='detalles-tarea.html?id=${p.id}'">
+                            <div class="k-meta"><span><i class='bx bx-check-double'></i> Entregado</span> <span>100%</span></div>
+                            <p class="k-title" style="text-decoration: line-through; color: #718096;">${p.producto}</p>
+                            <p class="k-client">${p.cliente}</p>
+                        </div>`;
+                });
+                if(arrCompletadas.length > 10) {
+                    colComp.innerHTML += `<div style="text-align:center; padding:10px; font-size:0.8rem; color:#718096;">Ver el resto en "Mis Trabajos"</div>`;
+                }
+
             });
         }
 
         document.getElementById('addProjectForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             try {
-                const selects = document.querySelectorAll('.collab-select');
-                let correos = Array.from(selects).map(s => s.value.toLowerCase().trim()).filter(c => c !== "");
-                correos = [...new Set(correos)];
-                if (correos.length === 0) return alert("Selecciona colaborador.");
+                const selects = document.querySelectorAll('.collab-select'); let correos = Array.from(selects).map(s => s.value.toLowerCase().trim()).filter(c => c !== "");
+                correos = [...new Set(correos)]; if (correos.length === 0) return alert("Selecciona colaborador.");
 
                 const docRef = await addDoc(collection(db, "proyectos"), {
                     categoria: document.getElementById('projCategory').value, producto: document.getElementById('projProduct').value, cliente: document.getElementById('projClient').value,
