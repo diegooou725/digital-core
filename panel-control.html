@@ -46,7 +46,7 @@
         .btn-ignorar:hover { background: #fed7d7; color: #e53e3e; }
 
         /* =========================================
-           NUEVO: TABLERO SCRUM / KANBAN
+           TABLERO SCRUM / KANBAN
            ========================================= */
         .kanban-board { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 15px; }
         .kanban-col { background: #e2e8f0; border-radius: 12px; min-width: 320px; flex: 1; padding: 15px; display: flex; flex-direction: column; gap: 15px; }
@@ -60,7 +60,12 @@
         
         .k-title { font-weight: 800; color: var(--dark-blue); margin: 0 0 5px 0; font-size: 1.05rem; cursor: pointer;}
         .k-title:hover { text-decoration: underline; color: var(--neon-blue); }
-        .k-client { font-size: 0.8rem; color: #718096; margin: 0 0 10px 0; }
+        .k-client { font-size: 0.8rem; color: #718096; margin: 0 0 5px 0; }
+        
+        /* NUEVO: ETIQUETA DE RESPONSABLE */
+        .k-assignee { font-size: 0.75rem; color: #4a5568; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 4px; }
+        .k-assignee i { color: var(--neon-blue); font-size: 1.1rem; }
+
         .k-meta { display: flex; justify-content: space-between; font-size: 0.75rem; color: #a0aec0; margin-bottom: 15px; font-weight: 700;}
         .k-meta-danger { color: #e53e3e !important; }
         
@@ -269,13 +274,10 @@
 
             try {
                 if (accion === 'iniciar') {
-                    // Validar límite de trabajo (solo 1 en proceso a la vez si es colaborador)
                     if (!esAdmin) {
                         const q = query(collection(db, "proyectos"), where("asignado_a", "array-contains", usuarioActual), where("en_proceso", "==", true));
                         const activas = await getDocs(q);
-                        if (!activas.empty) {
-                            alert("✋ Ya tienes una tarea en tu Sprint. Páusala antes de iniciar otra."); return;
-                        }
+                        if (!activas.empty) { alert("✋ Ya tienes una tarea en tu Sprint. Páusala antes de iniciar otra."); return; }
                     }
                     await updateDoc(docRef, { en_proceso: true, historial_avance: window.firebaseArrayUnion({ fecha: fechaHora, porcentaje: 0, comentario: "▶ Tarea INICIADA desde el Tablero Scrum.", autor: nombreAutor }) });
                 } 
@@ -342,28 +344,19 @@
                 let cTotal = tareas.length; let cAsignados = 0; let cProceso = 0; let cAtrasados = 0; let cCompletadosTotales = 0; let hayUnaEnProceso = false; 
                 const hoyFecha = new Date(); const hoyString = hoyFecha.toISOString().split('T')[0];
 
-                // Arrays para las columnas Scrum
                 let arrAsignadas = []; let arrProceso = []; let arrCompletadas = [];
 
-                tareas.sort((a, b) => new Date(a.entrega) - new Date(b.entrega)); // Ordenar por fecha límite
+                tareas.sort((a, b) => new Date(a.entrega) - new Date(b.entrega));
 
                 tareas.forEach(async (p) => {
-                    // Evaluación de estados y distribución en Scrum
-                    if (p.completado) { 
-                        cCompletadosTotales++; 
-                        arrCompletadas.push(p);
-                    } 
-                    else if (p.en_proceso) { 
-                        cProceso++; hayUnaEnProceso = true; p._estadoVisual = "EN PROCESO"; 
-                        arrProceso.push(p);
-                    } 
+                    if (p.completado) { cCompletadosTotales++; arrCompletadas.push(p); } 
+                    else if (p.en_proceso) { cProceso++; hayUnaEnProceso = true; p._estadoVisual = "EN PROCESO"; arrProceso.push(p); } 
                     else {
                         if (p.entrega < hoyString) { cAtrasados++; p._estadoVisual = "DEMORADA"; } 
                         else { cAsignados++; p._estadoVisual = "ASIGNADA"; }
                         arrAsignadas.push(p);
                     }
 
-                    // Alertas automáticas
                     if (!p.completado) {
                         let msFaltantes = new Date(p.entrega) - hoyFecha; let diasFaltantes = msFaltantes / (1000 * 60 * 60 * 24);
                         if (diasFaltantes > 0 && diasFaltantes <= 2 && !p.alerta_vencimiento) {
@@ -373,7 +366,6 @@
                     }
                 });
 
-                // Actualizar KPIs superiores
                 document.getElementById('statTotal').innerText = cTotal; document.getElementById('statAsignados').innerText = arrAsignadas.length; 
                 document.getElementById('statProceso').innerText = cProceso; document.getElementById('statAtrasados').innerText = cAtrasados;
 
@@ -393,7 +385,7 @@
                 // =========================================
                 document.getElementById('countAsignadas').innerText = arrAsignadas.length;
                 document.getElementById('countProceso').innerText = arrProceso.length;
-                document.getElementById('countCompletadas').innerText = arrCompletadas.slice(0, 10).length; // Solo mostrar las últimas 10 completadas para no saturar
+                document.getElementById('countCompletadas').innerText = arrCompletadas.slice(0, 10).length;
 
                 const colAsig = document.getElementById('colAsignadas'); colAsig.innerHTML = '';
                 const colProc = document.getElementById('colProceso'); colProc.innerHTML = '';
@@ -406,11 +398,21 @@
                     let claseFecha = esDemorada ? "k-meta k-meta-danger" : "k-meta";
                     let iconFecha = esDemorada ? "bx-error-circle bx-tada" : "bx-calendar";
 
+                    // EXTRAER RESPONSABLE (Con lógica inteligente para Admin vs Colab)
+                    let responsablesArray = Array.isArray(p.asignado_a) ? p.asignado_a : [p.asignado_a];
+                    let responsablesTxt = responsablesArray[0].split('@')[0] + (responsablesArray.length > 1 ? ' +' : '');
+                    let txtFinalResponsable = isAdmin ? responsablesTxt : 'Tú';
+
                     colAsig.innerHTML += `
                         <div class="${claseCard}">
                             <div class="${claseFecha}"><span><i class='bx ${iconFecha}'></i> ${p.entrega}</span> <span>${p.progreso}%</span></div>
                             <p class="k-title" onclick="window.location.href='detalles-tarea.html?id=${p.id}'">${p.producto}</p>
                             <p class="k-client">${p.cliente}</p>
+                            
+                            <div class="k-assignee">
+                                <i class='bx bxs-user-badge'></i> ${txtFinalResponsable}
+                            </div>
+
                             <div class="k-actions">
                                 <button class="k-btn k-btn-start" onclick="cambiarEstadoScrum(event, '${p.id}', 'iniciar')"><i class='bx bx-play'></i> Iniciar Sprint</button>
                             </div>
@@ -423,11 +425,21 @@
                     let claseFecha = esDemorada ? "k-meta k-meta-danger" : "k-meta";
                     let iconFecha = esDemorada ? "bx-error-circle bx-tada" : "bx-calendar";
 
+                    // EXTRAER RESPONSABLE
+                    let responsablesArray = Array.isArray(p.asignado_a) ? p.asignado_a : [p.asignado_a];
+                    let responsablesTxt = responsablesArray[0].split('@')[0] + (responsablesArray.length > 1 ? ' +' : '');
+                    let txtFinalResponsable = isAdmin ? responsablesTxt : 'Tú';
+
                     colProc.innerHTML += `
                         <div class="k-card k-card-proceso">
                             <div class="${claseFecha}"><span><i class='bx ${iconFecha}'></i> ${p.entrega}</span> <span>${p.progreso}%</span></div>
                             <p class="k-title" onclick="window.location.href='detalles-tarea.html?id=${p.id}'">${p.producto}</p>
                             <p class="k-client">${p.cliente}</p>
+                            
+                            <div class="k-assignee">
+                                <i class='bx bxs-user-badge'></i> ${txtFinalResponsable}
+                            </div>
+
                             <div style="background:#edf2f7; height:5px; border-radius:10px; margin-bottom:10px;"><div style="width:${p.progreso}%; background:#3182ce; height:100%; border-radius:10px;"></div></div>
                             <div class="k-actions">
                                 <button class="k-btn k-btn-pause" onclick="cambiarEstadoScrum(event, '${p.id}', 'pausar')"><i class='bx bx-pause'></i> Pausar</button>
@@ -436,13 +448,21 @@
                         </div>`;
                 });
 
-                // DIBUJAR: TERMINADAS (Muestra solo las 10 más recientes)
+                // DIBUJAR: TERMINADAS
                 arrCompletadas.slice(0, 10).forEach(p => {
+                    let responsablesArray = Array.isArray(p.asignado_a) ? p.asignado_a : [p.asignado_a];
+                    let responsablesTxt = responsablesArray[0].split('@')[0] + (responsablesArray.length > 1 ? ' +' : '');
+                    let txtFinalResponsable = isAdmin ? responsablesTxt : 'Tú';
+
                     colComp.innerHTML += `
                         <div class="k-card k-card-completada" onclick="window.location.href='detalles-tarea.html?id=${p.id}'">
                             <div class="k-meta"><span><i class='bx bx-check-double'></i> Entregado</span> <span>100%</span></div>
                             <p class="k-title" style="text-decoration: line-through; color: #718096;">${p.producto}</p>
                             <p class="k-client">${p.cliente}</p>
+                            
+                            <div style="font-size: 0.7rem; color: #a0aec0; font-weight: 700; display: flex; align-items: center; gap: 4px;">
+                                <i class='bx bxs-user-badge'></i> ${txtFinalResponsable}
+                            </div>
                         </div>`;
                 });
                 if(arrCompletadas.length > 10) {
