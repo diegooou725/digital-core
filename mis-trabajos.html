@@ -34,31 +34,42 @@
         .btn-clear-filter:hover { background: #edf2f7; }
 
         /* =========================================
-           MÓDULO DE OPTIMIZACIÓN MÓVIL (APP NATIVA)
+           PARCHE MÓVIL ESTRICTO (APP NATIVA V2.0)
            ========================================= */
         @media (max-width: 768px) {
-            body { display: block; }
-            .sidebar { width: 100%; height: 75px; position: fixed; bottom: 0; left: 0; top: auto; flex-direction: row; justify-content: space-around; padding: 0 5px; z-index: 9999; border-top: 1px solid #1e293b; box-shadow: 0 -5px 20px rgba(0,0,0,0.15); border-radius: 20px 20px 0 0; }
+            html, body { overflow-x: hidden; width: 100vw; margin: 0; padding: 0; }
+            body { display: block; padding-bottom: 90px; } 
+            .sidebar { 
+                width: 100vw; height: 70px; 
+                position: fixed; bottom: 0; left: 0; top: auto; 
+                display: flex; flex-direction: row; justify-content: space-between; align-items: center;
+                padding: 0 5px; box-sizing: border-box; z-index: 9999; 
+                border-top: 1px solid #1e293b; box-shadow: 0 -5px 15px rgba(0,0,0,0.1); 
+                border-radius: 20px 20px 0 0; background: var(--dark-blue);
+            }
             .sidebar h2, .sidebar-logo { display: none; }
-            .nav-links { display: flex; flex-direction: row; width: 100%; justify-content: space-around; align-items: center; }
-            .nav-links li { width: auto; flex-grow: 1; }
-            .nav-links a { flex-direction: column; padding: 8px 0; gap: 4px; border-radius: 12px; text-align: center; margin: 0 2px;}
-            .nav-links a i { font-size: 1.6rem; margin: 0; }
-            .nav-links a span { font-size: 0.65rem; display: block; font-weight: 800; }
-            
-            #logoutBtn { padding: 10px; flex-direction: column; gap: 4px; margin: 0; width: auto;}
-            #logoutBtn span { display: none; }
-            #logoutBtn i { font-size: 1.6rem; margin: 0; }
-
-            .main-content { margin-left: 0; width: 100%; padding: 1.5rem 1rem 95px 1rem; }
-            .top-bar { flex-direction: column; align-items: flex-start; gap: 15px; padding: 1.2rem; }
-            .card-grid { grid-template-columns: 1fr; }
-            h1 { font-size: 1.6rem !important; line-height: 1.2; }
-            .btn-clear-filter { width: 100%; justify-content: center; }
+            .nav-links { display: flex; flex-direction: row; justify-content: space-around; width: 80%; padding: 0; margin: 0; }
+            .nav-links li { display: flex; justify-content: center; align-items: center; width: 100%; }
+            .nav-links a { flex-direction: column; justify-content: center; align-items: center; padding: 5px 0; gap: 4px; width: 100%; margin: 0;}
+            #logoutBtn { width: 20%; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 5px 0; gap: 4px; margin: 0; }
+            .nav-links a i, #logoutBtn i { font-size: 1.6rem; margin: 0; }
+            .nav-links a span, #logoutBtn span { font-size: 0.65rem; display: block; font-weight: 800; margin: 0; text-align: center; }
+            .notif-badge-menu { position: absolute; right: 20%; top: 2px; padding: 2px 6px; }
+            .main-content { margin-left: 0; width: 100vw; padding: 1.5rem 1rem; box-sizing: border-box; }
+            .top-bar { flex-direction: column; align-items: center; text-align: center; gap: 15px; padding: 1.5rem; width: 100%; box-sizing: border-box; }
+            .top-bar > div { width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+            .content-card, .detail-card, .task-card, .stat-card, .user-card, .cat-card { width: 100%; box-sizing: border-box; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .card-grid, .form-grid, .user-grid, .catalog-grid { grid-template-columns: 1fr; width: 100%; }
+            div[style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; gap: 15px !important; }
+            h1, h2 { text-align: center; word-wrap: break-word; font-size: 1.8rem !important; line-height: 1.2; margin-bottom: 10px;}
+            p { text-align: center; }
+            .btn-action, .btn-secondary, .btn-clear-filter { width: 100%; justify-content: center; padding: 15px; font-size: 1rem; box-sizing: border-box; }
         }
         @media (max-width: 480px) {
-            .top-bar > div:last-child { width: 100%; justify-content: center; }
-            .nav-links a span { display: none; }
+            .nav-links a span, #logoutBtn span { display: none; }
+            .nav-links a i, #logoutBtn i { font-size: 2rem; }
+            .stats-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
