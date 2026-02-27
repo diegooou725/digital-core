@@ -2,96 +2,56 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis Trabajos | Digital Core</title>
-    <link rel="icon" href="Isotipo.png" type="image/png">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        :root { --sidebar-width: 260px; }
-        body { display: flex; background: #f0f4f8; min-height: 100vh; margin: 0; font-family: 'Inter', sans-serif; }
-        .sidebar { width: var(--sidebar-width); height: 100vh; background: var(--dark-blue); color: white; position: fixed; padding: 2rem 1rem; display: flex; flex-direction: column; z-index: 100; }
-        .sidebar-logo { width: 80%; margin-bottom: 3rem; padding-left: 1rem; }
-        .nav-links { list-style: none; flex-grow: 1; padding: 0; }
-        .nav-links a { display: flex; align-items: center; gap: 15px; color: rgba(255,255,255,0.7); text-decoration: none; padding: 12px 1rem; border-radius: 8px; transition: 0.3s; font-weight: 600; }
-        .nav-links a.active { background: rgba(0, 156, 225, 0.2); color: var(--neon-blue); }
-        .main-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 2rem 3rem; }
-        .work-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
-        .work-card { background: white; border-radius: 15px; padding: 25px; border-left: 5px solid var(--neon-blue); cursor: pointer; transition: 0.3s; position: relative; }
-        .work-card:hover { transform: scale(1.02); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-        .badge { position: absolute; top: 20px; right: 20px; font-size: 0.7rem; font-weight: 900; padding: 4px 12px; border-radius: 50px; }
-        .badge-done { background: #c6f6d5; color: #22543d; }
-        .badge-doing { background: #ebf8ff; color: #2b6cb0; }
-        .progress-line { height: 10px; background: #edf2f7; border-radius: 50px; margin: 20px 0; overflow: hidden; }
-        .progress-line-fill { height: 100%; background: var(--neon-blue); transition: 0.5s; }
-    </style>
-</head>
+    <title>Histórico de Trabajos | Digital Core</title>
+    </head>
 <body>
-    <aside class="sidebar">
-        <img src="Digital Core original.png" alt="Logo" class="sidebar-logo">
-        <ul class="nav-links">
-            <li><a href="panel-control.html"><i class='bx bxs-dashboard'></i> <span>Dashboard</span></a></li>
-            <li><a href="mis-trabajos.html" class="active"><i class='bx bxs-briefcase'></i> <span>Mis Trabajos</span></a></li>
-            <li><a href="colaboradores.html"><i class='bx bxs-group'></i> <span>Colaboradores</span></a></li>
-            <li><a href="#"><i class='bx bxs-package'></i> <span>Catálogo</span></a></li>
-        </ul>
-        <button id="logoutBtn" style="background:none; border:none; color:#ff6b6b; cursor:pointer; display:flex; align-items:center; gap:15px; padding:12px 1rem; font-weight:600; margin-top: auto;">
-            <i class='bx bx-log-out'></i> <span>Cerrar Sesión</span>
-        </button>
-    </aside>
-
-    <main class="main-content">
-        <header style="margin-bottom: 2rem;">
-            <h1 style="color: var(--dark-blue); font-weight: 900; margin: 0; font-size: 2rem;">Mi Agenda de Trabajo</h1>
-            <p style="color: #718096; margin: 0;">Gestiona tus tareas y marca progresos en Digital Core</p>
-        </header>
-
-        <div id="personalGrid" class="work-grid">
-            </div>
+    <main class="main-content" style="margin-left: 260px; padding: 2rem; font-family: 'Inter', sans-serif;">
+        <h2>Histórico Completo de Trabajos</h2>
+        <div id="fullBoard" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;"></div>
     </main>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
         import { getFirestore, collection, onSnapshot, query, where } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
+        // Misma config de Firebase...
         const firebaseConfig = { apiKey: "AIzaSyBlouup64jteDrbUkOkSSEqsjesnuT6mdQ", authDomain: "digital-core-app.firebaseapp.com", projectId: "digital-core-app", storageBucket: "digital-core-app.firebasestorage.app", messagingSenderId: "1003292240722", appId: "1:1003292240722:web:b2a2af0665df1ef00fe88b" };
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
+        const app = initializeApp(firebaseConfig); const auth = getAuth(app); const db = getFirestore(app);
 
         onAuthStateChanged(auth, (user) => {
-            if (user) {
-                const email = user.email.toLowerCase().trim();
-                cargarMisTareas(email);
-            } else { window.location.href = 'intranet.html'; }
+            if (user) renderizarTodo(user.email.toLowerCase().trim());
         });
 
-        function cargarMisTareas(email) {
-            const q = query(collection(db, "proyectos"), where("asignado_a", "==", email));
-            onSnapshot(q, (snap) => {
-                const container = document.getElementById('personalGrid');
+        function renderizarTodo(email) {
+            onSnapshot(query(collection(db, "proyectos"), where("asignado_a", "==", email)), (snap) => {
+                let tareas = [];
+                snap.forEach(d => tareas.push({ id: d.id, ...d.data() }));
+                
+                // Ordenar por fecha de entrega
+                tareas.sort((a, b) => new Date(b.entrega) - new Date(a.entrega));
+
+                let hayUnaEnProceso = false;
+                const hoy = new Date().toISOString().split('T')[0];
+                const container = document.getElementById('fullBoard');
                 container.innerHTML = "";
-                if (snap.empty) { container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #888;">No tienes tareas asignadas actualmente.</p>`; return; }
-                snap.forEach(d => {
-                    const p = d.data();
+
+                tareas.forEach(p => {
+                    let eStr = "ASIGNADA"; let cStr = "border-left: 5px solid #718096;"; let bCol = "#718096";
+                    
+                    if (p.completado) { eStr = "COMPLETADA"; cStr = "border-left: 5px solid #38a169;"; bCol = "#38a169"; }
+                    else if (p.entrega < hoy) { eStr = "DEMORADA"; cStr = "border-left: 5px solid #e53e3e;"; bCol = "#e53e3e"; }
+                    else if (p.progreso > 0 && !hayUnaEnProceso) { eStr = "EN PROCESO"; cStr = "border-left: 5px solid #3182ce;"; bCol = "#3182ce"; hayUnaEnProceso = true; }
+
                     container.innerHTML += `
-                        <div class="work-card" onclick="window.location.href='detalles-tarea.html?id=${d.id}'">
-                            <span class="badge ${p.completado ? 'badge-done' : 'badge-doing'}">${p.completado ? 'COMPLETA' : 'ACTIVA'}</span>
-                            <small style="color: #a0aec0; text-transform: uppercase; font-weight: 800;">${p.categoria}</small>
-                            <h3 style="margin: 10px 0; color: var(--dark-blue);">${p.producto}</h3>
-                            <p style="font-size: 0.85rem; color: #4a5568;">Cliente: <b>${p.cliente}</b></p>
-                            <div class="progress-line"><div class="progress-line-fill" style="width: ${p.progreso}%"></div></div>
-                            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #718096; font-weight: 600;">
-                                <span>Progreso: ${p.progreso}%</span>
-                                <span><i class='bx bx-time'></i> ${p.entrega}</span>
-                            </div>
+                        <div style="background: white; padding: 20px; border-radius: 12px; cursor:pointer; ${cStr}" onclick="window.location.href='detalles-tarea.html?id=${p.id}'">
+                            <span style="font-size:0.7rem; font-weight:bold; color:${bCol};">${eStr}</span>
+                            <h3 style="margin:5px 0;">${p.producto}</h3>
+                            <p style="font-size:0.8rem; color:#718096;">Progreso: ${p.progreso}%</p>
                         </div>`;
                 });
             });
         }
-        document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth).then(() => window.location.href = 'index.html'));
     </script>
 </body>
 </html>
