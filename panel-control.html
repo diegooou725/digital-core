@@ -34,7 +34,7 @@
             border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
         }
 
-        /* FORMULARIO */
+        /* CARDS Y FORMULARIO */
         .content-card { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 2rem; }
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .form-control { padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; }
@@ -124,18 +124,18 @@
                             <input type="date" id="projDeadline" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label>Asignar a</label>
+                            <label>Asignar a Colaborador</label>
                             <select id="projAssign" class="form-control" required>
-                                <option value="diego.725.reyes@gmail.com">Diego Reyes</option>
-                                <option value="ptres2499@gmail.com">Admin Core</option>
-                            </select>
+                                <option value="diego.725.reyes@gmail.com">Diego Reyes (Lead Engineer)</option>
+                                <option value="ptres2499@gmail.com">Administrador Core</option>
+                                </select>
                         </div>
                         <div class="form-group">
-                            <label>Estado</label>
+                            <label>Estado Inicial</label>
                             <select id="projStatus" class="form-control">
                                 <option value="En proceso">En proceso</option>
                                 <option value="Urgente">Urgente</option>
-                                <option value="Entregado">Entregado</option>
+                                <option value="Pendiente">Pendiente</option>
                             </select>
                         </div>
                     </div>
@@ -145,7 +145,7 @@
         </section>
 
         <section class="content-card">
-            <h2 style="color: var(--dark-blue); margin-bottom: 25px;"><i class='bx bx-objects-horizontal-left'></i> Proyectos Activos</h2>
+            <h2 id="boardTitle" style="color: var(--dark-blue); margin-bottom: 25px;"><i class='bx bx-list-ul'></i> Cargando tareas...</h2>
             <div id="projectBoard" class="board-container"></div>
         </section>
     </main>
@@ -153,7 +153,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, serverTimestamp, onSnapshot, query, orderBy, updateDoc, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, serverTimestamp, onSnapshot, query, orderBy, updateDoc, doc, deleteDoc, where } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBlouup64jteDrbUkOkSSEqsjesnuT6mdQ",
@@ -169,6 +169,7 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
+        // LOGICA DE PRODUCTOS DINAMICOS
         window.actualizarProductos = function() {
             const cat = document.getElementById('projCategory').value;
             const prod = document.getElementById('projProduct');
@@ -191,21 +192,28 @@
             } else { prod.disabled = true; }
         };
 
+        // ACCESO Y FILTRO DE PRIVACIDAD
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 document.getElementById('userEmailLabel').innerText = user.email;
-                if (user.email === 'diego.725.reyes@gmail.com') {
+                const isAdmin = user.email === 'diego.725.reyes@gmail.com';
+                
+                if (isAdmin) {
                     document.getElementById('userNameWelcome').innerText = "¡Hola, Founder!";
                     document.getElementById('roleLabel').innerText = "Gestión Maestra de Digital Core";
                     document.getElementById('adminOnlySection').style.display = 'block';
+                    document.getElementById('boardTitle').innerHTML = "<i class='bx bx-globe'></i> Tablero Global de Proyectos";
                 } else {
                     document.getElementById('userNameWelcome').innerText = "Panel Operativo";
-                    document.getElementById('roleLabel').innerText = "Colaborador";
+                    document.getElementById('roleLabel').innerText = "Mis Asignaciones";
+                    document.getElementById('boardTitle').innerHTML = "<i class='bx bx-briefcase'></i> Mis Trabajos Asignados";
                 }
-                cargarProyectos(user.email);
+                
+                cargarProyectos(user.email, isAdmin);
             } else { window.location.href = 'intranet.html'; }
         });
 
+        // GUARDAR PROYECTO
         document.getElementById('addProjectForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             try {
@@ -219,13 +227,14 @@
                     progreso: 0,
                     creado: serverTimestamp()
                 });
-                alert("Proyecto guardado con éxito.");
+                alert("Proyecto publicado correctamente.");
                 document.getElementById('addProjectForm').reset();
-            } catch (err) { alert("Error: " + err.message); }
+            } catch (err) { alert("Error al guardar: " + err.message); }
         });
 
+        // FUNCIONES DE CONTROL (UPDATE Y DELETE)
         window.eliminarProyecto = async (id) => {
-            if(confirm("¿Borrar definitivamente?")) await deleteDoc(doc(db, "proyectos", id));
+            if(confirm("¿Estás seguro de eliminar este registro?")) await deleteDoc(doc(db, "proyectos", id));
         };
 
         window.cambiarProgreso = async (id, actual, cambio) => {
@@ -233,30 +242,53 @@
             await updateDoc(doc(db, "proyectos", id), { progreso: n });
         };
 
-        function cargarProyectos(email) {
-            const q = query(collection(db, "proyectos"), orderBy("creado", "desc"));
+        // CARGA INTELIGENTE DE DATOS (EL FILTRO DE PRIVACIDAD)
+        function cargarProyectos(email, isAdmin) {
+            let q;
+            
+            // Si eres Admin, ves TODO. Si eres colaborador, solo ves LO TUYO.
+            if (isAdmin) {
+                q = query(collection(db, "proyectos"), orderBy("creado", "desc"));
+            } else {
+                q = query(collection(db, "proyectos"), 
+                          where("asignado_a", "==", email), 
+                          orderBy("creado", "desc"));
+            }
+
             onSnapshot(q, (snap) => {
                 const container = document.getElementById('projectBoard');
                 container.innerHTML = "";
+                
+                if (snap.empty) {
+                    container.innerHTML = "<p style='color:#888;'>No hay proyectos asignados para mostrar.</p>";
+                    return;
+                }
+
                 snap.forEach((d) => {
                     const p = d.data();
-                    const esAdmin = email === 'diego.725.reyes@gmail.com';
                     container.innerHTML += `
                         <div class="project-card">
-                            ${esAdmin ? `<i class='bx bx-trash delete-btn' onclick="eliminarProyecto('${d.id}')"></i>` : ''}
+                            ${isAdmin ? `<i class='bx bx-trash delete-btn' onclick="eliminarProyecto('${d.id}')"></i>` : ''}
                             <span style="font-size:0.6rem; color:var(--light-blue); font-weight:800;">${p.categoria}</span>
-                            <h3 style="margin:5px 0; font-size:1rem;">${p.producto}</h3>
+                            <h3 style="margin:5px 0; font-size:1rem; color:var(--dark-blue);">${p.producto}</h3>
                             <p style="font-size:0.75rem; color:#888;">Cliente: ${p.cliente}</p>
-                            <div class="progress-container"><div class="progress-bar" style="width:${p.progress || p.progreso}%"></div></div>
+                            <div class="progress-container"><div class="progress-bar" style="width:${p.progreso}%"></div></div>
                             <div class="progress-controls">
-                                <button class="control-btn" onclick="cambiarProgreso('${d.id}', ${p.progress || p.progreso}, -10)">-</button>
-                                <span style="font-size:0.8rem; font-weight:bold;">${p.progress || p.progreso}%</span>
-                                <button class="control-btn" onclick="cambiarProgreso('${d.id}', ${p.progress || p.progreso}, 10)">+</button>
+                                <button class="control-btn" onclick="cambiarProgreso('${d.id}', ${p.progreso}, -10)">-</button>
+                                <span style="font-size:0.8rem; font-weight:bold;">${p.progreso}%</span>
+                                <button class="control-btn" onclick="cambiarProgreso('${d.id}', ${p.progreso}, 10)">+</button>
                             </div>
-                            <p style="font-size:0.7rem; color:#666; margin-top:10px;">Entrega: ${p.entrega} | <b>${p.asignado_a.split('@')[0]}</b></p>
+                            <div style="display:flex; justify-content:space-between; margin-top:10px; align-items:center;">
+                                <p style="font-size:0.7rem; color:#666; margin:0;">Entrega: ${p.entrega}</p>
+                                <span style="font-size:0.7rem; font-weight:700; color:var(--dark-blue); background:#eee; padding:2px 8px; border-radius:4px;">
+                                    ${p.asignado_a.split('@')[0]}
+                                </span>
+                            </div>
                         </div>
                     `;
                 });
+            }, (error) => {
+                console.error("Error en Snapshot:", error);
             });
         }
 
