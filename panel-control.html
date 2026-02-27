@@ -34,10 +34,10 @@
             border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
         }
 
-        /* CARDS Y FORMULARIO */
+        /* FORMULARIO */
         .content-card { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 2rem; }
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .form-control { padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; }
+        .form-control { padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; width: 100%; }
         
         .btn-primary { 
             background: var(--neon-blue); color: white; border: none; 
@@ -46,18 +46,17 @@
         }
         .btn-primary:hover { background: var(--light-blue); transform: scale(1.01); }
 
-        /* DASHBOARD CARDS */
+        /* TABLERO */
         .board-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
         .project-card { 
             background: white; border-radius: 15px; padding: 20px; 
             border: 1px solid rgba(0, 156, 225, 0.1); position: relative;
         }
         .delete-btn { position: absolute; top: 15px; right: 15px; color: #ff6b6b; cursor: pointer; font-size: 1.2rem; }
-        .progress-controls { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
-        .control-btn { background: #eee; border: none; border-radius: 4px; padding: 2px 8px; cursor: pointer; font-weight: bold; }
         
         .progress-container { height: 8px; background: #eee; border-radius: 10px; margin: 15px 0; overflow: hidden; }
         .progress-bar { height: 100%; background: linear-gradient(90deg, var(--light-blue), var(--neon-blue)); transition: 0.5s; }
+        .control-btn { background: #eee; border: none; border-radius: 4px; padding: 4px 10px; cursor: pointer; font-weight: 900; }
 
         @media (max-width: 768px) {
             .sidebar { width: 70px; } .sidebar span, .sidebar-logo { display: none; }
@@ -84,7 +83,7 @@
         <header class="top-bar">
             <div>
                 <h1 id="userNameWelcome" style="color: var(--dark-blue); font-weight: 900; margin:0;">Cargando...</h1>
-                <p id="roleLabel" style="color: #666; margin:0; font-size: 0.9rem;">Verificando sistema...</p>
+                <p id="roleLabel" style="color: #666; margin:0; font-size: 0.9rem;">Lead Engineer Digital Core</p>
             </div>
             <div style="background: #f8fafc; padding: 8px 15px; border-radius: 50px; display: flex; align-items: center; gap: 10px; border: 1px solid #edf2f7;">
                 <i class='bx bxs-user-circle' style="color: var(--light-blue); font-size: 1.4rem;"></i>
@@ -94,7 +93,7 @@
 
         <section id="adminOnlySection" style="display: none;">
             <div class="content-card">
-                <h2 style="color: var(--dark-blue); margin-bottom: 1.5rem;"><i class='bx bx-plus-circle'></i> Alta de Proyecto</h2>
+                <h2 style="color: var(--dark-blue); margin-bottom: 1.5rem;"><i class='bx bx-plus-circle'></i> Nuevo Proyecto</h2>
                 <form id="addProjectForm">
                     <div class="form-grid">
                         <div class="form-group">
@@ -112,7 +111,7 @@
                         <div class="form-group">
                             <label>Producto</label>
                             <select id="projProduct" class="form-control" required disabled>
-                                <option value="">Selecciona producto...</option>
+                                <option value="">Selecciona...</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -126,12 +125,11 @@
                         <div class="form-group">
                             <label>Asignar a Colaborador</label>
                             <select id="projAssign" class="form-control" required>
-                                <option value="diego.725.reyes@gmail.com">Diego Reyes (Lead Engineer)</option>
-                                <option value="ptres2499@gmail.com">Administrador Core</option>
-                                </select>
+                                <option value="">Cargando equipo...</option>
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label>Estado Inicial</label>
+                            <label>Estado</label>
                             <select id="projStatus" class="form-control">
                                 <option value="En proceso">En proceso</option>
                                 <option value="Urgente">Urgente</option>
@@ -139,13 +137,13 @@
                             </select>
                         </div>
                     </div>
-                    <button type="submit" class="btn-primary">PUBLICAR EN DIGITAL CORE</button>
+                    <button type="submit" class="btn-primary">PUBLICAR PROYECTO</button>
                 </form>
             </div>
         </section>
 
         <section class="content-card">
-            <h2 id="boardTitle" style="color: var(--dark-blue); margin-bottom: 25px;"><i class='bx bx-list-ul'></i> Cargando tareas...</h2>
+            <h2 id="boardTitle" style="color: var(--dark-blue); margin-bottom: 25px;"><i class='bx bx-list-ul'></i> Tablero</h2>
             <div id="projectBoard" class="board-container"></div>
         </section>
     </main>
@@ -169,7 +167,7 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // LOGICA DE PRODUCTOS DINAMICOS
+        // LISTA DINÁMICA DE PRODUCTOS
         window.actualizarProductos = function() {
             const cat = document.getElementById('projCategory').value;
             const prod = document.getElementById('projProduct');
@@ -192,28 +190,41 @@
             } else { prod.disabled = true; }
         };
 
-        // ACCESO Y FILTRO DE PRIVACIDAD
+        // CARGAR EQUIPO DESDE FIRESTORE
+        async function cargarListaColaboradores() {
+            const select = document.getElementById('projAssign');
+            onSnapshot(collection(db, "usuarios"), (snap) => {
+                select.innerHTML = '<option value="">Selecciona integrante...</option>';
+                snap.forEach((doc) => {
+                    const u = doc.data();
+                    let o = document.createElement('option');
+                    o.value = u.correo;
+                    o.textContent = `${u.nombre} (${u.rol})`;
+                    select.appendChild(o);
+                });
+            });
+        }
+
+        // ACCESO Y FILTRO
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 document.getElementById('userEmailLabel').innerText = user.email;
                 const isAdmin = user.email === 'diego.725.reyes@gmail.com';
                 
                 if (isAdmin) {
-                    document.getElementById('userNameWelcome').innerText = "¡Hola, Founder!";
-                    document.getElementById('roleLabel').innerText = "Gestión Maestra de Digital Core";
+                    document.getElementById('userNameWelcome').innerText = "¡Hola, Diego!";
                     document.getElementById('adminOnlySection').style.display = 'block';
-                    document.getElementById('boardTitle').innerHTML = "<i class='bx bx-globe'></i> Tablero Global de Proyectos";
+                    document.getElementById('boardTitle').innerHTML = "<i class='bx bx-globe'></i> Tablero Global";
+                    cargarListaColaboradores();
                 } else {
                     document.getElementById('userNameWelcome').innerText = "Panel Operativo";
-                    document.getElementById('roleLabel').innerText = "Mis Asignaciones";
-                    document.getElementById('boardTitle').innerHTML = "<i class='bx bx-briefcase'></i> Mis Trabajos Asignados";
+                    document.getElementById('boardTitle').innerHTML = "<i class='bx bx-briefcase'></i> Mis Tareas";
                 }
-                
                 cargarProyectos(user.email, isAdmin);
             } else { window.location.href = 'intranet.html'; }
         });
 
-        // GUARDAR PROYECTO
+        // ACCIONES FIRESTORE
         document.getElementById('addProjectForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             try {
@@ -227,14 +238,13 @@
                     progreso: 0,
                     creado: serverTimestamp()
                 });
-                alert("Proyecto publicado correctamente.");
+                alert("Proyecto publicado.");
                 document.getElementById('addProjectForm').reset();
-            } catch (err) { alert("Error al guardar: " + err.message); }
+            } catch (err) { alert(err.message); }
         });
 
-        // FUNCIONES DE CONTROL (UPDATE Y DELETE)
         window.eliminarProyecto = async (id) => {
-            if(confirm("¿Estás seguro de eliminar este registro?")) await deleteDoc(doc(db, "proyectos", id));
+            if(confirm("¿Eliminar proyecto?")) await deleteDoc(doc(db, "proyectos", id));
         };
 
         window.cambiarProgreso = async (id, actual, cambio) => {
@@ -242,53 +252,35 @@
             await updateDoc(doc(db, "proyectos", id), { progreso: n });
         };
 
-        // CARGA INTELIGENTE DE DATOS (EL FILTRO DE PRIVACIDAD)
         function cargarProyectos(email, isAdmin) {
-            let q;
-            
-            // Si eres Admin, ves TODO. Si eres colaborador, solo ves LO TUYO.
-            if (isAdmin) {
-                q = query(collection(db, "proyectos"), orderBy("creado", "desc"));
-            } else {
-                q = query(collection(db, "proyectos"), 
-                          where("asignado_a", "==", email), 
-                          orderBy("creado", "desc"));
-            }
+            let q = isAdmin ? 
+                query(collection(db, "proyectos"), orderBy("creado", "desc")) : 
+                query(collection(db, "proyectos"), where("asignado_a", "==", email), orderBy("creado", "desc"));
 
             onSnapshot(q, (snap) => {
                 const container = document.getElementById('projectBoard');
                 container.innerHTML = "";
-                
-                if (snap.empty) {
-                    container.innerHTML = "<p style='color:#888;'>No hay proyectos asignados para mostrar.</p>";
-                    return;
-                }
-
                 snap.forEach((d) => {
                     const p = d.data();
                     container.innerHTML += `
                         <div class="project-card">
                             ${isAdmin ? `<i class='bx bx-trash delete-btn' onclick="eliminarProyecto('${d.id}')"></i>` : ''}
                             <span style="font-size:0.6rem; color:var(--light-blue); font-weight:800;">${p.categoria}</span>
-                            <h3 style="margin:5px 0; font-size:1rem; color:var(--dark-blue);">${p.producto}</h3>
+                            <h3 style="margin:5px 0; font-size:1rem;">${p.producto}</h3>
                             <p style="font-size:0.75rem; color:#888;">Cliente: ${p.cliente}</p>
                             <div class="progress-container"><div class="progress-bar" style="width:${p.progreso}%"></div></div>
-                            <div class="progress-controls">
+                            <div style="display:flex; align-items:center; gap:10px;">
                                 <button class="control-btn" onclick="cambiarProgreso('${d.id}', ${p.progreso}, -10)">-</button>
-                                <span style="font-size:0.8rem; font-weight:bold;">${p.progreso}%</span>
+                                <span style="font-weight:bold; font-size:0.9rem;">${p.progreso}%</span>
                                 <button class="control-btn" onclick="cambiarProgreso('${d.id}', ${p.progreso}, 10)">+</button>
                             </div>
-                            <div style="display:flex; justify-content:space-between; margin-top:10px; align-items:center;">
-                                <p style="font-size:0.7rem; color:#666; margin:0;">Entrega: ${p.entrega}</p>
-                                <span style="font-size:0.7rem; font-weight:700; color:var(--dark-blue); background:#eee; padding:2px 8px; border-radius:4px;">
-                                    ${p.asignado_a.split('@')[0]}
-                                </span>
+                            <div style="margin-top:15px; display:flex; justify-content:space-between; font-size:0.7rem;">
+                                <span>Límite: ${p.entrega}</span>
+                                <span style="font-weight:900; color:var(--dark-blue);">${p.asignado_a.split('@')[0]}</span>
                             </div>
                         </div>
                     `;
                 });
-            }, (error) => {
-                console.error("Error en Snapshot:", error);
             });
         }
 
