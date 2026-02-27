@@ -21,7 +21,7 @@
         .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; background: white; padding: 1.5rem 2rem; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         .content-card { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 2rem; }
         
-        /* TARJETAS DE ESTADÍSTICAS CLICKABLES */
+        /* ESTADÍSTICAS CLICKABLES */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
         .stat-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.5rem; text-align: center; cursor: pointer; transition: 0.2s; }
         .stat-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.05); border-color: var(--neon-blue); }
@@ -44,11 +44,10 @@
         .btn-primary { background: var(--neon-blue); color: white; border: none; padding: 14px; border-radius: 8px; font-weight: 800; cursor: pointer; width: 100%; margin-top: 20px; transition: 0.3s; }
         .btn-secondary { background: #edf2f7; color: #4a5568; border: 1px dashed #cbd5e0; padding: 10px; border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.3s; width: 100%; margin-top: 10px; }
         
-        /* NOTIFICACIONES */
+        /* NOTIFICACIONES UNIVERSALES (Para todos) */
         .notif-badge-menu { background: #e53e3e; color: white; border-radius: 50%; padding: 2px 7px; font-size: 0.65rem; font-weight: 900; position: absolute; right: 10px; }
         .notif-item { background: white; border-left: 4px solid var(--neon-blue); padding: 15px; border-radius: 8px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
         .notif-item.n-alerta { border-left-color: #e53e3e; background: #fff5f5; }
-        .notif-item.n-info { border-left-color: #3182ce; background: #ebf8ff; }
         .btn-ignorar { background: transparent; border: none; color: #a0aec0; cursor: pointer; font-size: 1.5rem; transition: 0.2s; padding: 5px; border-radius: 50%; }
         .btn-ignorar:hover { background: #fed7d7; color: #e53e3e; }
 
@@ -63,6 +62,7 @@
             <li><a href="panel-control.html" class="active"><i class='bx bxs-dashboard'></i> <span>Dashboard</span> <span id="notifCount" class="notif-badge-menu" style="display:none;">0</span></a></li>
             <li><a href="mis-trabajos.html"><i class='bx bxs-briefcase'></i> <span>Mis Trabajos</span></a></li>
             <li><a href="colaboradores.html"><i class='bx bxs-group'></i> <span>Colaboradores</span></a></li>
+            <li><a href="#"><i class='bx bxs-package'></i> <span>Catálogo</span></a></li>
         </ul>
         <button id="logoutBtn" style="background:none; border:none; color:#ff6b6b; cursor:pointer; display:flex; align-items:center; gap:15px; padding:12px 1rem; font-weight:600; margin-top: auto;">
             <i class='bx bx-log-out'></i> <span>Cerrar Sesión</span>
@@ -73,7 +73,7 @@
         <header class="top-bar">
             <div>
                 <h1 id="userNameWelcome" style="color: var(--dark-blue); font-weight: 900; margin:0;">Iniciando...</h1>
-                <p id="roleLabel" style="color: #666; margin:0; font-size: 0.9rem;">Sincronizando...</p>
+                <p id="roleLabel" style="color: #666; margin:0; font-size: 0.9rem;">Sincronizando Sistema</p>
             </div>
             <div style="background: #f8fafc; padding: 8px 15px; border-radius: 50px; display: flex; align-items: center; gap: 10px; border: 1px solid #edf2f7;">
                 <i class='bx bxs-user-circle' style="color: var(--light-blue); font-size: 1.4rem;"></i>
@@ -81,8 +81,8 @@
             </div>
         </header>
 
-        <section id="notifSection" class="content-card" style="display: none; border-top: 5px solid var(--neon-blue);">
-            <h2 style="color: var(--dark-blue); margin-top: 0; margin-bottom: 1rem;"><i class='bx bxs-inbox'></i> Bandeja de Notificaciones</h2>
+        <section id="notifSection" style="display: none; background: white; padding: 20px; border-radius: 15px; margin-bottom: 2rem; border-top: 5px solid var(--neon-blue); box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+            <h2 style="color: var(--dark-blue); margin-top: 0; margin-bottom: 1rem;"><i class='bx bxs-bell-ring bx-tada'></i> Notificaciones Recientes</h2>
             <div id="notifListContainer"></div>
         </section>
 
@@ -91,7 +91,7 @@
                 <h2 style="color: var(--dark-blue); margin-top: 0; margin-bottom: 1.5rem;"><i class='bx bx-plus-circle'></i> Asignar Proyecto</h2>
                 <form id="addProjectForm">
                     <div class="form-grid">
-                        <div class="form-group"><label>Categoría</label><select id="projCategory" class="form-control" onchange="actualizarProductos()" required><option value="">Selecciona...</option><option value="Desarrollo Web Estratégico">Desarrollo Web Estratégico</option><option value="Sistemas de Datos">Sistemas de Datos</option></select></div>
+                        <div class="form-group"><label>Categoría</label><select id="projCategory" class="form-control" onchange="actualizarProductos()" required><option value="">Selecciona...</option><option value="Desarrollo Web Estratégico">Desarrollo Web Estratégico</option><option value="Sistemas de Datos">Sistemas de Datos</option><option value="Cursos, Capacitación y Consultoría">Cursos, Capacitación y Consultoría</option><option value="Soporte e Infraestructura">Soporte e Infraestructura</option><option value="Identidad y Diseño Visual">Identidad y Diseño Visual</option><option value="Automatización y Chatbots">Automatización y Chatbots</option></select></div>
                         <div class="form-group"><label>Producto</label><select id="projProduct" class="form-control" required disabled><option value="">Selecciona...</option></select></div>
                         <div class="form-group"><label>Cliente</label><input type="text" id="projClient" class="form-control" required></div>
                         <div class="form-group"><label>Fecha Límite</label><input type="date" id="projDeadline" class="form-control" required></div>
@@ -112,16 +112,16 @@
         <section>
             <h2 style="color: var(--dark-blue); margin-bottom: 1rem;"><i class='bx bx-line-chart'></i> Rendimiento Operativo</h2>
             <div class="stats-grid">
-                <div class="stat-card" onclick="window.location.href='mis-trabajos.html?filtro=todas'">
+                <div class="stat-card" onclick="window.location.href='mis-trabajos.html?filtro=todas'" title="Ver todo el historial">
                     <h3 id="statTotal">0</h3><p>Total Histórico</p>
                 </div>
-                <div class="stat-card" onclick="window.location.href='mis-trabajos.html?filtro=asignadas'">
+                <div class="stat-card" onclick="window.location.href='mis-trabajos.html?filtro=asignadas'" title="Ver tareas en fila">
                     <h3 id="statAsignados" style="color: #718096;">0</h3><p>Asignados</p>
                 </div>
-                <div class="stat-card" onclick="window.location.href='mis-trabajos.html?filtro=proceso'">
+                <div class="stat-card" onclick="window.location.href='mis-trabajos.html?filtro=proceso'" title="Ver tareas activas">
                     <h3 id="statProceso" style="color: #3182ce;">0</h3><p>En Proceso</p>
                 </div>
-                <div class="stat-card" style="border-color: #feb2b2;" onclick="window.location.href='mis-trabajos.html?filtro=demoradas'">
+                <div class="stat-card" style="border-color: #feb2b2;" onclick="window.location.href='mis-trabajos.html?filtro=demoradas'" title="Ver tareas con retraso">
                     <h3 id="statAtrasados" style="color: #e53e3e;">0</h3><p>Demorados</p>
                 </div>
             </div>
@@ -152,9 +152,16 @@
         window.actualizarProductos = function() {
             const cat = document.getElementById('projCategory').value;
             const prod = document.getElementById('projProduct');
-            const dic = { "Desarrollo Web Estratégico": ["Core Flash", "Core Launch", "Core Flow"], "Sistemas de Datos": ["App Móvil", "Dashboard Analítico"] };
+            const diccionario = {
+                "Desarrollo Web Estratégico": ["Core Flash", "Core Launch", "Core Flow", "Invitación Digital"],
+                "Sistemas de Datos": ["Punto de Venta (POS)", "App Móvil", "Dashboard Analítico", "Sistema ERP"],
+                "Cursos, Capacitación y Consultoría": ["Taller Tech", "Consultoría Estratégica", "Capacitación de Personal"],
+                "Soporte e Infraestructura": ["Mantenimiento Correctivo", "Mantenimiento Preventivo", "Instalación CCTV", "Redes Estructuradas"],
+                "Identidad y Diseño Visual": ["Branding Logo", "Diseño UI/UX", "Identidad Corporativa", "Material para Redes"],
+                "Automatización y Chatbots": ["Chatbot WhatsApp", "Chatbot Web", "Flujo Automatizado", "Integración API"]
+            };
             prod.innerHTML = '<option value="">Selecciona producto...</option>';
-            if (cat && dic[cat]) { prod.disabled = false; dic[cat].forEach(p => { prod.innerHTML += `<option value="${p}">${p}</option>`; }); } else { prod.disabled = true; }
+            if (cat && diccionario[cat]) { prod.disabled = false; diccionario[cat].forEach(p => { prod.innerHTML += `<option value="${p}">${p}</option>`; }); } else { prod.disabled = true; }
         };
 
         async function prepararEquipo() {
@@ -170,12 +177,12 @@
             document.getElementById('assigneesContainer').appendChild(div);
         });
 
-        // BORRAR NOTIFICACIÓN
+        // FUNCIÓN GLOBAL PARA IGNORAR/BORRAR NOTIFICACIONES
         window.borrarNotificacion = async function(id) {
-            await deleteDoc(doc(db, "notificaciones", id));
+            try { await deleteDoc(doc(db, "notificaciones", id)); } catch(e) { console.error("Error al borrar", e); alert("Error de conexión al borrar la alerta."); }
         };
 
-        // INICIALIZACIÓN
+        // INICIALIZACIÓN PRINCIPAL
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const email = user.email.toLowerCase().trim();
@@ -189,16 +196,19 @@
                     document.getElementById('roleLabel').innerText = u.rol;
                 }
 
-                if (isAdmin) { document.getElementById('adminOnlySection').style.display = 'block'; prepararEquipo(); }
+                if (isAdmin) { 
+                    document.getElementById('adminOnlySection').style.display = 'block'; 
+                    prepararEquipo(); 
+                }
 
-                // INICIAR ESCUCHAS
+                // INICIAMOS NOTIFICACIONES PARA TODOS (Admin y Colabs)
                 cargarNotificaciones(email);
                 renderizarDashboard(email, isAdmin);
             } else { window.location.href = 'intranet.html'; }
         });
 
+        // CARGA LAS NOTIFICACIONES DONDE EL USUARIO LOGUEADO ES EL DESTINATARIO
         function cargarNotificaciones(miCorreo) {
-            // Lee la colección global de notificaciones filtrando por el destinatario
             const q = query(collection(db, "notificaciones"), where("destinatario", "==", miCorreo));
             
             onSnapshot(q, (snap) => {
@@ -209,6 +219,7 @@
                 list.innerHTML = "";
                 if (snap.size > 0) {
                     badge.innerText = snap.size; badge.style.display = "block"; section.style.display = "block";
+                    
                     snap.forEach(d => {
                         const n = d.data();
                         let icon = "bx-info-circle"; let colorClass = "n-info";
@@ -218,11 +229,11 @@
                         list.innerHTML += `
                             <div class="notif-item ${colorClass}">
                                 <div style="width: 85%; cursor:pointer;" onclick="window.location.href='detalles-tarea.html?id=${n.proyectoId}'">
-                                    <strong style="display:block; font-size:0.9rem; margin-bottom:5px;"><i class='bx ${icon}'></i> ${n.titulo}</strong>
+                                    <strong style="display:block; font-size:0.95rem; margin-bottom:5px;"><i class='bx ${icon}'></i> ${n.titulo}</strong>
                                     <span style="font-size:0.85rem; color:#4a5568;">${n.mensaje}</span>
-                                    <small style="display:block; color:#a0aec0; margin-top:5px;">Haz clic para ver la tarea</small>
+                                    <small style="display:block; color:#a0aec0; margin-top:5px;">Haz clic para abrir la tarea</small>
                                 </div>
-                                <button class="btn-ignorar" onclick="borrarNotificacion('${d.id}')" title="Ignorar/Borrar"><i class='bx bx-trash'></i></button>
+                                <button class="btn-ignorar" onclick="borrarNotificacion('${d.id}')" title="Ignorar / Borrar"><i class='bx bx-trash'></i></button>
                             </div>`;
                     });
                 } else {
@@ -255,22 +266,21 @@
                     else if (p.entrega < hoyString) { cAtrasados++; p._estadoVisual = "DEMORADA"; } 
                     else { cAsignados++; p._estadoVisual = "ASIGNADA"; }
 
-                    // === ROBOT DE VENCIMIENTO (Solo revisa tareas no completadas) ===
+                    // === ROBOT DE ALERTAS AUTOMÁTICAS (VENCIMIENTO) ===
                     if (!p.completado) {
                         let msFaltantes = new Date(p.entrega) - hoyFecha;
                         let diasFaltantes = msFaltantes / (1000 * 60 * 60 * 24);
                         
-                        // Si faltan menos de 2 días y no se ha avisado
+                        // Si faltan menos de 2 días y aún no se manda alerta
                         if (diasFaltantes > 0 && diasFaltantes <= 2 && !p.alerta_vencimiento) {
-                            // Marcar en la BD que ya se avisó para no repetir
                             await updateDoc(doc(db, "proyectos", p.id), { alerta_vencimiento: true });
                             
-                            // Enviar notificación a todos los asignados
+                            // Avisar a todos los involucrados
                             p.asignado_a.forEach(correoDestino => {
                                 addDoc(collection(db, "notificaciones"), {
                                     destinatario: correoDestino,
                                     titulo: "¡TAREA PRÓXIMA A VENCER!",
-                                    mensaje: `El proyecto "${p.producto}" debe entregarse en menos de 48 horas.`,
+                                    mensaje: `Tu proyecto "${p.producto}" debe entregarse en menos de 48 horas.`,
                                     tipo: "ALERTA", proyectoId: p.id, creado: serverTimestamp()
                                 });
                             });
@@ -282,12 +292,15 @@
                 document.getElementById('statProceso').innerText = cProceso; document.getElementById('statAtrasados').innerText = cAtrasados;
 
                 const rBox = document.getElementById('reportBox'); const rText = document.getElementById('reportText');
-                if (cAtrasados > 0) { rBox.style.borderLeftColor = "#e53e3e"; rText.innerHTML = `<b>¡Alerta!</b> Tienes ${cAtrasados} tarea(s) demorada(s).`; }
-                else if (hayUnaEnProceso) { rBox.style.borderLeftColor = "#38a169"; rText.innerText = "Trabajando en tiempo y forma."; }
+                if (cAtrasados > 0) { rBox.style.borderLeftColor = "#e53e3e"; rText.innerHTML = `<b>¡Alerta!</b> Tienes ${cAtrasados} tarea(s) demorada(s). Priorízalas.`; }
+                else if (hayUnaEnProceso) { rBox.style.borderLeftColor = "#38a169"; rText.innerText = "Excelente, trabajando en tiempo y forma."; }
+                else if (cTotal === 0) { rBox.style.borderLeftColor = "#718096"; rText.innerText = "No hay carga de trabajo actual."; }
 
                 const container = document.getElementById('top3Board');
                 container.innerHTML = "";
                 const top3 = tareas.filter(t => !t.completado).slice(0, 3);
+
+                if(top3.length === 0) container.innerHTML = `<p style="grid-column: 1/-1; color: #718096;">Bandeja limpia.</p>`;
 
                 top3.forEach(p => {
                     let claseEst = "st-asignada"; let badgeClass = "badge-asignada";
@@ -306,7 +319,7 @@
             });
         }
 
-        // CREAR TAREA Y DISPARAR NOTIFICACIONES DE ASIGNACIÓN
+        // CREAR TAREA Y DISPARAR NOTIFICACIONES AL EQUIPO
         document.getElementById('addProjectForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             try {
@@ -325,12 +338,12 @@
                     alerta_vencimiento: false, creado: serverTimestamp()
                 });
                 
-                // DISPARAR NOTIFICACIÓN A CADA COLABORADOR
+                // Disparar Notificación a los colaboradores elegidos
                 correos.forEach(async (correo) => {
                     await addDoc(collection(db, "notificaciones"), {
                         destinatario: correo,
-                        titulo: "NUEVA ASIGNACIÓN",
-                        mensaje: `Se te ha asignado el proyecto: ${document.getElementById('projProduct').value} para ${document.getElementById('projClient').value}.`,
+                        titulo: "NUEVO PROYECTO ASIGNADO",
+                        mensaje: `Se te ha asignado la tarea: ${document.getElementById('projProduct').value}.`,
                         tipo: "NUEVO", proyectoId: docRef.id, creado: serverTimestamp()
                     });
                 });
