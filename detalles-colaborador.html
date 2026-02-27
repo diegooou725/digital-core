@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Colaborador | Digital Core</title>
+    <link rel="icon" href="Isotipo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        :root { --sidebar-width: 260px; --dark-blue: #0f172a; --neon-blue: #009ce1; --light-blue: #38bdf8; }
+        body { display: flex; background: #f0f4f8; min-height: 100vh; margin: 0; font-family: 'Inter', sans-serif; }
+        
+        .sidebar { width: var(--sidebar-width); height: 100vh; background: var(--dark-blue); color: white; position: fixed; padding: 2rem 1rem; display: flex; flex-direction: column; z-index: 100; box-sizing: border-box; }
+        .sidebar-logo { width: 80%; margin-bottom: 3rem; padding-left: 1rem; }
+        .nav-links { list-style: none; flex-grow: 1; padding: 0; margin: 0; }
+        .nav-links a { display: flex; align-items: center; gap: 15px; color: rgba(255,255,255,0.7); text-decoration: none; padding: 12px 1rem; border-radius: 8px; transition: 0.3s; font-weight: 600; margin-bottom: 5px; }
+        .nav-links a:hover, .nav-links a.active { background: rgba(0, 156, 225, 0.2); color: var(--neon-blue); }
+        
+        .main-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 2rem 3rem; box-sizing: border-box; }
+        
+        /* CABECERA DE PERFIL */
+        .profile-header { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 20px; margin-bottom: 2rem; border-left: 5px solid var(--neon-blue);}
+        .profile-icon { font-size: 5rem; color: #cbd5e0; }
+        
+        /* ESTADÍSTICAS */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 2rem; }
+        .stat-card { background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.5rem; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+        .stat-card h3 { margin: 0; font-size: 2.2rem; color: var(--dark-blue); }
+        .stat-card p { margin: 5px 0 0 0; font-size: 0.8rem; color: #64748b; font-weight: 700; text-transform: uppercase; }
+
+        /* TARJETAS DE TAREAS */
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+        .task-card { background: white; padding: 20px; border-radius: 12px; border-left: 5px solid #cbd5e0; cursor:pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.2s; }
+        .task-card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px rgba(0,0,0,0.05); }
+        
+        .st-demorada { border-left-color: #e53e3e; } .badge-demorada { background: #fff5f5; color:#e53e3e; font-size: 0.7rem; padding: 4px 10px; border-radius: 50px; font-weight: 800; }
+        .st-proceso { border-left-color: #3182ce; } .badge-proceso { background: #ebf8ff; color:#3182ce; font-size: 0.7rem; padding: 4px 10px; border-radius: 50px; font-weight: 800; }
+        .st-asignada { border-left-color: #718096; } .badge-asignada { background: #f7fafc; color:#718096; font-size: 0.7rem; padding: 4px 10px; border-radius: 50px; font-weight: 800; }
+        .st-completada { border-left-color: #38a169; opacity: 0.85; } .badge-completada { background: #f0fff4; color:#38a169; font-size: 0.7rem; padding: 4px 10px; border-radius: 50px; font-weight: 800; }
+        
+        .btn-back { display: inline-flex; align-items: center; gap: 5px; color: #4a5568; text-decoration: none; font-weight: 700; margin-bottom: 20px; transition: 0.2s; }
+        .btn-back:hover { color: var(--neon-blue); }
+
+        @media (max-width: 768px) { .sidebar { width: 70px; } .sidebar span, .sidebar-logo { display: none; } .main-content { margin-left: 70px; width: calc(100% - 70px); padding: 1.5rem; } }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <h2 style="padding-left: 1rem; color: var(--light-blue); margin-bottom: 2rem;">Digital Core</h2>
+        <ul class="nav-links">
+            <li><a href="panel-control.html"><i class='bx bxs-dashboard'></i> <span>Dashboard</span></a></li>
+            <li><a href="mis-trabajos.html"><i class='bx bxs-briefcase'></i> <span>Mis Trabajos</span></a></li>
+            <li><a href="colaboradores.html" class="active"><i class='bx bxs-group'></i> <span>Colaboradores</span></a></li>
+            <li><a href="#"><i class='bx bxs-package'></i> <span>Catálogo</span></a></li>
+        </ul>
+        <button id="logoutBtn" style="background:none; border:none; color:#ff6b6b; cursor:pointer; display:flex; align-items:center; gap:15px; padding:12px 1rem; font-weight:600; margin-top: auto;">
+            <i class='bx bx-log-out'></i> <span>Cerrar Sesión</span>
+        </button>
+    </aside>
+
+    <main class="main-content">
+        <a href="colaboradores.html" class="btn-back"><i class='bx bx-left-arrow-alt'></i> Volver al Directorio</a>
+
+        <div id="loader" style="text-align: center; padding: 5rem;">
+            <i class='bx bx-loader-alt bx-spin' style="font-size: 3rem; color: var(--neon-blue);"></i>
+            <p>Calculando métricas del colaborador...</p>
+        </div>
+        
+        <div id="profileContent" style="display: none;">
+            <div class="profile-header">
+                <i class='bx bxs-user-rectangle profile-icon'></i>
+                <div>
+                    <h1 id="pName" style="margin: 0; color: var(--dark-blue); font-weight: 900; font-size: 2.2rem;">Cargando...</h1>
+                    <p id="pEmail" style="margin: 5px 0; color: #718096; font-size: 1.1rem;"></p>
+                    <span id="pRole" style="display: inline-block; background: #ebf8ff; color: #2b6cb0; padding: 5px 15px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; margin-top: 10px; text-transform: uppercase;"></span>
+                </div>
+            </div>
+
+            <h2 style="color: var(--dark-blue); margin-bottom: 1rem;"><i class='bx bx-bar-chart-alt-2'></i> KPIs de Rendimiento</h2>
+            <div class="stats-grid">
+                <div class="stat-card"><h3 id="statTotal">0</h3><p>Histórico Total</p></div>
+                <div class="stat-card"><h3 id="statCompletados" style="color: #38a169;">0</h3><p>Terminados</p></div>
+                <div class="stat-card"><h3 id="statProceso" style="color: #3182ce;">0</h3><p>En Proceso</p></div>
+                <div class="stat-card"><h3 id="statAtrasados" style="color: #e53e3e;">0</h3><p>Demorados</p></div>
+            </div>
+
+            <h2 style="color: var(--dark-blue); margin-top: 2rem; margin-bottom: 1.5rem;"><i class='bx bx-briefcase-alt-2'></i> Expediente de Proyectos</h2>
+            <div id="fullBoard" class="card-grid"></div>
+        </div>
+    </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+        import { getFirestore, collection, onSnapshot, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+
+        const firebaseConfig = { apiKey: "AIzaSyBlouup64jteDrbUkOkSSEqsjesnuT6mdQ", authDomain: "digital-core-app.firebaseapp.com", projectId: "digital-core-app", storageBucket: "digital-core-app.firebasestorage.app", messagingSenderId: "1003292240722", appId: "1:1003292240722:web:b2a2af0665df1ef00fe88b" };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // EXTRAER EL CORREO A INSPECCIONAR DE LA URL
+        const targetEmail = new URLSearchParams(window.location.search).get('correo');
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                // BLINDAJE: SOLO ADMIN PUEDE ENTRAR A ESTA PÁGINA
+                if (user.email.toLowerCase().trim() !== 'diego.725.reyes@gmail.com') {
+                    window.location.href = 'panel-control.html';
+                } else if (!targetEmail) {
+                    alert("No se especificó colaborador.");
+                    window.location.href = 'colaboradores.html';
+                } else {
+                    cargarPerfilYMetricas(targetEmail);
+                }
+            } else { window.location.href = 'intranet.html'; }
+        });
+
+        async function cargarPerfilYMetricas(correo) {
+            // 1. CARGAR DATOS DEL USUARIO
+            const userQ = query(collection(db, "usuarios"), where("correo", "==", correo));
+            const userSnap = await getDocs(userQ);
+            
+            if (userSnap.empty) {
+                document.getElementById('loader').innerHTML = "<h2 style='color:#e53e3e;'>Colaborador no encontrado en la base de datos.</h2>";
+                return;
+            }
+            
+            const uData = userSnap.docs[0].data();
+            document.getElementById('pName').innerText = uData.nombre;
+            document.getElementById('pEmail').innerText = uData.correo;
+            document.getElementById('pRole').innerText = uData.rol || "Colaborador";
+            if (uData.correo === 'diego.725.reyes@gmail.com') {
+                document.getElementById('pRole').style.background = "#fff5f5";
+                document.getElementById('pRole').style.color = "#c53030";
+            }
+
+            // 2. CARGAR SU HISTORIAL DE TAREAS Y CALCULAR KPIs
+            const taskQ = query(collection(db, "proyectos"), where("asignado_a", "array-contains", correo));
+            
+            onSnapshot(taskQ, (snap) => {
+                let tareas = [];
+                snap.forEach(d => tareas.push({ id: d.id, ...d.data() }));
+
+                // === CÁLCULO DE KPIs ===
+                let cTotal = tareas.length;
+                let cProceso = 0; let cAtrasados = 0; let cCompletados = 0;
+                const hoy = new Date().toISOString().split('T')[0];
+
+                // Ordenar: Pendientes urgentes arriba, completadas abajo
+                tareas.sort((a, b) => {
+                    if (a.completado === b.completado) return new Date(a.entrega) - new Date(b.entrega);
+                    return a.completado ? 1 : -1;
+                });
+
+                const container = document.getElementById('fullBoard');
+                container.innerHTML = "";
+
+                if(tareas.length === 0) {
+                    container.innerHTML = `<p style="grid-column: 1/-1; color: #718096; text-align: center; padding: 3rem; background:white; border-radius:12px;">Este usuario no tiene ningún proyecto asignado en su historial.</p>`;
+                }
+
+                tareas.forEach(p => {
+                    // MÁQUINA DE ESTADOS
+                    let claseEst = "st-asignada"; let badgeClass = "badge-asignada"; let txtEstado = "ASIGNADA";
+                    
+                    if (p.completado) {
+                        cCompletados++; claseEst = "st-completada"; badgeClass = "badge-completada"; txtEstado = "COMPLETADA";
+                    } else if (p.en_proceso) {
+                        cProceso++; claseEst = "st-proceso"; badgeClass = "badge-proceso"; txtEstado = "EN PROCESO";
+                    } else if (p.entrega < hoy) {
+                        cAtrasados++; claseEst = "st-demorada"; badgeClass = "badge-demorada"; txtEstado = "DEMORADA";
+                    }
+
+                    container.innerHTML += `
+                        <div class="task-card ${claseEst}" onclick="window.location.href='detalles-tarea.html?id=${p.id}'">
+                            <div style="display:flex; justify-content:space-between; margin-bottom:10px; align-items:center;">
+                                <span class="${badgeClass}">${txtEstado}</span>
+                                <span style="font-size:0.75rem; color:#a0aec0; font-weight:700;"><i class='bx bx-calendar-x'></i> ${p.entrega}</span>
+                            </div>
+                            <h3 style="margin:8px 0; font-size:1.1rem; color:var(--dark-blue);">${p.producto}</h3>
+                            <p style="font-size:0.8rem; color:#718096; margin: 0 0 10px 0;">Cliente: <b>${p.cliente}</b></p>
+                            
+                            <div style="background:#edf2f7; height:8px; border-radius:10px; margin:10px 0;">
+                                <div style="width:${p.progreso}%; background: ${p.completado ? '#38a169' : 'var(--neon-blue)'}; height:100%; border-radius:10px; transition:0.5s;"></div>
+                            </div>
+                            
+                            <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:#718096; font-weight:600; margin-top: 15px;">
+                                <span>Avance: ${p.progreso}%</span>
+                            </div>
+                        </div>`;
+                });
+
+                // INYECTAR KPIs EN LA PANTALLA
+                document.getElementById('statTotal').innerText = cTotal;
+                document.getElementById('statCompletados').innerText = cCompletados;
+                document.getElementById('statProceso').innerText = cProceso;
+                document.getElementById('statAtrasados').innerText = cAtrasados;
+
+                // MOSTRAR INTERFAZ
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('profileContent').style.display = 'block';
+            });
+        }
+
+        document.getElementById('logoutBtn').onclick = () => signOut(auth).then(() => window.location.href = 'index.html');
+    </script>
+</body>
+</html>
