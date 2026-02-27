@@ -8,38 +8,26 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <style>
-        /* CSS COMPLETO Y RESTAURADO */
         :root { --sidebar-width: 260px; --dark-blue: #0f172a; --neon-blue: #009ce1; --light-blue: #38bdf8; }
         body { display: flex; background: #f0f4f8; min-height: 100vh; margin: 0; font-family: 'Inter', sans-serif; }
-        
-        /* SIDEBAR */
         .sidebar { width: var(--sidebar-width); height: 100vh; background: var(--dark-blue); color: white; position: fixed; padding: 2rem 1rem; display: flex; flex-direction: column; z-index: 100; box-sizing: border-box; }
         .sidebar-logo { width: 80%; margin-bottom: 3rem; padding-left: 1rem; }
         .nav-links { list-style: none; flex-grow: 1; padding: 0; margin: 0; }
         .nav-links a { display: flex; align-items: center; gap: 15px; color: rgba(255,255,255,0.7); text-decoration: none; padding: 12px 1rem; border-radius: 8px; transition: 0.3s; font-weight: 600; margin-bottom: 5px; }
         .nav-links a:hover, .nav-links a.active { background: rgba(0, 156, 225, 0.2); color: var(--neon-blue); }
-        
-        /* MAIN CONTENT */
         .main-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 2rem 3rem; box-sizing: border-box; }
         .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; background: white; padding: 1.5rem 2rem; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        
-        /* ESTADÍSTICAS */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 2rem; }
         .stat-card { background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.5rem; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
         .stat-card h3 { margin: 0; font-size: 2.2rem; color: var(--dark-blue); }
         .stat-card p { margin: 5px 0 0 0; font-size: 0.8rem; color: #64748b; font-weight: 700; text-transform: uppercase; }
-
-        /* TAREAS GRID */
         .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
         .task-card { background: white; padding: 20px; border-radius: 12px; border-left: 5px solid #cbd5e0; cursor:pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.2s; }
         .task-card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px rgba(0,0,0,0.05); }
-        
-        /* ESTADOS SEMÁNTICOS */
         .st-demorada { border-left-color: #e53e3e; } .badge-demorada { background: #fff5f5; color:#e53e3e; font-size: 0.7rem; padding: 4px 10px; border-radius: 50px; font-weight: 800; }
         .st-proceso { border-left-color: #3182ce; } .badge-proceso { background: #ebf8ff; color:#3182ce; font-size: 0.7rem; padding: 4px 10px; border-radius: 50px; font-weight: 800; }
         .st-asignada { border-left-color: #718096; } .badge-asignada { background: #f7fafc; color:#718096; font-size: 0.7rem; padding: 4px 10px; border-radius: 50px; font-weight: 800; }
         .st-completada { border-left-color: #38a169; opacity: 0.85; } .badge-completada { background: #f0fff4; color:#38a169; font-size: 0.7rem; padding: 4px 10px; border-radius: 50px; font-weight: 800; }
-        
         @media (max-width: 768px) { .sidebar { width: 70px; } .sidebar span, .sidebar-logo { display: none; } .main-content { margin-left: 70px; width: calc(100% - 70px); padding: 1.5rem; } }
     </style>
 </head>
@@ -72,26 +60,11 @@
 
         <section>
             <div class="stats-grid">
-                <div class="stat-card">
-                    <h3 id="statTotal">0</h3>
-                    <p>Histórico Total</p>
-                </div>
-                <div class="stat-card">
-                    <h3 id="statCompletados" style="color: #38a169;">0</h3>
-                    <p>Completados</p>
-                </div>
-                <div class="stat-card">
-                    <h3 id="statProceso" style="color: #3182ce;">0</h3>
-                    <p>En Proceso</p>
-                </div>
-                <div class="stat-card">
-                    <h3 id="statAtrasados" style="color: #e53e3e;">0</h3>
-                    <p>Demorados</p>
-                </div>
-                <div class="stat-card">
-                    <h3 id="statAsignados" style="color: #718096;">0</h3>
-                    <p>Asignados (En fila)</p>
-                </div>
+                <div class="stat-card"><h3 id="statTotal">0</h3><p>Histórico Total</p></div>
+                <div class="stat-card"><h3 id="statCompletados" style="color: #38a169;">0</h3><p>Completados</p></div>
+                <div class="stat-card"><h3 id="statProceso" style="color: #3182ce;">0</h3><p>En Proceso</p></div>
+                <div class="stat-card"><h3 id="statAtrasados" style="color: #e53e3e;">0</h3><p>Demorados</p></div>
+                <div class="stat-card"><h3 id="statAsignados" style="color: #718096;">0</h3><p>Asignados</p></div>
             </div>
         </section>
 
@@ -117,79 +90,59 @@
                 const isAdmin = email === 'diego.725.reyes@gmail.com';
                 document.getElementById('userEmailLabel').innerText = email;
 
-                // Cargar nombre y rol real
                 const userSnap = await getDocs(query(collection(db, "usuarios"), where("correo", "==", email)));
                 if (!userSnap.empty) {
                     const u = userSnap.docs[0].data();
                     document.getElementById('roleLabel').innerText = u.rol;
                 }
 
-                if (isAdmin) {
-                    document.getElementById('pageTitle').innerText = "Histórico Global";
-                } else {
-                    document.getElementById('pageTitle').innerText = "Mi Histórico";
-                }
-
+                document.getElementById('pageTitle').innerText = isAdmin ? "Histórico Global" : "Mi Histórico";
                 renderizarHistorico(email, isAdmin);
             } else { window.location.href = 'intranet.html'; }
         });
 
         function renderizarHistorico(email, isAdmin) {
-            // LÓGICA DE ADMIN: Si es admin, jala TODA la colección. Si es colaborador, filtra por su correo.
-            const q = isAdmin ? collection(db, "proyectos") : query(collection(db, "proyectos"), where("asignado_a", "==", email));
+            // CAMBIO CLAVE: Usamos array-contains para buscar si el usuario es parte del equipo de esa tarea
+            const q = isAdmin ? collection(db, "proyectos") : query(collection(db, "proyectos"), where("asignado_a", "array-contains", email));
             
             onSnapshot(q, (snap) => {
                 let tareas = [];
                 snap.forEach(d => tareas.push({ id: d.id, ...d.data() }));
 
-                // === CÁLCULO DE ESTADÍSTICAS ===
                 let cTotal = tareas.length;
                 let cAsignados = 0; let cProceso = 0; let cAtrasados = 0; let cCompletados = 0;
-                
-                // Para mantener la regla de "1 en proceso", necesitamos rastrear por usuario si es vista de Admin
                 let activosPorUsuario = {}; 
                 const hoy = new Date().toISOString().split('T')[0];
 
-                // Ordenar: Pendientes arriba (por fecha próxima), Completadas abajo (por fecha de entrega)
                 tareas.sort((a, b) => {
                     if (a.completado === b.completado) return new Date(a.entrega) - new Date(b.entrega);
                     return a.completado ? 1 : -1;
                 });
 
                 tareas.forEach(p => {
-                    const usuarioAsignado = p.asignado_a;
+                    // Para la lógica de "1 en proceso", tomamos al primer asignado del array
+                    const usuarioPrincipal = Array.isArray(p.asignado_a) ? p.asignado_a[0] : p.asignado_a;
 
                     if (p.completado) {
-                        cCompletados++;
-                        p._estadoVisual = "COMPLETADA";
+                        cCompletados++; p._estadoVisual = "COMPLETADA";
                     } else if (p.entrega < hoy) {
-                        cAtrasados++;
-                        p._estadoVisual = "DEMORADA";
-                    } else if (p.progreso > 0 && !activosPorUsuario[usuarioAsignado]) {
-                        // Si este usuario aún no tiene una tarea activa, esta se vuelve la activa
-                        cProceso++;
-                        activosPorUsuario[usuarioAsignado] = true;
-                        p._estadoVisual = "EN PROCESO";
+                        cAtrasados++; p._estadoVisual = "DEMORADA";
+                    } else if (p.progreso > 0 && !activosPorUsuario[usuarioPrincipal]) {
+                        cProceso++; activosPorUsuario[usuarioPrincipal] = true; p._estadoVisual = "EN PROCESO";
                     } else {
-                        cAsignados++;
-                        p._estadoVisual = "ASIGNADA";
+                        cAsignados++; p._estadoVisual = "ASIGNADA";
                     }
                 });
 
-                // Pintar KPIs
                 document.getElementById('statTotal').innerText = cTotal;
                 document.getElementById('statAsignados').innerText = cAsignados;
                 document.getElementById('statProceso').innerText = cProceso;
                 document.getElementById('statAtrasados').innerText = cAtrasados;
                 document.getElementById('statCompletados').innerText = cCompletados;
 
-                // === RENDERIZAR TODAS LAS TARJETAS ===
                 const container = document.getElementById('fullBoard');
                 container.innerHTML = "";
-                
-                if(tareas.length === 0) {
-                    container.innerHTML = `<p style="grid-column: 1/-1; color: #718096; text-align: center; padding: 3rem;">No hay registros en el histórico.</p>`;
-                }
+                if(tareas.length === 0) container.innerHTML = `<p style="grid-column: 1/-1; color: #718096; text-align: center; padding: 3rem;">No hay registros en el histórico.</p>`;
 
                 tareas.forEach(p => {
                     let claseEst = "st-asignada"; let badgeClass = "badge-asignada";
@@ -197,8 +150,8 @@
                     else if (p._estadoVisual === "EN PROCESO") { claseEst = "st-proceso"; badgeClass = "badge-proceso"; }
                     else if (p._estadoVisual === "COMPLETADA") { claseEst = "st-completada"; badgeClass = "badge-completada"; }
 
-                    // Fecha de creación a formato corto
                     const fIngreso = p.creado ? p.creado.toDate().toLocaleDateString('es-MX') : 'S/F';
+                    let responsables = Array.isArray(p.asignado_a) ? p.asignado_a[0].split('@')[0] + (p.asignado_a.length > 1 ? ' +' : '') : p.asignado_a.split('@')[0];
 
                     container.innerHTML += `
                         <div class="task-card ${claseEst}" onclick="window.location.href='detalles-tarea.html?id=${p.id}'">
@@ -215,11 +168,9 @@
                             
                             <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:#718096; font-weight:600; margin-top: 15px;">
                                 <span>Avance: ${p.progreso}%</span>
-                                <span><i class='bx bx-user'></i> ${isAdmin ? p.asignado_a.split('@')[0] : 'Tú'}</span>
+                                <span><i class='bx bx-user'></i> ${isAdmin ? responsables : 'Tú'}</span>
                             </div>
-                            <div style="font-size: 0.7rem; color: #cbd5e0; margin-top: 5px; text-align: right;">
-                                Ingresada: ${fIngreso}
-                            </div>
+                            <div style="font-size: 0.7rem; color: #cbd5e0; margin-top: 5px; text-align: right;">Ingresada: ${fIngreso}</div>
                         </div>`;
                 });
             });
