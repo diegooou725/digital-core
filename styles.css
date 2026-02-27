@@ -101,6 +101,11 @@ nav a:hover::after {
     width: 100%;
 }
 
+/* Quitar la línea animada únicamente al botón de Login Empleados */
+nav a[href="login-empleados.html"]::after {
+    display: none !important;
+}
+
 /* =========================================
    HERO SECTION - FONDO PARALLAX
    ========================================= */
@@ -321,7 +326,6 @@ nav a:hover::after {
 /* =========================================
    PÁGINAS DE PAQUETES Y CUADRÍCULAS
    ========================================= */
-
 #subHero {
     padding: 100px 5% 60px;
     min-height: auto;
@@ -838,15 +842,20 @@ footer::before {
 /* =========================================
    MEDIA QUERIES (RESPONSIVIDAD MÓVIL Y HAMBURGUESA)
    ========================================= */
+
+/* Ocultar hamburguesa en Pantallas Grandes */
 .menu-toggle {
     display: none;
     flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 22px;
     cursor: pointer;
-    gap: 6px;
+    z-index: 2001; /* Queda sobre el menú desplegado */
 }
 
 .menu-toggle span {
-    width: 30px;
+    width: 100%;
     height: 3px;
     background-color: var(--dark-blue);
     border-radius: 3px;
@@ -871,29 +880,6 @@ footer::before {
 }
 
 @media (max-width: 768px) {
-    header {
-        flex-wrap: wrap; /* Permite que el menú caiga abajo del logo */
-    }
-    .menu-toggle {
-        display: flex; /* Muestra el botón de hamburguesa */
-    }
-    nav {
-        width: 100%; /* El menú ocupa todo el ancho abajo */
-    }
-    nav ul {
-        display: none; /* Oculto por defecto en móvil */
-        flex-direction: column;
-        width: 100%;
-        margin-top: 1rem;
-        padding: 1rem 0;
-        background: var(--white);
-        border-radius: 8px;
-        gap: 1.5rem;
-        text-align: center;
-    }
-    nav.active ul {
-        display: flex; /* Se muestra al darle clic a la hamburguesa */
-    }
     .hero h1 {
         font-size: 2.5rem;
     }
@@ -908,8 +894,51 @@ footer::before {
         flex-direction: column;
         align-items: flex-start;
     }
-}
-/* Quitar la línea animada únicamente al botón de Login */
-nav a[href="login-empleados.html"]::after {
-    display: none !important;
+
+    /* --- LÓGICA DEL MENÚ CELULAR CORREGIDA --- */
+    
+    /* Muestra el botón de hamburguesa */
+    .menu-toggle {
+        display: flex; 
+    }
+
+    /* Ocultar menú por defecto y prepararlo para deslizar */
+    #nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%; /* Totalmente fuera de la pantalla */
+        width: 75%; /* Ocupa el 75% de la pantalla del celular */
+        max-width: 300px;
+        height: 100vh;
+        background-color: var(--white);
+        box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: right 0.4s ease-in-out; /* Animación de deslizamiento suave */
+        z-index: 2000;
+    }
+
+    /* La clase que inyecta JS al darle clic a la hamburguesa */
+    #nav-menu.active {
+        right: 0; 
+    }
+
+    /* Forzar que los links estén en columna, usando !important para ignorar el style en línea de HTML */
+    #nav-menu ul {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 2.5rem;
+        width: 100%;
+        text-align: center;
+        padding: 0;
+    }
+
+    #nav-menu ul li {
+        margin: 0 !important;
+    }
+
+    #nav-menu ul li a {
+        font-size: 1.2rem;
+    }
 }
