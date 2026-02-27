@@ -99,13 +99,8 @@
             </div>
 
             <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #e2e8f0;">
-                <h4 style="margin-top:0; color:var(--dark-blue);"><i class='bx bx-file'></i> Requerimientos y GitHub</h4>
+                <h4 style="margin-top:0; color:var(--dark-blue);"><i class='bx bx-file'></i> Requerimientos y Enlaces</h4>
                 <p id="tRequerimientos" style="color: #4a5568; font-size: 0.95rem; white-space: pre-wrap; margin-bottom: 0; line-height: 1.6; word-break: break-all;"></p>
-            </div>
-
-            <div id="attachedFilesBox" style="display: none; background: #ebf8ff; padding: 20px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid var(--neon-blue);">
-                <h4 style="margin-top:0; color:var(--dark-blue);"><i class='bx bx-cloud-download'></i> Archivos del Proyecto</h4>
-                <ul id="tFilesList" style="margin:0; padding-left: 20px; color: #2b6cb0; font-weight: 600; font-size: 0.95rem; list-style-type: none; margin-left:-20px;"></ul>
             </div>
 
             <div id="actionStartBox" style="margin-bottom: 20px; display: none;">
@@ -122,12 +117,7 @@
                     <button id="btnPlus" class="btn-control">+</button>
                 </div>
                 
-                <textarea id="txtComentario" class="form-control" rows="2" placeholder="Describe qué lograste hoy (ej. 'Agregué la base de datos. Commit: github.com/...')" style="margin-bottom: 10px;"></textarea>
-                
-                <div style="margin-bottom: 15px; background: white; padding: 10px; border-radius: 8px; border: 1px dashed #cbd5e0;">
-                    <label style="font-size: 0.8rem; font-weight: 700; color: #4a5568;"><i class='bx bx-image-add'></i> Adjuntar Captura de Pantalla (Opcional)</label>
-                    <input type="file" id="evidenciaFile" accept="image/*" class="form-control" style="padding: 5px; margin-top: 5px;">
-                </div>
+                <textarea id="txtComentario" class="form-control" rows="2" placeholder="Describe qué lograste hoy y pega aquí tus links de Drive o GitHub..." style="margin-bottom: 10px;"></textarea>
 
                 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                     <button id="btnConfirmProgress" class="btn-action" style="background: var(--dark-blue); color:white;"><i class='bx bx-save'></i> Guardar Avance</button>
@@ -168,45 +158,14 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
-        // IMPORTAMOS FUNCIONES EXTRA PARA BORRAR ARCHIVOS (deleteObject y arrayRemove)
-        import { getFirestore, doc, collection, onSnapshot, query, where, updateDoc, deleteDoc, addDoc, serverTimestamp, arrayUnion, arrayRemove, getDocs } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
-        import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-storage.js";
+        import { getFirestore, doc, collection, onSnapshot, query, where, updateDoc, deleteDoc, addDoc, serverTimestamp, arrayUnion, getDocs } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
         const firebaseConfig = { apiKey: "AIzaSyBlouup64jteDrbUkOkSSEqsjesnuT6mdQ", authDomain: "digital-core-app.firebaseapp.com", projectId: "digital-core-app", storageBucket: "digital-core-app.firebasestorage.app", messagingSenderId: "1003292240722", appId: "1:1003292240722:web:b2a2af0665df1ef00fe88b" };
         const app = initializeApp(firebaseConfig); const auth = getAuth(app); const db = getFirestore(app);
-        const storage = getStorage(app); 
-
-        // GLOBALES PARA MANIPULACIÓN DE ARRAYS EN WINDOW
-        window.firebaseArrayUnion = arrayUnion;
-        window.firebaseArrayRemove = arrayRemove;
 
         const taskId = new URLSearchParams(window.location.search).get('id');
         let dbProgreso = 0; let uiProgreso = 0; let currentUserEmail = ""; let currentUserName = "Colaborador"; let esAdminGlobal = false;
         let opcionesEquipoHTML = '<option value="">Selecciona un colaborador...</option>'; let asignadosActualesDB = [];
-
-        // FUNCIÓN MAESTRA DE ELIMINACIÓN DE ARCHIVOS (SOLO ADMIN)
-        window.eliminarArchivo = async function(docId, nombreFile, urlFile) {
-            if(!esAdminGlobal) return alert("Solo el administrador puede borrar archivos.");
-            
-            if(confirm(`¿Estás seguro de eliminar PERMANENTEMENTE el archivo:\n"${nombreFile}"?\n\nEsta acción no se puede deshacer y borrará el archivo de la nube.`)) {
-                try {
-                    // 1. Borrar de Firestore (Base de datos)
-                    const docRef = doc(db, "proyectos", docId);
-                    await updateDoc(docRef, {
-                        archivos_adjuntos: arrayRemove({ nombre: nombreFile, url: urlFile })
-                    });
-
-                    // 2. Borrar de Firebase Storage (Físico) usando la URL
-                    const fileRef = ref(storage, urlFile);
-                    await deleteObject(fileRef);
-
-                    alert("Archivo destruido exitosamente.");
-                } catch (error) {
-                    console.error("Error al borrar:", error);
-                    alert("Se borró de la lista, pero hubo un detalle al limpiar el servidor. Actualiza la página.");
-                }
-            }
-        };
 
         async function prepararEquipo() {
             onSnapshot(collection(db, "usuarios"), (snap) => {
@@ -249,9 +208,7 @@
 
         function renderizarURLsTextos(texto) {
             var urlRegex = /(https?:\/\/[^\s]+)/g;
-            return texto.replace(urlRegex, function(url) {
-                return `<a href="${url}" target="_blank" style="color: var(--neon-blue); font-weight:bold; text-decoration:underline;">${url}</a>`;
-            });
+            return texto.replace(urlRegex, function(url) { return `<a href="${url}" target="_blank" style="color: var(--neon-blue); font-weight:bold; text-decoration:underline;">${url}</a>`; });
         }
 
         function abrirFicha(id) {
@@ -273,42 +230,6 @@
                 let reqFinales = t.requerimientos || "Sin requerimientos especificados.";
                 document.getElementById('tRequerimientos').innerHTML = renderizarURLsTextos(reqFinales);
                 document.getElementById('tAssignees').innerText = arrayAsignados.join(', ');
-
-                // ===============================================
-                // RENDERIZAR ARCHIVOS: LÓGICA DE CONFIDENCIALIDAD
-                // ===============================================
-                const filesBox = document.getElementById('attachedFilesBox');
-                const filesList = document.getElementById('tFilesList');
-                
-                if (t.archivos_adjuntos && t.archivos_adjuntos.length > 0) {
-                    let htmlArchivos = '';
-                    
-                    t.archivos_adjuntos.forEach(f => {
-                        let isContract = f.nombre.includes("📄 Contrato");
-
-                        // Regla de Oro: Si es contrato y NO es Admin, no lo imprimimos.
-                        if (isContract && !esAdminGlobal) return; 
-
-                        // Botón de eliminar (Solo lo ve el Admin)
-                        let btnEliminarHTML = esAdminGlobal ? `<button onclick="eliminarArchivo('${id}', '${f.nombre}', '${f.url}')" style="background:transparent; border:none; color:#e53e3e; font-size:1.2rem; cursor:pointer;" title="Eliminar definitivamente"><i class='bx bx-trash'></i></button>` : '';
-
-                        htmlArchivos += `
-                        <li style="margin-bottom: 12px; display:flex; justify-content:space-between; align-items:center; background: white; padding: 10px; border-radius: 8px; border: 1px solid #bee3f8;">
-                            <a href="${f.url}" target="_blank" style="color:#2b6cb0; text-decoration:none; display:flex; align-items:center; gap:8px;">
-                                <i class='bx bx-link-external'></i> ${f.nombre}
-                            </a>
-                            ${btnEliminarHTML}
-                        </li>`;
-                    });
-
-                    // Si después del filtro quedó vacio (ej. solo habia contratos y entró un colab)
-                    if (htmlArchivos !== '') {
-                        filesBox.style.display = 'block';
-                        filesList.innerHTML = htmlArchivos;
-                    } else {
-                        filesBox.style.display = 'none';
-                    }
-                } else { filesBox.style.display = 'none'; }
                 
                 asignadosActualesDB = [...arrayAsignados]; if(esAdminGlobal) renderizarChips();
                 dbProgreso = t.progreso || 0; uiProgreso = dbProgreso; actualizarBarraUI(); const enProceso = t.en_proceso || false;
@@ -318,16 +239,7 @@
                     histList.innerHTML = t.historial_avance.slice().reverse().map(h => {
                         const colorAutor = h.autor.includes("Administrador") ? "#c53030" : "var(--dark-blue)";
                         let htmlComentario = h.comentario ? `<p style="margin:5px 0 0 0; font-style:italic;">"${renderizarURLsTextos(h.comentario)}"</p>` : '';
-                        let htmlImg = h.evidencia ? `<a href="${h.evidencia}" target="_blank"><img src="${h.evidencia}" style="max-height: 120px; border-radius: 8px; margin-top: 10px; border: 1px solid #cbd5e0; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"></a>` : '';
-
-                        return `<div class="history-item">
-                            <div style="display:flex; justify-content:space-between; align-items:center;">
-                                <span><i class='bx bx-time'></i> ${h.fecha} | <b style="color:${colorAutor};">${h.autor}</b></span>
-                                <span style="background:var(--neon-blue); color:white; padding:2px 8px; border-radius:5px; font-weight:bold; font-size:0.75rem;">${h.porcentaje}%</span>
-                            </div>
-                            ${htmlComentario}
-                            ${htmlImg}
-                        </div>`;
+                        return `<div class="history-item"><div style="display:flex; justify-content:space-between; align-items:center;"><span><i class='bx bx-time'></i> ${h.fecha} | <b style="color:${colorAutor};">${h.autor}</b></span><span style="background:var(--neon-blue); color:white; padding:2px 8px; border-radius:5px; font-weight:bold; font-size:0.75rem;">${h.porcentaje}%</span></div>${htmlComentario}</div>`;
                     }).join('');
                 } else { histList.innerHTML = "<p style='color:#a0aec0; font-size:0.8rem;'>Aún no hay registros.</p>"; }
 
@@ -349,17 +261,24 @@
                     document.getElementById('btnRequestUnmark').style.display = t.completado ? 'block' : 'none'; document.getElementById('btnRequestRemove').style.display = t.completado ? 'none' : 'block';
                 }
 
+                // ===============================================
+                // MODO DIOS CORREGIDO: ADMIN INICIA LO QUE SEA
+                // ===============================================
                 btnStart.onclick = async () => {
-                    const q = query(collection(db, "proyectos"), where("asignado_a", "array-contains", currentUserEmail), where("en_proceso", "==", true));
-                    const activas = await getDocs(q);
-                    if (!activas.empty && activas.docs[0].id !== id) { alert(`✋ ALTO AHI: Ya tienes la tarea "${activas.docs[0].data().producto}" iniciada. Termínala o páusala primero.`); return; }
+                    if (!esAdminGlobal) {
+                        const q = query(collection(db, "proyectos"), where("asignado_a", "array-contains", currentUserEmail), where("en_proceso", "==", true));
+                        const activas = await getDocs(q);
+                        if (!activas.empty && activas.docs[0].id !== id) { alert(`✋ ALTO AHI: Ya tienes la tarea "${activas.docs[0].data().producto}" iniciada. Termínala o páusala primero.`); return; }
+                    }
                     const fechaHora = new Date().toLocaleString('es-MX');
-                    await updateDoc(docRef, { en_proceso: true, historial_avance: arrayUnion({ fecha: fechaHora, porcentaje: dbProgreso, comentario: "▶ Tarea INICIADA / REANUDADA.", autor: currentUserName }) });
+                    let nombreAutor = esAdminGlobal ? "Administrador (Diego)" : currentUserName;
+                    await updateDoc(docRef, { en_proceso: true, historial_avance: arrayUnion({ fecha: fechaHora, porcentaje: dbProgreso, comentario: esAdminGlobal ? "▶ Tarea INICIADA forzada por Administrador." : "▶ Tarea INICIADA.", autor: nombreAutor }) });
                 };
 
                 btnPause.onclick = async () => {
                     const fechaHora = new Date().toLocaleString('es-MX');
-                    await updateDoc(docRef, { en_proceso: false, historial_avance: arrayUnion({ fecha: fechaHora, porcentaje: dbProgreso, comentario: "⏸ Tarea PAUSADA.", autor: currentUserName }) });
+                    let nombreAutor = esAdminGlobal ? "Administrador (Diego)" : currentUserName;
+                    await updateDoc(docRef, { en_proceso: false, historial_avance: arrayUnion({ fecha: fechaHora, porcentaje: dbProgreso, comentario: esAdminGlobal ? "⏸ Tarea PAUSADA forzada por Administrador." : "⏸ Tarea PAUSADA.", autor: nombreAutor }) });
                 };
 
                 document.getElementById('btnPlus').onclick = () => { if(uiProgreso <= 90) { uiProgreso += 10; actualizarBarraUI(); } };
@@ -369,30 +288,18 @@
                     if (uiProgreso === dbProgreso) return alert("Modifica el progreso con el botón de (+) antes de guardar.");
                     const comentario = document.getElementById('txtComentario').value.trim();
                     if (uiProgreso < dbProgreso && !esAdminGlobal) return alert("Solo el administrador puede reducir el avance.");
-                    if (comentario === "") return alert("Debes incluir un comentario o link de GitHub para la bitácora.");
+                    if (comentario === "") return alert("Debes incluir un comentario o link a Drive/GitHub para la bitácora.");
 
                     let autorFinal = esAdminGlobal ? "Administrador (Diego)" : currentUserName; 
                     let comentarioFinal = (uiProgreso < dbProgreso) ? `[Corrección Admin] ${comentario}` : comentario;
 
                     if(confirm(`Se registrará el avance al ${uiProgreso}%. ¿Continuar?`)) {
                         const btnConf = document.getElementById('btnConfirmProgress');
-                        btnConf.innerText = "Subiendo datos..."; btnConf.disabled = true;
+                        btnConf.innerText = "Guardando..."; btnConf.disabled = true;
 
                         try {
-                            let evidenciaUrl = null;
-                            const fileInput = document.getElementById('evidenciaFile');
-                            
-                            if(fileInput.files.length > 0) {
-                                btnConf.innerText = "Subiendo imagen...";
-                                const file = fileInput.files[0];
-                                const storageRef = ref(storage, `avances/${id}/${Date.now()}_${file.name}`);
-                                await uploadBytes(storageRef, file);
-                                evidenciaUrl = await getDownloadURL(storageRef);
-                            }
-
                             const fechaHora = new Date().toLocaleString('es-MX');
                             let objAvance = { fecha: fechaHora, porcentaje: uiProgreso, comentario: comentarioFinal, autor: autorFinal };
-                            if (evidenciaUrl) objAvance.evidencia = evidenciaUrl;
 
                             await updateDoc(docRef, { progreso: uiProgreso, completado: uiProgreso === 100, en_proceso: uiProgreso !== 100, historial_avance: arrayUnion(objAvance) });
 
@@ -400,9 +307,8 @@
                             else { arrayAsignados.forEach(async (correoColab) => { if (correoColab !== currentUserEmail) { try { await addDoc(collection(db, "notificaciones"), { destinatario: correoColab, titulo: `AVANCE MODIFICADO`, mensaje: `Diego ajustó el progreso de "${t.producto}" al ${uiProgreso}%.`, tipo: "ALERTA", proyectoId: docRef.id, creado: serverTimestamp() }); } catch (e) {} } }); }
                             
                             document.getElementById('txtComentario').value = ""; 
-                            document.getElementById('evidenciaFile').value = "";
                             alert("Avance guardado con éxito.");
-                        } catch (error) { alert("Error al guardar. Revisa tu conexión."); console.error(error);
+                        } catch (error) { alert("Error al guardar. Revisa tu conexión a internet."); console.error(error);
                         } finally { btnConf.innerHTML = "<i class='bx bx-save'></i> Guardar Avance"; btnConf.disabled = false; }
                     }
                 };
@@ -426,7 +332,7 @@
                         arrayAsignados.forEach(async (correoColab) => { if (correoColab !== currentUserEmail) { try { await addDoc(collection(db, "notificaciones"), { destinatario: correoColab, titulo: `¡TAREA REABIERTA!`, mensaje: `Diego ha reabierto el proyecto "${t.producto}" al 90%.`, tipo: "ALERTA", proyectoId: docRef.id, creado: serverTimestamp() }); } catch (e) {} } });
                         alert("Tarea reabierta al 90%.");
                     };
-                    document.getElementById('btnAdminDelete').onclick = async () => { if(confirm("¿Eliminar tarea definitivamente? (Nota: los archivos en Firebase Storage deben borrarse manualmente o con el botón de la papelera primero)")) { await deleteDoc(docRef); window.location.href = 'panel-control.html'; } };
+                    document.getElementById('btnAdminDelete').onclick = async () => { if(confirm("¿Eliminar tarea definitivamente?")) { await deleteDoc(docRef); window.location.href = 'panel-control.html'; } };
                     document.getElementById('btnUpdateAssignees').onclick = async () => {
                         const selectoresNuevos = document.querySelectorAll('.admin-collab-select'); let agregados = Array.from(selectoresNuevos).map(s => s.value.toLowerCase().trim()).filter(v => v !== "");
                         let equipoFinal = [...asignadosActualesDB, ...agregados]; equipoFinal = [...new Set(equipoFinal)]; 
