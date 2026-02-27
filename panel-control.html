@@ -44,12 +44,17 @@
         .btn-primary { background: var(--neon-blue); color: white; border: none; padding: 14px; border-radius: 8px; font-weight: 800; cursor: pointer; width: 100%; margin-top: 20px; transition: 0.3s; }
         .btn-secondary { background: #edf2f7; color: #4a5568; border: 1px dashed #cbd5e0; padding: 10px; border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.3s; width: 100%; margin-top: 10px; }
         
-        /* NOTIFICACIONES UNIVERSALES (Para todos) */
+        /* NOTIFICACIONES */
         .notif-badge-menu { background: #e53e3e; color: white; border-radius: 50%; padding: 2px 7px; font-size: 0.65rem; font-weight: 900; position: absolute; right: 10px; }
-        .notif-item { background: white; border-left: 4px solid var(--neon-blue); padding: 15px; border-radius: 8px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .notif-item { background: white; border-left: 4px solid var(--neon-blue); padding: 15px; border-radius: 8px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: 0.2s;}
+        .notif-item:hover { transform: translateX(5px); }
         .notif-item.n-alerta { border-left-color: #e53e3e; background: #fff5f5; }
         .btn-ignorar { background: transparent; border: none; color: #a0aec0; cursor: pointer; font-size: 1.5rem; transition: 0.2s; padding: 5px; border-radius: 50%; }
         .btn-ignorar:hover { background: #fed7d7; color: #e53e3e; }
+
+        /* Estilo para acordeón */
+        .accordion-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; padding-bottom: 10px; }
+        .accordion-header:hover h2 { color: var(--neon-blue); }
 
         @media (max-width: 768px) { .sidebar { width: 70px; } .sidebar span, .sidebar-logo { display: none; } .main-content { margin-left: 70px; width: calc(100% - 70px); padding: 1.5rem; } .stats-grid { grid-template-columns: 1fr 1fr; } .form-grid { grid-template-columns: 1fr; } }
     </style>
@@ -88,24 +93,30 @@
 
         <section id="adminOnlySection" style="display: none;">
             <div class="content-card">
-                <h2 style="color: var(--dark-blue); margin-top: 0; margin-bottom: 1.5rem;"><i class='bx bx-plus-circle'></i> Asignar Proyecto</h2>
-                <form id="addProjectForm">
-                    <div class="form-grid">
-                        <div class="form-group"><label>Categoría</label><select id="projCategory" class="form-control" onchange="actualizarProductos()" required><option value="">Selecciona...</option><option value="Desarrollo Web Estratégico">Desarrollo Web Estratégico</option><option value="Sistemas de Datos">Sistemas de Datos</option><option value="Cursos, Capacitación y Consultoría">Cursos, Capacitación y Consultoría</option><option value="Soporte e Infraestructura">Soporte e Infraestructura</option><option value="Identidad y Diseño Visual">Identidad y Diseño Visual</option><option value="Automatización y Chatbots">Automatización y Chatbots</option></select></div>
-                        <div class="form-group"><label>Producto</label><select id="projProduct" class="form-control" required disabled><option value="">Selecciona...</option></select></div>
-                        <div class="form-group"><label>Cliente</label><input type="text" id="projClient" class="form-control" required></div>
-                        <div class="form-group"><label>Fecha Límite</label><input type="date" id="projDeadline" class="form-control" required></div>
-                        <div class="form-group" style="grid-column: 1 / -1; background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0;">
-                            <label><i class='bx bx-group'></i> Equipo Asignado</label>
-                            <div id="assigneesContainer" style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;"><select class="form-control collab-select" required><option value="">Cargando equipo...</option></select></div>
-                            <button type="button" id="btnAddCollab" class="btn-secondary">+ Asignar otro colaborador</button>
+                <div class="accordion-header" onclick="toggleForm()">
+                    <h2 style="color: var(--dark-blue); margin: 0; transition: 0.3s;"><i class='bx bx-plus-circle'></i> Asignar Proyecto</h2>
+                    <i class='bx bx-chevron-down' id="formToggleIcon" style="font-size: 2rem; color: var(--neon-blue); transition: 0.3s;"></i>
+                </div>
+                
+                <div id="formContainer" style="display: none; margin-top: 1.5rem; border-top: 1px solid #edf2f7; padding-top: 1.5rem;">
+                    <form id="addProjectForm">
+                        <div class="form-grid">
+                            <div class="form-group"><label>Categoría</label><select id="projCategory" class="form-control" onchange="actualizarProductos()" required><option value="">Selecciona...</option><option value="Desarrollo Web Estratégico">Desarrollo Web Estratégico</option><option value="Sistemas de Datos">Sistemas de Datos</option><option value="Cursos, Capacitación y Consultoría">Cursos, Capacitación y Consultoría</option><option value="Soporte e Infraestructura">Soporte e Infraestructura</option><option value="Identidad y Diseño Visual">Identidad y Diseño Visual</option><option value="Automatización y Chatbots">Automatización y Chatbots</option></select></div>
+                            <div class="form-group"><label>Producto</label><select id="projProduct" class="form-control" required disabled><option value="">Selecciona...</option></select></div>
+                            <div class="form-group"><label>Cliente</label><input type="text" id="projClient" class="form-control" required></div>
+                            <div class="form-group"><label>Fecha Límite</label><input type="date" id="projDeadline" class="form-control" required></div>
+                            <div class="form-group" style="grid-column: 1 / -1; background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                                <label><i class='bx bx-group'></i> Equipo Asignado</label>
+                                <div id="assigneesContainer" style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;"><select class="form-control collab-select" required><option value="">Cargando equipo...</option></select></div>
+                                <button type="button" id="btnAddCollab" class="btn-secondary">+ Asignar otro colaborador</button>
+                            </div>
+                            <div class="form-group" style="grid-column: 1 / -1;">
+                                <label>Requerimientos</label><textarea id="projRequerimientos" class="form-control" rows="3" required></textarea>
+                            </div>
                         </div>
-                        <div class="form-group" style="grid-column: 1 / -1;">
-                            <label>Requerimientos</label><textarea id="projRequerimientos" class="form-control" rows="3" required></textarea>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn-primary">CREAR PROYECTO</button>
-                </form>
+                        <button type="submit" class="btn-primary">CREAR PROYECTO</button>
+                    </form>
+                </div>
             </div>
         </section>
 
@@ -125,9 +136,12 @@
                     <h3 id="statAtrasados" style="color: #e53e3e;">0</h3><p>Demorados</p>
                 </div>
             </div>
+            
             <div id="reportBox" class="report-box">
-                <i id="reportIcon" class='bx bxs-message-rounded-dots' style="font-size: 2rem;"></i>
-                <div><strong style="display: block; color: var(--dark-blue);">Reporte del Sistema:</strong><span id="reportText">Analizando...</span></div>
+                <i id="reportIcon" class='bx bxs-message-rounded-dots' style="font-size: 2.2rem;"></i>
+                <div>
+                    <span id="reportText" style="font-size: 1rem;">Analizando...</span>
+                </div>
             </div>
         </section>
 
@@ -146,6 +160,19 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
+
+        // LÓGICA DEL ACORDEÓN PARA ASIGNAR PROYECTO
+        window.toggleForm = function() {
+            const form = document.getElementById('formContainer');
+            const icon = document.getElementById('formToggleIcon');
+            if (form.style.display === 'none' || form.style.display === '') {
+                form.style.display = 'block';
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                form.style.display = 'none';
+                icon.style.transform = 'rotate(0deg)';
+            }
+        };
 
         let opcionesEquipoHTML = '<option value="">Selecciona un colaborador...</option>';
 
@@ -177,12 +204,10 @@
             document.getElementById('assigneesContainer').appendChild(div);
         });
 
-        // FUNCIÓN GLOBAL PARA IGNORAR/BORRAR NOTIFICACIONES
         window.borrarNotificacion = async function(id) {
-            try { await deleteDoc(doc(db, "notificaciones", id)); } catch(e) { console.error("Error al borrar", e); alert("Error de conexión al borrar la alerta."); }
+            try { await deleteDoc(doc(db, "notificaciones", id)); } catch(e) { console.error(e); }
         };
 
-        // INICIALIZACIÓN PRINCIPAL
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const email = user.email.toLowerCase().trim();
@@ -201,16 +226,13 @@
                     prepararEquipo(); 
                 }
 
-                // INICIAMOS NOTIFICACIONES PARA TODOS (Admin y Colabs)
                 cargarNotificaciones(email);
                 renderizarDashboard(email, isAdmin);
             } else { window.location.href = 'intranet.html'; }
         });
 
-        // CARGA LAS NOTIFICACIONES DONDE EL USUARIO LOGUEADO ES EL DESTINATARIO
         function cargarNotificaciones(miCorreo) {
             const q = query(collection(db, "notificaciones"), where("destinatario", "==", miCorreo));
-            
             onSnapshot(q, (snap) => {
                 const list = document.getElementById('notifListContainer');
                 const badge = document.getElementById('notifCount');
@@ -219,19 +241,17 @@
                 list.innerHTML = "";
                 if (snap.size > 0) {
                     badge.innerText = snap.size; badge.style.display = "block"; section.style.display = "block";
-                    
                     snap.forEach(d => {
                         const n = d.data();
                         let icon = "bx-info-circle"; let colorClass = "n-info";
                         if(n.tipo === "ALERTA") { icon = "bxs-error"; colorClass = "n-alerta"; }
-                        if(n.tipo === "NUEVO") { icon = "bxs-star"; colorClass = ""; }
-
+                        let nombreReal = n.solicitante_notificacion || "Un colaborador";
+                        
                         list.innerHTML += `
                             <div class="notif-item ${colorClass}">
                                 <div style="width: 85%; cursor:pointer;" onclick="window.location.href='detalles-tarea.html?id=${n.proyectoId}'">
-                                    <strong style="display:block; font-size:0.95rem; margin-bottom:5px;"><i class='bx ${icon}'></i> ${n.titulo}</strong>
+                                    <strong style="display:block; font-size:0.95rem; margin-bottom:5px; color: var(--dark-blue);"><i class='bx ${icon}'></i> ${n.titulo}</strong>
                                     <span style="font-size:0.85rem; color:#4a5568;">${n.mensaje}</span>
-                                    <small style="display:block; color:#a0aec0; margin-top:5px;">Haz clic para abrir la tarea</small>
                                 </div>
                                 <button class="btn-ignorar" onclick="borrarNotificacion('${d.id}')" title="Ignorar / Borrar"><i class='bx bx-trash'></i></button>
                             </div>`;
@@ -250,8 +270,8 @@
                 snap.forEach(d => tareas.push({ id: d.id, ...d.data() }));
 
                 let cTotal = tareas.length; let cAsignados = 0; let cProceso = 0; let cAtrasados = 0;
+                let cCompletadosTotales = 0;
                 let hayUnaEnProceso = false; 
-                
                 const hoyFecha = new Date();
                 const hoyString = hoyFecha.toISOString().split('T')[0];
 
@@ -261,28 +281,18 @@
                 });
 
                 tareas.forEach(async (p) => {
-                    if (p.completado) { /* Nada */ } 
+                    if (p.completado) { cCompletadosTotales++; } 
                     else if (p.en_proceso) { cProceso++; hayUnaEnProceso = true; p._estadoVisual = "EN PROCESO"; } 
                     else if (p.entrega < hoyString) { cAtrasados++; p._estadoVisual = "DEMORADA"; } 
                     else { cAsignados++; p._estadoVisual = "ASIGNADA"; }
 
-                    // === ROBOT DE ALERTAS AUTOMÁTICAS (VENCIMIENTO) ===
                     if (!p.completado) {
                         let msFaltantes = new Date(p.entrega) - hoyFecha;
                         let diasFaltantes = msFaltantes / (1000 * 60 * 60 * 24);
-                        
-                        // Si faltan menos de 2 días y aún no se manda alerta
                         if (diasFaltantes > 0 && diasFaltantes <= 2 && !p.alerta_vencimiento) {
                             await updateDoc(doc(db, "proyectos", p.id), { alerta_vencimiento: true });
-                            
-                            // Avisar a todos los involucrados
                             p.asignado_a.forEach(correoDestino => {
-                                addDoc(collection(db, "notificaciones"), {
-                                    destinatario: correoDestino,
-                                    titulo: "¡TAREA PRÓXIMA A VENCER!",
-                                    mensaje: `Tu proyecto "${p.producto}" debe entregarse en menos de 48 horas.`,
-                                    tipo: "ALERTA", proyectoId: p.id, creado: serverTimestamp()
-                                });
+                                addDoc(collection(db, "notificaciones"), { destinatario: correoDestino, titulo: "¡TAREA PRÓXIMA A VENCER!", mensaje: `Tu proyecto "${p.producto}" debe entregarse en menos de 48 horas.`, tipo: "ALERTA", proyectoId: p.id, creado: serverTimestamp() });
                             });
                         }
                     }
@@ -291,16 +301,26 @@
                 document.getElementById('statTotal').innerText = cTotal; document.getElementById('statAsignados').innerText = cAsignados;
                 document.getElementById('statProceso').innerText = cProceso; document.getElementById('statAtrasados').innerText = cAtrasados;
 
-                const rBox = document.getElementById('reportBox'); const rText = document.getElementById('reportText');
-                if (cAtrasados > 0) { rBox.style.borderLeftColor = "#e53e3e"; rText.innerHTML = `<b>¡Alerta!</b> Tienes ${cAtrasados} tarea(s) demorada(s). Priorízalas.`; }
-                else if (hayUnaEnProceso) { rBox.style.borderLeftColor = "#38a169"; rText.innerText = "Excelente, trabajando en tiempo y forma."; }
-                else if (cTotal === 0) { rBox.style.borderLeftColor = "#718096"; rText.innerText = "No hay carga de trabajo actual."; }
+                // === LÓGICA DE REPORTE BIFURCADA (ADMIN VS COLABORADOR) ===
+                const rBox = document.getElementById('reportBox'); 
+                const rText = document.getElementById('reportText');
+                const rIcon = document.getElementById('reportIcon');
+
+                if (isAdmin) {
+                    rBox.style.borderLeftColor = "var(--dark-blue)"; rIcon.style.color = "var(--dark-blue)"; rIcon.className = "bx bx-world";
+                    rText.innerHTML = `<strong style="display: block; color: var(--dark-blue);">Resumen Global de Digital Core:</strong> En la empresa hay <b>${cProceso}</b> proyectos activos, <b>${cAtrasados}</b> demorados, <b>${cAsignados}</b> en fila y <b>${cCompletadosTotales}</b> completados en la historia.`;
+                } else {
+                    if (cAtrasados > 0) { rBox.style.borderLeftColor = "#e53e3e"; rIcon.className = "bx bxs-error"; rIcon.style.color = "#e53e3e"; rText.innerHTML = `<strong style="display: block; color: var(--dark-blue);">Reporte Personal:</strong> <b>¡Alerta!</b> Tienes ${cAtrasados} tarea(s) demorada(s). Priorízalas.`; }
+                    else if (hayUnaEnProceso) { rBox.style.borderLeftColor = "#38a169"; rIcon.className = "bx bxs-check-circle"; rIcon.style.color = "#38a169"; rText.innerHTML = `<strong style="display: block; color: var(--dark-blue);">Reporte Personal:</strong> Excelente, trabajando en tiempo y forma.`; }
+                    else if (cAsignados > 0) { rBox.style.borderLeftColor = "#3182ce"; rIcon.className = "bx bx-rocket"; rIcon.style.color = "#3182ce"; rText.innerHTML = `<strong style="display: block; color: var(--dark-blue);">Reporte Personal:</strong> Tienes ${cAsignados} proyecto(s) en fila. Comienza a trabajar.`; }
+                    else { rBox.style.borderLeftColor = "#718096"; rIcon.className = "bx bx-coffee"; rIcon.style.color = "#718096"; rText.innerHTML = `<strong style="display: block; color: var(--dark-blue);">Reporte Personal:</strong> Tu bandeja está limpia.`; }
+                }
 
                 const container = document.getElementById('top3Board');
                 container.innerHTML = "";
                 const top3 = tareas.filter(t => !t.completado).slice(0, 3);
 
-                if(top3.length === 0) container.innerHTML = `<p style="grid-column: 1/-1; color: #718096;">Bandeja limpia.</p>`;
+                if(top3.length === 0) container.innerHTML = `<p style="grid-column: 1/-1; color: #718096;">No hay tareas pendientes en pantalla.</p>`;
 
                 top3.forEach(p => {
                     let claseEst = "st-asignada"; let badgeClass = "badge-asignada";
@@ -319,7 +339,6 @@
             });
         }
 
-        // CREAR TAREA Y DISPARAR NOTIFICACIONES AL EQUIPO
         document.getElementById('addProjectForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             try {
@@ -338,18 +357,15 @@
                     alerta_vencimiento: false, creado: serverTimestamp()
                 });
                 
-                // Disparar Notificación a los colaboradores elegidos
                 correos.forEach(async (correo) => {
                     await addDoc(collection(db, "notificaciones"), {
-                        destinatario: correo,
-                        titulo: "NUEVO PROYECTO ASIGNADO",
-                        mensaje: `Se te ha asignado la tarea: ${document.getElementById('projProduct').value}.`,
-                        tipo: "NUEVO", proyectoId: docRef.id, creado: serverTimestamp()
+                        destinatario: correo, titulo: "NUEVO PROYECTO ASIGNADO", mensaje: `Se te ha asignado la tarea: ${document.getElementById('projProduct').value}.`, tipo: "NUEVO", proyectoId: docRef.id, creado: serverTimestamp()
                     });
                 });
                 
                 alert("Proyecto guardado y equipo notificado.");
                 document.getElementById('addProjectForm').reset();
+                toggleForm(); // Ocultar el formulario después de guardar
             } catch (err) { alert(err.message); }
         });
 
