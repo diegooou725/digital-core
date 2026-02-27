@@ -8,32 +8,47 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <style>
-        /* Estilos base minimizados para mantener el código limpio */
         :root { --sidebar-width: 260px; --dark-blue: #0f172a; --neon-blue: #009ce1; --light-blue: #38bdf8; }
         body { display: flex; background: #f0f4f8; min-height: 100vh; margin: 0; font-family: 'Inter', sans-serif; }
+        
         .sidebar { width: var(--sidebar-width); height: 100vh; background: var(--dark-blue); color: white; position: fixed; padding: 2rem 1rem; display: flex; flex-direction: column; z-index: 100; box-sizing: border-box; }
         .sidebar-logo { width: 80%; margin-bottom: 3rem; padding-left: 1rem; }
         .nav-links { list-style: none; flex-grow: 1; padding: 0; margin: 0; }
         .nav-links a { display: flex; align-items: center; gap: 15px; color: rgba(255,255,255,0.7); text-decoration: none; padding: 12px 1rem; border-radius: 8px; transition: 0.3s; font-weight: 600; margin-bottom: 5px; }
         .nav-links a:hover, .nav-links a.active { background: rgba(0, 156, 225, 0.2); color: var(--neon-blue); }
+        
         .main-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 2rem 3rem; box-sizing: border-box; }
         .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; background: white; padding: 1.5rem 2rem; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         .content-card { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 2rem; }
+        
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
         .stat-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.5rem; text-align: center; }
         .stat-card h3 { margin: 0; font-size: 2.5rem; color: var(--dark-blue); }
         .stat-card p { margin: 5px 0 0 0; font-size: 0.85rem; color: #64748b; font-weight: 700; text-transform: uppercase; }
         .report-box { background: #ebf8ff; border-left: 5px solid var(--neon-blue); padding: 15px 20px; border-radius: 8px; margin-bottom: 2rem; display: flex; align-items: center; gap: 15px; }
+        
         .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
         .task-card { background: white; padding: 20px; border-radius: 12px; border-left: 5px solid #cbd5e0; cursor:pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.2s; }
         .task-card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px rgba(0,0,0,0.05); }
         .st-demorada { border-left-color: #e53e3e; } .badge-demorada { background: #fff5f5; color:#e53e3e; font-size: 0.7rem; padding: 4px 10px; border-radius: 50px; font-weight: 800; }
         .st-proceso { border-left-color: #3182ce; } .badge-proceso { background: #ebf8ff; color:#3182ce; font-size: 0.7rem; padding: 4px 10px; border-radius: 50px; font-weight: 800; }
         .st-asignada { border-left-color: #718096; } .badge-asignada { background: #f7fafc; color:#718096; font-size: 0.7rem; padding: 4px 10px; border-radius: 50px; font-weight: 800; }
+        
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .form-control { padding: 12px; border: 1px solid #ddd; border-radius: 8px; width: 100%; box-sizing: border-box; font-family: inherit; }
-        .btn-primary { background: var(--neon-blue); color: white; border: none; padding: 14px; border-radius: 8px; font-weight: 800; cursor: pointer; width: 100%; margin-top: 20px; }
-        @media (max-width: 768px) { .sidebar { width: 70px; } .sidebar span, .sidebar-logo { display: none; } .main-content { margin-left: 70px; width: calc(100% - 70px); padding: 1.5rem; } .stats-grid { grid-template-columns: 1fr 1fr; } }
+        .form-control { padding: 12px; border: 1px solid #cbd5e0; border-radius: 8px; width: 100%; box-sizing: border-box; font-family: inherit; }
+        .form-group { display: flex; flex-direction: column; gap: 5px; }
+        .form-group label { font-weight: 700; color: var(--dark-blue); font-size: 0.9rem; }
+        
+        .btn-primary { background: var(--neon-blue); color: white; border: none; padding: 14px; border-radius: 8px; font-weight: 800; cursor: pointer; width: 100%; margin-top: 20px; transition: 0.3s; }
+        .btn-primary:hover { background: var(--dark-blue); }
+        .btn-secondary { background: #edf2f7; color: #4a5568; border: 1px dashed #cbd5e0; padding: 10px; border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.3s; width: 100%; margin-top: 10px; }
+        .btn-secondary:hover { background: #e2e8f0; }
+
+        /* Notificaciones */
+        .notification-badge { background: #e53e3e; color: white; border-radius: 50%; padding: 2px 7px; font-size: 0.65rem; font-weight: 900; position: absolute; right: 10px; }
+        .notif-card { background: #fff5f5; border-left: 4px solid #e53e3e; padding: 12px 15px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+
+        @media (max-width: 768px) { .sidebar { width: 70px; } .sidebar span, .sidebar-logo { display: none; } .main-content { margin-left: 70px; width: calc(100% - 70px); padding: 1.5rem; } .stats-grid { grid-template-columns: 1fr 1fr; } .form-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -41,7 +56,7 @@
     <aside class="sidebar">
         <h2 style="padding-left: 1rem; color: var(--light-blue); margin-bottom: 2rem;">Digital Core</h2>
         <ul class="nav-links">
-            <li><a href="panel-control.html" class="active"><i class='bx bxs-dashboard'></i> <span>Dashboard</span></a></li>
+            <li><a href="panel-control.html" class="active"><i class='bx bxs-dashboard'></i> <span>Dashboard</span> <span id="notifCount" class="notification-badge" style="display:none;">0</span></a></li>
             <li><a href="mis-trabajos.html"><i class='bx bxs-briefcase'></i> <span>Mis Trabajos</span></a></li>
             <li><a href="colaboradores.html"><i class='bx bxs-group'></i> <span>Colaboradores</span></a></li>
             <li><a href="#"><i class='bx bxs-package'></i> <span>Catálogo</span></a></li>
@@ -63,18 +78,64 @@
             </div>
         </header>
 
+        <section id="notifSection" class="content-card" style="display: none; border-bottom: 5px solid #e53e3e;">
+            <h2 style="color: #c53030; margin-top: 0; margin-bottom: 1.5rem;"><i class='bx bxs-bell-ring bx-tada'></i> Notificaciones del Equipo</h2>
+            <div id="notifList"></div>
+        </section>
+
         <section id="adminOnlySection" style="display: none;">
             <div class="content-card">
-                <h2 style="color: var(--dark-blue); margin-bottom: 1.5rem;"><i class='bx bx-plus-circle'></i> Asignar Nuevo Proyecto</h2>
+                <h2 style="color: var(--dark-blue); margin-top: 0; margin-bottom: 1.5rem;"><i class='bx bx-plus-circle'></i> Registrar Nuevo Proyecto</h2>
                 <form id="addProjectForm">
                     <div class="form-grid">
-                        <div class="form-group"><label>Categoría</label><select id="projCategory" class="form-control" onchange="actualizarProductos()" required><option value="">Selecciona...</option><option value="Desarrollo Web Estratégico">Desarrollo Web Estratégico</option><option value="Sistemas de Datos">Sistemas de Datos</option></select></div>
-                        <div class="form-group"><label>Producto</label><select id="projProduct" class="form-control" required disabled><option value="">Selecciona...</option></select></div>
-                        <div class="form-group"><label>Cliente</label><input type="text" id="projClient" class="form-control" required></div>
-                        <div class="form-group"><label>Fecha Entrega</label><input type="date" id="projDeadline" class="form-control" required></div>
-                        <div class="form-group"><label>Asignar a Colaborador Inicial</label><select id="projAssign" class="form-control" required><option value="">Cargando equipo...</option></select></div>
+                        
+                        <div class="form-group">
+                            <label>Categoría del Servicio</label>
+                            <select id="projCategory" class="form-control" onchange="actualizarProductos()" required>
+                                <option value="">Selecciona una categoría...</option>
+                                <option value="Desarrollo Web Estratégico">Desarrollo Web Estratégico</option>
+                                <option value="Sistemas de Datos">Sistemas de Datos</option>
+                                <option value="Cursos, Capacitación y Consultoría">Cursos, Capacitación y Consultoría</option>
+                                <option value="Soporte e Infraestructura">Soporte e Infraestructura</option>
+                                <option value="Identidad y Diseño Visual">Identidad y Diseño Visual</option>
+                                <option value="Automatización y Chatbots">Automatización y Chatbots</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Producto Específico</label>
+                            <select id="projProduct" class="form-control" required disabled>
+                                <option value="">Esperando categoría...</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Nombre del Cliente o Empresa</label>
+                            <input type="text" id="projClient" class="form-control" placeholder="Ej. Óptica Leo" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Fecha Límite de Entrega</label>
+                            <input type="date" id="projDeadline" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group" style="grid-column: 1 / -1; background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <label><i class='bx bx-group'></i> Equipo Asignado al Proyecto</label>
+                            <div id="assigneesContainer" style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
+                                <select class="form-control collab-select" required>
+                                    <option value="">Cargando equipo...</option>
+                                </select>
+                            </div>
+                            <button type="button" id="btnAddCollab" class="btn-secondary"><i class='bx bx-user-plus'></i> Asignar otro colaborador a esta tarea</button>
+                        </div>
+
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <label><i class='bx bx-file-blank'></i> Requerimientos y Notas Adicionales</label>
+                            <textarea id="projRequerimientos" class="form-control" rows="5" placeholder="Escribe aquí todas las especificaciones, alcances, y detalles clave del proyecto para que el equipo lo tenga claro..." required></textarea>
+                        </div>
+
                     </div>
-                    <button type="submit" class="btn-primary">PUBLICAR EN DIGITAL CORE</button>
+                    <button type="submit" class="btn-primary"><i class='bx bx-cloud-upload'></i> CREAR PROYECTO Y ASIGNAR</button>
                 </form>
             </div>
         </section>
@@ -87,12 +148,7 @@
                 <div class="stat-card"><h3 id="statProceso" style="color: #3182ce;">0</h3><p>En Proceso</p></div>
                 <div class="stat-card"><h3 id="statAtrasados" style="color: #e53e3e;">0</h3><p>Demorados</p></div>
             </div>
-
-            <div style="display: flex; gap: 20px; margin-bottom: 15px; font-size: 0.85rem; color: #4a5568;">
-                <div style="background: white; padding: 10px 15px; border-radius: 8px; border: 1px solid #e2e8f0;"><i class='bx bx-calendar-star'></i> <b>Fecha de Ingreso:</b> <span id="statPrimeraFecha">Calculando...</span></div>
-                <div style="background: white; padding: 10px 15px; border-radius: 8px; border: 1px solid #e2e8f0;"><i class='bx bx-calendar-check'></i> <b>Última Entrega:</b> <span id="statUltimaEntrega">Sin entregas aún</span></div>
-            </div>
-
+            
             <div id="reportBox" class="report-box">
                 <i id="reportIcon" class='bx bxs-message-rounded-dots' style="font-size: 2rem; color: var(--neon-blue);"></i>
                 <div>
@@ -118,22 +174,91 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
+        // Variables Globales para optimizar la carga del equipo
+        let opcionesEquipoHTML = '<option value="">Selecciona un colaborador...</option>';
+
+        // 1. DICCIONARIO COMPLETO DE CATEGORÍAS Y PRODUCTOS
         window.actualizarProductos = function() {
             const cat = document.getElementById('projCategory').value;
             const prod = document.getElementById('projProduct');
-            const lista = { "Desarrollo Web Estratégico": ["Core Flash", "Core Launch", "Core Flow"], "Sistemas de Datos": ["App Móvil", "Dashboard Analítico"] };
-            prod.innerHTML = '<option value="">Selecciona...</option>';
-            if (cat && lista[cat]) { prod.disabled = false; lista[cat].forEach(p => { prod.innerHTML += `<option value="${p}">${p}</option>`; }); }
+            
+            const diccionario = {
+                "Desarrollo Web Estratégico": ["Core Flash", "Core Launch", "Core Flow", "Invitación Digital"],
+                "Sistemas de Datos": ["Punto de Venta (POS)", "App Móvil", "Dashboard Analítico", "Sistema ERP"],
+                "Cursos, Capacitación y Consultoría": ["Taller Tech", "Consultoría Estratégica", "Capacitación de Personal"],
+                "Soporte e Infraestructura": ["Mantenimiento Correctivo", "Mantenimiento Preventivo", "Instalación CCTV", "Redes Estructuradas"],
+                "Identidad y Diseño Visual": ["Branding Logo", "Diseño UI/UX", "Identidad Corporativa", "Material para Redes"],
+                "Automatización y Chatbots": ["Chatbot WhatsApp", "Chatbot Web", "Flujo Automatizado", "Integración API"]
+            };
+            
+            prod.innerHTML = '<option value="">Selecciona el producto exacto...</option>';
+            if (cat && diccionario[cat]) {
+                prod.disabled = false;
+                diccionario[cat].forEach(p => { prod.innerHTML += `<option value="${p}">${p}</option>`; });
+            } else {
+                prod.disabled = true;
+            }
         };
 
-        async function cargarEquipo() {
+        // 2. CARGAR EQUIPO Y GENERAR HTML BASE PARA SELECTORES
+        async function prepararEquipo() {
             onSnapshot(collection(db, "usuarios"), (snap) => {
-                const select = document.getElementById('projAssign');
-                select.innerHTML = '<option value="">Selecciona integrante...</option>';
-                snap.forEach(d => { const u = d.data(); select.innerHTML += `<option value="${u.correo.toLowerCase()}">${u.nombre}</option>`; });
+                opcionesEquipoHTML = '<option value="">Selecciona un colaborador...</option>';
+                snap.forEach(d => { 
+                    const u = d.data(); 
+                    opcionesEquipoHTML += `<option value="${u.correo.toLowerCase()}">${u.nombre} (${u.rol})</option>`; 
+                });
+                
+                // Actualizar todos los selectores de colaboradores que ya existan en pantalla
+                document.querySelectorAll('.collab-select').forEach(select => {
+                    const valorActual = select.value; // Guardar por si ya tenían a alguien seleccionado
+                    select.innerHTML = opcionesEquipoHTML;
+                    if(valorActual) select.value = valorActual;
+                });
             });
         }
 
+        // 3. LÓGICA PARA AÑADIR MÚLTIPLES COLABORADORES
+        document.getElementById('btnAddCollab').addEventListener('click', () => {
+            const container = document.getElementById('assigneesContainer');
+            const nuevoSelect = document.createElement('select');
+            nuevoSelect.className = 'form-control collab-select';
+            nuevoSelect.innerHTML = opcionesEquipoHTML;
+            container.appendChild(nuevoSelect);
+        });
+
+        // 4. NOTIFICACIONES EN TIEMPO REAL (Solo para Admin)
+        function activarNotificaciones() {
+            const q = query(collection(db, "proyectos"), where("notificar_admin", "==", true));
+            onSnapshot(q, (snap) => {
+                const list = document.getElementById('notifList');
+                const badge = document.getElementById('notifCount');
+                const section = document.getElementById('notifSection');
+                
+                list.innerHTML = "";
+                const count = snap.size;
+
+                if (count > 0) {
+                    badge.innerText = count; badge.style.display = "block"; section.style.display = "block";
+                    snap.forEach(d => {
+                        const p = d.data();
+                        let tipoAlerta = "AVANCE / ACTUALIZACIÓN";
+                        if(p.solicitud_eliminacion) tipoAlerta = "SOLICITUD BORRADO";
+                        if(p.solicitud_desmarcar) tipoAlerta = "SOLICITUD REABRIR";
+
+                        list.innerHTML += `
+                            <div class="notif-card" onclick="window.location.href='detalles-tarea.html?id=${d.id}'">
+                                <div><strong style="color:#c53030;">[${tipoAlerta}]</strong> <span style="color:var(--dark-blue); font-weight:600;">${p.producto}</span></div>
+                                <i class='bx bx-right-arrow-circle' style="font-size:1.5rem; color:#e53e3e;"></i>
+                            </div>`;
+                    });
+                } else {
+                    badge.style.display = "none"; section.style.display = "none";
+                }
+            });
+        }
+
+        // 5. INICIALIZACIÓN
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const email = user.email.toLowerCase().trim();
@@ -149,26 +274,24 @@
 
                 if (isAdmin) {
                     document.getElementById('adminOnlySection').style.display = 'block';
-                    cargarEquipo();
+                    prepararEquipo();
+                    activarNotificaciones();
                 }
 
                 renderizarDashboard(email, isAdmin);
             } else { window.location.href = 'intranet.html'; }
         });
 
+        // 6. RENDER DEL TABLERO Y KPIs
         function renderizarDashboard(email, isAdmin) {
-            // AQUÍ ESTÁ EL CAMBIO CLAVE: array-contains para leer dentro de la lista de colaboradores
             const q = isAdmin ? collection(db, "proyectos") : query(collection(db, "proyectos"), where("asignado_a", "array-contains", email));
             
             onSnapshot(q, (snap) => {
                 let tareas = [];
                 snap.forEach(d => tareas.push({ id: d.id, ...d.data() }));
 
-                let cTotal = tareas.length;
-                let cAsignados = 0; let cProceso = 0; let cAtrasados = 0;
-                let hayUnaEnProceso = false;
-                const hoy = new Date().toISOString().split('T')[0];
-                let fechaIngreso = null; let ultimaEntrega = null;
+                let cTotal = tareas.length; let cAsignados = 0; let cProceso = 0; let cAtrasados = 0;
+                let hayUnaEnProceso = false; const hoy = new Date().toISOString().split('T')[0];
 
                 tareas.sort((a, b) => {
                     if (a.completado === b.completado) return new Date(a.entrega) - new Date(b.entrega);
@@ -176,14 +299,8 @@
                 });
 
                 tareas.forEach(p => {
-                    if (p.creado) {
-                        const fCreado = p.creado.toDate();
-                        if (!fechaIngreso || fCreado < fechaIngreso) fechaIngreso = fCreado;
-                    }
-
                     if (p.completado) {
-                        const fEntrega = new Date(p.entrega);
-                        if (!ultimaEntrega || fEntrega > ultimaEntrega) ultimaEntrega = fEntrega;
+                        // Omitir del contador base
                     } else if (p.entrega < hoy) {
                         cAtrasados++; p._estadoVisual = "DEMORADA";
                     } else if (p.progreso > 0 && !hayUnaEnProceso) {
@@ -197,8 +314,6 @@
                 document.getElementById('statAsignados').innerText = cAsignados;
                 document.getElementById('statProceso').innerText = cProceso;
                 document.getElementById('statAtrasados').innerText = cAtrasados;
-                document.getElementById('statPrimeraFecha').innerText = fechaIngreso ? fechaIngreso.toLocaleDateString('es-MX') : "Reciente";
-                document.getElementById('statUltimaEntrega').innerText = ultimaEntrega ? ultimaEntrega.toLocaleDateString('es-MX') : "Ninguna";
 
                 const reportBox = document.getElementById('reportBox');
                 const reportIcon = document.getElementById('reportIcon');
@@ -222,14 +337,13 @@
                 container.innerHTML = "";
                 const top3 = tareas.filter(t => !t.completado).slice(0, 3);
 
-                if(top3.length === 0) container.innerHTML = `<p style="grid-column: 1/-1; color: #718096;">No hay tareas pendientes. ¡Buen trabajo!</p>`;
+                if(top3.length === 0) container.innerHTML = `<p style="grid-column: 1/-1; color: #718096;">No hay tareas pendientes. ¡Excelente!</p>`;
 
                 top3.forEach(p => {
                     let claseEst = "st-asignada"; let badgeClass = "badge-asignada";
                     if (p._estadoVisual === "DEMORADA") { claseEst = "st-demorada"; badgeClass = "badge-demorada"; }
                     else if (p._estadoVisual === "EN PROCESO") { claseEst = "st-proceso"; badgeClass = "badge-proceso"; }
 
-                    // Lógica para formatear visualmente si hay múltiples asignados
                     let responsables = Array.isArray(p.asignado_a) ? p.asignado_a[0].split('@')[0] + (p.asignado_a.length > 1 ? ' +' : '') : p.asignado_a.split('@')[0];
 
                     container.innerHTML += `
@@ -251,24 +365,44 @@
             });
         }
 
+        // 7. GUARDAR PROYECTO Y AGRUPAR COLABORADORES
         document.getElementById('addProjectForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             try {
-                // AQUÍ EL SEGUNDO CAMBIO CLAVE: Guardamos al primer asignado como un Array []
-                const primerAsignado = document.getElementById('projAssign').value.toLowerCase().trim();
+                // Recolectar todos los selectores de colaboradores
+                const selectores = document.querySelectorAll('.collab-select');
+                // Convertir a Array, mapear valores, filtrar vacíos y convertir a minúsculas
+                let correosAsignados = Array.from(selectores)
+                                            .map(select => select.value.toLowerCase().trim())
+                                            .filter(correo => correo !== "");
                 
+                // Evitar duplicados por si seleccionas al mismo dos veces
+                correosAsignados = [...new Set(correosAsignados)];
+
+                if (correosAsignados.length === 0) {
+                    return alert("Debes seleccionar al menos un colaborador válido.");
+                }
+
                 await addDoc(collection(db, "proyectos"), {
                     categoria: document.getElementById('projCategory').value,
                     producto: document.getElementById('projProduct').value,
                     cliente: document.getElementById('projClient').value,
                     entrega: document.getElementById('projDeadline').value,
-                    asignado_a: [primerAsignado], // Se guarda como lista para poder sumar más personas después
+                    requerimientos: document.getElementById('projRequerimientos').value, // Campo Nuevo
+                    asignado_a: correosAsignados, // Se guarda como un Array limpio
                     progreso: 0,
                     completado: false,
+                    notificar_admin: false,
                     creado: serverTimestamp()
                 });
-                alert("Proyecto registrado.");
+                
+                alert("Proyecto publicado y equipo notificado.");
+                
+                // Resetear formulario y dejar solo un selector de colaborador
                 document.getElementById('addProjectForm').reset();
+                const container = document.getElementById('assigneesContainer');
+                container.innerHTML = `<select class="form-control collab-select" required>${opcionesEquipoHTML}</select>`;
+
             } catch (err) { alert("Error al guardar: " + err.message); }
         });
 
