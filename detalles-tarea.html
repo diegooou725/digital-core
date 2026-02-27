@@ -1,34 +1,80 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    </head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles Tarea | Digital Core</title>
+    <link rel="icon" href="Isotipo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root { --sidebar-width: 260px; }
+        body { display: flex; background: #f0f4f8; min-height: 100vh; margin: 0; font-family: 'Inter', sans-serif; }
+        .sidebar { width: var(--sidebar-width); height: 100vh; background: var(--dark-blue); color: white; position: fixed; padding: 2rem 1rem; display: flex; flex-direction: column; z-index: 100; }
+        .sidebar-logo { width: 80%; margin-bottom: 3rem; padding-left: 1rem; }
+        .nav-links { list-style: none; flex-grow: 1; padding: 0; }
+        .nav-links a { display: flex; align-items: center; gap: 15px; color: rgba(255,255,255,0.7); text-decoration: none; padding: 12px 1rem; border-radius: 8px; transition: 0.3s; font-weight: 600; }
+        .nav-links a:hover, .nav-links a.active { background: rgba(0, 156, 225, 0.2); color: var(--neon-blue); }
+        .main-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 2rem 3rem; }
+        .detail-card { background: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); max-width: 800px; margin: auto; }
+        .status-pill { padding: 8px 20px; border-radius: 50px; font-size: 0.85rem; font-weight: 800; display: inline-block; margin-bottom: 1.5rem; }
+        .completed { background: #c6f6d5; color: #22543d; }
+        .pending { background: #feebc8; color: #744210; }
+        .btn-action { padding: 14px 24px; border-radius: 12px; border: none; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.3s; font-family: inherit; }
+        .btn-complete { background: var(--neon-blue); color: white; }
+        .admin-panel { border-top: 2px dashed #edf2f7; margin-top: 2.5rem; padding-top: 2rem; }
+        @media (max-width: 768px) { .sidebar { width: 70px; } .sidebar span, .sidebar-logo { display: none; } .main-content { margin-left: 70px; width: calc(100% - 70px); padding: 1.5rem; } }
+    </style>
+</head>
 <body>
+
+    <aside class="sidebar">
+        <img src="Digital Core original.png" alt="Logo" class="sidebar-logo">
+        <ul class="nav-links">
+            <li><a href="panel-control.html"><i class='bx bxs-dashboard'></i> <span>Dashboard</span></a></li>
+            <li><a href="mis-trabajos.html"><i class='bx bxs-briefcase'></i> <span>Mis Trabajos</span></a></li>
+            <li><a href="colaboradores.html"><i class='bx bxs-group'></i> <span>Colaboradores</span></a></li>
+            <li><a href="#"><i class='bx bxs-package'></i> <span>Catálogo</span></a></li>
+        </ul>
+        <button id="logoutBtn" style="background:none; border:none; color:#ff6b6b; cursor:pointer; display:flex; align-items:center; gap:15px; padding:12px 1rem; font-weight:600; margin-top: auto;">
+            <i class='bx bx-log-out'></i> <span>Cerrar Sesión</span>
+        </button>
+    </aside>
+
     <main class="main-content">
         <div id="loader" style="text-align: center; padding: 5rem;">
             <i class='bx bx-loader-alt bx-spin' style="font-size: 3rem; color: var(--neon-blue);"></i>
-            <p id="loaderText" style="color: #666; margin-top: 1rem;">Accediendo a la ficha técnica...</p>
+            <p id="loaderStatus" style="color: #666; margin-top: 1rem;">Accediendo a la ficha técnica...</p>
         </div>
         
         <div id="taskDetail" class="detail-card" style="display: none;">
             <div id="statusBadge" class="status-pill"></div>
             <h1 id="tProduct" style="color: var(--dark-blue); font-weight: 900; font-size: 2.2rem; margin: 0;"></h1>
+            <p id="tCategory" style="color: var(--light-blue); font-weight: 700; text-transform: uppercase;"></p>
+            <hr style="border: 0; border-top: 1px solid #eee; margin: 2rem 0;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; color: #4a5568;">
+                <div><strong>Cliente:</strong><br><span id="tClient"></span></div>
+                <div><strong>Entrega:</strong><br><span id="tDeadline"></span></div>
+                <div><strong>Asignado a:</strong><br><span id="tAssignees"></span></div>
+                <div><strong>Progreso:</strong><br><span id="tProgress"></span>%</div>
+            </div>
+
             <div class="action-group">
                 <button id="btnMarkComplete" class="btn-action btn-complete"><i class='bx bx-check-double'></i> Finalizar Tarea</button>
-                <button id="btnRequestDelete" class="btn-action btn-request" style="display:none;"><i class='bx bx-trash'></i> Solicitar Borrado</button>
             </div>
 
             <div id="adminPanel" class="admin-panel" style="display: none;">
-                <h3 style="color: var(--dark-blue); font-weight: 900;"><i class='bx bxs-lock-open-alt'></i> Herramientas de Lead Engineer</h3>
-                <div class="action-group">
-                    <button id="btnAdminDelete" class="btn-action btn-delete"><i class='bx bxs-trash-alt'></i> Eliminar Definitivamente</button>
-                </div>
+                <h3 style="color: var(--dark-blue);">Panel Maestro</h3>
+                <button id="btnAdminDelete" class="btn-action" style="background: #fff5f5; color: #c53030;"><i class='bx bxs-trash'></i> Borrar Tarea</button>
+                <button id="btnAdminUnmark" class="btn-action" style="background: #f7fafc; margin-top:10px;"><i class='bx bx-undo'></i> Reabrir Tarea</button>
             </div>
         </div>
     </main>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
         import { getFirestore, doc, onSnapshot, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
         const firebaseConfig = {
@@ -41,59 +87,66 @@
         };
 
         const app = initializeApp(firebaseConfig);
-        const auth = getAuth(auth);
+        const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // EXTRAER EL ID DE LA URL
+        // EXTRAER ID Y VALIDAR
         const urlParams = new URLSearchParams(window.location.search);
         const taskId = urlParams.get('id');
 
         onAuthStateChanged(auth, (user) => {
             if (user && taskId) {
                 const isAdmin = user.email.toLowerCase().trim() === 'diego.725.reyes@gmail.com';
-                abrirFicha(taskId, isAdmin);
+                conectarConTarea(taskId, isAdmin);
             } else if (!taskId) {
-                document.getElementById('loaderText').innerText = "ERROR: No se encontró el ID de la tarea en la URL.";
-            } else {
-                window.location.href = 'intranet.html';
-            }
+                document.getElementById('loaderStatus').innerHTML = "<b style='color:red'>ERROR:</b> No se recibió ID de tarea.";
+            } else { window.location.href = 'intranet.html'; }
         });
 
-        function abrirFicha(id, isAdmin) {
-            // Referencia al documento en la colección 'proyectos'
+        function conectarConTarea(id, isAdmin) {
             const docRef = doc(db, "proyectos", id);
 
+            // Escucha activa con manejo de errores
             onSnapshot(docRef, (snap) => {
                 if (!snap.exists()) {
-                    document.getElementById('loaderText').innerText = "ERROR: La tarea no existe o fue eliminada.";
+                    document.getElementById('loaderStatus').innerHTML = "<b style='color:red'>ERROR:</b> La tarea ya no existe en la base de datos.";
                     return;
                 }
-                
+
                 const t = snap.data();
-                
-                // OCULTAR LOADER Y MOSTRAR FICHA
                 document.getElementById('loader').style.display = 'none';
                 document.getElementById('taskDetail').style.display = 'block';
 
-                // LLENAR LOS DATOS
+                // Inyectar datos
                 document.getElementById('tProduct').innerText = t.producto;
+                document.getElementById('tCategory').innerText = t.categoria;
                 document.getElementById('tClient').innerText = t.cliente;
                 document.getElementById('tDeadline').innerText = t.entrega;
                 document.getElementById('tProgress').innerText = t.progreso || 0;
                 document.getElementById('tAssignees').innerText = t.asignado_a;
 
-                // MOSTRAR PANEL DE LÍDER SI ES DIEGO
+                // UI de Estado
+                const badge = document.getElementById('statusBadge');
+                badge.innerText = t.completado ? "✓ COMPLETADA" : "⟳ EN PROCESO";
+                badge.className = `status-pill ${t.completado ? 'completed' : 'pending'}`;
+
+                // Visibilidad de Admin
+                if (isAdmin) document.getElementById('adminPanel').style.display = 'block';
+
+                // Acciones
+                document.getElementById('btnMarkComplete').onclick = () => updateDoc(docRef, { completado: true, progreso: 100 });
                 if (isAdmin) {
-                    document.getElementById('adminPanel').style.display = 'block';
-                } else {
-                    document.getElementById('btnRequestDelete').style.display = 'block';
+                    document.getElementById('btnAdminDelete').onclick = () => { if(confirm("¿Borrar?")) deleteDoc(docRef); };
+                    document.getElementById('btnAdminUnmark').onclick = () => updateDoc(docRef, { completado: false, progreso: 90 });
                 }
-            }, (error) => {
-                // ESTO TE DIRÁ POR QUÉ SE QUEDA CARGANDO
-                console.error("Error en Firestore:", error);
-                document.getElementById('loaderText').innerHTML = `<span style="color:red">ERROR DE ACCESO:</span> Revisa tus Reglas de Seguridad en Firebase.`;
+
+            }, (err) => {
+                console.error(err);
+                document.getElementById('loaderStatus').innerHTML = "<b style='color:red'>ERROR DE ACCESO:</b> Revisa las reglas de seguridad.";
             });
         }
+
+        document.getElementById('logoutBtn').onclick = () => signOut(auth).then(() => window.location.href = 'index.html');
     </script>
 </body>
 </html>
