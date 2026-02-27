@@ -30,27 +30,36 @@
         .crown-icon { color: #d69e2e !important; font-size: 1.2rem !important; margin: 0 !important; vertical-align: middle; }
 
         /* =========================================
-           MÓDULO DE OPTIMIZACIÓN MÓVIL (APP NATIVA)
+           PARCHE MÓVIL ESTRICTO (APP NATIVA V2.0)
            ========================================= */
         @media (max-width: 768px) {
-            body { display: block; }
-            .sidebar { width: 100%; height: 75px; position: fixed; bottom: 0; left: 0; top: auto; flex-direction: row; justify-content: space-around; padding: 0 5px; z-index: 9999; border-top: 1px solid #1e293b; box-shadow: 0 -5px 20px rgba(0,0,0,0.15); border-radius: 20px 20px 0 0; }
+            html, body { overflow-x: hidden; width: 100vw; margin: 0; padding: 0; }
+            body { display: block; padding-bottom: 90px; } 
+            .sidebar { 
+                width: 100vw; height: 70px; 
+                position: fixed; bottom: 0; left: 0; top: auto; 
+                display: flex; flex-direction: row; justify-content: space-between; align-items: center;
+                padding: 0 5px; box-sizing: border-box; z-index: 9999; 
+                border-top: 1px solid #1e293b; box-shadow: 0 -5px 15px rgba(0,0,0,0.1); 
+                border-radius: 20px 20px 0 0; background: var(--dark-blue);
+            }
             .sidebar h2, .sidebar-logo { display: none; }
-            .nav-links { display: flex; flex-direction: row; width: 100%; justify-content: space-around; align-items: center; }
-            .nav-links li { width: auto; flex-grow: 1; }
-            .nav-links a { flex-direction: column; padding: 8px 0; gap: 4px; border-radius: 12px; text-align: center; margin: 0 2px;}
-            .nav-links a i { font-size: 1.6rem; margin: 0; }
-            .nav-links a span { font-size: 0.65rem; display: block; font-weight: 800; }
-            #logoutBtn { padding: 10px; flex-direction: column; gap: 4px; margin: 0; width: auto;}
-            #logoutBtn span { display: none; }
-            #logoutBtn i { font-size: 1.6rem; margin: 0; }
-
-            .main-content { margin-left: 0; width: 100%; padding: 1.5rem 1rem 95px 1rem; }
-            .user-grid { grid-template-columns: 1fr; }
-            h1 { font-size: 1.6rem !important; line-height: 1.2; }
+            .nav-links { display: flex; flex-direction: row; justify-content: space-around; width: 80%; padding: 0; margin: 0; }
+            .nav-links li { display: flex; justify-content: center; align-items: center; width: 100%; }
+            .nav-links a { flex-direction: column; justify-content: center; align-items: center; padding: 5px 0; gap: 4px; width: 100%; margin: 0;}
+            #logoutBtn { width: 20%; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 5px 0; gap: 4px; margin: 0; }
+            .nav-links a i, #logoutBtn i { font-size: 1.6rem; margin: 0; }
+            .nav-links a span, #logoutBtn span { font-size: 0.65rem; display: block; font-weight: 800; margin: 0; text-align: center; }
+            
+            .main-content { margin-left: 0; width: 100vw; padding: 1.5rem 1rem; box-sizing: border-box; }
+            .user-grid { grid-template-columns: 1fr; width: 100%; }
+            .user-card { width: 100%; box-sizing: border-box; }
+            h1, p { text-align: center; }
+            h1 { font-size: 1.8rem !important; line-height: 1.2; margin-bottom: 10px;}
         }
         @media (max-width: 480px) {
-            .nav-links a span { display: none; }
+            .nav-links a span, #logoutBtn span { display: none; }
+            .nav-links a i, #logoutBtn i { font-size: 2rem; }
         }
     </style>
 </head>
@@ -63,7 +72,7 @@
             <li id="navColaboradores"><a href="colaboradores.html" class="active"><i class='bx bxs-group'></i> <span>Equipo</span></a></li>
             <li><a href="catalogo.html"><i class='bx bxs-package'></i> <span>Catálogo</span></a></li>
         </ul>
-        <button id="logoutBtn" style="background:none; border:none; color:#ff6b6b; cursor:pointer; margin-top: auto; font-weight:600; display:flex; gap:10px;"><i class='bx bx-log-out'></i> Salir</button>
+        <button id="logoutBtn" style="background:none; border:none; color:#ff6b6b; cursor:pointer; margin-top: auto; font-weight:600; display:flex; gap:10px;"><i class='bx bx-log-out'></i> <span>Salir</span></button>
     </aside>
 
     <main class="main-content">
@@ -95,8 +104,7 @@
 
         function cargarUsuarios() {
             onSnapshot(collection(db, "usuarios"), (snap) => {
-                let usuarios = [];
-                snap.forEach(d => usuarios.push(d.data()));
+                let usuarios = []; snap.forEach(d => usuarios.push(d.data()));
 
                 usuarios.sort((a, b) => {
                     const esAdminA = a.correo === 'diego.725.reyes@gmail.com';
