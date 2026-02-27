@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Control | Digital Core</title>
+    <title>Master Panel | Digital Core</title>
     <link rel="icon" href="Isotipo.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -34,24 +34,26 @@
             border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
         }
 
-        /* CARDS Y FORMULARIO */
+        /* FORMULARIO AVANZADO */
         .content-card { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 2rem; }
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .form-control { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-top: 5px; font-family: inherit; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .form-group { display: flex; flex-direction: column; gap: 5px; }
+        .form-group label { font-size: 0.8rem; font-weight: 700; color: var(--dark-blue); }
+        .form-control { padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; font-size: 0.9rem; }
+        .form-control:focus { border-color: var(--neon-blue); outline: none; }
         
-        /* TABLERO DE PROYECTOS */
+        /* TARJETAS DE PROYECTO */
         .board-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
         .project-card { 
             background: white; border-radius: 15px; padding: 20px; 
             border: 1px solid rgba(0, 156, 225, 0.1); transition: 0.3s; 
-            position: relative; overflow: hidden;
         }
         .project-card:hover { transform: translateY(-5px); border-color: var(--neon-blue); }
-        .status-badge { font-size: 0.7rem; padding: 4px 10px; border-radius: 50px; font-weight: 700; text-transform: uppercase; }
-        .status-ontime { background: #e3f2fd; color: #1976d2; }
+        .badge { font-size: 0.65rem; padding: 4px 12px; border-radius: 50px; font-weight: 900; text-transform: uppercase; }
+        .status-proceso { background: #fff3e0; color: #ef6c00; }
         
         .progress-container { height: 8px; background: #eee; border-radius: 10px; margin: 15px 0; overflow: hidden; }
-        .progress-bar { height: 100%; background: linear-gradient(90deg, var(--light-blue), var(--neon-blue)); transition: 0.8s ease-in-out; }
+        .progress-bar { height: 100%; background: linear-gradient(90deg, var(--light-blue), var(--neon-blue)); transition: 1s ease; }
 
         @media (max-width: 768px) {
             .sidebar { width: 70px; } .sidebar span, .sidebar-logo { display: none; }
@@ -66,6 +68,7 @@
         <ul class="nav-links">
             <li><a href="#" class="active"><i class='bx bxs-dashboard'></i> <span>Dashboard</span></a></li>
             <li><a href="#"><i class='bx bxs-briefcase'></i> <span>Mis Trabajos</span></a></li>
+            <li><a href="#"><i class='bx bxs-group'></i> <span>Colaboradores</span></a></li>
             <li><a href="#"><i class='bx bxs-package'></i> <span>Catálogo</span></a></li>
         </ul>
         <button id="logoutBtn" style="background:none; border:none; color:#ff6b6b; cursor:pointer; display:flex; align-items:center; gap:15px; padding:12px 1rem; font-weight:600; margin-top: auto;">
@@ -77,7 +80,7 @@
         <header class="top-bar">
             <div>
                 <h1 id="userNameWelcome" style="color: var(--dark-blue); font-weight: 900; margin:0;">Cargando...</h1>
-                <p id="roleLabel" style="color: #666; margin:0; font-size: 0.9rem;">Verificando credenciales...</p>
+                <p id="roleLabel" style="color: #666; margin:0; font-size: 0.9rem;">Verificando permisos operativos...</p>
             </div>
             <div style="background: #f8fafc; padding: 8px 15px; border-radius: 50px; display: flex; align-items: center; gap: 10px; border: 1px solid #edf2f7;">
                 <i class='bx bxs-user-circle' style="color: var(--light-blue); font-size: 1.4rem;"></i>
@@ -86,42 +89,63 @@
         </header>
 
         <section id="adminOnlySection" style="display: none;">
-            <div class="content-card" style="border-top: 4px solid var(--neon-blue);">
-                <h2 style="color: var(--dark-blue); margin-bottom: 1.5rem;"><i class='bx bx-plus-circle'></i> Registrar Nuevo Proyecto</h2>
+            <div class="content-card" style="border-left: 6px solid var(--neon-blue);">
+                <h2 style="color: var(--dark-blue); margin-bottom: 1.5rem;"><i class='bx bx-plus-circle'></i> Alta de Nuevo Proyecto</h2>
                 <form id="addProjectForm">
                     <div class="form-grid">
                         <div class="form-group">
-                            <label style="font-weight:700; font-size:0.8rem;">Nombre del Proyecto</label>
-                            <input type="text" id="projName" class="form-control" placeholder="Ej. E-commerce Galletas" required>
+                            <label>Categoría del Servicio</label>
+                            <select id="projCategory" class="form-control" onchange="actualizarProductos()" required>
+                                <option value="">Selecciona una categoría...</option>
+                                <option value="Desarrollo Web Estratégico">Desarrollo Web Estratégico</option>
+                                <option value="Sistemas de Datos">Sistemas de Datos</option>
+                                <option value="Cursos, Capacitación y Consultoría">Cursos, Capacitación y Consultoría</option>
+                                <option value="Soporte e Infraestructura">Soporte e Infraestructura</option>
+                                <option value="Identidad y Diseño Visual">Identidad y Diseño Visual</option>
+                                <option value="Automatización y Chatbots">Automatización y Chatbots</option>
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label style="font-weight:700; font-size:0.8rem;">Cliente</label>
-                            <input type="text" id="projClient" class="form-control" placeholder="Nombre de la empresa" required>
+                            <label>Producto / Paquete</label>
+                            <select id="projProduct" class="form-control" required disabled>
+                                <option value="">Primero selecciona categoría...</option>
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label style="font-weight:700; font-size:0.8rem;">Asignar a (Email)</label>
-                            <input type="email" id="projAssign" class="form-control" placeholder="colaborador@digitalcore.com" required>
+                            <label>Cliente / Empresa</label>
+                            <input type="text" id="projClient" class="form-control" placeholder="Nombre del cliente" required>
                         </div>
                         <div class="form-group">
-                            <label style="font-weight:700; font-size:0.8rem;">Estado Inicial</label>
+                            <label>Fecha de Entrega</label>
+                            <input type="date" id="projDeadline" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Asignar a Colaborador</label>
+                            <select id="projAssign" class="form-control" required>
+                                <option value="diego.725.reyes@gmail.com">Diego Reyes (Admin)</option>
+                                <option value="ptres2499@gmail.com">Admin Secundario</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Estado Inicial</label>
                             <select id="projStatus" class="form-control">
-                                <option value="En tiempo">En tiempo</option>
+                                <option value="En proceso">En proceso</option>
+                                <option value="Pendiente">Pendiente</option>
                                 <option value="Urgente">Urgente</option>
-                                <option value="Atrasado">Atrasado</option>
                             </select>
                         </div>
                     </div>
-                    <button type="submit" class="btn" style="width: 100%; margin-top: 15px; padding: 14px; font-weight: 700;">
-                        <i class='bx bx-cloud-upload'></i> PUBLICAR EN EL SISTEMA
+                    <button type="submit" class="btn" style="width: 100%; margin-top: 20px; padding: 14px; font-weight: 800; letter-spacing: 1px;">
+                        <i class='bx bx-cloud-upload'></i> LANZAR PROYECTO A LA NUBE
                     </button>
                 </form>
             </div>
         </section>
 
         <section class="content-card">
-            <h2 style="color: var(--dark-blue); margin-bottom: 25px;"><i class='bx bx-list-ul'></i> Seguimiento de Proyectos</h2>
+            <h2 style="color: var(--dark-blue); margin-bottom: 25px;"><i class='bx bx-objects-horizontal-left'></i> Proyectos Activos</h2>
             <div id="projectBoard" class="board-container">
-                <p style="color: #888;">Conectando con la base de datos...</p>
+                <p style="color: #888;">Sincronizando con base de datos...</p>
             </div>
         </section>
     </main>
@@ -145,73 +169,92 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // LÓGICA DE ROLES Y ACCESO
+        // LÓGICA DINÁMICA DE PRODUCTOS
+        window.actualizarProductos = function() {
+            const categoria = document.getElementById('projCategory').value;
+            const productoSelect = document.getElementById('projProduct');
+            
+            const productos = {
+                "Desarrollo Web Estratégico": ["Core Flash", "Core Launch", "Core Flow", "Invitación Digital"],
+                "Sistemas de Datos": ["Punto de Venta (POS)", "App Móvil", "Dashboard Analítico"],
+                "Cursos, Capacitación y Consultoría": ["Taller Tech", "Consultoría Estratégica"],
+                "Soporte e Infraestructura": ["Mantenimiento Correctivo", "Instalación CCTV"],
+                "Identidad y Diseño Visual": ["Branding Logo", "Diseño UI/UX"],
+                "Automatización y Chatbots": ["Chatbot WhatsApp", "Flujo Automatizado"]
+            };
+
+            productoSelect.innerHTML = '<option value="">Selecciona el producto...</option>';
+            
+            if (categoria && productos[categoria]) {
+                productoSelect.disabled = false;
+                productos[categoria].forEach(prod => {
+                    const opt = document.createElement('option');
+                    opt.value = prod; opt.textContent = prod;
+                    productoSelect.appendChild(opt);
+                });
+            } else { productoSelect.disabled = true; }
+        };
+
+        // ACCESO Y ROLES
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 document.getElementById('userEmailLabel').innerText = user.email;
-                
                 if (user.email === 'diego.725.reyes@gmail.com') {
                     document.getElementById('userNameWelcome').innerText = "¡Bienvenido, Director!";
-                    document.getElementById('roleLabel').innerText = "Panel de Administración Maestro";
+                    document.getElementById('roleLabel').innerText = "Gestión Maestra de Digital Core";
                     document.getElementById('adminOnlySection').style.display = 'block';
                 } else {
-                    document.getElementById('userNameWelcome').innerText = "Panel de Colaborador";
-                    document.getElementById('roleLabel').innerText = "Operaciones Digital Core";
-                    document.getElementById('adminOnlySection').style.display = 'none';
+                    document.getElementById('userNameWelcome').innerText = "Panel Operativo";
+                    document.getElementById('roleLabel').innerText = "Consultoría y Desarrollo";
                 }
                 cargarProyectos();
-            } else {
-                window.location.href = 'intranet.html';
-            }
+            } else { window.location.href = 'intranet.html'; }
         });
 
-        // GUARDAR PROYECTO (ADMIN)
+        // REGISTRO DE DATOS
         const projectForm = document.getElementById('addProjectForm');
         projectForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             try {
                 await addDoc(collection(db, "proyectos"), {
-                    nombre: document.getElementById('projName').value,
+                    nombre: document.getElementById('projProduct').value + " - " + document.getElementById('projClient').value,
+                    categoria: document.getElementById('projCategory').value,
+                    producto: document.getElementById('projProduct').value,
                     cliente: document.getElementById('projClient').value,
+                    entrega: document.getElementById('projDeadline').value,
                     asignado_a: document.getElementById('projAssign').value,
                     estado: document.getElementById('projStatus').value,
                     progreso: 0,
-                    fecha: serverTimestamp()
+                    creado: serverTimestamp()
                 });
-                alert("Proyecto publicado correctamente.");
+                alert("Éxito: El proyecto ya está en la base de datos.");
                 projectForm.reset();
-            } catch (err) { alert("Error de conexión: " + err.message); }
+                document.getElementById('projProduct').disabled = true;
+            } catch (err) { alert("Error crítico: " + err.message); }
         });
 
-        // LECTURA EN TIEMPO REAL
+        // TABLERO EN TIEMPO REAL
         function cargarProyectos() {
-            const q = query(collection(db, "proyectos"), orderBy("fecha", "desc"));
-            onSnapshot(q, (snapshot) => {
+            const q = query(collection(db, "proyectos"), orderBy("creado", "desc"));
+            onSnapshot(q, (snap) => {
                 const container = document.getElementById('projectBoard');
                 container.innerHTML = "";
-                
-                if (snapshot.empty) {
-                    container.innerHTML = "<p style='color:#888;'>No hay proyectos activos por ahora.</p>";
-                    return;
-                }
-
-                snapshot.forEach((doc) => {
+                snap.forEach((doc) => {
                     const data = doc.data();
                     container.innerHTML += `
                         <div class="project-card">
                             <div style="display:flex; justify-content:space-between; align-items:start;">
                                 <div>
-                                    <h3 style="margin:0; font-size:1.1rem; color:var(--dark-blue);">${data.nombre}</h3>
-                                    <span style="font-size:0.75rem; color:#888;">Cliente: ${data.cliente}</span>
+                                    <span style="font-size:0.65rem; color:var(--light-blue); font-weight:800;">${data.categoria}</span>
+                                    <h3 style="margin:2px 0; font-size:1rem; color:var(--dark-blue);">${data.producto}</h3>
+                                    <p style="font-size:0.75rem; color:#888; margin:0;">Cliente: ${data.cliente}</p>
                                 </div>
-                                <span class="status-badge status-ontime">${data.estado}</span>
+                                <span class="badge status-proceso">${data.estado}</span>
                             </div>
-                            <div class="progress-container">
-                                <div class="progress-bar" style="width:${data.progreso}%"></div>
-                            </div>
-                            <div style="display:flex; justify-content:space-between; font-size:0.8rem; font-weight:600;">
-                                <span>Progreso: ${data.progreso}%</span>
-                                <span style="color:var(--light-blue);"><i class='bx bxs-user'></i> ${data.asignado_a.split('@')[0]}</span>
+                            <div class="progress-container"><div class="progress-bar" style="width:${data.progreso}%"></div></div>
+                            <div style="display:flex; justify-content:space-between; font-size:0.7rem; font-weight:700;">
+                                <span style="color:#666;">Entrega: ${data.entrega}</span>
+                                <span style="color:var(--dark-blue); text-decoration: underline;">${data.asignado_a.split('@')[0]}</span>
                             </div>
                         </div>
                     `;
@@ -219,7 +262,7 @@
             });
         }
 
-        // SALIR
+        // SALIDA
         document.getElementById('logoutBtn').addEventListener('click', () => {
             signOut(auth).then(() => window.location.href = 'index.html');
         });
