@@ -66,9 +66,7 @@
         <ul class="nav-links">
             <li><a href="panel-control.html" class="active"><i class='bx bxs-dashboard'></i> <span>Dashboard</span> <span id="notifCount" class="notif-badge-menu" style="display:none;">0</span></a></li>
             <li><a href="mis-trabajos.html"><i class='bx bxs-briefcase'></i> <span>Mis Trabajos</span></a></li>
-            
             <li id="navColaboradores" style="display: none;"><a href="colaboradores.html"><i class='bx bxs-group'></i> <span>Colaboradores</span></a></li>
-            
             <li><a href="#"><i class='bx bxs-package'></i> <span>Catálogo</span></a></li>
         </ul>
         <button id="logoutBtn" style="background:none; border:none; color:#ff6b6b; cursor:pointer; display:flex; align-items:center; gap:15px; padding:12px 1rem; font-weight:600; margin-top: auto;">
@@ -103,7 +101,18 @@
                 <div id="formContainer" style="display: none; margin-top: 1.5rem; border-top: 1px solid #edf2f7; padding-top: 1.5rem;">
                     <form id="addProjectForm">
                         <div class="form-grid">
-                            <div class="form-group"><label>Categoría</label><select id="projCategory" class="form-control" onchange="actualizarProductos()" required><option value="">Selecciona...</option><option value="Desarrollo Web Estratégico">Desarrollo Web Estratégico</option><option value="Sistemas de Datos">Sistemas de Datos</option><option value="Cursos, Capacitación y Consultoría">Cursos, Capacitación y Consultoría</option><option value="Soporte e Infraestructura">Soporte e Infraestructura</option><option value="Identidad y Diseño Visual">Identidad y Diseño Visual</option><option value="Automatización y Chatbots">Automatización y Chatbots</option></select></div>
+                            <div class="form-group">
+                                <label>Categoría</label>
+                                <select id="projCategory" class="form-control" onchange="actualizarProductos()" required>
+                                    <option value="">Selecciona...</option>
+                                    <option value="Desarrollo Web Estratégico">Desarrollo Web Estratégico</option>
+                                    <option value="Sistemas de Datos">Sistemas de Datos</option>
+                                    <option value="Cursos y Capacitación">Cursos y Capacitación</option>
+                                    <option value="Soporte e Infraestructura (Próximamente)">Soporte e Infraestructura (Próximamente)</option>
+                                    <option value="Identidad y Diseño Visual (Próximamente)">Identidad y Diseño Visual (Próximamente)</option>
+                                    <option value="Automatización y Chatbots (Próximamente)">Automatización y Chatbots (Próximamente)</option>
+                                </select>
+                            </div>
                             <div class="form-group"><label>Producto</label><select id="projProduct" class="form-control" required disabled><option value="">Selecciona...</option></select></div>
                             <div class="form-group"><label>Cliente</label><input type="text" id="projClient" class="form-control" required></div>
                             <div class="form-group"><label>Fecha Límite</label><input type="date" id="projDeadline" class="form-control" required></div>
@@ -178,19 +187,50 @@
 
         let opcionesEquipoHTML = '<option value="">Selecciona un colaborador...</option>';
 
+        // DICCIONARIO ACTUALIZADO CON CATÁLOGO COMPLETO
         window.actualizarProductos = function() {
             const cat = document.getElementById('projCategory').value;
             const prod = document.getElementById('projProduct');
+            
             const diccionario = {
-                "Desarrollo Web Estratégico": ["Core Flash", "Core Launch", "Core Flow", "Invitación Digital"],
-                "Sistemas de Datos": ["Punto de Venta (POS)", "App Móvil", "Dashboard Analítico", "Sistema ERP"],
-                "Cursos, Capacitación y Consultoría": ["Taller Tech", "Consultoría Estratégica", "Capacitación de Personal"],
-                "Soporte e Infraestructura": ["Mantenimiento Correctivo", "Mantenimiento Preventivo", "Instalación CCTV", "Redes Estructuradas"],
-                "Identidad y Diseño Visual": ["Branding Logo", "Diseño UI/UX", "Identidad Corporativa", "Material para Redes"],
-                "Automatización y Chatbots": ["Chatbot WhatsApp", "Chatbot Web", "Flujo Automatizado", "Integración API"]
+                "Desarrollo Web Estratégico": [
+                    "Core Event", "Core Flash", "Core Start", "Core Plus", "Core Landing", 
+                    "Core Business", "Core Elite", "Core Commerce", "Core Dynamic", 
+                    "Gestión de Dominios", "Hosting de Alto Rendimiento", "Correos Corporativos"
+                ],
+                "Sistemas de Datos": [
+                    "Skill Excel", "Skill Macro", "Skill Dashboard", "Skill Cleanse", "Skill Connect", 
+                    "Skill Cloud", "Hub Starter", "Hub Stock", "Hub CRM", "Hub ERP", "Hub Network", 
+                    "Hub SQL", "Data Custom", "Licencia POS Básico", "Hardware POS Completo"
+                ],
+                "Cursos y Capacitación": [
+                    "Skill Basics", "Skill Office", "Skill Cloud", "Skill Data", "Skill Code", 
+                    "Skill Mentor", "Team Office", "Team Cloud", "Team Data", "Team Commerce", 
+                    "Team Software", "Team Custom", "Strategy Audit", "Strategy Digital", 
+                    "Strategy Tech", "Strategy Cloud", "Strategy Custom", "Strategy Support"
+                ],
+                "Soporte e Infraestructura (Próximamente)": [
+                    "Mantenimiento de equipos de cómputo", 
+                    "Instalación de sistemas de seguridad CCTV", 
+                    "Micro centros de datos corporativos"
+                ],
+                "Identidad y Diseño Visual (Próximamente)": [
+                    "Creación de logotipos y branding", 
+                    "Diseño de interfaces UI/UX"
+                ],
+                "Automatización y Chatbots (Próximamente)": [
+                    "Implementación de flujos automáticos", 
+                    "Chatbots inteligentes para WhatsApp y Messenger"
+                ]
             };
+            
             prod.innerHTML = '<option value="">Selecciona producto...</option>';
-            if (cat && diccionario[cat]) { prod.disabled = false; diccionario[cat].forEach(p => { prod.innerHTML += `<option value="${p}">${p}</option>`; }); } else { prod.disabled = true; }
+            if (cat && diccionario[cat]) { 
+                prod.disabled = false; 
+                diccionario[cat].forEach(p => { prod.innerHTML += `<option value="${p}">${p}</option>`; }); 
+            } else { 
+                prod.disabled = true; 
+            }
         };
 
         async function prepararEquipo() {
@@ -225,7 +265,6 @@
 
                 if (isAdmin) { 
                     document.getElementById('adminOnlySection').style.display = 'block'; 
-                    // CANDADO DESACTIVADO: Ahora el admin SÍ ve el botón.
                     document.getElementById('navColaboradores').style.display = 'flex';
                     prepararEquipo(); 
                 }
