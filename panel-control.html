@@ -2,204 +2,93 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Master Panel | Digital Core</title>
-    <link rel="icon" href="Isotipo.png" type="image/png">
+    <title>Dashboard | Digital Core</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="styles.css">
     <style>
-        :root { --sidebar-width: 260px; }
-        body { display: flex; background: #f0f4f8; min-height: 100vh; margin: 0; font-family: 'Inter', sans-serif; }
-        .sidebar { width: var(--sidebar-width); height: 100vh; background: var(--dark-blue); color: white; position: fixed; padding: 2rem 1rem; display: flex; flex-direction: column; z-index: 100; }
-        .sidebar-logo { width: 80%; margin-bottom: 3rem; padding-left: 1rem; }
-        .nav-links { list-style: none; flex-grow: 1; padding: 0; }
-        .nav-links a { display: flex; align-items: center; gap: 15px; color: rgba(255,255,255,0.7); text-decoration: none; padding: 12px 1rem; border-radius: 8px; transition: 0.3s; font-weight: 600; }
-        .nav-links a:hover, .nav-links a.active { background: rgba(0, 156, 225, 0.2); color: var(--neon-blue); }
-        .main-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 2rem 3rem; }
-        
-        /* ESTILOS NOTIFICACIONES */
-        .notification-badge { background: #ff4757; color: white; border-radius: 50%; padding: 2px 7px; font-size: 0.65rem; font-weight: 900; position: absolute; right: 10px; }
-        .notif-card { background: #fff5f5; border-left: 4px solid #ff4757; padding: 12px 15px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.2s; }
-        .notif-card:hover { background: #ffe0e0; }
-
-        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; background: white; padding: 1.5rem 2rem; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .content-card { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 2rem; }
-        .board-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
-        .project-card { background: white; border-radius: 15px; padding: 20px; border: 1px solid rgba(0, 156, 225, 0.1); position: relative; cursor: pointer; transition: 0.3s; }
-        .project-card:hover { transform: translateY(-5px); }
-        
-        .form-control { padding: 12px; border: 1px solid #ddd; border-radius: 8px; width: 100%; box-sizing: border-box; font-family: inherit; }
-        .btn-primary { background: var(--neon-blue); color: white; border: none; padding: 14px; border-radius: 8px; font-weight: 800; cursor: pointer; width: 100%; margin-top: 20px; }
-        
-        @media (max-width: 768px) { .sidebar { width: 70px; } .sidebar span, .sidebar-logo { display: none; } .main-content { margin-left: 70px; width: calc(100% - 70px); padding: 1.5rem; } }
+        body { font-family: 'Inter', sans-serif; background: #f0f4f8; margin: 0; display: flex; }
+        .main-content { padding: 2rem; width: 100%; margin-left: 260px; }
+        .sidebar { width: 260px; height: 100vh; background: #0f172a; position: fixed; }
+        .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .task-card { background: white; padding: 20px; border-radius: 12px; border-left: 5px solid #cbd5e0; cursor:pointer; }
+        .st-demorada { border-left-color: #e53e3e; } .badge-demorada { background: #fff5f5; color:#e53e3e; font-size: 0.7rem; padding: 3px 8px; border-radius: 10px; }
+        .st-proceso { border-left-color: #3182ce; } .badge-proceso { background: #ebf8ff; color:#3182ce; font-size: 0.7rem; padding: 3px 8px; border-radius: 10px; }
+        .st-asignada { border-left-color: #718096; } .badge-asignada { background: #f7fafc; color:#718096; font-size: 0.7rem; padding: 3px 8px; border-radius: 10px; }
+        .st-completada { border-left-color: #38a169; } .badge-completada { background: #f0fff4; color:#38a169; font-size: 0.7rem; padding: 3px 8px; border-radius: 10px; }
     </style>
 </head>
 <body>
-
-    <aside class="sidebar">
-        <img src="Digital Core original.png" alt="Logo" class="sidebar-logo">
-        <ul class="nav-links">
-            <li><a href="panel-control.html" class="active"><i class='bx bxs-dashboard'></i> <span>Dashboard</span> <span id="notifCount" class="notification-badge" style="display:none;">0</span></a></li>
-            <li><a href="mis-trabajos.html"><i class='bx bxs-briefcase'></i> <span>Mis Trabajos</span></a></li>
-            <li><a href="colaboradores.html"><i class='bx bxs-group'></i> <span>Colaboradores</span></a></li>
-            <li><a href="#"><i class='bx bxs-package'></i> <span>Catálogo</span></a></li>
-        </ul>
-        <button id="logoutBtn" style="background:none; border:none; color:#ff6b6b; cursor:pointer; display:flex; align-items:center; gap:15px; padding:12px 1rem; font-weight:600; margin-top: auto;">
-            <i class='bx bx-log-out'></i> <span>Cerrar Sesión</span>
-        </button>
-    </aside>
-
+    <aside class="sidebar"> </aside>
     <main class="main-content">
-        <header class="top-bar">
-            <div>
-                <h1 id="userNameWelcome" style="color: var(--dark-blue); font-weight: 900; margin:0;">Iniciando...</h1>
-                <p id="roleLabel" style="color: #666; margin:0; font-size: 0.9rem;">Lead Engineer Digital Core</p>
-            </div>
-            <div style="background: #f8fafc; padding: 8px 15px; border-radius: 50px; display: flex; align-items: center; gap: 10px; border: 1px solid #edf2f7;">
-                <i class='bx bxs-user-circle' style="color: var(--light-blue); font-size: 1.4rem;"></i>
-                <span id="userEmailLabel" style="font-size: 0.85rem; font-weight: 600; color: var(--dark-blue);">...</span>
-            </div>
-        </header>
-
-        <section id="notifSection" class="content-card" style="display: none; border-bottom: 5px solid #ff4757;">
-            <h2 style="color: #c53030; margin-bottom: 1.5rem;"><i class='bx bxs-bell-ring bx-tada'></i> Solicitudes Pendientes</h2>
-            <div id="notifList">
-                </div>
-        </section>
-
-        <section id="adminOnlySection" style="display: none;">
-            <div class="content-card">
-                <h2 style="color: var(--dark-blue); margin-bottom: 1.5rem;"><i class='bx bx-plus-circle'></i> Nuevo Proyecto</h2>
-                <form id="addProjectForm">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                        <div><label>Categoría</label><select id="projCategory" class="form-control" onchange="actualizarProductos()" required><option value="">Selecciona...</option><option value="Desarrollo Web Estratégico">Desarrollo Web Estratégico</option><option value="Sistemas de Datos">Sistemas de Datos</option></select></div>
-                        <div><label>Producto</label><select id="projProduct" class="form-control" required disabled><option value="">Selecciona...</option></select></div>
-                        <div><label>Cliente</label><input type="text" id="projClient" class="form-control" required></div>
-                        <div><label>Asignar a</label><select id="projAssign" class="form-control" required><option value="">Cargando...</option></select></div>
-                    </div>
-                    <button type="submit" class="btn-primary">PUBLICAR PROYECTO</button>
-                </form>
-            </div>
-        </section>
-
-        <section class="content-card">
-            <h2 id="boardTitle" style="color: var(--dark-blue); margin-bottom: 25px;"><i class='bx bx-list-ul'></i> Tablero</h2>
-            <div id="projectBoard" class="board-container"></div>
-        </section>
+        <h2>Dashboard Principal (Top 3 Prioridades)</h2>
+        <div id="top3Board" class="card-grid"></div>
     </main>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, serverTimestamp, onSnapshot, query, where, getDocs, or } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+        import { getFirestore, collection, onSnapshot, query, where } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
         const firebaseConfig = { apiKey: "AIzaSyBlouup64jteDrbUkOkSSEqsjesnuT6mdQ", authDomain: "digital-core-app.firebaseapp.com", projectId: "digital-core-app", storageBucket: "digital-core-app.firebasestorage.app", messagingSenderId: "1003292240722", appId: "1:1003292240722:web:b2a2af0665df1ef00fe88b" };
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // --- SISTEMA DE NOTIFICACIONES MAESTRO ---
-        function activarNotificaciones() {
-            // Buscamos proyectos con solicitud de eliminación O solicitud de desmarcar
-            const q = query(collection(db, "proyectos"), or(
-                where("solicitud_eliminacion", "==", true),
-                where("solicitud_desmarcar", "==", true)
-            ));
-
-            onSnapshot(q, (snap) => {
-                const list = document.getElementById('notifList');
-                const badge = document.getElementById('notifCount');
-                const section = document.getElementById('notifSection');
-                
-                list.innerHTML = "";
-                const count = snap.size;
-
-                if (count > 0) {
-                    badge.innerText = count;
-                    badge.style.display = "block";
-                    section.style.display = "block";
-
-                    snap.forEach(d => {
-                        const p = d.data();
-                        const tipo = p.solicitud_eliminacion ? "ELIMINACIÓN" : "REABRIR";
-                        list.innerHTML += `
-                            <div class="notif-card" onclick="window.location.href='detalles-tarea.html?id=${d.id}'">
-                                <div>
-                                    <strong style="color:#c53030;">[SOLICITUD ${tipo}]</strong> 
-                                    <span>${p.producto} - ${p.cliente}</span>
-                                </div>
-                                <i class='bx bx-chevron-right' style="font-size:1.5rem;"></i>
-                            </div>`;
-                    });
-                } else {
-                    badge.style.display = "none";
-                    section.style.display = "none";
-                }
-            });
-        }
-
-        // --- LÓGICA DE TABLERO Y AUTH ---
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                const email = user.email.toLowerCase().trim();
-                const isAdmin = email === 'diego.725.reyes@gmail.com';
-                document.getElementById('userEmailLabel').innerText = email;
-
-                const userSnap = await getDocs(query(collection(db, "usuarios"), where("correo", "==", email)));
-                if (!userSnap.empty) {
-                    const u = userSnap.docs[0].data();
-                    document.getElementById('userNameWelcome').innerText = `¡Hola, ${u.nombre.split(' ')[0]}!`;
-                    document.getElementById('roleLabel').innerText = u.rol;
-                }
-
-                if (isAdmin) {
-                    document.getElementById('adminOnlySection').style.display = 'block';
-                    vincularEquipo();
-                    activarNotificaciones(); // Solo el Admin recibe notificaciones
-                }
-                
-                inicializarTablero(email, isAdmin);
-            } else { window.location.href = 'intranet.html'; }
+        onAuthStateChanged(auth, (user) => {
+            if (user) renderizarDashboard(user.email.toLowerCase().trim(), user.email === 'diego.725.reyes@gmail.com');
         });
 
-        function inicializarTablero(email, isAdmin) {
+        function renderizarDashboard(email, isAdmin) {
             const q = isAdmin ? collection(db, "proyectos") : query(collection(db, "proyectos"), where("asignado_a", "==", email));
+            
             onSnapshot(q, (snap) => {
-                const container = document.getElementById('projectBoard');
+                let tareas = [];
+                snap.forEach(d => tareas.push({ id: d.id, ...d.data() }));
+
+                // 1. ORDENAR: Incompletas primero, luego por fecha límite (las que vencen antes van primero)
+                tareas.sort((a, b) => {
+                    if (a.completado === b.completado) return new Date(a.entrega) - new Date(b.entrega);
+                    return a.completado ? 1 : -1;
+                });
+
+                // 2. RECORTAR A 3 TAREAS MAXIMO
+                const top3 = tareas.slice(0, 3);
+                
+                // 3. LOGICA DE ESTADO ESTRICTA (1 a la vez)
+                let hayUnaEnProceso = false;
+                const hoy = new Date().toISOString().split('T')[0];
+
+                const container = document.getElementById('top3Board');
                 container.innerHTML = "";
-                snap.forEach(d => {
-                    const p = d.data();
+
+                top3.forEach(p => {
+                    let estadoStr = ""; let claseEst = ""; let badgeClass = "";
+                    
+                    if (p.completado) {
+                        estadoStr = "COMPLETADA"; claseEst = "st-completada"; badgeClass = "badge-completada";
+                    } else if (p.entrega < hoy) {
+                        estadoStr = "DEMORADA"; claseEst = "st-demorada"; badgeClass = "badge-demorada";
+                    } else if (p.progreso > 0 && !hayUnaEnProceso) {
+                        // La primera que tenga progreso > 0 gana el título de "En Proceso"
+                        estadoStr = "EN PROCESO"; claseEst = "st-proceso"; badgeClass = "badge-proceso";
+                        hayUnaEnProceso = true; 
+                    } else {
+                        estadoStr = "ASIGNADA"; claseEst = "st-asignada"; badgeClass = "badge-asignada";
+                    }
+
                     container.innerHTML += `
-                        <div class="project-card" onclick="window.location.href='detalles-tarea.html?id=${d.id}'">
-                            <span style="font-size:0.6rem; color:var(--light-blue); font-weight:800;">${p.categoria}</span>
-                            <h3 style="margin:5px 0;">${p.producto}</h3>
-                            <div style="background:#f0f4f8; height:6px; border-radius:10px; margin:10px 0;">
-                                <div style="width:${p.progreso}%; background:var(--neon-blue); height:100%; border-radius:10px;"></div>
+                        <div class="task-card ${claseEst}" onclick="window.location.href='detalles-tarea.html?id=${p.id}'">
+                            <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                                <span class="${badgeClass}"><b>${estadoStr}</b></span>
+                                <span style="font-size:0.7rem; color:#a0aec0;">Vence: ${p.entrega}</span>
                             </div>
-                            <p style="font-size:0.7rem; color:#666; margin:0;">Cliente: ${p.cliente}</p>
+                            <h3 style="margin:5px 0; font-size:1rem;">${p.producto}</h3>
+                            <div style="background:#edf2f7; height:6px; border-radius:10px; margin:10px 0;">
+                                <div style="width:${p.progreso}%; background:var(--neon-blue); height:100%;"></div>
+                            </div>
                         </div>`;
                 });
             });
         }
-
-        async function vincularEquipo() {
-            onSnapshot(collection(db, "usuarios"), (snap) => {
-                const select = document.getElementById('projAssign');
-                select.innerHTML = '<option value="">Selecciona...</option>';
-                snap.forEach(d => { const u = d.data(); select.innerHTML += `<option value="${u.correo}">${u.nombre}</option>`; });
-            });
-        }
-
-        window.actualizarProductos = function() {
-            const cat = document.getElementById('projCategory').value;
-            const prod = document.getElementById('projProduct');
-            const lista = { "Desarrollo Web Estratégico": ["Core Flash", "Core Launch", "Core Flow"], "Sistemas de Datos": ["App Móvil", "Dashboard"] };
-            prod.innerHTML = '<option value="">Selecciona...</option>';
-            if (cat && lista[cat]) { prod.disabled = false; lista[cat].forEach(p => { prod.innerHTML += `<option value="${p}">${p}</option>`; }); }
-        };
-
-        document.getElementById('logoutBtn').onclick = () => signOut(auth).then(() => window.location.href = 'index.html');
     </script>
 </body>
 </html>
