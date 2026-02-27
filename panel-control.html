@@ -66,7 +66,9 @@
         <ul class="nav-links">
             <li><a href="panel-control.html" class="active"><i class='bx bxs-dashboard'></i> <span>Dashboard</span> <span id="notifCount" class="notif-badge-menu" style="display:none;">0</span></a></li>
             <li><a href="mis-trabajos.html"><i class='bx bxs-briefcase'></i> <span>Mis Trabajos</span></a></li>
-            <li><a href="colaboradores.html"><i class='bx bxs-group'></i> <span>Colaboradores</span></a></li>
+            
+            <li id="navColaboradores" style="display: none;"><a href="colaboradores.html"><i class='bx bxs-group'></i> <span>Colaboradores</span></a></li>
+            
             <li><a href="#"><i class='bx bxs-package'></i> <span>Catálogo</span></a></li>
         </ul>
         <button id="logoutBtn" style="background:none; border:none; color:#ff6b6b; cursor:pointer; display:flex; align-items:center; gap:15px; padding:12px 1rem; font-weight:600; margin-top: auto;">
@@ -223,6 +225,8 @@
 
                 if (isAdmin) { 
                     document.getElementById('adminOnlySection').style.display = 'block'; 
+                    // CANDADO DESACTIVADO: Ahora el admin SÍ ve el botón.
+                    document.getElementById('navColaboradores').style.display = 'flex';
                     prepararEquipo(); 
                 }
 
@@ -301,7 +305,6 @@
                 document.getElementById('statTotal').innerText = cTotal; document.getElementById('statAsignados').innerText = cAsignados;
                 document.getElementById('statProceso').innerText = cProceso; document.getElementById('statAtrasados').innerText = cAtrasados;
 
-                // === LÓGICA DE REPORTE BIFURCADA (ADMIN VS COLABORADOR) ===
                 const rBox = document.getElementById('reportBox'); 
                 const rText = document.getElementById('reportText');
                 const rIcon = document.getElementById('reportIcon');
