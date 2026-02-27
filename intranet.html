@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intranet | Digital Core</title>
+    <link rel="icon" href="Isotipo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .intranet-wrapper {
+            padding: 50px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: calc(100vh - 80px);
+        }
+
+        .intranet-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeUp 0.5s ease-out forwards;
+        }
+
+        .intranet-header h1 {
+            color: var(--dark-blue);
+            font-size: 2.2rem;
+            font-weight: 900;
+        }
+
+        .intranet-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .intranet-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 2rem;
+            animation: fadeUp 0.7s ease-out forwards;
+        }
+
+        /* PANEL DE INFORMACIÓN */
+        .info-panel {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(4, 31, 61, 0.05);
+            border: 1px solid rgba(0, 156, 225, 0.1);
+        }
+
+        .info-panel h2 {
+            color: var(--medium-blue);
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--neon-blue);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .notice {
+            border-left: 4px solid var(--light-blue);
+            padding-left: 15px;
+            margin-bottom: 1.8rem;
+            background: rgba(0, 156, 225, 0.03);
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .notice h3 {
+            color: var(--dark-blue);
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .notice p {
+            color: #555;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .notice-date {
+            font-size: 0.8rem;
+            color: #999;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* PANEL DE AUTENTICACIÓN FIREBASE */
+        .auth-panel {
+            background: var(--white);
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 5px 20px rgba(4, 31, 61, 0.05);
+            border: 2px dashed rgba(0, 156, 225, 0.3);
+        }
+
+        .auth-panel h2 {
+            color: var(--dark-blue);
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .auth-panel p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark-blue);
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        .btn-auth {
+            width: 100%;
+            padding: 14px;
+            background: var(--light-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-auth:hover {
+            background: var(--neon-blue);
+            color: var(--dark-blue);
+            box-shadow: 0 4px 15px rgba(0, 156, 225, 0.3);
+        }
+
+        #authMessage {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: none;
+            text-align: center;
+        }
+
+        @media (max-width: 900px) {
+            .intranet-grid {
+                grid-template-columns: 1fr;
+            }
+            .auth-panel {
+                order: -1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="Digital Core original.png" alt="Digital Core" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            </a>
+        </div>
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav id="nav-menu">
+            <ul style="display: flex; align-items: center;">
+                <li><a href="index.html" style="color: #e74c3c; font-weight: 700;">Salir al Sitio Público</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="intranet-wrapper">
+        <div class="intranet-header">
+            <h1>Panel Central Operativo</h1>
+            <p>Bienvenido al espacio de trabajo de Digital Core</p>
+        </div>
+
+        <div class="intranet-grid">
+            
+            <div class="info-panel">
+                <h2>Tablón de Anuncios</h2>
+                <div class="notice">
+                    <div class="notice-date">Aviso General</div>
+                    <h3>Actualización de Sistemas</h3>
+                    <p>Recuerden que los viernes a las 6:00 PM se realiza el respaldo general de las bases de datos de clientes.</p>
+                </div>
+                <div class="notice">
+                    <div class="notice-date">Seguridad</div>
+                    <h3>Credenciales de Acceso</h3>
+                    <p>Su contraseña corporativa es personal e intransferible. El acceso a las métricas está monitoreado.</p>
+                </div>
+            </div>
+
+            <div class="auth-panel">
+                <h2>Verificación de Identidad</h2>
+                <p>Ingresa tus credenciales asignadas para acceder al tablero de control.</p>
+                
+                <form id="firebaseAuthForm">
+                    <div class="form-group">
+                        <label for="empEmail">Correo Corporativo</label>
+                        <input type="email" id="empEmail" class="form-control" placeholder="usuario@digitalcoremx.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="empPass">Contraseña</label>
+                        <input type="password" id="empPass" class="form-control" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn-auth">Conectar a Sistemas</button>
+                </form>
+                
+                <div id="authMessage"></div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+        if (mobileMenu && navMenu) {
+            mobileMenu.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
+    </script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+
+        // Configuración oficial de tu proyecto
+        const firebaseConfig = {
+            apiKey: "AIzaSyBlouup64jteDrbUkOkSSEqsjesnuT6mdQ",
+            authDomain: "digital-core-app.firebaseapp.com",
+            projectId: "digital-core-app",
+            storageBucket: "digital-core-app.firebasestorage.app",
+            messagingSenderId: "1003292240722",
+            appId: "1:1003292240722:web:b2a2af0665df1ef00fe88b",
+            measurementId: "G-SX61ZVLJF0"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        document.getElementById('firebaseAuthForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('empEmail').value;
+            const pass = document.getElementById('empPass').value;
+            const authMsg = document.getElementById('authMessage');
+            
+            authMsg.style.display = 'none';
+
+            signInWithEmailAndPassword(auth, email, pass)
+                .then((userCredential) => {
+                    authMsg.style.display = 'block';
+                    authMsg.style.color = '#27ae60';
+                    authMsg.innerText = `¡Autenticación exitosa! Redirigiendo...`;
+                    
+                    // Redirección automática al panel de control
+                    setTimeout(() => {
+                        window.location.href = 'panel-control.html';
+                    }, 1200);
+                })
+                .catch((error) => {
+                    authMsg.style.display = 'block';
+                    authMsg.style.color = '#e74c3c';
+                    authMsg.innerText = "Credenciales incorrectas o acceso denegado.";
+                    document.getElementById('empPass').value = '';
+                });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Control | Digital Core</title>
+    <link rel="icon" href="Isotipo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --sidebar-width: 260px;
+        }
+
+        body {
+            display: flex;
+            background: #f0f4f8;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--dark-blue);
+            color: white;
+            position: fixed;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-logo {
+            width: 80%;
+            margin-bottom: 3rem;
+            padding-left: 1rem;
+        }
+
+        .nav-links {
+            list-style: none;
+            flex-grow: 1;
+        }
+
+        .nav-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            padding: 12px 1rem;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: rgba(0, 156, 225, 0.2);
+            color: var(--neon-blue);
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            width: calc(100% - var(--sidebar-width));
+            padding: 2rem 3rem;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .welcome-text h1 {
+            font-size: 1.8rem;
+            color: var(--dark-blue);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            padding: 8px 15px;
+            border-radius: 50px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        /* DASHBOARD CARDS */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            color: var(--light-blue);
+            background: rgba(0, 156, 225, 0.1);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        /* SECCIÓN DE TRABAJOS */
+        .content-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .work-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .work-table th {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 2px solid #eee;
+            color: #888;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        .work-table td {
+            padding: 15px 12px;
+            border-bottom: 1px solid #eee;
+            font-weight: 600;
+        }
+
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .status-progress { background: #fff4e5; color: #ff9800; }
+        .status-done { background: #e6fcf5; color: #0ca678; }
+
+        @media (max-width: 768px) {
+            .sidebar { width: 70px; padding: 2rem 0.5rem; }
+            .sidebar span, .sidebar-logo { display: none; }
+            .main-content { margin-left: 70px; width: calc(100% - 70px); padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <img src="Digital Core original.png" alt="Logo" class="sidebar-logo">
+        <ul class="nav-links">
+            <li><a href="#" class="active"><i class='bx bxs-dashboard'></i> <span>Dashboard</span></a></li>
+            <li><a href="#"><i class='bx bxs-package'></i> <span>Catálogo</span></a></li>
+            <li><a href="#"><i class='bx bxs-briefcase'></i> <span>Mis Trabajos</span></a></li>
+            <li><a href="#"><i class='bx bxs-cog'></i> <span>Ajustes</span></a></li>
+        </ul>
+        <a href="index.html" style="color: #ff6b6b; margin-top: auto;"><i class='bx bx-log-out'></i> <span>Cerrar Sesión</span></a>
+    </aside>
+
+    <main class="main-content">
+        <header class="top-bar">
+            <div class="welcome-text">
+                <h1 id="userNameWelcome">Cargando Panel...</h1>
+                <p>Aquí está el resumen operativo de hoy.</p>
+            </div>
+            <div class="user-profile">
+                <i class='bx bxs-user-circle' style="font-size: 1.5rem; color: var(--light-blue);"></i>
+                <span id="userEmailLabel">empleado@digitalcore.com</span>
+            </div>
+        </header>
+
+        <section class="stats-grid">
+            <div class="stat-card">
+                <i class='bx bx-rocket stat-icon'></i>
+                <div>
+                    <h3 style="font-size: 1.5rem;">12</h3>
+                    <p style="color: #888;">Proyectos Activos</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class='bx bx-check-double stat-icon' style="color: #0ca678; background: #e6fcf5;"></i>
+                <div>
+                    <h3 style="font-size: 1.5rem;">45</h3>
+                    <p style="color: #888;">Completados</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class='bx bx-time-five stat-icon' style="color: #ff9800; background: #fff4e5;"></i>
+                <div>
+                    <h3 style="font-size: 1.5rem;">8</h3>
+                    <p style="color: #888;">Pendientes</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-card">
+            <h2 style="margin-bottom: 1.5rem; color: var(--dark-blue);"><i class='bx bx-list-ul'></i> Trabajos Asignados</h2>
+            <table class="work-table">
+                <thead>
+                    <tr>
+                        <th>Proyecto</th>
+                        <th>Cliente</th>
+                        <th>Progreso</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Landing Page v2</td>
+                        <td>Innova Tech</td>
+                        <td>85%</td>
+                        <td><span class="status-badge status-progress">En proceso</span></td>
+                    </tr>
+                    <tr>
+                        <td>Sistema CRM</td>
+                        <td>Salud Visual</td>
+                        <td>100%</td>
+                        <td><span class="status-badge status-done">Terminado</span></td>
+                    </tr>
+                    <tr>
+                        <td>E-commerce</td>
+                        <td>Moda Querétaro</td>
+                        <td>40%</td>
+                        <td><span class="status-badge status-progress">En proceso</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBlouup64jteDrbUkOkSSEqsjesnuT6mdQ",
+            authDomain: "digital-core-app.firebaseapp.com",
+            projectId: "digital-core-app",
+            storageBucket: "digital-core-app.firebasestorage.app",
+            messagingSenderId: "1003292240722",
+            appId: "1:1003292240722:web:b2a2af0665df1ef00fe88b",
+            measurementId: "G-SX61ZVLJF0"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // REVISAR SI EL USUARIO ESTÁ LOGUEADO
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // Si hay usuario, ponemos sus datos
+                document.getElementById('userNameWelcome').innerText = `¡Bienvenido de nuevo!`;
+                document.getElementById('userEmailLabel').innerText = user.email;
+            } else {
+                // Si NO está logueado, lo regresamos al login por seguridad
+                window.location.href = 'intranet.html';
+            }
+        });
+    </script>
+</body>
+</html>
