@@ -221,6 +221,7 @@
                 document.getElementById('tDeadline').innerText = t.entrega;
                 document.getElementById('tRequerimientos').innerText = t.requerimientos || "Sin requerimientos especificados.";
                 
+                // Asegurarse de que asignado_a sea un array para iterar fácil
                 let arrayAsignados = Array.isArray(t.asignado_a) ? t.asignado_a : [t.asignado_a];
                 document.getElementById('tAssignees').innerText = arrayAsignados.join(', ');
                 
@@ -322,7 +323,7 @@
                 };
 
                 // ===============================================
-                // EVENTOS: GUARDAR AVANCES
+                // EVENTOS: GUARDAR AVANCES CON NOTIFICACIONES
                 // ===============================================
                 document.getElementById('btnPlus').onclick = () => { if(uiProgreso <= 90) { uiProgreso += 10; actualizarBarraUI(); } };
                 document.getElementById('btnMinus').onclick = () => { 
@@ -347,8 +348,9 @@
                             historial_avance: arrayUnion({ fecha: fechaHora, porcentaje: uiProgreso, comentario: comentarioFinal, autor: autorFinal })
                         });
 
-                        // Notificar si no es Admin
+                        // LÓGICA DE NOTIFICACIONES: ¿Quién avisa a quién?
                         if(!esAdminGlobal) {
+                            // El colaborador notifica al admin
                             try {
                                 await addDoc(collection(db, "notificaciones"), {
                                     destinatario: "diego.725.reyes@gmail.com",
@@ -357,15 +359,31 @@
                                     tipo: "NUEVO", proyectoId: docRef.id, creado: serverTimestamp()
                                 });
                             } catch (e) { console.error("Error notificación", e); }
+                        } else {
+                            // EL ADMIN NOTIFICA A TODOS LOS COLABORADORES ASIGNADOS (Modificación Bidireccional)
+                            arrayAsignados.forEach(async (correoColab) => {
+                                if (correoColab !== currentUserEmail) { // Para no auto-notificarte
+                                    try {
+                                        await addDoc(collection(db, "notificaciones"), {
+                                            destinatario: correoColab,
+                                            titulo: `AVANCE MODIFICADO POR ADMIN`,
+                                            mensaje: `Diego ha ajustado el progreso de "${t.producto}" al ${uiProgreso}%.`,
+                                            tipo: "ALERTA", proyectoId: docRef.id, creado: serverTimestamp()
+                                        });
+                                    } catch (e) { console.error(e); }
+                                }
+                            });
                         }
                         
                         document.getElementById('txtComentario').value = ""; 
+                        alert("Avance registrado correctamente.");
                     }
                 };
 
                 document.getElementById('btnMarkComplete').onclick = async () => {
                     const comentario = document.getElementById('txtComentario').value.trim() || "Tarea Finalizada.";
                     let autorFinal = esAdminGlobal ? "Administrador (Diego)" : currentUserName;
+                    
                     if(confirm("¿Confirmas que la tarea está al 100%?")) {
                         const fechaHora = new Date().toLocaleString('es-MX');
                         
@@ -426,13 +444,29 @@
                 // EVENTOS: ACCIONES EXCLUSIVAS DEL LEAD ENGINEER
                 // ===============================================
                 if(esAdminGlobal) {
+                    
                     document.getElementById('btnAdminUnmark').onclick = async () => {
                         const fechaHora = new Date().toLocaleString('es-MX');
                         await updateDoc(docRef, { 
                             completado: false, solicitud_desmarcar: false, progreso: 90, en_proceso: false, 
                             historial_avance: arrayUnion({ fecha: fechaHora, porcentaje: 90, comentario: "Reapertura Forzada por Administrador.", autor: "Administrador (Diego)" }) 
                         });
-                        alert("Tarea reabierta al 90%.");
+
+                        // NOTIFICAR A TODOS LOS COLABORADORES LA REAPERTURA
+                        arrayAsignados.forEach(async (correoColab) => {
+                            if (correoColab !== currentUserEmail) {
+                                try {
+                                    await addDoc(collection(db, "notificaciones"), {
+                                        destinatario: correoColab,
+                                        titulo: `¡TAREA REABIERTA!`,
+                                        mensaje: `Diego ha reabierto el proyecto "${t.producto}" y el progreso se ajustó a 90%.`,
+                                        tipo: "ALERTA", proyectoId: docRef.id, creado: serverTimestamp()
+                                    });
+                                } catch (e) { console.error(e); }
+                            }
+                        });
+
+                        alert("Tarea reabierta al 90% y colaboradores notificados.");
                     };
                     
                     document.getElementById('btnAdminDelete').onclick = async () => { if(confirm("¿Eliminar tarea definitivamente?")) { await deleteDoc(docRef); window.location.href = 'panel-control.html'; } };
