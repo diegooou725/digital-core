@@ -37,7 +37,7 @@
         /* FORMULARIO */
         .content-card { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 2rem; }
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .form-control { padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; width: 100%; }
+        .form-control { padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; width: 100%; box-sizing: border-box; }
         
         .btn-primary { 
             background: var(--neon-blue); color: white; border: none; 
@@ -83,7 +83,7 @@
         <header class="top-bar">
             <div>
                 <h1 id="userNameWelcome" style="color: var(--dark-blue); font-weight: 900; margin:0;">Cargando...</h1>
-                <p id="roleLabel" style="color: #666; margin:0; font-size: 0.9rem;">Lead Engineer Digital Core</p>
+                <p id="roleLabel" style="color: #666; margin:0; font-size: 0.9rem;">Verificando identidad...</p>
             </div>
             <div style="background: #f8fafc; padding: 8px 15px; border-radius: 50px; display: flex; align-items: center; gap: 10px; border: 1px solid #edf2f7;">
                 <i class='bx bxs-user-circle' style="color: var(--light-blue); font-size: 1.4rem;"></i>
@@ -151,7 +151,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, serverTimestamp, onSnapshot, query, orderBy, updateDoc, doc, deleteDoc, where } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, serverTimestamp, onSnapshot, query, orderBy, updateDoc, doc, deleteDoc, where, getDocs } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBlouup64jteDrbUkOkSSEqsjesnuT6mdQ",
@@ -167,7 +167,7 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // LISTA DINÁMICA DE PRODUCTOS
+        // PRODUCTOS DINÁMICOS
         window.actualizarProductos = function() {
             const cat = document.getElementById('projCategory').value;
             const prod = document.getElementById('projProduct');
@@ -190,7 +190,7 @@
             } else { prod.disabled = true; }
         };
 
-        // CARGAR EQUIPO DESDE FIRESTORE
+        // CARGAR EQUIPO PARA EL SELECTOR
         async function cargarListaColaboradores() {
             const select = document.getElementById('projAssign');
             onSnapshot(collection(db, "usuarios"), (snap) => {
@@ -198,33 +198,48 @@
                 snap.forEach((doc) => {
                     const u = doc.data();
                     let o = document.createElement('option');
-                    o.value = u.correo;
+                    o.value = u.correo.toLowerCase().trim();
                     o.textContent = `${u.nombre} (${u.rol})`;
                     select.appendChild(o);
                 });
             });
         }
 
-        // ACCESO Y FILTRO
-        onAuthStateChanged(auth, (user) => {
+        // CONTROL DE ACCESO E IDENTIDAD DINÁMICA
+        onAuthStateChanged(auth, async (user) => {
             if (user) {
-                document.getElementById('userEmailLabel').innerText = user.email;
-                const isAdmin = user.email === 'diego.725.reyes@gmail.com';
+                const userEmail = user.email.toLowerCase().trim();
+                document.getElementById('userEmailLabel').innerText = userEmail;
+                const isAdmin = userEmail === 'diego.725.reyes@gmail.com';
                 
+                // Buscar datos de usuario en la colección 'usuarios'
+                const qUser = query(collection(db, "usuarios"), where("correo", "==", userEmail));
+                const userSnap = await getDocs(qUser);
+                
+                if (!userSnap.empty) {
+                    const userData = userSnap.docs[0].data();
+                    document.getElementById('userNameWelcome').innerText = `¡Hola, ${userData.nombre.split(' ')[0]}!`;
+                    document.getElementById('roleLabel').innerText = userData.rol;
+                } else {
+                    document.getElementById('userNameWelcome').innerText = "Usuario Digital Core";
+                    document.getElementById('roleLabel').innerText = isAdmin ? "Lead Engineer" : "Colaborador";
+                }
+
                 if (isAdmin) {
-                    document.getElementById('userNameWelcome').innerText = "¡Hola, Diego!";
                     document.getElementById('adminOnlySection').style.display = 'block';
                     document.getElementById('boardTitle').innerHTML = "<i class='bx bx-globe'></i> Tablero Global";
                     cargarListaColaboradores();
                 } else {
-                    document.getElementById('userNameWelcome').innerText = "Panel Operativo";
-                    document.getElementById('boardTitle').innerHTML = "<i class='bx bx-briefcase'></i> Mis Tareas";
+                    document.getElementById('boardTitle').innerHTML = "<i class='bx bx-briefcase'></i> Mis Tareas Asignadas";
                 }
-                cargarProyectos(user.email, isAdmin);
-            } else { window.location.href = 'intranet.html'; }
+                
+                cargarProyectos(userEmail, isAdmin);
+            } else { 
+                window.location.href = 'intranet.html'; 
+            }
         });
 
-        // ACCIONES FIRESTORE
+        // ACCIONES DE BASE DE DATOS
         document.getElementById('addProjectForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             try {
@@ -233,14 +248,14 @@
                     producto: document.getElementById('projProduct').value,
                     cliente: document.getElementById('projClient').value,
                     entrega: document.getElementById('projDeadline').value,
-                    asignado_a: document.getElementById('projAssign').value,
+                    asignado_a: document.getElementById('projAssign').value.toLowerCase().trim(),
                     estado: document.getElementById('projStatus').value,
                     progreso: 0,
                     creado: serverTimestamp()
                 });
-                alert("Proyecto publicado.");
+                alert("Proyecto publicado correctamente.");
                 document.getElementById('addProjectForm').reset();
-            } catch (err) { alert(err.message); }
+            } catch (err) { alert("Error: " + err.message); }
         });
 
         window.eliminarProyecto = async (id) => {
@@ -252,21 +267,37 @@
             await updateDoc(doc(db, "proyectos", id), { progreso: n });
         };
 
+        // CARGA DE TAREAS CON FILTRO ESTRICTO
         function cargarProyectos(email, isAdmin) {
-            let q = isAdmin ? 
-                query(collection(db, "proyectos"), orderBy("creado", "desc")) : 
-                query(collection(db, "proyectos"), where("asignado_a", "==", email), orderBy("creado", "desc"));
+            let q;
+            if (isAdmin) {
+                q = query(collection(db, "proyectos"), orderBy("creado", "desc"));
+            } else {
+                q = query(collection(db, "proyectos"), 
+                          where("asignado_a", "==", email), 
+                          orderBy("creado", "desc"));
+            }
 
             onSnapshot(q, (snap) => {
                 const container = document.getElementById('projectBoard');
                 container.innerHTML = "";
+                
+                if (snap.empty) {
+                    container.innerHTML = `
+                        <div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: #888;">
+                            <i class='bx bx-search-alt' style="font-size: 3rem;"></i>
+                            <p>No se encontraron tareas asignadas para: <br><b>${email}</b></p>
+                        </div>`;
+                    return;
+                }
+
                 snap.forEach((d) => {
                     const p = d.data();
                     container.innerHTML += `
                         <div class="project-card">
                             ${isAdmin ? `<i class='bx bx-trash delete-btn' onclick="eliminarProyecto('${d.id}')"></i>` : ''}
                             <span style="font-size:0.6rem; color:var(--light-blue); font-weight:800;">${p.categoria}</span>
-                            <h3 style="margin:5px 0; font-size:1rem;">${p.producto}</h3>
+                            <h3 style="margin:5px 0; font-size:1rem; color:var(--dark-blue);">${p.producto}</h3>
                             <p style="font-size:0.75rem; color:#888;">Cliente: ${p.cliente}</p>
                             <div class="progress-container"><div class="progress-bar" style="width:${p.progreso}%"></div></div>
                             <div style="display:flex; align-items:center; gap:10px;">
@@ -274,13 +305,17 @@
                                 <span style="font-weight:bold; font-size:0.9rem;">${p.progreso}%</span>
                                 <button class="control-btn" onclick="cambiarProgreso('${d.id}', ${p.progreso}, 10)">+</button>
                             </div>
-                            <div style="margin-top:15px; display:flex; justify-content:space-between; font-size:0.7rem;">
-                                <span>Límite: ${p.entrega}</span>
-                                <span style="font-weight:900; color:var(--dark-blue);">${p.asignado_a.split('@')[0]}</span>
+                            <div style="margin-top:15px; display:flex; justify-content:space-between; font-size:0.7rem; align-items:center;">
+                                <span style="color:#666;"><i class='bx bx-calendar'></i> ${p.entrega}</span>
+                                <span style="font-weight:900; color:var(--dark-blue); background:#f0f4f8; padding:3px 8px; border-radius:4px;">
+                                    ${p.asignado_a.split('@')[0]}
+                                </span>
                             </div>
                         </div>
                     `;
                 });
+            }, (error) => {
+                console.error("Error al cargar proyectos:", error);
             });
         }
 
