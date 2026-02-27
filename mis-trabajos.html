@@ -2,180 +2,120 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Histórico de Trabajos | Digital Core</title>
-    <link rel="icon" href="Isotipo.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <style>
-        :root { --sidebar-width: 260px; --dark-blue: #0f172a; --neon-blue: #009ce1; --light-blue: #38bdf8; }
+        /* Mismos estilos base */
+        :root { --sidebar-width: 260px; --dark-blue: #0f172a; --neon-blue: #009ce1; }
         body { display: flex; background: #f0f4f8; min-height: 100vh; margin: 0; font-family: 'Inter', sans-serif; }
-        .sidebar { width: var(--sidebar-width); height: 100vh; background: var(--dark-blue); color: white; position: fixed; padding: 2rem 1rem; display: flex; flex-direction: column; z-index: 100; box-sizing: border-box; }
-        .sidebar-logo { width: 80%; margin-bottom: 3rem; padding-left: 1rem; }
-        .nav-links { list-style: none; flex-grow: 1; padding: 0; margin: 0; }
-        .nav-links a { display: flex; align-items: center; gap: 15px; color: rgba(255,255,255,0.7); text-decoration: none; padding: 12px 1rem; border-radius: 8px; transition: 0.3s; font-weight: 600; margin-bottom: 5px; }
-        .nav-links a:hover, .nav-links a.active { background: rgba(0, 156, 225, 0.2); color: var(--neon-blue); }
+        .sidebar { width: var(--sidebar-width); height: 100vh; background: var(--dark-blue); color: white; position: fixed; padding: 2rem 1rem; box-sizing: border-box; }
+        .nav-links { list-style: none; padding: 0; } .nav-links a { display: flex; align-items: center; gap: 15px; color: rgba(255,255,255,0.7); text-decoration: none; padding: 12px 1rem; border-radius: 8px; font-weight: 600; margin-bottom: 5px; } .nav-links a.active { background: rgba(0, 156, 225, 0.2); color: var(--neon-blue); }
         .main-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 2rem 3rem; box-sizing: border-box; }
-        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; background: white; padding: 1.5rem 2rem; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 2rem; }
-        .stat-card { background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.5rem; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
-        .stat-card h3 { margin: 0; font-size: 2.2rem; color: var(--dark-blue); }
-        .stat-card p { margin: 5px 0 0 0; font-size: 0.8rem; color: #64748b; font-weight: 700; text-transform: uppercase; }
-        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
-        .task-card { background: white; padding: 20px; border-radius: 12px; border-left: 5px solid #cbd5e0; cursor:pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.2s; }
-        .task-card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px rgba(0,0,0,0.05); }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .task-card { background: white; padding: 20px; border-radius: 12px; border-left: 5px solid #cbd5e0; cursor:pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
         .st-demorada { border-left-color: #e53e3e; } .badge-demorada { background: #fff5f5; color:#e53e3e; font-size: 0.7rem; padding: 4px 10px; border-radius: 50px; font-weight: 800; }
         .st-proceso { border-left-color: #3182ce; } .badge-proceso { background: #ebf8ff; color:#3182ce; font-size: 0.7rem; padding: 4px 10px; border-radius: 50px; font-weight: 800; }
         .st-asignada { border-left-color: #718096; } .badge-asignada { background: #f7fafc; color:#718096; font-size: 0.7rem; padding: 4px 10px; border-radius: 50px; font-weight: 800; }
         .st-completada { border-left-color: #38a169; opacity: 0.85; } .badge-completada { background: #f0fff4; color:#38a169; font-size: 0.7rem; padding: 4px 10px; border-radius: 50px; font-weight: 800; }
-        @media (max-width: 768px) { .sidebar { width: 70px; } .sidebar span, .sidebar-logo { display: none; } .main-content { margin-left: 70px; width: calc(100% - 70px); padding: 1.5rem; } }
+        
+        .filter-badge { display: inline-block; background: var(--neon-blue); color: white; padding: 5px 15px; border-radius: 50px; font-size: 0.8rem; font-weight: bold; margin-left: 10px; text-transform: uppercase;}
     </style>
 </head>
 <body>
-
     <aside class="sidebar">
-        <h2 style="padding-left: 1rem; color: var(--light-blue); margin-bottom: 2rem;">Digital Core</h2>
+        <h2 style="padding-left: 1rem; color: #38bdf8; margin-bottom: 2rem;">Digital Core</h2>
         <ul class="nav-links">
-            <li><a href="panel-control.html"><i class='bx bxs-dashboard'></i> <span>Dashboard</span></a></li>
-            <li><a href="mis-trabajos.html" class="active"><i class='bx bxs-briefcase'></i> <span>Mis Trabajos</span></a></li>
-            <li><a href="colaboradores.html"><i class='bx bxs-group'></i> <span>Colaboradores</span></a></li>
-            <li><a href="#"><i class='bx bxs-package'></i> <span>Catálogo</span></a></li>
+            <li><a href="panel-control.html"><i class='bx bxs-dashboard'></i> Dashboard</a></li>
+            <li><a href="mis-trabajos.html" class="active"><i class='bx bxs-briefcase'></i> Mis Trabajos</a></li>
         </ul>
-        <button id="logoutBtn" style="background:none; border:none; color:#ff6b6b; cursor:pointer; display:flex; align-items:center; gap:15px; padding:12px 1rem; font-weight:600; margin-top: auto;">
-            <i class='bx bx-log-out'></i> <span>Cerrar Sesión</span>
-        </button>
+        <button id="logoutBtn" style="background:none; border:none; color:#ff6b6b; cursor:pointer; margin-top: auto; font-weight:600;"><i class='bx bx-log-out'></i> Salir</button>
     </aside>
 
     <main class="main-content">
-        <header class="top-bar">
-            <div>
-                <h1 id="pageTitle" style="color: var(--dark-blue); font-weight: 900; margin:0;">Histórico de Trabajos</h1>
-                <p id="roleLabel" style="color: #666; margin:0; font-size: 0.9rem;">Sincronizando registros...</p>
-            </div>
-            <div style="background: #f8fafc; padding: 8px 15px; border-radius: 50px; display: flex; align-items: center; gap: 10px; border: 1px solid #edf2f7;">
-                <i class='bx bxs-user-circle' style="color: var(--light-blue); font-size: 1.4rem;"></i>
-                <span id="userEmailLabel" style="font-size: 0.85rem; font-weight: 600; color: var(--dark-blue);">Cargando...</span>
-            </div>
-        </header>
+        <h1 style="color: var(--dark-blue); font-weight: 900; display: flex; align-items: center;">
+            Histórico de Trabajos <span id="labelFiltro" class="filter-badge" style="display:none;"></span>
+        </h1>
+        
+        <div style="margin-bottom: 20px;">
+            <button onclick="window.location.href='mis-trabajos.html?filtro=todas'" style="padding: 8px 15px; border-radius: 8px; border: 1px solid #cbd5e0; background: white; cursor: pointer; font-weight: bold;">Mostrar Todas</button>
+        </div>
 
-        <section>
-            <div class="stats-grid">
-                <div class="stat-card"><h3 id="statTotal">0</h3><p>Histórico Total</p></div>
-                <div class="stat-card"><h3 id="statCompletados" style="color: #38a169;">0</h3><p>Completados</p></div>
-                <div class="stat-card"><h3 id="statProceso" style="color: #3182ce;">0</h3><p>En Proceso</p></div>
-                <div class="stat-card"><h3 id="statAtrasados" style="color: #e53e3e;">0</h3><p>Demorados</p></div>
-                <div class="stat-card"><h3 id="statAsignados" style="color: #718096;">0</h3><p>Asignados</p></div>
-            </div>
-        </section>
-
-        <section>
-            <h2 style="color: var(--dark-blue); margin-bottom: 1.5rem; margin-top: 1rem;"><i class='bx bx-archive'></i> Todos los Registros</h2>
-            <div id="fullBoard" class="card-grid"></div>
-        </section>
+        <div id="fullBoard" class="card-grid"></div>
     </main>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
-        import { getFirestore, collection, onSnapshot, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+        import { getFirestore, collection, onSnapshot, query, where } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
         const firebaseConfig = { apiKey: "AIzaSyBlouup64jteDrbUkOkSSEqsjesnuT6mdQ", authDomain: "digital-core-app.firebaseapp.com", projectId: "digital-core-app", storageBucket: "digital-core-app.firebasestorage.app", messagingSenderId: "1003292240722", appId: "1:1003292240722:web:b2a2af0665df1ef00fe88b" };
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
+        const app = initializeApp(firebaseConfig); const auth = getAuth(app); const db = getFirestore(app);
+
+        // LECTURA DEL FILTRO EN LA URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const filtroSolicitado = urlParams.get('filtro') || 'todas';
+
+        if(filtroSolicitado !== 'todas') {
+            const lbl = document.getElementById('labelFiltro');
+            lbl.style.display = 'inline-block';
+            lbl.innerText = "Filtrando: " + filtroSolicitado;
+        }
 
         onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                const email = user.email.toLowerCase().trim();
-                const isAdmin = email === 'diego.725.reyes@gmail.com';
-                document.getElementById('userEmailLabel').innerText = email;
-
-                const userSnap = await getDocs(query(collection(db, "usuarios"), where("correo", "==", email)));
-                if (!userSnap.empty) {
-                    const u = userSnap.docs[0].data();
-                    document.getElementById('roleLabel').innerText = u.rol;
-                }
-
-                document.getElementById('pageTitle').innerText = isAdmin ? "Histórico Global" : "Mi Histórico";
-                renderizarHistorico(email, isAdmin);
-            } else { window.location.href = 'intranet.html'; }
+            if (user) renderizarHistorico(user.email.toLowerCase().trim(), user.email === 'diego.725.reyes@gmail.com');
         });
 
         function renderizarHistorico(email, isAdmin) {
-            // CAMBIO CLAVE: Usamos array-contains para buscar si el usuario es parte del equipo de esa tarea
             const q = isAdmin ? collection(db, "proyectos") : query(collection(db, "proyectos"), where("asignado_a", "array-contains", email));
             
             onSnapshot(q, (snap) => {
                 let tareas = [];
                 snap.forEach(d => tareas.push({ id: d.id, ...d.data() }));
 
-                let cTotal = tareas.length;
-                let cAsignados = 0; let cProceso = 0; let cAtrasados = 0; let cCompletados = 0;
-                let activosPorUsuario = {}; 
                 const hoy = new Date().toISOString().split('T')[0];
 
-                tareas.sort((a, b) => {
-                    if (a.completado === b.completado) return new Date(a.entrega) - new Date(b.entrega);
-                    return a.completado ? 1 : -1;
-                });
-
-                tareas.forEach(p => {
-                    // Para la lógica de "1 en proceso", tomamos al primer asignado del array
-                    const usuarioPrincipal = Array.isArray(p.asignado_a) ? p.asignado_a[0] : p.asignado_a;
-
-                    if (p.completado) {
-                        cCompletados++; p._estadoVisual = "COMPLETADA";
-                    } else if (p.entrega < hoy) {
-                        cAtrasados++; p._estadoVisual = "DEMORADA";
-                    } else if (p.progreso > 0 && !activosPorUsuario[usuarioPrincipal]) {
-                        cProceso++; activosPorUsuario[usuarioPrincipal] = true; p._estadoVisual = "EN PROCESO";
-                    } else {
-                        cAsignados++; p._estadoVisual = "ASIGNADA";
-                    }
-                });
-
-                document.getElementById('statTotal').innerText = cTotal;
-                document.getElementById('statAsignados').innerText = cAsignados;
-                document.getElementById('statProceso').innerText = cProceso;
-                document.getElementById('statAtrasados').innerText = cAtrasados;
-                document.getElementById('statCompletados').innerText = cCompletados;
+                tareas.sort((a, b) => new Date(b.entrega) - new Date(a.entrega));
 
                 const container = document.getElementById('fullBoard');
                 container.innerHTML = "";
-                if(tareas.length === 0) container.innerHTML = `<p style="grid-column: 1/-1; color: #718096; text-align: center; padding: 3rem;">No hay registros en el histórico.</p>`;
 
                 tareas.forEach(p => {
-                    let claseEst = "st-asignada"; let badgeClass = "badge-asignada";
-                    if (p._estadoVisual === "DEMORADA") { claseEst = "st-demorada"; badgeClass = "badge-demorada"; }
-                    else if (p._estadoVisual === "EN PROCESO") { claseEst = "st-proceso"; badgeClass = "badge-proceso"; }
-                    else if (p._estadoVisual === "COMPLETADA") { claseEst = "st-completada"; badgeClass = "badge-completada"; }
+                    // CALCULAR ESTADO
+                    if (p.completado) p._estadoReal = "completadas";
+                    else if (p.en_proceso) p._estadoReal = "proceso";
+                    else if (p.entrega < hoy) p._estadoReal = "demoradas";
+                    else p._estadoReal = "asignadas";
 
-                    const fIngreso = p.creado ? p.creado.toDate().toLocaleDateString('es-MX') : 'S/F';
-                    let responsables = Array.isArray(p.asignado_a) ? p.asignado_a[0].split('@')[0] + (p.asignado_a.length > 1 ? ' +' : '') : p.asignado_a.split('@')[0];
+                    // APLICAR FILTRO
+                    if (filtroSolicitado !== 'todas' && p._estadoReal !== filtroSolicitado) {
+                        return; // Salta esta iteración, no la dibuja
+                    }
+
+                    // ESTILOS VISUALES
+                    let claseEst = "st-asignada"; let badgeClass = "badge-asignada"; let txtEstado = "ASIGNADA";
+                    if (p._estadoReal === "demoradas") { claseEst = "st-demorada"; badgeClass = "badge-demorada"; txtEstado = "DEMORADA"; }
+                    else if (p._estadoReal === "proceso") { claseEst = "st-proceso"; badgeClass = "badge-proceso"; txtEstado = "EN PROCESO"; }
+                    else if (p._estadoReal === "completadas") { claseEst = "st-completada"; badgeClass = "badge-completada"; txtEstado = "COMPLETADA"; }
+
+                    let responsables = Array.isArray(p.asignado_a) ? p.asignado_a[0].split('@')[0] : p.asignado_a.split('@')[0];
 
                     container.innerHTML += `
                         <div class="task-card ${claseEst}" onclick="window.location.href='detalles-tarea.html?id=${p.id}'">
-                            <div style="display:flex; justify-content:space-between; margin-bottom:10px; align-items:center;">
-                                <span class="${badgeClass}">${p._estadoVisual}</span>
-                                <span style="font-size:0.75rem; color:#a0aec0; font-weight:700;"><i class='bx bx-calendar-x'></i> Límite: ${p.entrega}</span>
+                            <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                                <span class="${badgeClass}">${txtEstado}</span>
+                                <span style="font-size:0.75rem; color:#a0aec0;"><i class='bx bx-calendar'></i> ${p.entrega}</span>
                             </div>
                             <h3 style="margin:8px 0; font-size:1.1rem; color:var(--dark-blue);">${p.producto}</h3>
-                            <p style="font-size:0.8rem; color:#718096; margin: 0 0 10px 0;">Cliente: <b>${p.cliente}</b></p>
-                            
-                            <div style="background:#edf2f7; height:8px; border-radius:10px; margin:10px 0;">
-                                <div style="width:${p.progreso}%; background: ${p.completado ? '#38a169' : 'var(--neon-blue)'}; height:100%; border-radius:10px; transition:0.5s;"></div>
-                            </div>
-                            
-                            <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:#718096; font-weight:600; margin-top: 15px;">
+                            <div style="background:#edf2f7; height:8px; border-radius:10px; margin:10px 0;"><div style="width:${p.progreso}%; background: ${p.completado ? '#38a169' : 'var(--neon-blue)'}; height:100%; border-radius:10px;"></div></div>
+                            <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:#718096; font-weight:600;">
                                 <span>Avance: ${p.progreso}%</span>
                                 <span><i class='bx bx-user'></i> ${isAdmin ? responsables : 'Tú'}</span>
                             </div>
-                            <div style="font-size: 0.7rem; color: #cbd5e0; margin-top: 5px; text-align: right;">Ingresada: ${fIngreso}</div>
                         </div>`;
                 });
             });
         }
-
         document.getElementById('logoutBtn').onclick = () => signOut(auth).then(() => window.location.href = 'index.html');
     </script>
 </body>
