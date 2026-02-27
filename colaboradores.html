@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipo | Digital Core</title>
+    <link rel="icon" href="Isotipo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root { --sidebar-width: 260px; }
+        body { display: flex; background: #f0f4f8; min-height: 100vh; margin: 0; font-family: 'Inter', sans-serif; }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: var(--sidebar-width); height: 100vh; background: var(--dark-blue);
+            color: white; position: fixed; padding: 2rem 1rem; display: flex;
+            flex-direction: column; z-index: 100;
+        }
+        .sidebar-logo { width: 80%; margin-bottom: 3rem; padding-left: 1rem; }
+        .nav-links { list-style: none; flex-grow: 1; padding: 0; }
+        .nav-links a {
+            display: flex; align-items: center; gap: 15px; color: rgba(255,255,255,0.7);
+            text-decoration: none; padding: 12px 1rem; border-radius: 8px; transition: 0.3s; font-weight: 600;
+        }
+        .nav-links a:hover, .nav-links a.active { background: rgba(0, 156, 225, 0.2); color: var(--neon-blue); }
+
+        /* MAIN CONTENT */
+        .main-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 2rem 3rem; }
+        
+        /* TARJETAS DE COLABORADORES */
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .member-card { 
+            background: white; border-radius: 20px; padding: 25px; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05); text-align: center;
+            border: 1px solid transparent; transition: 0.3s;
+        }
+        .member-card:hover { border-color: var(--neon-blue); transform: translateY(-5px); }
+        .avatar { 
+            width: 80px; height: 80px; background: #e3f2fd; color: var(--neon-blue);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 15px; font-size: 2rem; font-weight: 900;
+        }
+        .role-badge { 
+            background: #f0f4f8; color: #666; padding: 4px 12px; 
+            border-radius: 50px; font-size: 0.75rem; font-weight: 700;
+        }
+        .stats-box { 
+            margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee;
+            display: flex; justify-content: space-around;
+        }
+        .stat { display: flex; flex-direction: column; }
+        .stat-val { font-weight: 900; color: var(--dark-blue); font-size: 1.2rem; }
+        .stat-label { font-size: 0.7rem; color: #888; text-transform: uppercase; }
+
+        @media (max-width: 768px) {
+            .sidebar { width: 70px; } .sidebar span, .sidebar-logo { display: none; }
+            .main-content { margin-left: 70px; width: calc(100% - 70px); padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <img src="Digital Core original.png" alt="Logo" class="sidebar-logo">
+        <ul class="nav-links">
+            <li><a href="panel-control.html"><i class='bx bxs-dashboard'></i> <span>Dashboard</span></a></li>
+            <li><a href="#"><i class='bx bxs-briefcase'></i> <span>Mis Trabajos</span></a></li>
+            <li><a href="#" class="active"><i class='bx bxs-group'></i> <span>Colaboradores</span></a></li>
+            <li><a href="#"><i class='bx bxs-package'></i> <span>Catálogo</span></a></li>
+        </ul>
+        <button id="logoutBtn" style="background:none; border:none; color:#ff6b6b; cursor:pointer; display:flex; align-items:center; gap:15px; padding:12px 1rem; font-weight:600; margin-top: auto;">
+            <i class='bx bx-log-out'></i> <span>Cerrar Sesión</span>
+        </button>
+    </aside>
+
+    <main class="main-content">
+        <header style="margin-bottom: 3rem;">
+            <h1 style="color: var(--dark-blue); font-weight: 900; margin:0;">Equipo Digital Core</h1>
+            <p style="color: #666;">Gestión de talento y carga operativa</p>
+        </header>
+
+        <div id="teamContainer" class="team-grid">
+            <p>Cargando lista de colaboradores...</p>
+        </div>
+    </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+        import { getFirestore, collection, onSnapshot, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBlouup64jteDrbUkOkSSEqsjesnuT6mdQ",
+            authDomain: "digital-core-app.firebaseapp.com",
+            projectId: "digital-core-app",
+            storageBucket: "digital-core-app.firebasestorage.app",
+            messagingSenderId: "1003292240722",
+            appId: "1:1003292240722:web:b2a2af0665df1ef00fe88b",
+            measurementId: "G-SX61ZVLJF0"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) { cargarColaboradores(); } 
+            else { window.location.href = 'intranet.html'; }
+        });
+
+        async function cargarColaboradores() {
+            const container = document.getElementById('teamContainer');
+            
+            // 1. Obtenemos los colaboradores de la colección 'usuarios'
+            onSnapshot(collection(db, "usuarios"), async (snap) => {
+                container.innerHTML = "";
+                
+                for (const docUser of snap.docs) {
+                    const u = docUser.data();
+                    
+                    // 2. Para cada usuario, contamos cuántos proyectos tiene asignados
+                    const qProyectos = query(collection(db, "proyectos"), where("asignado_a", "==", u.correo));
+                    const snapProyectos = await getDocs(qProyectos);
+                    const totalProyectos = snapProyectos.size;
+
+                    container.innerHTML += `
+                        <div class="member-card">
+                            <div class="avatar">${u.nombre.charAt(0)}</div>
+                            <h3 style="margin:0; color:var(--dark-blue);">${u.nombre}</h3>
+                            <p style="font-size:0.8rem; color:#888; margin-bottom:10px;">${u.correo}</p>
+                            <span class="role-badge">${u.rol}</span>
+                            
+                            <div class="stats-box">
+                                <div class="stat">
+                                    <span class="stat-val">${totalProyectos}</span>
+                                    <span class="stat-label">Proyectos</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-val" style="color:var(--neon-blue);"><i class='bx bxs-bolt'></i></span>
+                                    <span class="stat-label">Activo</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+        }
+
+        document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth).then(() => window.location.href = 'index.html'));
+    </script>
+</body>
+</html>
