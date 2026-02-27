@@ -9,10 +9,34 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
     <header>
-        <div class="logo-container"><img src="Digital Core original.png" alt="Digital Core"></div>
-        <nav>
-            <ul><li><a href="index.html">Inicio</a></li><li><a href="sistemas.html">Sistemas de Datos</a></li><li><a href="contacto.html">Contacto</a></li></ul>
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="Digital Core original.png" alt="Digital Core" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            </a>
+        </div>
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav id="nav-menu">
+            <ul style="display: flex; align-items: center;">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="paquetes-sistemas.html">Sistemas de Datos</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li style="margin-left: 20px;">
+                    <a href="login-empleados.html" title="Acceso a Empleados" style="display: flex; align-items: center; justify-content: center; background: rgba(0, 156, 225, 0.1); padding: 8px; border-radius: 50%; transition: all 0.3s ease; color: var(--dark-blue);" onmouseover="this.style.background='var(--neon-blue)'; this.style.transform='scale(1.05)';" onmouseout="this.style.background='rgba(0, 156, 225, 0.1)'; this.style.transform='scale(1)';">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
         </nav>
     </header>
 
@@ -54,6 +78,13 @@
                     <li>Extracción de datos de páginas web externas (Web Scraping). <em>(Corresponde al paquete Data Connect)</em>.</li>
                     <li>Sistemas de bases de datos relacionales con múltiples niveles de seguridad de usuario. <em>(Corresponde a Data Hub)</em>.</li>
                 </ul>
+
+                <div style="background: var(--white); border: 1px solid rgba(0, 156, 225, 0.2); border-left: 5px solid var(--dark-blue); padding: 2rem; border-radius: 8px; margin-top: 3.5rem; box-shadow: 0 5px 15px rgba(4, 31, 61, 0.05);">
+                    <h4 style="color: var(--dark-blue); margin-bottom: 15px; font-size: 1.1rem; font-weight: 800;">Términos y Condiciones de Automatización (Macros)</h4>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px; color: #555; line-height: 1.6;"><strong>1. Estructura Inviolable:</strong> La automatización se diseña basándose en una estructura de columnas y hojas predefinida. <strong>Si el cliente altera dicha estructura original</strong> (agregando, eliminando, moviendo o renombrando columnas/hojas), la macro presentará errores fatales. La reparación de código por alteraciones del usuario no está cubierta por la garantía y generará costos de mantenimiento.</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px; color: #555; line-height: 1.6;"><strong>2. Entorno y Actualizaciones:</strong> El código (VBA o Google Apps Script) se programa para la versión actual del software. Digital Core no se hace responsable si futuras actualizaciones de seguridad de Microsoft Windows, Office 365, o Google Workspace bloquean o alteran la compatibilidad de las macros previamente entregadas.</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 0; color: #555; line-height: 1.6;"><strong>3. Permisos de Seguridad:</strong> Es responsabilidad del usuario final habilitar la ejecución de Macros o conceder los permisos de aplicaciones de terceros (en el caso de Google) que el sistema operativo solicite para permitir el funcionamiento del código.</p>
+                </div>
             </div>
             
             <div class="detail-action" style="position: sticky; top: 100px;">
@@ -81,12 +112,14 @@
 
     <script>
         const subHero = document.getElementById('subHero');
-        subHero.addEventListener('mousemove', (e) => {
-            const x = (window.innerWidth / 2 - e.clientX) / 30;
-            const y = (window.innerHeight / 2 - e.clientY) / 30;
-            subHero.style.setProperty('--mouse-x', x + 'px');
-            subHero.style.setProperty('--mouse-y', y + 'px');
-        });
+        if (subHero) {
+            subHero.addEventListener('mousemove', (e) => {
+                const x = (window.innerWidth / 2 - e.clientX) / 30;
+                const y = (window.innerHeight / 2 - e.clientY) / 30;
+                subHero.style.setProperty('--mouse-x', x + 'px');
+                subHero.style.setProperty('--mouse-y', y + 'px');
+            });
+        }
 
         document.querySelectorAll('.btn-order').forEach(btn => {
             btn.addEventListener('mousemove', (e) => {
@@ -95,6 +128,15 @@
                 btn.style.setProperty('--btn-y', (e.clientY - rect.top) + 'px');
             });
         });
+
+        // Lógica del Menú Hamburguesa
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+        if (mobileMenu && navMenu) {
+            mobileMenu.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
     </script>
 </body>
 </html>

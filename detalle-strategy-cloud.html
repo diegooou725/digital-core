@@ -9,10 +9,34 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
     <header>
-        <div class="logo-container"><img src="Digital Core original.png" alt="Digital Core"></div>
-        <nav>
-            <ul><li><a href="index.html">Inicio</a></li><li><a href="capacitacion.html">Educación & Estrategia</a></li><li><a href="contacto.html">Contacto</a></li></ul>
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="Digital Core original.png" alt="Digital Core" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            </a>
+        </div>
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav id="nav-menu">
+            <ul style="display: flex; align-items: center;">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="capacitacion.html">Educación & Estrategia</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li style="margin-left: 20px;">
+                    <a href="login-empleados.html" title="Acceso a Empleados" style="display: flex; align-items: center; justify-content: center; background: rgba(0, 156, 225, 0.1); padding: 8px; border-radius: 50%; transition: all 0.3s ease; color: var(--dark-blue);" onmouseover="this.style.background='var(--neon-blue)'; this.style.transform='scale(1.05)';" onmouseout="this.style.background='rgba(0, 156, 225, 0.1)'; this.style.transform='scale(1)';">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
         </nav>
     </header>
 
@@ -53,6 +77,13 @@
                     <li>El costo mensual o anual de las licencias corporativas (Google Workspace / Microsoft 365).</li>
                     <li>Capacitación del personal para aprender a usar Google Drive o OneDrive. <em>(Ese entrenamiento lo ofrecemos en la categoría de Capacitación con el plan <strong>Team Cloud</strong>)</em>.</li>
                 </ul>
+
+                <div style="background: var(--white); border: 1px solid rgba(0, 156, 225, 0.2); border-left: 5px solid var(--dark-blue); padding: 2rem; border-radius: 8px; margin-top: 3.5rem; box-shadow: 0 5px 15px rgba(4, 31, 61, 0.05);">
+                    <h4 style="color: var(--dark-blue); margin-bottom: 15px; font-size: 1.1rem; font-weight: 800;">Términos y Condiciones de Arquitectura Cloud</h4>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px; color: #555; line-height: 1.6;"><strong>1. Alcance Consultivo:</strong> El servicio "Strategy Cloud" comprende exclusivamente la planeación, auditoría, diseño de la estructura de carpetas y matriz de permisos (Blueprint). <strong>No incluye la ejecución operativa</strong>, es decir, la migración técnica, carga manual o depuración de archivos desde los servidores locales hacia la nube de internet.</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px; color: #555; line-height: 1.6;"><strong>2. Adquisición de Licencias:</strong> Para garantizar que la empresa cliente sea la única dueña y administradora legal de su información, la compra de las licencias o suscripciones mensuales de plataformas (Google Workspace, Microsoft 365, AWS, etc.) deberá ser realizada directamente por el cliente con los proveedores oficiales. Digital Core no revende dichas licencias.</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 0; color: #555; line-height: 1.6;"><strong>3. Confidencialidad de la Información:</strong> Dado que el análisis requiere auditar el volumen y la estructura de los datos corporativos, Digital Core firmará un Acuerdo de Confidencialidad (NDA) vinculante, garantizando el resguardo y secreto profesional absoluto sobre cualquier información visualizada durante la fase de consultoría.</p>
+                </div>
             </div>
             
             <div class="detail-action" style="position: sticky; top: 100px;">
@@ -80,12 +111,14 @@
 
     <script>
         const subHero = document.getElementById('subHero');
-        subHero.addEventListener('mousemove', (e) => {
-            const x = (window.innerWidth / 2 - e.clientX) / 30;
-            const y = (window.innerHeight / 2 - e.clientY) / 30;
-            subHero.style.setProperty('--mouse-x', x + 'px');
-            subHero.style.setProperty('--mouse-y', y + 'px');
-        });
+        if (subHero) {
+            subHero.addEventListener('mousemove', (e) => {
+                const x = (window.innerWidth / 2 - e.clientX) / 30;
+                const y = (window.innerHeight / 2 - e.clientY) / 30;
+                subHero.style.setProperty('--mouse-x', x + 'px');
+                subHero.style.setProperty('--mouse-y', y + 'px');
+            });
+        }
 
         document.querySelectorAll('.btn-order').forEach(btn => {
             btn.addEventListener('mousemove', (e) => {
@@ -94,6 +127,15 @@
                 btn.style.setProperty('--btn-y', (e.clientY - rect.top) + 'px');
             });
         });
+
+        // Lógica del Menú Hamburguesa
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+        if (mobileMenu && navMenu) {
+            mobileMenu.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
     </script>
 </body>
 </html>

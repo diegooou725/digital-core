@@ -9,17 +9,41 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
     <header>
-        <div class="logo-container"><img src="Digital Core original.png" alt="Digital Core"></div>
-        <nav>
-            <ul><li><a href="index.html">Inicio</a></li><li><a href="sistemas.html">Sistemas de Datos</a></li><li><a href="contacto.html">Contacto</a></li></ul>
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="Digital Core original.png" alt="Digital Core" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            </a>
+        </div>
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav id="nav-menu">
+            <ul style="display: flex; align-items: center;">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="paquetes-sistemas.html">Sistemas de Datos</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li style="margin-left: 20px;">
+                    <a href="login-empleados.html" title="Acceso a Empleados" style="display: flex; align-items: center; justify-content: center; background: rgba(0, 156, 225, 0.1); padding: 8px; border-radius: 50%; transition: all 0.3s ease; color: var(--dark-blue);" onmouseover="this.style.background='var(--neon-blue)'; this.style.transform='scale(1.05)';" onmouseout="this.style.background='rgba(0, 156, 225, 0.1)'; this.style.transform='scale(1)';">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
         </nav>
     </header>
 
     <section class="hero detail-hero" id="subHero" style="padding: 45px 5% 30px;">
         <h1>Hub <span>ERP</span></h1>
         <p class="price-hero">Desde $8,500 MXN</p>
-        <p>El cerebro central de tu empresa. Sistema administrativo global con Compras, Ventas, Inventarios y Finanzas totalmente integrados.</p>
+        <p>El cerebro digital de tu empresa. Control administrativo total: Ventas, Compras, Almacén y Finanzas en un sistema 100% integrado.</p>
     </section>
 
     <main class="package-detail-section">
@@ -27,51 +51,59 @@
 
         <div class="package-detail-grid">
             <div class="detail-description">
-                <div class="alert-box" style="border-left-color: #f1c40f; background: rgba(241, 196, 15, 0.05);">
-                    <div class="alert-title" style="color: #f39c12;">✅ Ventaja Principal: El fin de las islas de información</div>
-                    <p>Ya no más el "pásame tu archivo para juntarlo con el mío". Cuando un vendedor cierra una venta, el almacén ve la salida de la mercancía al instante, y finanzas ve reflejada la cuenta por cobrar. Todo ocurre en tiempo real y en el mismo sistema.</p>
+                <div class="alert-box" style="border-left-color: #2980b9; background: rgba(41, 128, 185, 0.05);">
+                    <div class="alert-title" style="color: #2c3e50;">✅ Ventaja Principal: Información cruzada y en tiempo real</div>
+                    <p>En un ERP, los datos fluyen solos. Cuando un vendedor registra una salida, el almacén se descuenta al instante, se genera una cuenta por cobrar y se actualiza tu flujo de caja. Sin necesidad de que nadie capture la información dos veces.</p>
                     
-                    <div class="alert-title" style="margin-top: 1.5rem; color: #c0392b;">💡 ¿Tienes sucursales en diferentes ciudades?</div>
-                    <p>El paquete ERP estándar funciona maravillosamente dentro de una misma red de oficina. Si necesitas conectar múltiples sucursales remotas a través de internet con millones de registros, conoce la arquitectura <strong>Hub SQL</strong>.</p>
+                    <div class="alert-title" style="margin-top: 1.5rem; color: #c0392b;">💡 ¿Tu empresa tiene sucursales o un volumen de datos masivo?</div>
+                    <p>Si manejas millones de registros o necesitas conectar varias ciudades con la máxima velocidad y seguridad de datos, el siguiente paso es la arquitectura profesional de <strong>Hub SQL</strong>.</p>
                     <a href="detalle-hub-sql.html" class="btn-upsell" style="background-color: #c0392b;">Ver Hub SQL</a>
                 </div>
 
                 <h2>¿Qué es exactamente un Hub ERP?</h2>
-                <p>Un ERP (<em>Enterprise Resource Planning</em>) es el sistema más completo que puede tener un negocio. Es la fusión de un control de almacén (Stock), un gestor de clientes (CRM) y un administrador financiero, todo operando bajo un mismo techo.</p>
-                <p>La magia del ERP radica en la <strong>automatización de procesos internos</strong>. Si compras mercancía, el sistema registra la cuenta por pagar a tu proveedor y aumenta el stock automáticamente. Esto le da a los dueños y directores una visión 360° de la salud financiera y operativa de la empresa sin tener que pedir reportes manuales a cada departamento.</p>
+                <p>Un ERP (<em>Enterprise Resource Planning</em>) es un sistema modular que centraliza la operación de todo el negocio. A diferencia de tener programas separados para ventas y contabilidad, aquí todo está <strong>interconectado nativamente</strong>.</p>
+                <p>Está diseñado para directores que quieren dejar de preguntar "¿cómo vamos?" y prefieren abrir el sistema para ver reportes financieros consolidados de inmediato. Es la herramienta definitiva para eliminar el caos operativo y profesionalizar el crecimiento de la empresa.</p>
 
                 <h2 style="margin-top: 2.5rem;">Alcances ¿Qué INCLUYE el desarrollo?</h2>
                 <ul class="detail-features">
-                    <li><strong>Módulos 100% Interconectados:</strong> Creación de los departamentos virtuales de Ventas, Compras, Almacén y Finanzas (Cuentas por Cobrar/Pagar).</li>
-                    <li><strong>Perfiles y Seguridad Avanzada:</strong> Un cajero solo podrá ver la pantalla de cobro, el almacenista solo entradas y salidas, y el gerente tendrá acceso a los reportes de ganancias.</li>
-                    <li><strong>Reportes Financieros Cruzados:</strong> Generación de estados de resultados básicos, reportes de utilidades por producto o vendedor, y balances de deudas en un par de clics.</li>
-                    <li><strong>Trazabilidad Total:</strong> Auditoría completa para saber el camino exacto del dinero y la mercancía, desde que se cotiza hasta que se entrega y se cobra.</li>
+                    <li><strong>Módulo de Ventas y CRM:</strong> Gestión de prospectos, cotizaciones y pedidos vinculados al cliente.</li>
+                    <li><strong>Módulo de Compras y Proveedores:</strong> Control de órdenes de compra, recepción de mercancía y gestión de saldos con proveedores.</li>
+                    <li><strong>Módulo de Inventarios:</strong> Control de existencias, valuación de almacén y movimientos de entrada/salida vinculados a ventas y compras.</li>
+                    <li><strong>Módulo de Tesorería:</strong> Registro de ingresos, egresos, saldos en bancos y cuentas por cobrar/pagar.</li>
+                    <li><strong>Seguridad por Perfiles:</strong> Definición de roles (Ej. El cajero solo puede vender, el gerente puede ver costos y el contador solo puede ver finanzas).</li>
                 </ul>
 
                 <h2>Lo que NO incluye este servicio</h2>
                 <ul class="detail-features exclusions-list">
-                    <li>Timbrado de nóminas o cálculo complejo de impuestos (IMSS, ISR, etc.). <em>(Recomendamos usar software contable especializado para timbrados oficiales)</em>.</li>
-                    <li>Facturación Electrónica directa ante el SAT. <em>(Podemos integrarlo vía API con un proveedor autorizado, con costo extra)</em>.</li>
-                    <li>Conexión de bases de datos por internet para múltiples sucursales lejanas. <em>(Corresponde a Hub SQL)</em>.</li>
+                    <li>Asesoría contable, fiscal o auditoría financiera. <em>(Digital Core provee la herramienta, pero el cliente debe contar con su propio contador)</em>.</li>
+                    <li>Facturación electrónica timbrada ante el SAT. <em>(Módulo opcional con costo de proveedor externo)</em>.</li>
+                    <li>Implementación en la nube para acceso remoto. <em>(Corresponde a la arquitectura <strong>Hub SQL</strong>)</em>.</li>
                 </ul>
+
+                <div style="background: var(--white); border: 1px solid rgba(0, 156, 225, 0.2); border-left: 5px solid var(--dark-blue); padding: 2rem; border-radius: 8px; margin-top: 3.5rem; box-shadow: 0 5px 15px rgba(4, 31, 61, 0.05);">
+                    <h4 style="color: var(--dark-blue); margin-bottom: 15px; font-size: 1.1rem; font-weight: 800;">Términos y Condiciones de Sistemas Integrales (ERP)</h4>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px; color: #555; line-height: 1.6;"><strong>1. Integración y Disciplina Operativa:</strong> El éxito del sistema Hub ERP depende de que todos los departamentos involucrados capturen la información bajo los procesos definidos. Digital Core no se hace responsable por discrepancias financieras o de inventario si el personal omite registros o utiliza procesos paralelos fuera del sistema.</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px; color: #555; line-height: 1.6;"><strong>2. Implementación por Fases:</strong> Debido a la complejidad de un ERP, la entrega se realiza por módulos funcionales aprobados de forma sucesiva. El cliente se compromete a designar un responsable de proyecto por área para validar la lógica de cada módulo antes de pasar a la integración global.</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 0; color: #555; line-height: 1.6;"><strong>3. Responsabilidad Fiscal:</strong> El sistema es una herramienta de gestión administrativa. Digital Core garantiza que los cálculos matemáticos sean exactos, pero no asume responsabilidad legal sobre las declaraciones fiscales, pagos de impuestos o cumplimiento normativo ante autoridades tributarias, labor que recae en el área contable del cliente.</p>
+                </div>
             </div>
             
             <div class="detail-action" style="position: sticky; top: 100px;">
                 <div style="background: var(--white); border: 1px solid var(--light-blue); padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 10px 30px rgba(4, 31, 61, 0.08);">
-                    <h3 style="color: var(--dark-blue); margin-bottom: 1rem; font-weight: 800; border-bottom: 2px solid var(--neon-blue); padding-bottom: 0.5rem; font-size: 1.2rem;">Resumen del Servicio</h3>
+                    <h3 style="color: var(--dark-blue); margin-bottom: 1rem; font-weight: 800; border-bottom: 2px solid var(--neon-blue); padding-bottom: 0.5rem; font-size: 1.2rem;">Resumen del Proyecto</h3>
                     <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.8rem;">
-                        <li style="font-size: 0.95rem; color: #444;"><strong>🖥️ Entorno:</strong> Red Local Multiusuario</li>
-                        <li style="font-size: 0.95rem; color: #444;"><strong>🎯 Enfoque:</strong> Operación Integral 360°</li>
-                        <li style="font-size: 0.95rem; color: #444;"><strong>⚙️ Módulos:</strong> Compras, Ventas, Stock, Finanzas</li>
-                        <li style="font-size: 0.95rem; color: #444;"><strong>🔒 Seguridad:</strong> Accesos por nivel y departamento</li>
-                        <li style="font-size: 0.95rem; color: #444;"><strong>⏱️ Entrega:</strong> 20 a 30 días hábiles</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>🖥️ Entorno:</strong> Red Local Profesional</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>🎯 Enfoque:</strong> Administración 360°</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>⚙️ Arquitectura:</strong> Modular Interconectada</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>🔒 Seguridad:</strong> Roles y permisos por usuario</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>⏱️ Entrega:</strong> 30 a 45 días hábiles</li>
                     </ul>
                 </div>
 
                 <div class="action-card" style="position: static; box-shadow: 0 10px 30px rgba(4, 31, 61, 0.08);">
-                    <h3>¿Tu empresa se salió de control?</h3>
-                    <p>Unifica todas las áreas de tu negocio en un solo sistema y recupera la tranquilidad directiva.</p>
-                    <a href="contacto.html" class="btn-order">Cotizar Hub ERP</a>
+                    <h3>¿Tu empresa es un caos administrativo?</h3>
+                    <p>Deja de operar a ciegas. Centraliza tu poder de decisión con un sistema que conecte todas tus áreas.</p>
+                    <a href="contacto.html" class="btn-order">Cotizar Proyecto ERP</a>
                 </div>
             </div>
         </div>
@@ -81,12 +113,14 @@
 
     <script>
         const subHero = document.getElementById('subHero');
-        subHero.addEventListener('mousemove', (e) => {
-            const x = (window.innerWidth / 2 - e.clientX) / 30;
-            const y = (window.innerHeight / 2 - e.clientY) / 30;
-            subHero.style.setProperty('--mouse-x', x + 'px');
-            subHero.style.setProperty('--mouse-y', y + 'px');
-        });
+        if (subHero) {
+            subHero.addEventListener('mousemove', (e) => {
+                const x = (window.innerWidth / 2 - e.clientX) / 30;
+                const y = (window.innerHeight / 2 - e.clientY) / 30;
+                subHero.style.setProperty('--mouse-x', x + 'px');
+                subHero.style.setProperty('--mouse-y', y + 'px');
+            });
+        }
 
         document.querySelectorAll('.btn-order').forEach(btn => {
             btn.addEventListener('mousemove', (e) => {
@@ -95,6 +129,15 @@
                 btn.style.setProperty('--btn-y', (e.clientY - rect.top) + 'px');
             });
         });
+
+        // Lógica del Menú Hamburguesa
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+        if (mobileMenu && navMenu) {
+            mobileMenu.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
     </script>
 </body>
 </html>

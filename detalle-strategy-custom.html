@@ -9,10 +9,34 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
     <header>
-        <div class="logo-container"><img src="Digital Core original.png" alt="Digital Core"></div>
-        <nav>
-            <ul><li><a href="index.html">Inicio</a></li><li><a href="capacitacion.html">Educación & Estrategia</a></li><li><a href="contacto.html">Contacto</a></li></ul>
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="Digital Core original.png" alt="Digital Core" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            </a>
+        </div>
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav id="nav-menu">
+            <ul style="display: flex; align-items: center;">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="capacitacion.html">Educación & Estrategia</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li style="margin-left: 20px;">
+                    <a href="login-empleados.html" title="Acceso a Empleados" style="display: flex; align-items: center; justify-content: center; background: rgba(0, 156, 225, 0.1); padding: 8px; border-radius: 50%; transition: all 0.3s ease; color: var(--dark-blue);" onmouseover="this.style.background='var(--neon-blue)'; this.style.transform='scale(1.05)';" onmouseout="this.style.background='rgba(0, 156, 225, 0.1)'; this.style.transform='scale(1)';">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
         </nav>
     </header>
 
@@ -53,6 +77,13 @@
                     <li>La ejecución técnica del trabajo. <em>(Nosotros te decimos cómo diseñar la base de datos o qué decisión tomar, pero si requieres programación, se cotiza como un proyecto de desarrollo web o sistemas)</em>.</li>
                     <li>Soporte técnico básico <em>(Para reparar computadoras o redes, revisa <strong>Strategy Support</strong>)</em>.</li>
                 </ul>
+
+                <div style="background: var(--white); border: 1px solid rgba(0, 156, 225, 0.2); border-left: 5px solid var(--dark-blue); padding: 2rem; border-radius: 8px; margin-top: 3.5rem; box-shadow: 0 5px 15px rgba(4, 31, 61, 0.05);">
+                    <h4 style="color: var(--dark-blue); margin-bottom: 15px; font-size: 1.1rem; font-weight: 800;">Términos y Condiciones de Consultoría Bajo Demanda</h4>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px; color: #555; line-height: 1.6;"><strong>1. Contratación por Tiempo:</strong> El servicio se factura en bloques de horas exactas pre-pagadas. El tiempo de asesoría comienza a correr en la hora agendada de conexión. En caso de resolver la duda, el contrato, o el problema antes de finalizar el bloque contratado, el tiempo restante no es acumulable ni transferible para futuras consultas.</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px; color: #555; line-height: 1.6;"><strong>2. Naturaleza Consultiva:</strong> Digital Core brindará opiniones técnicas, diagramas de arquitectura sugeridos, revisión de código, entrevistas IT o análisis de contratos fundamentados en estándares de la industria. Sin embargo, <strong>la ejecución, programación directa, o reparación técnica en los servidores del cliente no están incluidas</strong> en las horas de asesoría.</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 0; color: #555; line-height: 1.6;"><strong>3. Responsabilidad y Confidencialidad:</strong> Cualquier decisión financiera, de despido, de contratación de proveedores o firmas de contratos de software derivadas de la sesión de asesoría es responsabilidad entera de la empresa cliente. Digital Core garantiza absoluta confidencialidad sobre todo documento, cotización de terceros o estrategia discutida durante la videollamada.</p>
+                </div>
             </div>
             
             <div class="detail-action" style="position: sticky; top: 100px;">
@@ -80,12 +111,14 @@
 
     <script>
         const subHero = document.getElementById('subHero');
-        subHero.addEventListener('mousemove', (e) => {
-            const x = (window.innerWidth / 2 - e.clientX) / 30;
-            const y = (window.innerHeight / 2 - e.clientY) / 30;
-            subHero.style.setProperty('--mouse-x', x + 'px');
-            subHero.style.setProperty('--mouse-y', y + 'px');
-        });
+        if (subHero) {
+            subHero.addEventListener('mousemove', (e) => {
+                const x = (window.innerWidth / 2 - e.clientX) / 30;
+                const y = (window.innerHeight / 2 - e.clientY) / 30;
+                subHero.style.setProperty('--mouse-x', x + 'px');
+                subHero.style.setProperty('--mouse-y', y + 'px');
+            });
+        }
 
         document.querySelectorAll('.btn-order').forEach(btn => {
             btn.addEventListener('mousemove', (e) => {
@@ -94,6 +127,15 @@
                 btn.style.setProperty('--btn-y', (e.clientY - rect.top) + 'px');
             });
         });
+
+        // Lógica del Menú Hamburguesa
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+        if (mobileMenu && navMenu) {
+            mobileMenu.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
     </script>
 </body>
 </html>

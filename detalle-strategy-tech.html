@@ -9,17 +9,41 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
     <header>
-        <div class="logo-container"><img src="Digital Core original.png" alt="Digital Core"></div>
-        <nav>
-            <ul><li><a href="index.html">Inicio</a></li><li><a href="capacitacion.html">Educación & Estrategia</a></li><li><a href="contacto.html">Contacto</a></li></ul>
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="Digital Core original.png" alt="Digital Core" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            </a>
+        </div>
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav id="nav-menu">
+            <ul style="display: flex; align-items: center;">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="capacitacion.html">Educación & Estrategia</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li style="margin-left: 20px;">
+                    <a href="login-empleados.html" title="Acceso a Empleados" style="display: flex; align-items: center; justify-content: center; background: rgba(0, 156, 225, 0.1); padding: 8px; border-radius: 50%; transition: all 0.3s ease; color: var(--dark-blue);" onmouseover="this.style.background='var(--neon-blue)'; this.style.transform='scale(1.05)';" onmouseout="this.style.background='rgba(0, 156, 225, 0.1)'; this.style.transform='scale(1)';">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
         </nav>
     </header>
 
     <section class="hero detail-hero" id="subHero" style="padding: 45px 5% 30px;">
         <h1>Strategy <span>Tech</span></h1>
-        <p class="price-hero">Desde $1,500 MXN</p>
-        <p>Asesoría experta para elegir tu próximo CRM, ERP o sistema operativo. Evita gastar miles de pesos en software que tu empresa no necesita.</p>
+        <p class="price-hero">Desde $3,000 MXN</p>
+        <p>Asesoría imparcial para la compra de nuevo software comercial, hardware o servidores para tu oficina. Invierte de manera inteligente.</p>
     </section>
 
     <main class="package-detail-section">
@@ -27,51 +51,57 @@
 
         <div class="package-detail-grid">
             <div class="detail-description">
-                <div class="alert-box" style="border-left-color: #9b59b6; background: rgba(155, 89, 182, 0.05);">
-                    <div class="alert-title" style="color: #8e44ad;">✅ Ventaja Principal: Ahorro Inteligente y Neutralidad</div>
-                    <p>No somos vendedores de licencias, somos tus aliados. Analizamos el mercado de forma neutral para encontrarte la herramienta que mejor resuelva tus problemas al menor costo, evitando que pagues por funciones "premium" que jamás vas a utilizar.</p>
+                <div class="alert-box" style="border-left-color: #3498db; background: rgba(52, 152, 219, 0.05);">
+                    <div class="alert-title" style="color: #2980b9;">✅ Ventaja Principal: Compras Imparciales y Precisas</div>
+                    <p>No somos vendedores de marcas específicas, por lo que nuestra recomendación siempre será neutral y enfocada 100% en lo que realmente necesita tu negocio, evitando sobrecostos por equipos o licencias que no utilizarás.</p>
                     
-                    <div class="alert-title" style="margin-top: 1.5rem; color: #3498db;">💡 ¿Tus archivos siguen en computadoras locales?</div>
-                    <p>De nada sirve tener el mejor software del mundo si tus empleados siguen guardando cosas en memorias USB. Para estructurar tu información en internet, conoce nuestro servicio <strong>Strategy Cloud</strong>.</p>
-                    <a href="detalle-strategy-cloud.html" class="btn-upsell" style="background-color: #3498db;">Ver Strategy Cloud</a>
+                    <div class="alert-title" style="margin-top: 1.5rem; color: #2ecc71;">💡 ¿Ya decidiste qué comprar pero necesitas migrarlo todo a la nube?</div>
+                    <p>Si la decisión técnica ya está tomada y el siguiente paso es mover tus servidores locales a internet de forma segura, te recomendamos conocer nuestra consultoría <strong>Strategy Cloud</strong>.</p>
+                    <a href="detalle-strategy-cloud.html" class="btn-upsell" style="background-color: #27ae60;">Ver Strategy Cloud</a>
                 </div>
 
                 <h2>¿Qué es exactamente Strategy Tech?</h2>
-                <p>Es un servicio de <strong>Consultoría de Selección de Software (Software Selection)</strong>. Está pensado para gerentes y dueños que saben que necesitan digitalizarse, pero al buscar en Google se sienten abrumados por cientos de opciones, nombres técnicos y vendedores agresivos.</p>
-                <p>Nosotros hacemos el trabajo pesado por ti. Nos sentamos contigo para entender qué hace tu empresa, buscamos en el mercado global las 3 mejores opciones de software para tu nicho, y entramos contigo a las reuniones de ventas para hacerle las "preguntas difíciles" a los proveedores.</p>
+                <p>Es un servicio de <strong>consultoría para adquisiciones tecnológicas (Procurement IT)</strong>. Ideal para empresas que necesitan renovar su flotilla de computadoras, comprar un nuevo ERP, o instalar servidores locales, pero no tienen el conocimiento técnico para evaluar qué proveedor ofrece la mejor relación costo-beneficio.</p>
+                <p>Nosotros hacemos el trabajo técnico de investigar, comparar y cotizar las opciones del mercado, traduciendo las especificaciones complejas a un lenguaje de negocios claro para que la dirección pueda tomar la decisión de compra con total seguridad.</p>
 
-                <h2 style="margin-top: 2.5rem;">Alcances ¿Qué INCLUYE el servicio?</h2>
+                <h2 style="margin-top: 2.5rem;">Alcances ¿Qué INCLUYE la Consultoría?</h2>
                 <ul class="detail-features">
-                    <li><strong>Levantamiento de Requerimientos:</strong> Definimos exactamente qué debe hacer el software (Ej. "Necesito que envíe facturas automáticas y descuente el inventario al mismo tiempo").</li>
-                    <li><strong>Investigación y Matriz Comparativa:</strong> Te entregamos un documento claro comparando las mejores opciones del mercado, analizando pros, contras, facilidad de uso y escalabilidad.</li>
-                    <li><strong>Análisis de Costo Total (TCO):</strong> Desglosamos los costos ocultos. Te decimos cuánto te va a costar realmente la herramienta sumando implementaciones, mensualidades y soporte a 3 años.</li>
-                    <li><strong>Acompañamiento en Demostraciones:</strong> Entramos a las videollamadas con los proveedores de software para evaluar técnicamente la plataforma y evitar que te vendan espejismos.</li>
+                    <li><strong>Levantamiento de Necesidades:</strong> Analizamos qué funciones exactas requiere tu personal para determinar las capacidades técnicas necesarias (Memoria, Procesador, Almacenamiento, Funciones de Software).</li>
+                    <li><strong>Investigación de Mercado:</strong> Buscamos al menos tres opciones de proveedores, marcas o sistemas diferentes que cumplan con los requerimientos técnicos de tu empresa.</li>
+                    <li><strong>Cuadro Comparativo:</strong> Entregamos una matriz detallada contrastando precios, garantías, soporte técnico incluido y escalabilidad a futuro de cada opción.</li>
+                    <li><strong>Recomendación Ejecutiva:</strong> Un veredicto final fundamentado indicando cuál es la opción más viable a corto y largo plazo según el presupuesto de la empresa.</li>
                 </ul>
 
                 <h2>Lo que NO incluye este servicio</h2>
                 <ul class="detail-features exclusions-list">
-                    <li>El pago de las licencias, suscripciones mensuales o instalación del software elegido.</li>
-                    <li>Capacitación del personal para usar la nueva herramienta. <em>(Esto se cotiza por separado en nuestra rama de Capacitación con el plan <strong>Team Software</strong>)</em>.</li>
-                    <li>Desarrollo de software a la medida. <em>(Nos limitamos a buscar opciones ya existentes; si no hay ninguna que te sirva, te sugeriremos el desarrollo propio en la categoría <strong>Data Hub</strong>)</em>.</li>
+                    <li>El pago de los equipos, licencias o suscripciones finales a los proveedores seleccionados.</li>
+                    <li>La instalación física de equipos, cableado estructurado o configuración inicial del software <em>(Si lo requieres, pregunta por nuestros servicios de instalación y soporte)</em>.</li>
                 </ul>
+
+                <div style="background: var(--white); border: 1px solid rgba(0, 156, 225, 0.2); border-left: 5px solid var(--dark-blue); padding: 2rem; border-radius: 8px; margin-top: 3.5rem; box-shadow: 0 5px 15px rgba(4, 31, 61, 0.05);">
+                    <h4 style="color: var(--dark-blue); margin-bottom: 15px; font-size: 1.1rem; font-weight: 800;">Términos y Condiciones de Asesoría de Compras (Tech)</h4>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px; color: #555; line-height: 1.6;"><strong>1. Independencia y Transparencia:</strong> Digital Core actúa como un ente consultivo independiente. No cobramos comisiones de terceros por recomendar marcas específicas de hardware o software, garantizando que el análisis sea estrictamente objetivo y en beneficio del cliente.</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px; color: #555; line-height: 1.6;"><strong>2. Vigencia de Precios:</strong> Los costos, cotizaciones y disponibilidades presentadas en el cuadro comparativo están sujetos a las políticas comerciales, tipo de cambio y stock de los proveedores finales en el momento de la investigación. Digital Core no puede garantizar que dichos precios se mantengan congelados tras la entrega del reporte ejecutivo.</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 0; color: #555; line-height: 1.6;"><strong>3. Responsabilidad de Adquisición:</strong> La decisión final de compra, así como la facturación, los contratos de licenciamiento y los reclamos de garantías sobre productos tecnológicos, se realizarán directamente entre la empresa cliente y el proveedor final seleccionado. Digital Core no funge como intermediario financiero ni distribuidor de las marcas analizadas.</p>
+                </div>
             </div>
             
             <div class="detail-action" style="position: sticky; top: 100px;">
                 <div style="background: var(--white); border: 1px solid var(--light-blue); padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 10px 30px rgba(4, 31, 61, 0.08);">
-                    <h3 style="color: var(--dark-blue); margin-bottom: 1rem; font-weight: 800; border-bottom: 2px solid var(--neon-blue); padding-bottom: 0.5rem; font-size: 1.2rem;">Resumen del Proyecto</h3>
+                    <h3 style="color: var(--dark-blue); margin-bottom: 1rem; font-weight: 800; border-bottom: 2px solid var(--neon-blue); padding-bottom: 0.5rem; font-size: 1.2rem;">Resumen de Consultoría</h3>
                     <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.8rem;">
-                        <li style="font-size: 0.95rem; color: #444;"><strong>👥 Modalidad:</strong> Consultoría y Asesoría</li>
-                        <li style="font-size: 0.95rem; color: #444;"><strong>📍 Formato:</strong> Videollamadas / Remoto</li>
-                        <li style="font-size: 0.95rem; color: #444;"><strong>🎯 Enfoque:</strong> Selección de CRM / ERP / POS</li>
-                        <li style="font-size: 0.95rem; color: #444;"><strong>🕒 Duración estimada:</strong> 1 a 2 semanas</li>
-                        <li style="font-size: 0.95rem; color: #444;"><strong>📄 Entregable:</strong> Matriz de Decisión Tecnológica</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>👥 Modalidad:</strong> Asesoría Técnica B2B</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>📍 Formato:</strong> Investigación y Presentación Remota</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>🎯 Enfoque:</strong> Adquisiciones IT (Hardware/Software)</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>🕒 Duración:</strong> 1 a 2 semanas hábiles</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>📄 Entregable:</strong> Matriz Comparativa y Veredicto</li>
                     </ul>
                 </div>
 
                 <div class="action-card" style="position: static; box-shadow: 0 10px 30px rgba(4, 31, 61, 0.08);">
-                    <h3>¿A punto de comprar un software caro?</h3>
-                    <p>No tomes la decisión a ciegas. Permítenos evaluar la herramienta para asegurar que es exactamente lo que tu negocio necesita.</p>
-                    <a href="https://wa.me/524425097357" target="_blank" class="btn-order">Contactar a un Asesor</a>
+                    <h3>¿A punto de realizar una inversión fuerte?</h3>
+                    <p>No compres a ciegas. Permítenos evaluar las opciones tecnológicas del mercado para que inviertas sobre seguro.</p>
+                    <a href="contacto.html" class="btn-order">Solicitar Asesoría</a>
                 </div>
             </div>
         </div>
@@ -81,12 +111,14 @@
 
     <script>
         const subHero = document.getElementById('subHero');
-        subHero.addEventListener('mousemove', (e) => {
-            const x = (window.innerWidth / 2 - e.clientX) / 30;
-            const y = (window.innerHeight / 2 - e.clientY) / 30;
-            subHero.style.setProperty('--mouse-x', x + 'px');
-            subHero.style.setProperty('--mouse-y', y + 'px');
-        });
+        if (subHero) {
+            subHero.addEventListener('mousemove', (e) => {
+                const x = (window.innerWidth / 2 - e.clientX) / 30;
+                const y = (window.innerHeight / 2 - e.clientY) / 30;
+                subHero.style.setProperty('--mouse-x', x + 'px');
+                subHero.style.setProperty('--mouse-y', y + 'px');
+            });
+        }
 
         document.querySelectorAll('.btn-order').forEach(btn => {
             btn.addEventListener('mousemove', (e) => {
@@ -95,6 +127,15 @@
                 btn.style.setProperty('--btn-y', (e.clientY - rect.top) + 'px');
             });
         });
+
+        // Lógica del Menú Hamburguesa
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+        if (mobileMenu && navMenu) {
+            mobileMenu.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
     </script>
 </body>
 </html>

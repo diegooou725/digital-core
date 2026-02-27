@@ -3,75 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paquete Data Template | Digital Core</title>
+    <title>Data Template | Digital Core</title>
     <link rel="icon" href="Isotipo.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
     <header>
-        <div class="logo-container"><img src="Digital Core original.png" alt="Digital Core"></div>
-        <nav>
-            <ul><li><a href="index.html">Inicio</a></li><li><a href="sistemas.html">Sistemas de Datos</a></li><li><a href="contacto.html">Contacto</a></li></ul>
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="Digital Core original.png" alt="Digital Core" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            </a>
+        </div>
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav id="nav-menu">
+            <ul style="display: flex; align-items: center;">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="paquetes-sistemas.html">Sistemas de Datos</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li style="margin-left: 20px;">
+                    <a href="login-empleados.html" title="Acceso a Empleados" style="display: flex; align-items: center; justify-content: center; background: rgba(0, 156, 225, 0.1); padding: 8px; border-radius: 50%; transition: all 0.3s ease; color: var(--dark-blue);" onmouseover="this.style.background='var(--neon-blue)'; this.style.transform='scale(1.05)';" onmouseout="this.style.background='rgba(0, 156, 225, 0.1)'; this.style.transform='scale(1)';">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
         </nav>
     </header>
 
     <section class="hero detail-hero" id="subHero" style="padding: 45px 5% 30px;">
         <h1>Data <span>Template</span></h1>
         <p class="price-hero">Desde $800 MXN</p>
-        <p>Automatiza la captura de información. Plantillas de Excel profesionales, seguras y libres de errores manuales.</p>
+        <p>Estandariza la captura de información. Plantillas de Excel profesionales, bloqueadas y diseñadas con la identidad visual de tu empresa.</p>
     </section>
 
     <main class="package-detail-section">
-        <a href="paquetes-flow.html" class="btn-back">← Volver a Data Flow</a>
+        <a href="paquetes-flow.html" class="btn-back">← Volver a Servicios Data Flow</a>
 
         <div class="package-detail-grid">
             <div class="detail-description">
-                <div class="alert-box" style="border-left-color: #2ecc71; background: rgba(46, 204, 113, 0.05);">
-                    <div class="alert-title" style="color: #27ae60;">✅ Ventaja Principal: Estandarización sin software mensual</div>
-                    <p>Obtén la eficiencia de un sistema profesional sin pagar costosas suscripciones. Te entregamos un entorno donde tú o tus empleados solo llenan casillas específicas y todo lo demás se calcula, se busca y se formatea de manera automática.</p>
+                
+                <div class="alert-box" style="border-left-color: #3498db; background: rgba(52, 152, 219, 0.05);">
+                    <div class="alert-title" style="color: #2980b9;">✅ Ventaja Principal: Cero Errores de Captura</div>
+                    <p>Protegemos las celdas clave para que tus empleados no borren las fórmulas por accidente. Usamos listas desplegables y validación de datos para que la información siempre se ingrese de la misma manera.</p>
                     
-                    <div class="alert-title" style="margin-top: 1.5rem; color: #d35400;">💡 ¿Tus datos actuales son un desastre?</div>
-                    <p>Si además de tu nueva plantilla necesitas que auditemos, reparemos y ordenemos todo tu historial de información vieja, te sugerimos revisar el servicio <strong>Data Cleanse</strong>.</p>
-                    <a href="detalle-cleanse.html" class="btn-upsell" style="background-color: #d35400;">Ver Data Cleanse</a>
+                    <div class="alert-title" style="margin-top: 1.5rem; color: #2ecc71;">💡 ¿Tu base de datos actual ya es un desastre?</div>
+                    <p>Si ya tienes miles de registros con errores, nombres mal escritos y fechas en formatos distintos, no necesitas una plantilla nueva, necesitas nuestro servicio de <strong>Data Cleanse</strong> para arreglar lo que ya existe.</p>
+                    <a href="detalle-cleanse.html" class="btn-upsell" style="background-color: #27ae60;">Ver Data Cleanse</a>
                 </div>
 
-                <h2>¿Qué es exactamente un Data Template?</h2>
-                <p>Un <strong>Data Template</strong> no es un simple archivo de Excel descargado de internet. Es una herramienta de trabajo estructurada a la medida de tu negocio que funciona como un <strong>"mini-software"</strong>.</p>
-                <p>Nosotros diseñamos la interfaz visual con tus colores y logotipos, programamos las matemáticas complejas en el "fondo" (backend) y <strong>blindamos la estructura</strong>. De esta manera, cualquier persona en tu equipo puede usarla para generar cotizaciones precisas, recibos automáticos o reportes de inventario sin el riesgo de borrar una fórmula o romper el sistema por accidente.</p>
+                <h2>¿Para quién es este servicio?</h2>
+                <p>Ideal para negocios que envían cotizaciones, generan recibos o llevan controles de inventario en Excel, pero cuyos formatos se ven poco profesionales, se desconfiguran al imprimir, o constantemente sufren porque alguien "rompió" la fórmula.</p>
 
                 <h2 style="margin-top: 2.5rem;">Alcances ¿Qué INCLUYE el desarrollo?</h2>
                 <ul class="detail-features">
-                    <li><strong>Fórmulas y Búsquedas Avanzadas:</strong> Implementación de lógica condicional (SI, BUSCARV, INDICE, COINCIDIR) para que la información se cruce sola sin capturar doble.</li>
-                    <li><strong>Validación de Datos:</strong> Listas desplegables y restricciones estrictas (ej. que el sistema marque error si alguien intenta escribir letras donde va un número telefónico).</li>
-                    <li><strong>Diseño de Interfaz (UI):</strong> Las hojas de cálculo no tienen que ser aburridas. Diseñamos con tus colores corporativos y una estructura limpia, ocultando las cuadrículas innecesarias.</li>
-                    <li><strong>Bloqueo y Seguridad:</strong> Protegemos con contraseña todas las celdas críticas. Tú tendrás la clave maestra, pero los usuarios comunes solo podrán interactuar donde tú lo permitas.</li>
+                    <li><strong>Diseño Corporativo:</strong> Aplicamos tu logotipo, colores de marca y tipografías para que tus documentos internos o externos luzcan 100% profesionales.</li>
+                    <li><strong>Estructura a la Medida:</strong> Creamos las columnas, tablas y fórmulas matemáticas básicas (sumas, restas, impuestos) que tu proceso requiera.</li>
+                    <li><strong>Seguridad de Celdas:</strong> Bloqueamos las celdas con fórmulas y el diseño estructural para que el usuario final solo pueda editar los campos permitidos.</li>
+                    <li><strong>Validación de Datos:</strong> Implementación de listas desplegables (Ej. Seleccionar un producto y que el precio aparezca automáticamente) para agilizar la captura.</li>
                 </ul>
 
                 <h2>Lo que NO incluye este servicio</h2>
                 <ul class="detail-features exclusions-list">
-                    <li>Programación de Macros complejas o botones automatizados (VBA). <em>(Corresponde a Data Macro)</em>.</li>
-                    <li>Limpieza, depuración o captura manual de tu historial de datos viejos.</li>
-                    <li>Sistemas para que varias personas trabajen al mismo tiempo en diferentes computadoras. <em>(Requiere Data Cloud o Data Hub)</em>.</li>
+                    <li>Programación de Macros (VBA) o automatizaciones complejas de varios clics. <em>(Si necesitas esto, revisa nuestro paquete <strong>Data Macro</strong>)</em>.</li>
+                    <li>Limpieza o migración de tu información vieja hacia la nueva plantilla.</li>
+                    <li>Creación de tableros gráficos o Dashboards gerenciales.</li>
                 </ul>
+
+                <div style="background: var(--white); border: 1px solid rgba(0, 156, 225, 0.2); border-left: 5px solid var(--dark-blue); padding: 2rem; border-radius: 8px; margin-top: 3.5rem; box-shadow: 0 5px 15px rgba(4, 31, 61, 0.05);">
+                    <h4 style="color: var(--dark-blue); margin-bottom: 15px; font-size: 1.1rem; font-weight: 800;">Términos y Condiciones de Desarrollo de Datos</h4>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px; color: #555; line-height: 1.6;"><strong>1. Naturaleza de la Herramienta:</strong> Digital Core entrega un "cascarón" o plantilla estructural en formato .xlsx (Microsoft Excel) cien por ciento funcional y probada según los requerimientos solicitados por el cliente.</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px; color: #555; line-height: 1.6;"><strong>2. Responsabilidad de Captura:</strong> La captura de la información, el ingreso de datos históricos, y la veracidad de los reportes financieros, contables o de inventario que emanen de la plantilla son responsabilidad exclusiva de la empresa cliente y sus operadores.</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 0; color: #555; line-height: 1.6;"><strong>3. Alcance de Modificaciones:</strong> El proyecto incluye el diseño y entrega de la versión final. Cualquier solicitud para agregar nuevas columnas, cambiar la lógica de las fórmulas o reestructurar el diseño tras la entrega final se considerará un nuevo requerimiento y se cotizará por separado.</p>
+                </div>
+
             </div>
             
             <div class="detail-action" style="position: sticky; top: 100px;">
+                
                 <div style="background: var(--white); border: 1px solid var(--light-blue); padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 10px 30px rgba(4, 31, 61, 0.08);">
-                    <h3 style="color: var(--dark-blue); margin-bottom: 1rem; font-weight: 800; border-bottom: 2px solid var(--neon-blue); padding-bottom: 0.5rem; font-size: 1.2rem;">Resumen del Servicio</h3>
+                    <h3 style="color: var(--dark-blue); margin-bottom: 1rem; font-weight: 800; border-bottom: 2px solid var(--neon-blue); padding-bottom: 0.5rem; font-size: 1.2rem;">Resumen del Proyecto</h3>
                     <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.8rem;">
-                        <li style="font-size: 0.95rem; color: #444;"><strong>🖥️ Formato:</strong> Archivo Excel (.xlsx)</li>
-                        <li style="font-size: 0.95rem; color: #444;"><strong>⚙️ Lógica:</strong> Fórmulas y Validaciones</li>
-                        <li style="font-size: 0.95rem; color: #444;"><strong>🎨 Diseño:</strong> Interfaz UI Corporativa</li>
-                        <li style="font-size: 0.95rem; color: #444;"><strong>🔒 Seguridad:</strong> Blindaje de celdas</li>
-                        <li style="font-size: 0.95rem; color: #444;"><strong>⏱️ Entrega:</strong> 2 a 4 días hábiles</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>🖥️ Software:</strong> Microsoft Excel</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>⏱️ Tiempo de entrega:</strong> 3 a 5 días hábiles</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>🔒 Seguridad:</strong> Celdas y fórmulas bloqueadas</li>
+                        <li style="font-size: 0.95rem; color: #444;"><strong>🎯 Enfoque:</strong> Estandarización de captura</li>
                     </ul>
                 </div>
 
                 <div class="action-card" style="position: static; box-shadow: 0 10px 30px rgba(4, 31, 61, 0.08);">
-                    <h3>¿Listo para agilizar tus formatos?</h3>
-                    <p>Cuéntanos qué archivo o formato manual te quita más tiempo y lo convertiremos en una plantilla inteligente.</p>
-                    <a href="contacto.html" class="btn-order">Cotizar Data Template</a>
+                    <h3>¿Cansado de formatos feos y rotos?</h3>
+                    <p>Profesionaliza la imagen interna y externa de tu negocio con herramientas de datos a tu medida.</p>
+                    <a href="contacto.html" class="btn-order">Solicitar Plantilla</a>
                 </div>
             </div>
         </div>
@@ -81,12 +113,14 @@
 
     <script>
         const subHero = document.getElementById('subHero');
-        subHero.addEventListener('mousemove', (e) => {
-            const x = (window.innerWidth / 2 - e.clientX) / 30;
-            const y = (window.innerHeight / 2 - e.clientY) / 30;
-            subHero.style.setProperty('--mouse-x', x + 'px');
-            subHero.style.setProperty('--mouse-y', y + 'px');
-        });
+        if (subHero) {
+            subHero.addEventListener('mousemove', (e) => {
+                const x = (window.innerWidth / 2 - e.clientX) / 30;
+                const y = (window.innerHeight / 2 - e.clientY) / 30;
+                subHero.style.setProperty('--mouse-x', x + 'px');
+                subHero.style.setProperty('--mouse-y', y + 'px');
+            });
+        }
 
         document.querySelectorAll('.btn-order').forEach(btn => {
             btn.addEventListener('mousemove', (e) => {
@@ -95,6 +129,15 @@
                 btn.style.setProperty('--btn-y', (e.clientY - rect.top) + 'px');
             });
         });
+
+        // Lógica del Menú Hamburguesa
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+        if (mobileMenu && navMenu) {
+            mobileMenu.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
     </script>
 </body>
 </html>
