@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Master Panel | Digital Core</title>
     <link rel="icon" href="Isotipo.png" type="image/png">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="styles.css">
     <style>
@@ -28,7 +28,6 @@
         .progress-container { height: 8px; background: #eee; border-radius: 10px; margin: 15px 0; overflow: hidden; }
         .progress-bar { height: 100%; background: linear-gradient(90deg, var(--light-blue), var(--neon-blue)); transition: 0.5s; }
         .control-btn { background: #eee; border: none; border-radius: 4px; padding: 4px 10px; cursor: pointer; font-weight: 900; }
-        .debug-msg { background: #fff5f5; border: 1px solid #feb2b2; color: #c53030; padding: 1rem; border-radius: 8px; font-size: 0.85rem; margin-bottom: 1rem; }
         @media (max-width: 768px) { .sidebar { width: 70px; } .sidebar span, .sidebar-logo { display: none; } .main-content { margin-left: 70px; width: calc(100% - 70px); padding: 1.5rem; } }
     </style>
 </head>
@@ -50,12 +49,12 @@
     <main class="main-content">
         <header class="top-bar">
             <div>
-                <h1 id="userNameWelcome" style="color: var(--dark-blue); font-weight: 900; margin:0;">Cargando...</h1>
-                <p id="roleLabel" style="color: #666; margin:0; font-size: 0.9rem;">Sincronizando Digital Core...</p>
+                <h1 id="userNameWelcome" style="color: var(--dark-blue); font-weight: 900; margin:0;">Iniciando...</h1>
+                <p id="roleLabel" style="color: #666; margin:0; font-size: 0.9rem;">Digital Core System</p>
             </div>
             <div style="background: #f8fafc; padding: 8px 15px; border-radius: 50px; display: flex; align-items: center; gap: 10px; border: 1px solid #edf2f7;">
                 <i class='bx bxs-user-circle' style="color: var(--light-blue); font-size: 1.4rem;"></i>
-                <span id="userEmailLabel" style="font-size: 0.85rem; font-weight: 600; color: var(--dark-blue);">...</span>
+                <span id="userEmailLabel" style="font-size: 0.85rem; font-weight: 600; color: var(--dark-blue);">Cargando...</span>
             </div>
         </header>
 
@@ -89,7 +88,7 @@
                             <input type="date" id="projDeadline" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label>Asignar a Colaborador</label>
+                            <label>Asignar a</label>
                             <select id="projAssign" class="form-control" required><option value="">Cargando equipo...</option></select>
                         </div>
                         <div class="form-group">
@@ -107,8 +106,7 @@
         </section>
 
         <section class="content-card">
-            <h2 id="boardTitle" style="color: var(--dark-blue); margin-bottom: 25px;"><i class='bx bx-list-ul'></i> Tablero</h2>
-            <div id="debugArea"></div>
+            <h2 id="boardTitle" style="color: var(--dark-blue); margin-bottom: 25px;"><i class='bx bx-list-ul'></i> Cargando Tareas...</h2>
             <div id="projectBoard" class="board-container"></div>
         </section>
     </main>
@@ -116,7 +114,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, serverTimestamp, onSnapshot, query, orderBy, updateDoc, doc, deleteDoc, where, getDocs } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, serverTimestamp, onSnapshot, query, where, updateDoc, doc, deleteDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBlouup64jteDrbUkOkSSEqsjesnuT6mdQ",
@@ -132,6 +130,7 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
+        // --- MÓDULO 1: UI Y PRODUCTOS ---
         window.actualizarProductos = function() {
             const cat = document.getElementById('projCategory').value;
             const prod = document.getElementById('projProduct');
@@ -147,110 +146,47 @@
             if (cat && lista[cat]) { prod.disabled = false; lista[cat].forEach(p => { let o = document.createElement('option'); o.value = p; o.textContent = p; prod.appendChild(o); }); } else { prod.disabled = true; }
         };
 
-        async function cargarListaColaboradores() {
+        // --- MÓDULO 2: VINCULACIÓN DE EQUIPO ---
+        async function vincularEquipo() {
             const select = document.getElementById('projAssign');
             onSnapshot(collection(db, "usuarios"), (snap) => {
                 select.innerHTML = '<option value="">Selecciona integrante...</option>';
-                snap.forEach((doc) => { 
-                    const u = doc.data(); 
-                    let o = document.createElement('option'); 
-                    // Limpieza proactiva de datos al cargar el selector
-                    o.value = u.correo.toLowerCase().trim(); 
-                    o.textContent = `${u.nombre} (${u.rol})`; 
-                    select.appendChild(o); 
+                snap.forEach((doc) => {
+                    const u = doc.data();
+                    let o = document.createElement('option');
+                    o.value = u.correo.toLowerCase().trim();
+                    o.textContent = `${u.nombre} (${u.rol})`;
+                    select.appendChild(o);
                 });
             });
         }
 
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                const userEmail = user.email.toLowerCase().trim();
-                document.getElementById('userEmailLabel').innerText = userEmail;
-                const isAdmin = userEmail === 'diego.725.reyes@gmail.com';
-                
-                const qUser = query(collection(db, "usuarios"), where("correo", "==", userEmail));
-                const userSnap = await getDocs(qUser);
-                
-                if (!userSnap.empty) {
-                    const userData = userSnap.docs[0].data();
-                    document.getElementById('userNameWelcome').innerText = `¡Hola, ${userData.nombre.split(' ')[0]}!`;
-                    document.getElementById('roleLabel').innerText = userData.rol;
-                } else {
-                    document.getElementById('userNameWelcome').innerText = "Usuario Core";
-                    document.getElementById('roleLabel').innerText = isAdmin ? "Lead Engineer" : "Colaborador";
-                }
+        // --- MÓDULO 3: LÓGICA DE TABLERO (EL "CORAZÓN") ---
+        function inicializarTablero(email, esAdmin) {
+            // Referencia base a la colección
+            const proyectosRef = collection(db, "proyectos");
+            
+            // Definimos la consulta: Si es admin ve todo, si no, filtramos por 'asignado_a'
+            const q = esAdmin ? proyectosRef : query(proyectosRef, where("asignado_a", "==", email));
 
-                if (isAdmin) {
-                    document.getElementById('adminOnlySection').style.display = 'block';
-                    document.getElementById('boardTitle').innerHTML = "<i class='bx bx-globe'></i> Tablero Global";
-                    cargarListaColaboradores();
-                } else {
-                    document.getElementById('boardTitle').innerHTML = "<i class='bx bx-briefcase'></i> Mis Trabajos";
-                }
-                
-                cargarProyectos(userEmail, isAdmin);
-            } else { window.location.href = 'intranet.html'; }
-        });
-
-        document.getElementById('addProjectForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            try {
-                // LIMPIEZA TOTAL: Antes de guardar en la nube, limpiamos el correo de espacios
-                const colaboradorEmail = document.getElementById('projAssign').value.toLowerCase().trim();
-                
-                await addDoc(collection(db, "proyectos"), {
-                    categoria: document.getElementById('projCategory').value,
-                    producto: document.getElementById('projProduct').value,
-                    cliente: document.getElementById('projClient').value,
-                    entrega: document.getElementById('projDeadline').value,
-                    asignado_a: colaboradorEmail,
-                    estado: document.getElementById('projStatus').value,
-                    progreso: 0,
-                    creado: serverTimestamp()
-                });
-                alert("Proyecto publicado correctamente.");
-                document.getElementById('addProjectForm').reset();
-            } catch (err) { alert("Error: " + err.message); }
-        });
-
-        window.eliminarProyecto = async (id) => { if(confirm("¿Borrar?")) await deleteDoc(doc(db, "proyectos", id)); };
-        window.cambiarProgreso = async (id, actual, cambio) => { let n = Math.min(100, Math.max(0, actual + cambio)); await updateDoc(doc(db, "proyectos", id), { progreso: n }); };
-
-        function cargarProyectos(email, isAdmin) {
-            let q;
-            const emailLimpio = email.toLowerCase().trim();
-
-            if (isAdmin) {
-                q = query(collection(db, "proyectos"));
-            } else {
-                q = query(collection(db, "proyectos"), where("asignado_a", "==", emailLimpio));
-            }
-
+            // Escucha activa en tiempo real
             onSnapshot(q, (snap) => {
                 const container = document.getElementById('projectBoard');
-                const debug = document.getElementById('debugArea');
                 container.innerHTML = "";
-                debug.innerHTML = "";
 
                 if (snap.empty) {
-                    // DIAGNÓSTICO EN PANTALLA: Esto te dirá exactamente qué está buscando el código
-                    debug.innerHTML = `
-                        <div class="debug-msg">
-                            <strong><i class='bx bx-bug'></i> Diagnóstico de Lead Engineer:</strong><br>
-                            El sistema está buscando tareas para el correo: <code>[${emailLimpio}]</code>.<br>
-                            Se encontraron 0 coincidencias en la colección <code>proyectos</code>.<br>
-                            <em>Recomendación: Revisa si en Firestore el campo 'asignado_a' tiene exactamente este texto.</em>
-                        </div>`;
+                    container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: #888; background:white; border-radius:15px;"><p>No se encontraron tareas registradas para este usuario.</p></div>`;
                     return;
                 }
+
                 snap.forEach((d) => {
                     const p = d.data();
                     container.innerHTML += `
                         <div class="project-card">
-                            ${isAdmin ? `<i class='bx bx-trash delete-btn' onclick="eliminarProyecto('${d.id}')"></i>` : ''}
-                            <span style="font-size:0.6rem; color:var(--light-blue); font-weight:800;">${p.categoria}</span>
+                            ${esAdmin ? `<i class='bx bx-trash delete-btn' onclick="eliminarProyecto('${d.id}')"></i>` : ''}
+                            <span style="font-size:0.6rem; color:var(--light-blue); font-weight:800; text-transform:uppercase;">${p.categoria}</span>
                             <h3 style="margin:5px 0; font-size:1rem; color:var(--dark-blue);">${p.producto}</h3>
-                            <p style="font-size:0.75rem; color:#888;">Cliente: ${p.cliente}</p>
+                            <p style="font-size:0.75rem; color:#888;">Cliente: <b>${p.cliente}</b></p>
                             <div class="progress-container"><div class="progress-bar" style="width:${p.progreso}%"></div></div>
                             <div style="display:flex; align-items:center; gap:10px;">
                                 <button class="control-btn" onclick="cambiarProgreso('${d.id}', ${p.progreso}, -10)">-</button>
@@ -258,15 +194,73 @@
                                 <button class="control-btn" onclick="cambiarProgreso('${d.id}', ${p.progreso}, 10)">+</button>
                             </div>
                             <div style="margin-top:15px; display:flex; justify-content:space-between; font-size:0.7rem; align-items:center;">
-                                <span style="color:#666;"><i class='bx bx-calendar'></i> ${p.entrega}</span>
+                                <span><i class='bx bx-calendar'></i> ${p.entrega}</span>
                                 <span style="font-weight:900; color:var(--dark-blue); background:#f0f4f8; padding:3px 8px; border-radius:4px;">${p.asignado_a.split('@')[0]}</span>
                             </div>
                         </div>`;
                 });
-            }, (error) => {
-                console.error("Error en Snapshot:", error);
             });
         }
+
+        // --- MÓDULO 4: AUTENTICACIÓN Y ARRANQUE ---
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                const userEmail = user.email.toLowerCase().trim();
+                const isAdmin = userEmail === 'diego.725.reyes@gmail.com';
+                
+                document.getElementById('userEmailLabel').innerText = userEmail;
+
+                // Buscamos perfil en la colección usuarios
+                const qUser = query(collection(db, "usuarios"), where("correo", "==", userEmail));
+                const userSnap = await getDocs(qUser);
+                
+                if (!userSnap.empty) {
+                    const uData = userSnap.docs[0].data();
+                    document.getElementById('userNameWelcome').innerText = `¡Hola, ${uData.nombre.split(' ')[0]}!`;
+                    document.getElementById('roleLabel').innerText = uData.rol;
+                }
+
+                if (isAdmin) {
+                    document.getElementById('adminOnlySection').style.display = 'block';
+                    document.getElementById('boardTitle').innerHTML = "<i class='bx bx-globe'></i> Tablero Maestro (Global)";
+                    vincularEquipo();
+                } else {
+                    document.getElementById('boardTitle').innerHTML = "<i class='bx bx-briefcase'></i> Mis Tareas Asignadas";
+                }
+
+                // ARRANQUE DEL TABLERO
+                inicializarTablero(userEmail, isAdmin);
+
+            } else {
+                window.location.href = 'intranet.html';
+            }
+        });
+
+        // --- MÓDULO 5: FUNCIONES DE ACCIÓN ---
+        document.getElementById('addProjectForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            try {
+                await addDoc(collection(db, "proyectos"), {
+                    categoria: document.getElementById('projCategory').value,
+                    producto: document.getElementById('projProduct').value,
+                    cliente: document.getElementById('projClient').value,
+                    entrega: document.getElementById('projDeadline').value,
+                    asignado_a: document.getElementById('projAssign').value,
+                    estado: document.getElementById('projStatus').value,
+                    progreso: 0,
+                    creado: serverTimestamp()
+                });
+                alert("Proyecto publicado correctamente.");
+                document.getElementById('addProjectForm').reset();
+            } catch (err) { console.error(err); }
+        });
+
+        window.eliminarProyecto = async (id) => { if(confirm("¿Borrar proyecto?")) await deleteDoc(doc(db, "proyectos", id)); };
+        window.cambiarProgreso = async (id, actual, cambio) => { 
+            let n = Math.min(100, Math.max(0, actual + cambio)); 
+            await updateDoc(doc(db, "proyectos", id), { progreso: n }); 
+        };
+
         document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth).then(() => window.location.href = 'index.html'));
     </script>
 </body>
