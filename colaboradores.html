@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Equipo | Digital Core</title>
     <link rel="icon" href="Isotipo.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
@@ -9,6 +10,7 @@
     <style>
         :root { --sidebar-width: 260px; --dark-blue: #0f172a; --neon-blue: #009ce1; }
         body { display: flex; background: #f0f4f8; min-height: 100vh; margin: 0; font-family: 'Inter', sans-serif; }
+        
         .sidebar { width: var(--sidebar-width); height: 100vh; background: var(--dark-blue); color: white; position: fixed; padding: 2rem 1rem; box-sizing: border-box; display: flex; flex-direction: column;}
         .nav-links { list-style: none; padding: 0; margin: 0;} 
         .nav-links a { display: flex; align-items: center; gap: 15px; color: rgba(255,255,255,0.7); text-decoration: none; padding: 12px 1rem; border-radius: 8px; font-weight: 600; margin-bottom: 5px; transition: 0.3s;} 
@@ -26,23 +28,47 @@
         .role-badge { display: inline-block; background: #ebf8ff; color: #2b6cb0; padding: 5px 15px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; margin-top: 15px; text-transform: uppercase; }
         .role-admin { background: #fff5f5; color: #c53030; }
         .crown-icon { color: #d69e2e !important; font-size: 1.2rem !important; margin: 0 !important; vertical-align: middle; }
+
+        /* =========================================
+           MÓDULO DE OPTIMIZACIÓN MÓVIL (APP NATIVA)
+           ========================================= */
+        @media (max-width: 768px) {
+            body { display: block; }
+            .sidebar { width: 100%; height: 75px; position: fixed; bottom: 0; left: 0; top: auto; flex-direction: row; justify-content: space-around; padding: 0 5px; z-index: 9999; border-top: 1px solid #1e293b; box-shadow: 0 -5px 20px rgba(0,0,0,0.15); border-radius: 20px 20px 0 0; }
+            .sidebar h2, .sidebar-logo { display: none; }
+            .nav-links { display: flex; flex-direction: row; width: 100%; justify-content: space-around; align-items: center; }
+            .nav-links li { width: auto; flex-grow: 1; }
+            .nav-links a { flex-direction: column; padding: 8px 0; gap: 4px; border-radius: 12px; text-align: center; margin: 0 2px;}
+            .nav-links a i { font-size: 1.6rem; margin: 0; }
+            .nav-links a span { font-size: 0.65rem; display: block; font-weight: 800; }
+            #logoutBtn { padding: 10px; flex-direction: column; gap: 4px; margin: 0; width: auto;}
+            #logoutBtn span { display: none; }
+            #logoutBtn i { font-size: 1.6rem; margin: 0; }
+
+            .main-content { margin-left: 0; width: 100%; padding: 1.5rem 1rem 95px 1rem; }
+            .user-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 1.6rem !important; line-height: 1.2; }
+        }
+        @media (max-width: 480px) {
+            .nav-links a span { display: none; }
+        }
     </style>
 </head>
 <body>
     <aside class="sidebar">
         <h2 style="padding-left: 1rem; color: #38bdf8; margin-bottom: 2rem;">Digital Core</h2>
         <ul class="nav-links">
-            <li><a href="panel-control.html"><i class='bx bxs-dashboard'></i> Dashboard</a></li>
-            <li><a href="mis-trabajos.html"><i class='bx bxs-briefcase'></i> Mis Trabajos</a></li>
-            <li><a href="colaboradores.html" class="active"><i class='bx bxs-group'></i> Colaboradores</a></li>
-            <li><a href="catalogo.html"><i class='bx bxs-package'></i> Catálogo</a></li>
+            <li><a href="panel-control.html"><i class='bx bxs-dashboard'></i> <span>Dashboard</span></a></li>
+            <li><a href="mis-trabajos.html"><i class='bx bxs-briefcase'></i> <span>Mis Trabajos</span></a></li>
+            <li id="navColaboradores"><a href="colaboradores.html" class="active"><i class='bx bxs-group'></i> <span>Equipo</span></a></li>
+            <li><a href="catalogo.html"><i class='bx bxs-package'></i> <span>Catálogo</span></a></li>
         </ul>
         <button id="logoutBtn" style="background:none; border:none; color:#ff6b6b; cursor:pointer; margin-top: auto; font-weight:600; display:flex; gap:10px;"><i class='bx bx-log-out'></i> Salir</button>
     </aside>
 
     <main class="main-content">
         <h1 style="color: var(--dark-blue); font-weight: 900; margin-bottom: 5px;"><i class='bx bxs-group'></i> Directorio de Equipo</h1>
-        <p style="color: #718096; margin-top: 0;">Selecciona a un colaborador para ver sus métricas de desempeño y carga de trabajo.</p>
+        <p style="color: #718096; margin-top: 0;">Selecciona a un colaborador para ver sus métricas de desempeño.</p>
         
         <div id="usersBoard" class="user-grid">
             <div style="text-align: center; grid-column: 1/-1; padding: 3rem;"><i class='bx bx-loader-alt bx-spin' style="font-size: 3rem; color: var(--neon-blue);"></i></div>
@@ -60,7 +86,7 @@
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 if (user.email.toLowerCase().trim() !== 'diego.725.reyes@gmail.com') {
-                    window.location.href = 'panel-control.html'; // Expulsar intrusos
+                    window.location.href = 'panel-control.html'; 
                 } else {
                     cargarUsuarios();
                 }
@@ -72,7 +98,6 @@
                 let usuarios = [];
                 snap.forEach(d => usuarios.push(d.data()));
 
-                // MAGIA DE ORDENAMIENTO: Diego primero, el resto alfabético
                 usuarios.sort((a, b) => {
                     const esAdminA = a.correo === 'diego.725.reyes@gmail.com';
                     const esAdminB = b.correo === 'diego.725.reyes@gmail.com';
@@ -81,8 +106,7 @@
                     return a.nombre.localeCompare(b.nombre);
                 });
 
-                const board = document.getElementById('usersBoard');
-                board.innerHTML = '';
+                const board = document.getElementById('usersBoard'); board.innerHTML = '';
                 
                 usuarios.forEach(u => {
                     const esAdmin = u.correo === 'diego.725.reyes@gmail.com';
@@ -104,4 +128,3 @@
     </script>
 </body>
 </html>
-
