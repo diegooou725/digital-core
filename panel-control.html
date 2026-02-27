@@ -159,10 +159,16 @@
                             
                             <div class="form-group" style="grid-column: 1 / -1;"><label>Requerimientos y Link de GitHub</label><textarea id="projRequerimientos" class="form-control" rows="3" placeholder="Pega aquí instrucciones, o el link del repositorio inicial..." required></textarea></div>
                             
-                            <div class="form-group" style="grid-column: 1 / -1; border: 2px dashed #cbd5e0; padding: 15px; border-radius: 10px; text-align: center;">
-                                <label style="cursor:pointer; color: var(--neon-blue);"><i class='bx bx-cloud-upload' style="font-size: 1.5rem; vertical-align: middle;"></i> Adjuntar Archivos (Contratos, Logos, Mockups)</label>
-                                <input type="file" id="projFiles" class="form-control" multiple accept="image/*,.pdf,.doc,.docx" style="margin-top: 10px;">
-                                <small style="color: #718096; display: block; margin-top: 5px;">Formatos permitidos: Imágenes y PDFs.</small>
+                            <div class="form-group" style="border: 2px dashed #cbd5e0; padding: 15px; border-radius: 10px; text-align: center; background: #f8fafc;">
+                                <label style="cursor:pointer; color: #4a5568; font-weight: 800;"><i class='bx bx-file' style="font-size: 1.5rem; vertical-align: middle;"></i> Adjuntar Contrato (PDF/Doc)</label>
+                                <input type="file" id="projContract" class="form-control" accept=".pdf,.doc,.docx" style="margin-top: 10px;">
+                                <small style="color: #718096; display: block; margin-top: 5px;">Sube 1 solo archivo con los acuerdos legales (Opcional).</small>
+                            </div>
+
+                            <div class="form-group" style="border: 2px dashed #bee3f8; padding: 15px; border-radius: 10px; text-align: center; background: #ebf8ff;">
+                                <label style="cursor:pointer; color: var(--neon-blue); font-weight: 800;"><i class='bx bx-images' style="font-size: 1.5rem; vertical-align: middle;"></i> Recursos del Cliente</label>
+                                <input type="file" id="projAssets" class="form-control" multiple accept="image/*,.zip,.rar" style="margin-top: 10px;">
+                                <small style="color: #718096; display: block; margin-top: 5px;">Sube logos, imágenes de referencia o archivos zip (Opcional).</small>
                             </div>
                         </div>
                         <button type="submit" id="btnSubmitForm" class="btn-primary">CREAR PROYECTO</button>
@@ -195,19 +201,16 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
         import { getFirestore, collection, onSnapshot, query, where, addDoc, updateDoc, deleteDoc, doc, serverTimestamp, getDocs } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
-        // NUEVA IMPORTACIÓN DE STORAGE
         import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-storage.js";
 
         const firebaseConfig = { apiKey: "AIzaSyBlouup64jteDrbUkOkSSEqsjesnuT6mdQ", authDomain: "digital-core-app.firebaseapp.com", projectId: "digital-core-app", storageBucket: "digital-core-app.firebasestorage.app", messagingSenderId: "1003292240722", appId: "1:1003292240722:web:b2a2af0665df1ef00fe88b" };
         const app = initializeApp(firebaseConfig); 
         const auth = getAuth(app); 
         const db = getFirestore(app);
-        const storage = getStorage(app); // INICIALIZAR STORAGE
+        const storage = getStorage(app);
 
-        // Variables globales
         let opcionesEquipoHTML = '<option value="">Selecciona un colaborador...</option>'; let usuarioActual = ""; let esAdmin = false;
 
-        // ACORDEÓN Y CATÁLOGO
         window.toggleForm = function() { const form = document.getElementById('formContainer'); const icon = document.getElementById('formToggleIcon'); if (form.style.display === 'none' || form.style.display === '') { form.style.display = 'block'; icon.style.transform = 'rotate(180deg)'; } else { form.style.display = 'none'; icon.style.transform = 'rotate(0deg)'; } };
         window.actualizarProductos = function() {
             const cat = document.getElementById('projCategory').value; const prod = document.getElementById('projProduct');
@@ -215,12 +218,10 @@
             prod.innerHTML = '<option value="">Selecciona producto...</option>'; if (cat && diccionario[cat]) { prod.disabled = false; diccionario[cat].forEach(p => { prod.innerHTML += `<option value="${p}">${p}</option>`; }); } else { prod.disabled = true; }
         };
 
-        // EQUIPO Y NOTIFICACIONES
         async function prepararEquipo() { onSnapshot(collection(db, "usuarios"), (snap) => { opcionesEquipoHTML = '<option value="">Selecciona un colaborador...</option>'; snap.forEach(d => { const u = d.data(); opcionesEquipoHTML += `<option value="${u.correo.toLowerCase()}">${u.nombre}</option>`; }); document.querySelectorAll('.collab-select').forEach(sel => { const v = sel.value; sel.innerHTML = opcionesEquipoHTML; if(v) sel.value = v; }); }); }
         document.getElementById('btnAddCollab')?.addEventListener('click', () => { const div = document.createElement('select'); div.className = 'form-control collab-select'; div.innerHTML = opcionesEquipoHTML; document.getElementById('assigneesContainer').appendChild(div); });
         window.borrarNotificacion = async function(id) { try { await deleteDoc(doc(db, "notificaciones", id)); } catch(e) { console.error(e); } };
 
-        // ESTADO KANBAN
         window.cambiarEstadoScrum = async function(e, docId, accion) {
             e.stopPropagation(); const docRef = doc(db, "proyectos", docId); const fechaHora = new Date().toLocaleString('es-MX'); let nombreAutor = esAdmin ? "Administrador (Diego)" : "Colaborador";
             try {
@@ -233,7 +234,6 @@
             } catch (err) { alert("Error al actualizar estado."); console.error(err); }
         };
 
-        // INICIALIZACIÓN
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 usuarioActual = user.email.toLowerCase().trim(); esAdmin = usuarioActual === 'diego.725.reyes@gmail.com'; document.getElementById('userEmailLabel').innerText = usuarioActual;
@@ -287,7 +287,7 @@
         }
 
         // =========================================
-        // FORMULARIO CON SUBIDA DE ARCHIVOS A STORAGE
+        // FORMULARIO CON SUBIDA DE ARCHIVOS SEPARADOS (CONTRATO Y RECURSOS)
         // =========================================
         document.getElementById('addProjectForm').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -297,37 +297,55 @@
                 const selects = document.querySelectorAll('.collab-select'); let correos = Array.from(selects).map(s => s.value.toLowerCase().trim()).filter(c => c !== "");
                 correos = [...new Set(correos)]; if (correos.length === 0) return alert("Selecciona colaborador.");
 
-                btnSubmit.innerText = "Subiendo datos... Espera"; btnSubmit.disabled = true;
+                btnSubmit.innerText = "Preparando base de datos..."; btnSubmit.disabled = true;
 
                 // 1. Crear el documento base en Firestore
                 const docRef = await addDoc(collection(db, "proyectos"), {
                     categoria: document.getElementById('projCategory').value, producto: document.getElementById('projProduct').value, cliente: document.getElementById('projClient').value,
                     entrega: document.getElementById('projDeadline').value, requerimientos: document.getElementById('projRequerimientos').value, 
                     asignado_a: correos, progreso: 0, completado: false, en_proceso: false, alerta_vencimiento: false, creado: serverTimestamp(),
-                    archivos_adjuntos: [] // Se llena si hay archivos
+                    archivos_adjuntos: [] 
                 });
                 
-                // 2. Subir Archivos a Storage si seleccionó alguno
-                const fileInput = document.getElementById('projFiles');
+                // 2. Lógica para subir los archivos
                 let urlsAdjuntos = [];
+                const inputContract = document.getElementById('projContract');
+                const inputAssets = document.getElementById('projAssets');
 
-                if(fileInput.files.length > 0) {
-                    btnSubmit.innerText = `Subiendo ${fileInput.files.length} archivo(s)...`;
-                    for(let file of fileInput.files) {
-                        const storageRef = ref(storage, `proyectos/${docRef.id}/${file.name}`);
+                // 2.1 Subir Contrato (Si hay)
+                if(inputContract.files.length > 0) {
+                    btnSubmit.innerText = "Subiendo contrato seguro...";
+                    const file = inputContract.files[0];
+                    const storageRef = ref(storage, `proyectos/${docRef.id}/contrato_${file.name}`);
+                    await uploadBytes(storageRef, file);
+                    const downloadUrl = await getDownloadURL(storageRef);
+                    // Agregamos el emoji de "hoja" para diferenciarlo en la lista visual
+                    urlsAdjuntos.push({ nombre: "📄 Contrato: " + file.name, url: downloadUrl });
+                }
+
+                // 2.2 Subir Recursos (Si hay)
+                if(inputAssets.files.length > 0) {
+                    btnSubmit.innerText = `Subiendo ${inputAssets.files.length} recurso(s) de imagen...`;
+                    for(let file of inputAssets.files) {
+                        const storageRef = ref(storage, `proyectos/${docRef.id}/recurso_${file.name}`);
                         await uploadBytes(storageRef, file);
                         const downloadUrl = await getDownloadURL(storageRef);
-                        urlsAdjuntos.push({ nombre: file.name, url: downloadUrl });
+                        // Agregamos el emoji de "imagen" para diferenciarlo
+                        urlsAdjuntos.push({ nombre: "🖼️ Recurso: " + file.name, url: downloadUrl });
                     }
-                    // Actualizar el documento con las URLs
+                }
+
+                // Si se subió algo, actualizar el documento en Firebase
+                if(urlsAdjuntos.length > 0) {
                     await updateDoc(docRef, { archivos_adjuntos: urlsAdjuntos });
                 }
                 
                 // 3. Notificar a los colaboradores
+                btnSubmit.innerText = "Notificando al equipo...";
                 correos.forEach(async (correo) => { await addDoc(collection(db, "notificaciones"), { destinatario: correo, titulo: "NUEVO PROYECTO ASIGNADO", mensaje: `Se te ha asignado la tarea: ${document.getElementById('projProduct').value}.`, tipo: "NUEVO", proyectoId: docRef.id, creado: serverTimestamp() }); });
                 
-                alert("Proyecto guardado exitosamente."); document.getElementById('addProjectForm').reset(); toggleForm(); 
-            } catch (err) { alert(err.message); console.error(err); } finally {
+                alert("¡Proyecto creado con todos sus archivos!"); document.getElementById('addProjectForm').reset(); toggleForm(); 
+            } catch (err) { alert("Error al subir los archivos: " + err.message); console.error(err); } finally {
                 btnSubmit.innerText = "CREAR PROYECTO"; btnSubmit.disabled = false;
             }
         });
