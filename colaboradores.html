@@ -17,17 +17,24 @@
         .nav-links a:hover, .nav-links a.active { background: rgba(0, 156, 225, 0.2); color: var(--neon-blue); }
         .main-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 2rem 3rem; box-sizing: border-box; }
         
-        .user-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; margin-top: 2rem; }
-        .user-card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; border-top: 4px solid var(--neon-blue); cursor: pointer; transition: 0.2s; }
+        .user-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: 2rem; }
+        .user-card { background: white; padding: 25px 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; border-top: 4px solid var(--neon-blue); cursor: pointer; transition: 0.2s; }
         .user-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.08); border-color: var(--dark-blue); }
-        .user-card i { font-size: 4rem; color: #cbd5e0; margin-bottom: 10px; transition: 0.3s; }
-        .user-card:hover i { color: var(--neon-blue); }
+        .user-card i.main-icon { font-size: 4rem; color: #cbd5e0; margin-bottom: 10px; transition: 0.3s; }
+        .user-card:hover i.main-icon { color: var(--neon-blue); }
         .user-card h3 { margin: 0 0 5px 0; color: var(--dark-blue); }
         .user-card p { margin: 0; color: #718096; font-size: 0.85rem; }
         
         .role-badge { display: inline-block; background: #ebf8ff; color: #2b6cb0; padding: 5px 15px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; margin-top: 15px; text-transform: uppercase; }
         .role-admin { background: #fff5f5; color: #c53030; }
         .crown-icon { color: #d69e2e !important; font-size: 1.2rem !important; margin: 0 !important; vertical-align: middle; }
+
+        /* NUEVO: ESTILOS PARA LAS MÉTRICAS EN LA TARJETA */
+        .card-metrics { display: flex; justify-content: space-around; margin-top: 20px; border-top: 1px dashed #e2e8f0; padding-top: 15px; }
+        .metric-box span:first-child { display: block; font-size: 1.4rem; font-weight: 900; line-height: 1; }
+        .metric-box span:last-child { font-size: 0.7rem; color: #718096; font-weight: 700; text-transform: uppercase; }
+        .metric-active { color: var(--neon-blue); }
+        .metric-total { color: var(--dark-blue); }
 
         /* =========================================
            PARCHE MÓVIL ESTRICTO (APP NATIVA V2.0)
@@ -77,7 +84,7 @@
 
     <main class="main-content">
         <h1 style="color: var(--dark-blue); font-weight: 900; margin-bottom: 5px;"><i class='bx bxs-group'></i> Directorio de Equipo</h1>
-        <p style="color: #718096; margin-top: 0;">Selecciona a un colaborador para ver sus métricas de desempeño.</p>
+        <p style="color: #718096; margin-top: 0;">Métricas generales de desempeño. Selecciona a un colaborador para ver su expediente detallado.</p>
         
         <div id="usersBoard" class="user-grid">
             <div style="text-align: center; grid-column: 1/-1; padding: 3rem;"><i class='bx bx-loader-alt bx-spin' style="font-size: 3rem; color: var(--neon-blue);"></i></div>
@@ -92,46 +99,101 @@
         const firebaseConfig = { apiKey: "AIzaSyBlouup64jteDrbUkOkSSEqsjesnuT6mdQ", authDomain: "digital-core-app.firebaseapp.com", projectId: "digital-core-app", storageBucket: "digital-core-app.firebasestorage.app", messagingSenderId: "1003292240722", appId: "1:1003292240722:web:b2a2af0665df1ef00fe88b" };
         const app = initializeApp(firebaseConfig); const auth = getAuth(app); const db = getFirestore(app);
 
+        let globalUsuarios = [];
+        let globalProyectos = [];
+
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 if (user.email.toLowerCase().trim() !== 'diego.725.reyes@gmail.com') {
                     window.location.href = 'panel-control.html'; 
                 } else {
-                    cargarUsuarios();
+                    iniciarSincronizacion();
                 }
             } else { window.location.href = 'index.html'; }
         });
 
-        function cargarUsuarios() {
+        function iniciarSincronizacion() {
+            // Escuchar usuarios
             onSnapshot(collection(db, "usuarios"), (snap) => {
-                let usuarios = []; snap.forEach(d => usuarios.push(d.data()));
+                globalUsuarios = [];
+                snap.forEach(d => globalUsuarios.push(d.data()));
+                renderizarTablero();
+            });
 
-                usuarios.sort((a, b) => {
-                    const esAdminA = a.correo === 'diego.725.reyes@gmail.com';
-                    const esAdminB = b.correo === 'diego.725.reyes@gmail.com';
-                    if (esAdminA && !esAdminB) return -1;
-                    if (!esAdminA && esAdminB) return 1;
-                    return a.nombre.localeCompare(b.nombre);
-                });
-
-                const board = document.getElementById('usersBoard'); board.innerHTML = '';
-                
-                usuarios.forEach(u => {
-                    const esAdmin = u.correo === 'diego.725.reyes@gmail.com';
-                    const badgeClass = esAdmin ? 'role-badge role-admin' : 'role-badge';
-                    const iconHeader = esAdmin ? "<i class='bx bxs-crown crown-icon'></i> " : "";
-                    
-                    board.innerHTML += `
-                        <div class="user-card" onclick="window.location.href='detalles-colaborador.html?correo=${u.correo}'">
-                            <i class='bx bxs-user-circle'></i>
-                            <h3>${iconHeader}${u.nombre}</h3>
-                            <p>${u.correo}</p>
-                            <span class="${badgeClass}">${u.rol || 'Colaborador'}</span>
-                        </div>
-                    `;
-                });
+            // Escuchar proyectos para calcular métricas
+            onSnapshot(collection(db, "proyectos"), (snap) => {
+                globalProyectos = [];
+                snap.forEach(d => globalProyectos.push(d.data()));
+                renderizarTablero();
             });
         }
+
+        function renderizarTablero() {
+            if(globalUsuarios.length === 0) return; // Esperar a que carguen los usuarios
+
+            // 1. Calcular las métricas por cada correo
+            let metricasUsuarios = {};
+            
+            globalProyectos.forEach(p => {
+                let asignados = Array.isArray(p.asignado_a) ? p.asignado_a : [p.asignado_a];
+                
+                asignados.forEach(correo => {
+                    correo = correo.toLowerCase().trim();
+                    if (!metricasUsuarios[correo]) {
+                        metricasUsuarios[correo] = { activos: 0, total: 0 };
+                    }
+                    
+                    metricasUsuarios[correo].total++;
+                    if (!p.completado) {
+                        metricasUsuarios[correo].activos++;
+                    }
+                });
+            });
+
+            // 2. Ordenar usuarios (Diego primero, resto A-Z)
+            let usuariosOrdenados = [...globalUsuarios];
+            usuariosOrdenados.sort((a, b) => {
+                const esAdminA = a.correo === 'diego.725.reyes@gmail.com';
+                const esAdminB = b.correo === 'diego.725.reyes@gmail.com';
+                if (esAdminA && !esAdminB) return -1;
+                if (!esAdminA && esAdminB) return 1;
+                return a.nombre.localeCompare(b.nombre);
+            });
+
+            // 3. Dibujar las tarjetas
+            const board = document.getElementById('usersBoard'); 
+            board.innerHTML = '';
+            
+            usuariosOrdenados.forEach(u => {
+                const esAdmin = u.correo === 'diego.725.reyes@gmail.com';
+                const badgeClass = esAdmin ? 'role-badge role-admin' : 'role-badge';
+                const iconHeader = esAdmin ? "<i class='bx bxs-crown crown-icon'></i> " : "";
+                
+                // Rescatar métricas (si no tiene, mostrar 0)
+                const stats = metricasUsuarios[u.correo.toLowerCase().trim()] || { activos: 0, total: 0 };
+                
+                board.innerHTML += `
+                    <div class="user-card" onclick="window.location.href='detalles-colaborador.html?correo=${u.correo}'">
+                        <i class='bx bxs-user-circle main-icon'></i>
+                        <h3>${iconHeader}${u.nombre}</h3>
+                        <p>${u.correo}</p>
+                        <span class="${badgeClass}">${u.rol || 'Colaborador'}</span>
+                        
+                        <div class="card-metrics">
+                            <div class="metric-box">
+                                <span class="metric-active">${stats.activos}</span>
+                                <span>Activos</span>
+                            </div>
+                            <div class="metric-box">
+                                <span class="metric-total">${stats.total}</span>
+                                <span>Total</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
         document.getElementById('logoutBtn').onclick = () => signOut(auth).then(() => window.location.href = 'index.html');
     </script>
 </body>
