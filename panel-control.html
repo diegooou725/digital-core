@@ -34,26 +34,31 @@
             border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
         }
 
-        /* FORMULARIO AVANZADO */
+        /* FORMULARIO */
         .content-card { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 2rem; }
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .form-group { display: flex; flex-direction: column; gap: 5px; }
-        .form-group label { font-size: 0.8rem; font-weight: 700; color: var(--dark-blue); }
-        .form-control { padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; font-size: 0.9rem; }
-        .form-control:focus { border-color: var(--neon-blue); outline: none; }
+        .form-control { padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; }
         
-        /* TARJETAS DE PROYECTO */
+        /* BOTÓN DE ALTO CONTRASTE */
+        .btn-primary { 
+            background: var(--neon-blue); color: white; border: none; 
+            padding: 14px; border-radius: 8px; font-weight: 800; 
+            cursor: pointer; transition: 0.3s; width: 100%; margin-top: 20px;
+        }
+        .btn-primary:hover { background: var(--light-blue); transform: scale(1.01); }
+
+        /* TARJETAS INTERACTIVAS */
         .board-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
         .project-card { 
             background: white; border-radius: 15px; padding: 20px; 
-            border: 1px solid rgba(0, 156, 225, 0.1); transition: 0.3s; 
+            border: 1px solid rgba(0, 156, 225, 0.1); position: relative;
         }
-        .project-card:hover { transform: translateY(-5px); border-color: var(--neon-blue); }
-        .badge { font-size: 0.65rem; padding: 4px 12px; border-radius: 50px; font-weight: 900; text-transform: uppercase; }
-        .status-proceso { background: #fff3e0; color: #ef6c00; }
+        .delete-btn { position: absolute; top: 15px; right: 15px; color: #ff6b6b; cursor: pointer; font-size: 1.2rem; }
+        .progress-controls { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+        .control-btn { background: #eee; border: none; border-radius: 4px; padding: 2px 8px; cursor: pointer; font-weight: bold; }
         
         .progress-container { height: 8px; background: #eee; border-radius: 10px; margin: 15px 0; overflow: hidden; }
-        .progress-bar { height: 100%; background: linear-gradient(90deg, var(--light-blue), var(--neon-blue)); transition: 1s ease; }
+        .progress-bar { height: 100%; background: linear-gradient(90deg, var(--light-blue), var(--neon-blue)); transition: 0.5s; }
 
         @media (max-width: 768px) {
             .sidebar { width: 70px; } .sidebar span, .sidebar-logo { display: none; }
@@ -80,7 +85,7 @@
         <header class="top-bar">
             <div>
                 <h1 id="userNameWelcome" style="color: var(--dark-blue); font-weight: 900; margin:0;">Cargando...</h1>
-                <p id="roleLabel" style="color: #666; margin:0; font-size: 0.9rem;">Verificando permisos operativos...</p>
+                <p id="roleLabel" style="color: #666; margin:0; font-size: 0.9rem;">Verificando credenciales...</p>
             </div>
             <div style="background: #f8fafc; padding: 8px 15px; border-radius: 50px; display: flex; align-items: center; gap: 10px; border: 1px solid #edf2f7;">
                 <i class='bx bxs-user-circle' style="color: var(--light-blue); font-size: 1.4rem;"></i>
@@ -89,14 +94,14 @@
         </header>
 
         <section id="adminOnlySection" style="display: none;">
-            <div class="content-card" style="border-left: 6px solid var(--neon-blue);">
+            <div class="content-card">
                 <h2 style="color: var(--dark-blue); margin-bottom: 1.5rem;"><i class='bx bx-plus-circle'></i> Alta de Nuevo Proyecto</h2>
                 <form id="addProjectForm">
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Categoría del Servicio</label>
+                            <label>Categoría</label>
                             <select id="projCategory" class="form-control" onchange="actualizarProductos()" required>
-                                <option value="">Selecciona una categoría...</option>
+                                <option value="">Selecciona categoría...</option>
                                 <option value="Desarrollo Web Estratégico">Desarrollo Web Estratégico</option>
                                 <option value="Sistemas de Datos">Sistemas de Datos</option>
                                 <option value="Cursos, Capacitación y Consultoría">Cursos, Capacitación y Consultoría</option>
@@ -106,54 +111,49 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Producto / Paquete</label>
+                            <label>Producto</label>
                             <select id="projProduct" class="form-control" required disabled>
-                                <option value="">Primero selecciona categoría...</option>
+                                <option value="">Selecciona producto...</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Cliente / Empresa</label>
-                            <input type="text" id="projClient" class="form-control" placeholder="Nombre del cliente" required>
+                            <label>Cliente</label>
+                            <input type="text" id="projClient" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label>Fecha de Entrega</label>
+                            <label>Fecha Entrega</label>
                             <input type="date" id="projDeadline" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label>Asignar a Colaborador</label>
+                            <label>Asignar a</label>
                             <select id="projAssign" class="form-control" required>
-                                <option value="diego.725.reyes@gmail.com">Diego Reyes (Admin)</option>
-                                <option value="ptres2499@gmail.com">Admin Secundario</option>
+                                <option value="diego.725.reyes@gmail.com">Diego Reyes</option>
+                                <option value="ptres2499@gmail.com">Admin Core</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Estado Inicial</label>
+                            <label>Estado</label>
                             <select id="projStatus" class="form-control">
                                 <option value="En proceso">En proceso</option>
-                                <option value="Pendiente">Pendiente</option>
                                 <option value="Urgente">Urgente</option>
                             </select>
                         </div>
                     </div>
-                    <button type="submit" class="btn" style="width: 100%; margin-top: 20px; padding: 14px; font-weight: 800; letter-spacing: 1px;">
-                        <i class='bx bx-cloud-upload'></i> LANZAR PROYECTO A LA NUBE
-                    </button>
+                    <button type="submit" class="btn-primary">PUBLICAR PROYECTO</button>
                 </form>
             </div>
         </section>
 
         <section class="content-card">
             <h2 style="color: var(--dark-blue); margin-bottom: 25px;"><i class='bx bx-objects-horizontal-left'></i> Proyectos Activos</h2>
-            <div id="projectBoard" class="board-container">
-                <p style="color: #888;">Sincronizando con base de datos...</p>
-            </div>
+            <div id="projectBoard" class="board-container"></div>
         </section>
     </main>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, serverTimestamp, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, serverTimestamp, onSnapshot, query, orderBy, updateDoc, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBlouup64jteDrbUkOkSSEqsjesnuT6mdQ",
@@ -169,11 +169,10 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // LÓGICA DINÁMICA DE PRODUCTOS
+        // PRODUCTOS DINÁMICOS
         window.actualizarProductos = function() {
             const categoria = document.getElementById('projCategory').value;
             const productoSelect = document.getElementById('projProduct');
-            
             const productos = {
                 "Desarrollo Web Estratégico": ["Core Flash", "Core Launch", "Core Flow", "Invitación Digital"],
                 "Sistemas de Datos": ["Punto de Venta (POS)", "App Móvil", "Dashboard Analítico"],
@@ -182,42 +181,38 @@
                 "Identidad y Diseño Visual": ["Branding Logo", "Diseño UI/UX"],
                 "Automatización y Chatbots": ["Chatbot WhatsApp", "Flujo Automatizado"]
             };
-
-            productoSelect.innerHTML = '<option value="">Selecciona el producto...</option>';
-            
+            productoSelect.innerHTML = '<option value="">Selecciona...</option>';
             if (categoria && productos[categoria]) {
                 productoSelect.disabled = false;
-                productos[categoria].forEach(prod => {
-                    const opt = document.createElement('option');
-                    opt.value = prod; opt.textContent = prod;
+                productos[categoria].forEach(p => {
+                    let opt = document.createElement('option');
+                    opt.value = p; opt.textContent = p;
                     productoSelect.appendChild(opt);
                 });
             } else { productoSelect.disabled = true; }
         };
 
-        // ACCESO Y ROLES
+        // ACCESO
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 document.getElementById('userEmailLabel').innerText = user.email;
                 if (user.email === 'diego.725.reyes@gmail.com') {
                     document.getElementById('userNameWelcome').innerText = "¡Bienvenido, Director!";
-                    document.getElementById('roleLabel').innerText = "Gestión Maestra de Digital Core";
+                    document.getElementById('roleLabel').innerText = "Gestión Maestra";
                     document.getElementById('adminOnlySection').style.display = 'block';
                 } else {
                     document.getElementById('userNameWelcome').innerText = "Panel Operativo";
-                    document.getElementById('roleLabel').innerText = "Consultoría y Desarrollo";
+                    document.getElementById('roleLabel').innerText = "Colaborador Core";
                 }
-                cargarProyectos();
+                cargarProyectos(user.email);
             } else { window.location.href = 'intranet.html'; }
         });
 
-        // REGISTRO DE DATOS
-        const projectForm = document.getElementById('addProjectForm');
-        projectForm.addEventListener('submit', async (e) => {
+        // GUARDAR
+        document.getElementById('addProjectForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             try {
                 await addDoc(collection(db, "proyectos"), {
-                    nombre: document.getElementById('projProduct').value + " - " + document.getElementById('projClient').value,
                     categoria: document.getElementById('projCategory').value,
                     producto: document.getElementById('projProduct').value,
                     cliente: document.getElementById('projClient').value,
@@ -227,45 +222,52 @@
                     progreso: 0,
                     creado: serverTimestamp()
                 });
-                alert("Éxito: El proyecto ya está en la base de datos.");
-                projectForm.reset();
-                document.getElementById('projProduct').disabled = true;
-            } catch (err) { alert("Error crítico: " + err.message); }
+                alert("Proyecto publicado.");
+                document.getElementById('addProjectForm').reset();
+            } catch (err) { alert(err.message); }
         });
 
-        // TABLERO EN TIEMPO REAL
-        function cargarProyectos() {
+        // FUNCIONES DE GESTIÓN (DELETE Y UPDATE)
+        window.eliminarProyecto = async (id) => {
+            if(confirm("¿Seguro que quieres borrar este proyecto?")) {
+                await deleteDoc(doc(db, "proyectos", id));
+            }
+        };
+
+        window.cambiarProgreso = async (id, actual, cambio) => {
+            let nuevo = Math.min(100, Math.max(0, actual + cambio));
+            await updateDoc(doc(db, "proyectos", id), { progreso: nuevo });
+        };
+
+        // CARGAR PROYECTOS
+        function cargarProyectos(email) {
             const q = query(collection(db, "proyectos"), orderBy("creado", "desc"));
             onSnapshot(q, (snap) => {
                 const container = document.getElementById('projectBoard');
                 container.innerHTML = "";
-                snap.forEach((doc) => {
-                    const data = doc.data();
+                snap.forEach((d) => {
+                    const p = d.data();
+                    const esAdmin = email === 'diego.725.reyes@gmail.com';
                     container.innerHTML += `
                         <div class="project-card">
-                            <div style="display:flex; justify-content:space-between; align-items:start;">
-                                <div>
-                                    <span style="font-size:0.65rem; color:var(--light-blue); font-weight:800;">${data.categoria}</span>
-                                    <h3 style="margin:2px 0; font-size:1rem; color:var(--dark-blue);">${data.producto}</h3>
-                                    <p style="font-size:0.75rem; color:#888; margin:0;">Cliente: ${data.cliente}</p>
-                                </div>
-                                <span class="badge status-proceso">${data.estado}</span>
+                            ${esAdmin ? `<i class='bx bx-trash delete-btn' onclick="eliminarProyecto('${d.id}')"></i>` : ''}
+                            <span style="font-size:0.6rem; color:var(--light-blue); font-weight:800;">${p.categoria}</span>
+                            <h3 style="margin:5px 0; color:var(--dark-blue); font-size:1rem;">${p.producto}</h3>
+                            <p style="font-size:0.75rem; color:#888; margin:0;">Cliente: ${p.cliente}</p>
+                            <div class="progress-container"><div class="progress-bar" style="width:${p.progreso}%"></div></div>
+                            <div class="progress-controls">
+                                <button class="control-btn" onclick="cambiarProgreso('${d.id}', ${p.progreso}, -10)">-</button>
+                                <span style="font-size:0.8rem; font-weight:bold;">${p.progreso}%</span>
+                                <button class="control-btn" onclick="cambiarProgreso('${d.id}', ${p.progreso}, 10)">+</button>
                             </div>
-                            <div class="progress-container"><div class="progress-bar" style="width:${data.progreso}%"></div></div>
-                            <div style="display:flex; justify-content:space-between; font-size:0.7rem; font-weight:700;">
-                                <span style="color:#666;">Entrega: ${data.entrega}</span>
-                                <span style="color:var(--dark-blue); text-decoration: underline;">${data.asignado_a.split('@')[0]}</span>
-                            </div>
+                            <p style="font-size:0.7rem; color:#666; margin-top:10px;">Entrega: ${p.entrega} | <b>${p.asignado_a.split('@')[0]}</b></p>
                         </div>
                     `;
                 });
             });
         }
 
-        // SALIDA
-        document.getElementById('logoutBtn').addEventListener('click', () => {
-            signOut(auth).then(() => window.location.href = 'index.html');
-        });
+        document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth).then(() => window.location.href = 'index.html'));
     </script>
 </body>
 </html>
