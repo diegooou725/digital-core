@@ -34,7 +34,7 @@
             border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
         }
 
-        /* FORMULARIO */
+        /* CARDS Y FORMULARIO */
         .content-card { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 2rem; }
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .form-control { padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; width: 100%; box-sizing: border-box; }
@@ -129,7 +129,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Estado</label>
+                            <label>Estado Inicial</label>
                             <select id="projStatus" class="form-control">
                                 <option value="En proceso">En proceso</option>
                                 <option value="Urgente">Urgente</option>
@@ -212,7 +212,6 @@
                 document.getElementById('userEmailLabel').innerText = userEmail;
                 const isAdmin = userEmail === 'diego.725.reyes@gmail.com';
                 
-                // Buscar datos de usuario en la colección 'usuarios'
                 const qUser = query(collection(db, "usuarios"), where("correo", "==", userEmail));
                 const userSnap = await getDocs(qUser);
                 
@@ -267,7 +266,7 @@
             await updateDoc(doc(db, "proyectos", id), { progreso: n });
         };
 
-        // CARGA DE TAREAS CON FILTRO ESTRICTO
+        // CARGA DE TAREAS MEJORADA
         function cargarProyectos(email, isAdmin) {
             let q;
             if (isAdmin) {
@@ -286,7 +285,7 @@
                     container.innerHTML = `
                         <div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: #888;">
                             <i class='bx bx-search-alt' style="font-size: 3rem;"></i>
-                            <p>No se encontraron tareas asignadas para: <br><b>${email}</b></p>
+                            <p>No se encontraron tareas para: <br><b>${email}</b></p>
                         </div>`;
                     return;
                 }
@@ -314,8 +313,6 @@
                         </div>
                     `;
                 });
-            }, (error) => {
-                console.error("Error al cargar proyectos:", error);
             });
         }
 
