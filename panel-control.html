@@ -12,7 +12,8 @@
         body { display: flex; background: #f0f4f8; min-height: 100vh; margin: 0; font-family: 'Inter', sans-serif; }
         
         .sidebar { width: var(--sidebar-width); height: 100vh; background: var(--dark-blue); color: white; position: fixed; padding: 2rem 1rem; display: flex; flex-direction: column; z-index: 100; box-sizing: border-box; }
-        .sidebar-logo { width: 80%; margin-bottom: 3rem; padding-left: 1rem; }
+        .sidebar-logo { width: 70%; max-width: 180px; margin: 0 auto 2rem auto; display: block; }
+        
         .nav-links { list-style: none; flex-grow: 1; padding: 0; margin: 0; }
         .nav-links a { display: flex; align-items: center; gap: 15px; color: rgba(255,255,255,0.7); text-decoration: none; padding: 12px 1rem; border-radius: 8px; transition: 0.3s; font-weight: 600; margin-bottom: 5px; position: relative;}
         .nav-links a:hover, .nav-links a.active { background: rgba(0, 156, 225, 0.2); color: var(--neon-blue); }
@@ -45,27 +46,21 @@
         .btn-ignorar { background: transparent; border: none; color: #a0aec0; cursor: pointer; font-size: 1.5rem; transition: 0.2s; padding: 5px; border-radius: 50%; }
         .btn-ignorar:hover { background: #fed7d7; color: #e53e3e; }
 
-        /* =========================================
-           TABLERO SCRUM / KANBAN
-           ========================================= */
+        /* TABLERO SCRUM */
         .kanban-board { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 15px; }
         .kanban-col { background: #e2e8f0; border-radius: 12px; min-width: 320px; flex: 1; padding: 15px; display: flex; flex-direction: column; gap: 15px; }
         .kanban-col h3 { margin: 0 0 10px 0; color: var(--dark-blue); font-size: 1.1rem; display: flex; justify-content: space-between; align-items: center;}
         .kanban-col h3 span { background: white; padding: 2px 10px; border-radius: 50px; font-size: 0.8rem; color: #718096; }
         
         .k-card { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border-left: 4px solid #cbd5e0; position: relative;}
-        .k-card-demorada { border-left-color: #e53e3e; }
-        .k-card-proceso { border-left-color: #3182ce; }
-        .k-card-completada { border-left-color: #38a169; opacity: 0.8; }
+        .k-card-demorada { border-left-color: #e53e3e; } .k-card-proceso { border-left-color: #3182ce; } .k-card-completada { border-left-color: #38a169; opacity: 0.8; }
         
         .k-title { font-weight: 800; color: var(--dark-blue); margin: 0 0 5px 0; font-size: 1.05rem; cursor: pointer;}
         .k-title:hover { text-decoration: underline; color: var(--neon-blue); }
         .k-client { font-size: 0.8rem; color: #718096; margin: 0 0 5px 0; }
         
-        /* NUEVO: ETIQUETA DE RESPONSABLE */
         .k-assignee { font-size: 0.75rem; color: #4a5568; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 4px; }
         .k-assignee i { color: var(--neon-blue); font-size: 1.1rem; }
-
         .k-meta { display: flex; justify-content: space-between; font-size: 0.75rem; color: #a0aec0; margin-bottom: 15px; font-weight: 700;}
         .k-meta-danger { color: #e53e3e !important; }
         
@@ -75,21 +70,13 @@
         .k-btn-done { background: #f0fff4; color: #38a169; } .k-btn-done:hover { background: #38a169; color: white; }
         .k-btn-pause { background: #fff5f5; color: #e53e3e; } .k-btn-pause:hover { background: #e53e3e; color: white; }
 
-        /* =========================================
-           PARCHE MÓVIL ESTRICTO (APP NATIVA V2.0)
-           ========================================= */
         @media (max-width: 768px) {
             html, body { overflow-x: hidden; width: 100vw; margin: 0; padding: 0; }
             body { display: block; padding-bottom: 90px; } 
             .sidebar { 
-                width: 100vw; height: 70px; 
-                position: fixed; bottom: 0; left: 0; top: auto; 
-                display: flex; flex-direction: row; justify-content: space-between; align-items: center;
-                padding: 0 5px; box-sizing: border-box; z-index: 9999; 
-                border-top: 1px solid #1e293b; box-shadow: 0 -5px 15px rgba(0,0,0,0.1); 
-                border-radius: 20px 20px 0 0; background: var(--dark-blue);
+                width: 100vw; height: 70px; position: fixed; bottom: 0; left: 0; top: auto; display: flex; flex-direction: row; justify-content: space-between; align-items: center; padding: 0 5px; box-sizing: border-box; z-index: 9999; border-top: 1px solid #1e293b; box-shadow: 0 -5px 15px rgba(0,0,0,0.1); border-radius: 20px 20px 0 0; background: var(--dark-blue);
             }
-            .sidebar h2, .sidebar-logo { display: none; }
+            .sidebar-logo { display: none; }
             .nav-links { display: flex; flex-direction: row; justify-content: space-around; width: 80%; padding: 0; margin: 0; }
             .nav-links li { display: flex; justify-content: center; align-items: center; width: 100%; }
             .nav-links a { flex-direction: column; justify-content: center; align-items: center; padding: 5px 0; gap: 4px; width: 100%; margin: 0;}
@@ -104,11 +91,8 @@
             .content-card, .form-grid { width: 100%; box-sizing: border-box; }
             .stats-grid { grid-template-columns: 1fr 1fr; }
             .form-grid { grid-template-columns: 1fr; }
-            
-            /* Ajuste Scrum móvil */
             .kanban-board { flex-direction: column; }
             .kanban-col { min-width: 100%; width: 100%; box-sizing: border-box; }
-            
             h1, h2 { text-align: center; word-wrap: break-word; font-size: 1.8rem !important; line-height: 1.2; margin-bottom: 10px;}
             p { text-align: center; }
             .btn-action, .btn-secondary { width: 100%; justify-content: center; padding: 15px; font-size: 1rem; box-sizing: border-box; }
@@ -123,7 +107,8 @@
 <body>
 
     <aside class="sidebar">
-        <h2 style="padding-left: 1rem; color: var(--light-blue); margin-bottom: 2rem;">Digital Core</h2>
+        <img src="DigitalCore-blanco.png" alt="Digital Core" class="sidebar-logo">
+        
         <ul class="nav-links">
             <li><a href="panel-control.html" class="active"><i class='bx bxs-dashboard'></i> <span>Dashboard</span> <span id="notifCount" class="notif-badge-menu" style="display:none;">0</span></a></li>
             <li><a href="mis-trabajos.html"><i class='bx bxs-briefcase'></i> <span>Mis Trabajos</span></a></li>
@@ -139,7 +124,7 @@
         <header class="top-bar">
             <div>
                 <h1 id="userNameWelcome" style="color: var(--dark-blue); font-weight: 900; margin:0;">Iniciando...</h1>
-                <p id="roleLabel" style="color: #666; margin:0; font-size: 0.9rem;">Sincronizando Scrum</p>
+                <p id="roleLabel" style="color: #666; margin:0; font-size: 0.9rem;">Sincronizando Sistema</p>
             </div>
             <div style="background: #f8fafc; padding: 8px 15px; border-radius: 50px; display: flex; align-items: center; gap: 10px; border: 1px solid #edf2f7;">
                 <i class='bx bxs-user-circle' style="color: var(--light-blue); font-size: 1.4rem;"></i>
@@ -165,14 +150,22 @@
                             <div class="form-group"><label>Producto</label><select id="projProduct" class="form-control" required disabled><option value="">Selecciona...</option></select></div>
                             <div class="form-group"><label>Cliente</label><input type="text" id="projClient" class="form-control" required></div>
                             <div class="form-group"><label>Fecha Límite (Deadline)</label><input type="date" id="projDeadline" class="form-control" required></div>
+                            
                             <div class="form-group" style="grid-column: 1 / -1; background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0;">
                                 <label><i class='bx bx-group'></i> Equipo Asignado</label>
                                 <div id="assigneesContainer" style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;"><select class="form-control collab-select" required><option value="">Cargando equipo...</option></select></div>
                                 <button type="button" id="btnAddCollab" class="btn-secondary">+ Asignar otro colaborador</button>
                             </div>
-                            <div class="form-group" style="grid-column: 1 / -1;"><label>Requerimientos</label><textarea id="projRequerimientos" class="form-control" rows="3" required></textarea></div>
+                            
+                            <div class="form-group" style="grid-column: 1 / -1;"><label>Requerimientos y Link de GitHub</label><textarea id="projRequerimientos" class="form-control" rows="3" placeholder="Pega aquí instrucciones, o el link del repositorio inicial..." required></textarea></div>
+                            
+                            <div class="form-group" style="grid-column: 1 / -1; border: 2px dashed #cbd5e0; padding: 15px; border-radius: 10px; text-align: center;">
+                                <label style="cursor:pointer; color: var(--neon-blue);"><i class='bx bx-cloud-upload' style="font-size: 1.5rem; vertical-align: middle;"></i> Adjuntar Archivos (Contratos, Logos, Mockups)</label>
+                                <input type="file" id="projFiles" class="form-control" multiple accept="image/*,.pdf,.doc,.docx" style="margin-top: 10px;">
+                                <small style="color: #718096; display: block; margin-top: 5px;">Formatos permitidos: Imágenes y PDFs.</small>
+                            </div>
                         </div>
-                        <button type="submit" class="btn-primary">CREAR PROYECTO</button>
+                        <button type="submit" id="btnSubmitForm" class="btn-primary">CREAR PROYECTO</button>
                     </form>
                 </div>
             </div>
@@ -183,31 +176,17 @@
             <div class="stats-grid">
                 <div class="stat-card" onclick="window.location.href='mis-trabajos.html?filtro=todas'"><h3 id="statTotal">0</h3><p>Total Histórico</p></div>
                 <div class="stat-card" onclick="window.location.href='mis-trabajos.html?filtro=asignadas'"><h3 id="statAsignados" style="color: #718096;">0</h3><p>Backlog (Fila)</p></div>
-                <div class="stat-card" onclick="window.location.href='mis-trabajos.html?filtro=proceso'"><h3 id="statProceso" style="color: #3182ce;">0</h3><p>Sprints (Activos)</p></div>
+                <div class="stat-card" onclick="window.location.href='mis-trabajos.html?filtro=proceso'"><h3 id="statProceso" style="color: #3182ce;">0</h3><p>Sprints</p></div>
                 <div class="stat-card" style="border-color: #feb2b2;" onclick="window.location.href='mis-trabajos.html?filtro=demoradas'"><h3 id="statAtrasados" style="color: #e53e3e;">0</h3><p>Demorados</p></div>
             </div>
-            <div id="reportBox" class="report-box"><i id="reportIcon" class='bx bxs-message-rounded-dots' style="font-size: 2.2rem;"></i><div><span id="reportText" style="font-size: 1rem;">Analizando...</span></div></div>
         </section>
 
         <section>
             <h2 style="color: var(--dark-blue); margin-bottom: 1rem; margin-top: 2rem;"><i class='bx bx-columns'></i> Tablero Scrum</h2>
             <div class="kanban-board">
-                
-                <div class="kanban-col">
-                    <h3>Por Hacer (Backlog) <span id="countAsignadas">0</span></h3>
-                    <div id="colAsignadas" style="display:flex; flex-direction:column; gap:10px; min-height: 100px;"></div>
-                </div>
-
-                <div class="kanban-col" style="background: #ebf8ff;">
-                    <h3 style="color:#3182ce;">Sprints (En Proceso) <span id="countProceso" style="background:#bee3f8; color:#2b6cb0;">0</span></h3>
-                    <div id="colProceso" style="display:flex; flex-direction:column; gap:10px; min-height: 100px;"></div>
-                </div>
-
-                <div class="kanban-col" style="background: #f0fff4;">
-                    <h3 style="color:#38a169;">Terminadas <span id="countCompletadas" style="background:#c6f6d5; color:#22543d;">0</span></h3>
-                    <div id="colCompletadas" style="display:flex; flex-direction:column; gap:10px; min-height: 100px;"></div>
-                </div>
-
+                <div class="kanban-col"><h3>Por Hacer <span id="countAsignadas">0</span></h3><div id="colAsignadas" style="display:flex; flex-direction:column; gap:10px; min-height: 100px;"></div></div>
+                <div class="kanban-col" style="background: #ebf8ff;"><h3 style="color:#3182ce;">Sprints (En Proceso) <span id="countProceso" style="background:#bee3f8; color:#2b6cb0;">0</span></h3><div id="colProceso" style="display:flex; flex-direction:column; gap:10px; min-height: 100px;"></div></div>
+                <div class="kanban-col" style="background: #f0fff4;"><h3 style="color:#38a169;">Terminadas <span id="countCompletadas" style="background:#c6f6d5; color:#22543d;">0</span></h3><div id="colCompletadas" style="display:flex; flex-direction:column; gap:10px; min-height: 100px;"></div></div>
             </div>
         </section>
     </main>
@@ -216,104 +195,55 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
         import { getFirestore, collection, onSnapshot, query, where, addDoc, updateDoc, deleteDoc, doc, serverTimestamp, getDocs } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+        // NUEVA IMPORTACIÓN DE STORAGE
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-storage.js";
 
         const firebaseConfig = { apiKey: "AIzaSyBlouup64jteDrbUkOkSSEqsjesnuT6mdQ", authDomain: "digital-core-app.firebaseapp.com", projectId: "digital-core-app", storageBucket: "digital-core-app.firebasestorage.app", messagingSenderId: "1003292240722", appId: "1:1003292240722:web:b2a2af0665df1ef00fe88b" };
-        const app = initializeApp(firebaseConfig); const auth = getAuth(app); const db = getFirestore(app);
+        const app = initializeApp(firebaseConfig); 
+        const auth = getAuth(app); 
+        const db = getFirestore(app);
+        const storage = getStorage(app); // INICIALIZAR STORAGE
 
         // Variables globales
-        let opcionesEquipoHTML = '<option value="">Selecciona un colaborador...</option>';
-        let usuarioActual = "";
-        let esAdmin = false;
+        let opcionesEquipoHTML = '<option value="">Selecciona un colaborador...</option>'; let usuarioActual = ""; let esAdmin = false;
 
-        // ACORDEÓN
-        window.toggleForm = function() {
-            const form = document.getElementById('formContainer'); const icon = document.getElementById('formToggleIcon');
-            if (form.style.display === 'none' || form.style.display === '') { form.style.display = 'block'; icon.style.transform = 'rotate(180deg)'; } else { form.style.display = 'none'; icon.style.transform = 'rotate(0deg)'; }
-        };
-
-        // CATÁLOGO
+        // ACORDEÓN Y CATÁLOGO
+        window.toggleForm = function() { const form = document.getElementById('formContainer'); const icon = document.getElementById('formToggleIcon'); if (form.style.display === 'none' || form.style.display === '') { form.style.display = 'block'; icon.style.transform = 'rotate(180deg)'; } else { form.style.display = 'none'; icon.style.transform = 'rotate(0deg)'; } };
         window.actualizarProductos = function() {
             const cat = document.getElementById('projCategory').value; const prod = document.getElementById('projProduct');
-            const diccionario = {
-                "Desarrollo Web Estratégico": ["Core Event", "Core Flash", "Core Start", "Core Plus", "Core Landing", "Core Business", "Core Elite", "Core Commerce", "Core Dynamic", "Gestión de Dominios", "Hosting de Alto Rendimiento", "Correos Corporativos"],
-                "Sistemas de Datos": ["Skill Excel", "Skill Macro", "Skill Dashboard", "Skill Cleanse", "Skill Connect", "Skill Cloud", "Hub Starter", "Hub Stock", "Hub CRM", "Hub ERP", "Hub Network", "Hub SQL", "Data Custom", "Licencia POS Básico", "Hardware POS Completo"],
-                "Cursos y Capacitación": ["Skill Basics", "Skill Office", "Skill Cloud", "Skill Data", "Skill Code", "Skill Mentor", "Team Office", "Team Cloud", "Team Data", "Team Commerce", "Team Software", "Team Custom", "Strategy Audit", "Strategy Digital", "Strategy Tech", "Strategy Cloud", "Strategy Custom", "Strategy Support"],
-                "Soporte e Infraestructura (Próximamente)": ["Mantenimiento de equipos de cómputo", "Instalación de sistemas de seguridad CCTV", "Micro centros de datos corporativos"],
-                "Identidad y Diseño Visual (Próximamente)": ["Creación de logotipos y branding", "Diseño de interfaces UI/UX"],
-                "Automatización y Chatbots (Próximamente)": ["Implementación de flujos automáticos", "Chatbots inteligentes para WhatsApp y Messenger"]
-            };
-            prod.innerHTML = '<option value="">Selecciona producto...</option>';
-            if (cat && diccionario[cat]) { prod.disabled = false; diccionario[cat].forEach(p => { prod.innerHTML += `<option value="${p}">${p}</option>`; }); } else { prod.disabled = true; }
+            const diccionario = { "Desarrollo Web Estratégico": ["Core Event", "Core Flash", "Core Start", "Core Plus", "Core Landing", "Core Business", "Core Elite", "Core Commerce", "Core Dynamic", "Gestión de Dominios", "Hosting de Alto Rendimiento", "Correos Corporativos"], "Sistemas de Datos": ["Skill Excel", "Skill Macro", "Skill Dashboard", "Skill Cleanse", "Skill Connect", "Skill Cloud", "Hub Starter", "Hub Stock", "Hub CRM", "Hub ERP", "Hub Network", "Hub SQL", "Data Custom", "Licencia POS Básico", "Hardware POS Completo"], "Cursos y Capacitación": ["Skill Basics", "Skill Office", "Skill Cloud", "Skill Data", "Skill Code", "Skill Mentor", "Team Office", "Team Cloud", "Team Data", "Team Commerce", "Team Software", "Team Custom", "Strategy Audit", "Strategy Digital", "Strategy Tech", "Strategy Cloud", "Strategy Custom", "Strategy Support"], "Soporte e Infraestructura (Próximamente)": ["Mantenimiento de equipos de cómputo", "Instalación de sistemas de seguridad CCTV", "Micro centros de datos corporativos"], "Identidad y Diseño Visual (Próximamente)": ["Creación de logotipos y branding", "Diseño de interfaces UI/UX"], "Automatización y Chatbots (Próximamente)": ["Implementación de flujos automáticos", "Chatbots inteligentes para WhatsApp y Messenger"] };
+            prod.innerHTML = '<option value="">Selecciona producto...</option>'; if (cat && diccionario[cat]) { prod.disabled = false; diccionario[cat].forEach(p => { prod.innerHTML += `<option value="${p}">${p}</option>`; }); } else { prod.disabled = true; }
         };
 
-        // EQUIPO
-        async function prepararEquipo() {
-            onSnapshot(collection(db, "usuarios"), (snap) => {
-                opcionesEquipoHTML = '<option value="">Selecciona un colaborador...</option>';
-                snap.forEach(d => { const u = d.data(); opcionesEquipoHTML += `<option value="${u.correo.toLowerCase()}">${u.nombre}</option>`; });
-                document.querySelectorAll('.collab-select').forEach(sel => { const v = sel.value; sel.innerHTML = opcionesEquipoHTML; if(v) sel.value = v; });
-            });
-        }
-
-        document.getElementById('btnAddCollab')?.addEventListener('click', () => {
-            const div = document.createElement('select'); div.className = 'form-control collab-select'; div.innerHTML = opcionesEquipoHTML;
-            document.getElementById('assigneesContainer').appendChild(div);
-        });
-
-        // NOTIFICACIONES
+        // EQUIPO Y NOTIFICACIONES
+        async function prepararEquipo() { onSnapshot(collection(db, "usuarios"), (snap) => { opcionesEquipoHTML = '<option value="">Selecciona un colaborador...</option>'; snap.forEach(d => { const u = d.data(); opcionesEquipoHTML += `<option value="${u.correo.toLowerCase()}">${u.nombre}</option>`; }); document.querySelectorAll('.collab-select').forEach(sel => { const v = sel.value; sel.innerHTML = opcionesEquipoHTML; if(v) sel.value = v; }); }); }
+        document.getElementById('btnAddCollab')?.addEventListener('click', () => { const div = document.createElement('select'); div.className = 'form-control collab-select'; div.innerHTML = opcionesEquipoHTML; document.getElementById('assigneesContainer').appendChild(div); });
         window.borrarNotificacion = async function(id) { try { await deleteDoc(doc(db, "notificaciones", id)); } catch(e) { console.error(e); } };
 
-        // =========================================
-        // FUNCIÓN GLOBAL: CAMBIAR ESTADO DESDE EL KANBAN
-        // =========================================
+        // ESTADO KANBAN
         window.cambiarEstadoScrum = async function(e, docId, accion) {
-            e.stopPropagation(); // Evita que se abra la ficha técnica al dar clic al botón
-            const docRef = doc(db, "proyectos", docId);
-            const fechaHora = new Date().toLocaleString('es-MX');
-            let nombreAutor = esAdmin ? "Administrador (Diego)" : "Colaborador";
-
+            e.stopPropagation(); const docRef = doc(db, "proyectos", docId); const fechaHora = new Date().toLocaleString('es-MX'); let nombreAutor = esAdmin ? "Administrador (Diego)" : "Colaborador";
             try {
                 if (accion === 'iniciar') {
-                    if (!esAdmin) {
-                        const q = query(collection(db, "proyectos"), where("asignado_a", "array-contains", usuarioActual), where("en_proceso", "==", true));
-                        const activas = await getDocs(q);
-                        if (!activas.empty) { alert("✋ Ya tienes una tarea en tu Sprint. Páusala antes de iniciar otra."); return; }
-                    }
+                    if (!esAdmin) { const q = query(collection(db, "proyectos"), where("asignado_a", "array-contains", usuarioActual), where("en_proceso", "==", true)); const activas = await getDocs(q); if (!activas.empty) { alert("✋ Ya tienes una tarea en tu Sprint. Páusala antes de iniciar otra."); return; } }
                     await updateDoc(docRef, { en_proceso: true, historial_avance: window.firebaseArrayUnion({ fecha: fechaHora, porcentaje: 0, comentario: "▶ Tarea INICIADA desde el Tablero Scrum.", autor: nombreAutor }) });
                 } 
-                else if (accion === 'pausar') {
-                    await updateDoc(docRef, { en_proceso: false, historial_avance: window.firebaseArrayUnion({ fecha: fechaHora, porcentaje: 0, comentario: "⏸ Tarea PAUSADA desde el Tablero Scrum.", autor: nombreAutor }) });
-                } 
-                else if (accion === 'terminar') {
-                    if(confirm("¿Seguro que deseas marcar este proyecto como Terminado al 100%?")) {
-                        await updateDoc(docRef, { completado: true, progreso: 100, en_proceso: false, historial_avance: window.firebaseArrayUnion({ fecha: fechaHora, porcentaje: 100, comentario: "✅ Tarea FINALIZADA desde el Tablero Scrum.", autor: nombreAutor }) });
-                    }
-                }
+                else if (accion === 'pausar') { await updateDoc(docRef, { en_proceso: false, historial_avance: window.firebaseArrayUnion({ fecha: fechaHora, porcentaje: 0, comentario: "⏸ Tarea PAUSADA desde el Tablero Scrum.", autor: nombreAutor }) }); } 
+                else if (accion === 'terminar') { if(confirm("¿Seguro que deseas marcar este proyecto como Terminado?")) { await updateDoc(docRef, { completado: true, progreso: 100, en_proceso: false, historial_avance: window.firebaseArrayUnion({ fecha: fechaHora, porcentaje: 100, comentario: "✅ Tarea FINALIZADA desde el Tablero Scrum.", autor: nombreAutor }) }); } }
             } catch (err) { alert("Error al actualizar estado."); console.error(err); }
         };
 
         // INICIALIZACIÓN
         onAuthStateChanged(auth, async (user) => {
             if (user) {
-                usuarioActual = user.email.toLowerCase().trim();
-                esAdmin = usuarioActual === 'diego.725.reyes@gmail.com';
-                document.getElementById('userEmailLabel').innerText = usuarioActual;
-
+                usuarioActual = user.email.toLowerCase().trim(); esAdmin = usuarioActual === 'diego.725.reyes@gmail.com'; document.getElementById('userEmailLabel').innerText = usuarioActual;
                 const userSnap = await getDocs(query(collection(db, "usuarios"), where("correo", "==", usuarioActual)));
                 if (!userSnap.empty) { const u = userSnap.docs[0].data(); document.getElementById('userNameWelcome').innerText = `¡Hola, ${u.nombre.split(' ')[0]}!`; document.getElementById('roleLabel').innerText = u.rol; }
-
-                if (esAdmin) { 
-                    document.getElementById('adminOnlySection').style.display = 'block'; 
-                    document.getElementById('navColaboradores').style.display = 'flex';
-                    prepararEquipo(); 
-                }
-
-                cargarNotificaciones(usuarioActual);
-                renderizarDashboard(usuarioActual, esAdmin);
+                if (esAdmin) { document.getElementById('adminOnlySection').style.display = 'block'; document.getElementById('navColaboradores').style.display = 'flex'; prepararEquipo(); }
+                cargarNotificaciones(usuarioActual); renderizarDashboard(usuarioActual, esAdmin);
             } else { window.location.href = 'index.html'; }
         });
 
-        // REEMPLAZO DE LA FUNCIÓN NATIVA DE FIREBASE PARA USO EN WINDOW
         import { arrayUnion as fbArrayUnion } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
         window.firebaseArrayUnion = fbArrayUnion;
 
@@ -321,173 +251,85 @@
             const q = query(collection(db, "notificaciones"), where("destinatario", "==", miCorreo));
             onSnapshot(q, (snap) => {
                 const list = document.getElementById('notifListContainer'); const badge = document.getElementById('notifCount'); const section = document.getElementById('notifSection');
-                list.innerHTML = "";
-                if (snap.size > 0) {
-                    badge.innerText = snap.size; badge.style.display = "block"; section.style.display = "block";
-                    snap.forEach(d => {
-                        const n = d.data(); let icon = "bx-info-circle"; let colorClass = "n-info";
-                        if(n.tipo === "ALERTA") { icon = "bxs-error"; colorClass = "n-alerta"; }
-                        list.innerHTML += `<div class="notif-item ${colorClass}"><div style="width: 85%; cursor:pointer;" onclick="window.location.href='detalles-tarea.html?id=${n.proyectoId}'"><strong style="display:block; font-size:0.95rem; margin-bottom:5px; color: var(--dark-blue);"><i class='bx ${icon}'></i> ${n.titulo}</strong><span style="font-size:0.85rem; color:#4a5568;">${n.mensaje}</span></div><button class="btn-ignorar" onclick="borrarNotificacion('${d.id}')" title="Borrar"><i class='bx bx-trash'></i></button></div>`;
-                    });
-                } else { badge.style.display = "none"; section.style.display = "none"; }
+                list.innerHTML = ""; if (snap.size > 0) { badge.innerText = snap.size; badge.style.display = "block"; section.style.display = "block"; snap.forEach(d => { const n = d.data(); let icon = "bx-info-circle"; let colorClass = "n-info"; if(n.tipo === "ALERTA") { icon = "bxs-error"; colorClass = "n-alerta"; } list.innerHTML += `<div class="notif-item ${colorClass}"><div style="width: 85%; cursor:pointer;" onclick="window.location.href='detalles-tarea.html?id=${n.proyectoId}'"><strong style="display:block; font-size:0.95rem; margin-bottom:5px; color: var(--dark-blue);"><i class='bx ${icon}'></i> ${n.titulo}</strong><span style="font-size:0.85rem; color:#4a5568;">${n.mensaje}</span></div><button class="btn-ignorar" onclick="borrarNotificacion('${d.id}')"><i class='bx bx-trash'></i></button></div>`; }); } else { badge.style.display = "none"; section.style.display = "none"; }
             });
         }
 
-        // =========================================
-        // MOTOR PRINCIPAL DEL DASHBOARD Y SCRUM
-        // =========================================
         function renderizarDashboard(email, isAdmin) {
             const q = isAdmin ? collection(db, "proyectos") : query(collection(db, "proyectos"), where("asignado_a", "array-contains", email));
             onSnapshot(q, (snap) => {
                 let tareas = []; snap.forEach(d => tareas.push({ id: d.id, ...d.data() }));
-                
-                let cTotal = tareas.length; let cAsignados = 0; let cProceso = 0; let cAtrasados = 0; let cCompletadosTotales = 0; let hayUnaEnProceso = false; 
-                const hoyFecha = new Date(); const hoyString = hoyFecha.toISOString().split('T')[0];
-
+                let cTotal = tareas.length; let cAsignados = 0; let cProceso = 0; let cAtrasados = 0; let cCompletadosTotales = 0; let hayUnaEnProceso = false; const hoyFecha = new Date(); const hoyString = hoyFecha.toISOString().split('T')[0];
                 let arrAsignadas = []; let arrProceso = []; let arrCompletadas = [];
-
                 tareas.sort((a, b) => new Date(a.entrega) - new Date(b.entrega));
 
                 tareas.forEach(async (p) => {
-                    if (p.completado) { cCompletadosTotales++; arrCompletadas.push(p); } 
-                    else if (p.en_proceso) { cProceso++; hayUnaEnProceso = true; p._estadoVisual = "EN PROCESO"; arrProceso.push(p); } 
-                    else {
-                        if (p.entrega < hoyString) { cAtrasados++; p._estadoVisual = "DEMORADA"; } 
-                        else { cAsignados++; p._estadoVisual = "ASIGNADA"; }
-                        arrAsignadas.push(p);
-                    }
-
-                    if (!p.completado) {
-                        let msFaltantes = new Date(p.entrega) - hoyFecha; let diasFaltantes = msFaltantes / (1000 * 60 * 60 * 24);
-                        if (diasFaltantes > 0 && diasFaltantes <= 2 && !p.alerta_vencimiento) {
-                            await updateDoc(doc(db, "proyectos", p.id), { alerta_vencimiento: true });
-                            p.asignado_a.forEach(correoDestino => { addDoc(collection(db, "notificaciones"), { destinatario: correoDestino, titulo: "¡TAREA PRÓXIMA A VENCER!", mensaje: `Tu proyecto "${p.producto}" vence pronto.`, tipo: "ALERTA", proyectoId: p.id, creado: serverTimestamp() }); });
-                        }
-                    }
+                    if (p.completado) { cCompletadosTotales++; arrCompletadas.push(p); } else if (p.en_proceso) { cProceso++; hayUnaEnProceso = true; p._estadoVisual = "EN PROCESO"; arrProceso.push(p); } else { if (p.entrega < hoyString) { cAtrasados++; p._estadoVisual = "DEMORADA"; } else { cAsignados++; p._estadoVisual = "ASIGNADA"; } arrAsignadas.push(p); }
                 });
 
-                document.getElementById('statTotal').innerText = cTotal; document.getElementById('statAsignados').innerText = arrAsignadas.length; 
-                document.getElementById('statProceso').innerText = cProceso; document.getElementById('statAtrasados').innerText = cAtrasados;
+                document.getElementById('statTotal').innerText = cTotal; document.getElementById('statAsignados').innerText = arrAsignadas.length; document.getElementById('statProceso').innerText = cProceso; document.getElementById('statAtrasados').innerText = cAtrasados;
 
-                const rBox = document.getElementById('reportBox'); const rText = document.getElementById('reportText'); const rIcon = document.getElementById('reportIcon');
-                if (isAdmin) {
-                    rBox.style.borderLeftColor = "var(--dark-blue)"; rIcon.style.color = "var(--dark-blue)"; rIcon.className = "bx bx-world";
-                    rText.innerHTML = `<strong style="display: block; color: var(--dark-blue);">Resumen Global de Digital Core:</strong> Tienes <b>${cProceso}</b> sprints activos y <b>${arrAsignadas.length}</b> en el Backlog. Hay ${cAtrasados} tareas demoradas.`;
-                } else {
-                    if (cAtrasados > 0) { rBox.style.borderLeftColor = "#e53e3e"; rIcon.className = "bx bxs-error"; rIcon.style.color = "#e53e3e"; rText.innerHTML = `<strong style="display: block; color: var(--dark-blue);">Reporte Personal:</strong> Tienes ${cAtrasados} tarea(s) demorada(s).`; }
-                    else if (hayUnaEnProceso) { rBox.style.borderLeftColor = "#38a169"; rIcon.className = "bx bxs-check-circle"; rIcon.style.color = "#38a169"; rText.innerHTML = `<strong style="display: block; color: var(--dark-blue);">Reporte Personal:</strong> Excelente, estás trabajando enfocado.`; }
-                    else if (cAsignados > 0) { rBox.style.borderLeftColor = "#3182ce"; rIcon.className = "bx bx-rocket"; rIcon.style.color = "#3182ce"; rText.innerHTML = `<strong style="display: block; color: var(--dark-blue);">Reporte Personal:</strong> Tienes ${arrAsignadas.length} proyecto(s) en fila. ¡Inicia un sprint!`; }
-                    else { rBox.style.borderLeftColor = "#718096"; rIcon.className = "bx bx-coffee"; rIcon.style.color = "#718096"; rText.innerHTML = `<strong style="display: block; color: var(--dark-blue);">Reporte Personal:</strong> Tu bandeja está limpia.`; }
-                }
+                document.getElementById('countAsignadas').innerText = arrAsignadas.length; document.getElementById('countProceso').innerText = arrProceso.length; document.getElementById('countCompletadas').innerText = arrCompletadas.slice(0, 10).length;
+                const colAsig = document.getElementById('colAsignadas'); colAsig.innerHTML = ''; const colProc = document.getElementById('colProceso'); colProc.innerHTML = ''; const colComp = document.getElementById('colCompletadas'); colComp.innerHTML = '';
 
-                // =========================================
-                // RENDERIZAR COLUMNAS DEL TABLERO SCRUM
-                // =========================================
-                document.getElementById('countAsignadas').innerText = arrAsignadas.length;
-                document.getElementById('countProceso').innerText = arrProceso.length;
-                document.getElementById('countCompletadas').innerText = arrCompletadas.slice(0, 10).length;
-
-                const colAsig = document.getElementById('colAsignadas'); colAsig.innerHTML = '';
-                const colProc = document.getElementById('colProceso'); colProc.innerHTML = '';
-                const colComp = document.getElementById('colCompletadas'); colComp.innerHTML = '';
-
-                // DIBUJAR: POR HACER (BACKLOG)
-                arrAsignadas.forEach(p => {
-                    let esDemorada = p.entrega < hoyString;
-                    let claseCard = esDemorada ? "k-card k-card-demorada" : "k-card";
-                    let claseFecha = esDemorada ? "k-meta k-meta-danger" : "k-meta";
-                    let iconFecha = esDemorada ? "bx-error-circle bx-tada" : "bx-calendar";
-
-                    // EXTRAER RESPONSABLE (Con lógica inteligente para Admin vs Colab)
-                    let responsablesArray = Array.isArray(p.asignado_a) ? p.asignado_a : [p.asignado_a];
-                    let responsablesTxt = responsablesArray[0].split('@')[0] + (responsablesArray.length > 1 ? ' +' : '');
-                    let txtFinalResponsable = isAdmin ? responsablesTxt : 'Tú';
-
-                    colAsig.innerHTML += `
-                        <div class="${claseCard}">
-                            <div class="${claseFecha}"><span><i class='bx ${iconFecha}'></i> ${p.entrega}</span> <span>${p.progreso}%</span></div>
-                            <p class="k-title" onclick="window.location.href='detalles-tarea.html?id=${p.id}'">${p.producto}</p>
-                            <p class="k-client">${p.cliente}</p>
-                            
-                            <div class="k-assignee">
-                                <i class='bx bxs-user-badge'></i> ${txtFinalResponsable}
-                            </div>
-
-                            <div class="k-actions">
-                                <button class="k-btn k-btn-start" onclick="cambiarEstadoScrum(event, '${p.id}', 'iniciar')"><i class='bx bx-play'></i> Iniciar Sprint</button>
-                            </div>
-                        </div>`;
+                arrAsignadas.forEach(p => { let esDemorada = p.entrega < hoyString; let claseCard = esDemorada ? "k-card k-card-demorada" : "k-card"; let claseFecha = esDemorada ? "k-meta k-meta-danger" : "k-meta"; let iconFecha = esDemorada ? "bx-error-circle bx-tada" : "bx-calendar"; let responsablesArray = Array.isArray(p.asignado_a) ? p.asignado_a : [p.asignado_a]; let responsablesTxt = responsablesArray[0].split('@')[0] + (responsablesArray.length > 1 ? ' +' : ''); let txtFinalResponsable = isAdmin ? responsablesTxt : 'Tú';
+                    colAsig.innerHTML += `<div class="${claseCard}"><div class="${claseFecha}"><span><i class='bx ${iconFecha}'></i> ${p.entrega}</span> <span>${p.progreso}%</span></div><p class="k-title" onclick="window.location.href='detalles-tarea.html?id=${p.id}'">${p.producto}</p><p class="k-client">${p.cliente}</p><div class="k-assignee"><i class='bx bxs-user-badge'></i> ${txtFinalResponsable}</div><div class="k-actions"><button class="k-btn k-btn-start" onclick="cambiarEstadoScrum(event, '${p.id}', 'iniciar')"><i class='bx bx-play'></i> Iniciar</button></div></div>`;
                 });
 
-                // DIBUJAR: EN PROCESO (SPRINTS)
-                arrProceso.forEach(p => {
-                    let esDemorada = p.entrega < hoyString;
-                    let claseFecha = esDemorada ? "k-meta k-meta-danger" : "k-meta";
-                    let iconFecha = esDemorada ? "bx-error-circle bx-tada" : "bx-calendar";
-
-                    // EXTRAER RESPONSABLE
-                    let responsablesArray = Array.isArray(p.asignado_a) ? p.asignado_a : [p.asignado_a];
-                    let responsablesTxt = responsablesArray[0].split('@')[0] + (responsablesArray.length > 1 ? ' +' : '');
-                    let txtFinalResponsable = isAdmin ? responsablesTxt : 'Tú';
-
-                    colProc.innerHTML += `
-                        <div class="k-card k-card-proceso">
-                            <div class="${claseFecha}"><span><i class='bx ${iconFecha}'></i> ${p.entrega}</span> <span>${p.progreso}%</span></div>
-                            <p class="k-title" onclick="window.location.href='detalles-tarea.html?id=${p.id}'">${p.producto}</p>
-                            <p class="k-client">${p.cliente}</p>
-                            
-                            <div class="k-assignee">
-                                <i class='bx bxs-user-badge'></i> ${txtFinalResponsable}
-                            </div>
-
-                            <div style="background:#edf2f7; height:5px; border-radius:10px; margin-bottom:10px;"><div style="width:${p.progreso}%; background:#3182ce; height:100%; border-radius:10px;"></div></div>
-                            <div class="k-actions">
-                                <button class="k-btn k-btn-pause" onclick="cambiarEstadoScrum(event, '${p.id}', 'pausar')"><i class='bx bx-pause'></i> Pausar</button>
-                                <button class="k-btn k-btn-done" onclick="cambiarEstadoScrum(event, '${p.id}', 'terminar')"><i class='bx bx-check'></i> Terminar</button>
-                            </div>
-                        </div>`;
+                arrProceso.forEach(p => { let esDemorada = p.entrega < hoyString; let claseFecha = esDemorada ? "k-meta k-meta-danger" : "k-meta"; let iconFecha = esDemorada ? "bx-error-circle bx-tada" : "bx-calendar"; let responsablesArray = Array.isArray(p.asignado_a) ? p.asignado_a : [p.asignado_a]; let responsablesTxt = responsablesArray[0].split('@')[0] + (responsablesArray.length > 1 ? ' +' : ''); let txtFinalResponsable = isAdmin ? responsablesTxt : 'Tú';
+                    colProc.innerHTML += `<div class="k-card k-card-proceso"><div class="${claseFecha}"><span><i class='bx ${iconFecha}'></i> ${p.entrega}</span> <span>${p.progreso}%</span></div><p class="k-title" onclick="window.location.href='detalles-tarea.html?id=${p.id}'">${p.producto}</p><p class="k-client">${p.cliente}</p><div class="k-assignee"><i class='bx bxs-user-badge'></i> ${txtFinalResponsable}</div><div style="background:#edf2f7; height:5px; border-radius:10px; margin-bottom:10px;"><div style="width:${p.progreso}%; background:#3182ce; height:100%; border-radius:10px;"></div></div><div class="k-actions"><button class="k-btn k-btn-pause" onclick="cambiarEstadoScrum(event, '${p.id}', 'pausar')"><i class='bx bx-pause'></i> Pausar</button><button class="k-btn k-btn-done" onclick="cambiarEstadoScrum(event, '${p.id}', 'terminar')"><i class='bx bx-check'></i> Terminar</button></div></div>`;
                 });
 
-                // DIBUJAR: TERMINADAS
-                arrCompletadas.slice(0, 10).forEach(p => {
-                    let responsablesArray = Array.isArray(p.asignado_a) ? p.asignado_a : [p.asignado_a];
-                    let responsablesTxt = responsablesArray[0].split('@')[0] + (responsablesArray.length > 1 ? ' +' : '');
-                    let txtFinalResponsable = isAdmin ? responsablesTxt : 'Tú';
-
-                    colComp.innerHTML += `
-                        <div class="k-card k-card-completada" onclick="window.location.href='detalles-tarea.html?id=${p.id}'">
-                            <div class="k-meta"><span><i class='bx bx-check-double'></i> Entregado</span> <span>100%</span></div>
-                            <p class="k-title" style="text-decoration: line-through; color: #718096;">${p.producto}</p>
-                            <p class="k-client">${p.cliente}</p>
-                            
-                            <div style="font-size: 0.7rem; color: #a0aec0; font-weight: 700; display: flex; align-items: center; gap: 4px;">
-                                <i class='bx bxs-user-badge'></i> ${txtFinalResponsable}
-                            </div>
-                        </div>`;
+                arrCompletadas.slice(0, 10).forEach(p => { let responsablesArray = Array.isArray(p.asignado_a) ? p.asignado_a : [p.asignado_a]; let responsablesTxt = responsablesArray[0].split('@')[0] + (responsablesArray.length > 1 ? ' +' : ''); let txtFinalResponsable = isAdmin ? responsablesTxt : 'Tú';
+                    colComp.innerHTML += `<div class="k-card k-card-completada" onclick="window.location.href='detalles-tarea.html?id=${p.id}'"><div class="k-meta"><span><i class='bx bx-check-double'></i> Entregado</span> <span>100%</span></div><p class="k-title" style="text-decoration: line-through; color: #718096;">${p.producto}</p><p class="k-client">${p.cliente}</p><div class="k-assignee"><i class='bx bxs-user-badge'></i> ${txtFinalResponsable}</div></div>`;
                 });
-                if(arrCompletadas.length > 10) {
-                    colComp.innerHTML += `<div style="text-align:center; padding:10px; font-size:0.8rem; color:#718096;">Ver el resto en "Mis Trabajos"</div>`;
-                }
-
             });
         }
 
+        // =========================================
+        // FORMULARIO CON SUBIDA DE ARCHIVOS A STORAGE
+        // =========================================
         document.getElementById('addProjectForm').addEventListener('submit', async (e) => {
             e.preventDefault();
+            const btnSubmit = document.getElementById('btnSubmitForm');
+            
             try {
                 const selects = document.querySelectorAll('.collab-select'); let correos = Array.from(selects).map(s => s.value.toLowerCase().trim()).filter(c => c !== "");
                 correos = [...new Set(correos)]; if (correos.length === 0) return alert("Selecciona colaborador.");
 
+                btnSubmit.innerText = "Subiendo datos... Espera"; btnSubmit.disabled = true;
+
+                // 1. Crear el documento base en Firestore
                 const docRef = await addDoc(collection(db, "proyectos"), {
                     categoria: document.getElementById('projCategory').value, producto: document.getElementById('projProduct').value, cliente: document.getElementById('projClient').value,
                     entrega: document.getElementById('projDeadline').value, requerimientos: document.getElementById('projRequerimientos').value, 
-                    asignado_a: correos, progreso: 0, completado: false, en_proceso: false, alerta_vencimiento: false, creado: serverTimestamp()
+                    asignado_a: correos, progreso: 0, completado: false, en_proceso: false, alerta_vencimiento: false, creado: serverTimestamp(),
+                    archivos_adjuntos: [] // Se llena si hay archivos
                 });
                 
+                // 2. Subir Archivos a Storage si seleccionó alguno
+                const fileInput = document.getElementById('projFiles');
+                let urlsAdjuntos = [];
+
+                if(fileInput.files.length > 0) {
+                    btnSubmit.innerText = `Subiendo ${fileInput.files.length} archivo(s)...`;
+                    for(let file of fileInput.files) {
+                        const storageRef = ref(storage, `proyectos/${docRef.id}/${file.name}`);
+                        await uploadBytes(storageRef, file);
+                        const downloadUrl = await getDownloadURL(storageRef);
+                        urlsAdjuntos.push({ nombre: file.name, url: downloadUrl });
+                    }
+                    // Actualizar el documento con las URLs
+                    await updateDoc(docRef, { archivos_adjuntos: urlsAdjuntos });
+                }
+                
+                // 3. Notificar a los colaboradores
                 correos.forEach(async (correo) => { await addDoc(collection(db, "notificaciones"), { destinatario: correo, titulo: "NUEVO PROYECTO ASIGNADO", mensaje: `Se te ha asignado la tarea: ${document.getElementById('projProduct').value}.`, tipo: "NUEVO", proyectoId: docRef.id, creado: serverTimestamp() }); });
                 
-                alert("Proyecto guardado y equipo notificado."); document.getElementById('addProjectForm').reset(); toggleForm(); 
-            } catch (err) { alert(err.message); }
+                alert("Proyecto guardado exitosamente."); document.getElementById('addProjectForm').reset(); toggleForm(); 
+            } catch (err) { alert(err.message); console.error(err); } finally {
+                btnSubmit.innerText = "CREAR PROYECTO"; btnSubmit.disabled = false;
+            }
         });
 
         document.getElementById('logoutBtn').onclick = () => signOut(auth).then(() => window.location.href = 'index.html');
