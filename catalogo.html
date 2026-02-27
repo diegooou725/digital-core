@@ -16,11 +16,9 @@
         .nav-links { list-style: none; flex-grow: 1; padding: 0; margin: 0; }
         .nav-links a { display: flex; align-items: center; gap: 15px; color: rgba(255,255,255,0.7); text-decoration: none; padding: 12px 1rem; border-radius: 8px; transition: 0.3s; font-weight: 600; margin-bottom: 5px; }
         .nav-links a:hover, .nav-links a.active { background: rgba(0, 156, 225, 0.2); color: var(--neon-blue); }
-        
         .main-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 2rem 3rem; box-sizing: border-box; }
         .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; background: white; padding: 1.5rem 2rem; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         
-        /* ESTILOS DEL CATÁLOGO */
         .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 25px; margin-top: 2rem; }
         .cat-card { background: white; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); overflow: hidden; transition: 0.3s; border: 1px solid #edf2f7; display: flex; flex-direction: column;}
         .cat-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); border-color: var(--light-blue); }
@@ -40,7 +38,32 @@
         .prox-header i { color: #cbd5e0 !important; }
         .prox-item i { color: #a0aec0 !important; }
 
-        @media (max-width: 768px) { .sidebar { width: 70px; } .sidebar span, .sidebar-logo { display: none; } .main-content { margin-left: 70px; width: calc(100% - 70px); padding: 1.5rem; } }
+        /* =========================================
+           MÓDULO DE OPTIMIZACIÓN MÓVIL (APP NATIVA)
+           ========================================= */
+        @media (max-width: 768px) {
+            body { display: block; }
+            .sidebar { width: 100%; height: 75px; position: fixed; bottom: 0; left: 0; top: auto; flex-direction: row; justify-content: space-around; padding: 0 5px; z-index: 9999; border-top: 1px solid #1e293b; box-shadow: 0 -5px 20px rgba(0,0,0,0.15); border-radius: 20px 20px 0 0; }
+            .sidebar h2, .sidebar-logo { display: none; }
+            .nav-links { display: flex; flex-direction: row; width: 100%; justify-content: space-around; align-items: center; }
+            .nav-links li { width: auto; flex-grow: 1; }
+            .nav-links a { flex-direction: column; padding: 8px 0; gap: 4px; border-radius: 12px; text-align: center; margin: 0 2px;}
+            .nav-links a i { font-size: 1.6rem; margin: 0; }
+            .nav-links a span { font-size: 0.65rem; display: block; font-weight: 800; }
+            #logoutBtn { padding: 10px; flex-direction: column; gap: 4px; margin: 0; width: auto;}
+            #logoutBtn span { display: none; }
+            #logoutBtn i { font-size: 1.6rem; margin: 0; }
+
+            .main-content { margin-left: 0; width: 100%; padding: 1.5rem 1rem 95px 1rem; }
+            .top-bar { flex-direction: column; align-items: flex-start; gap: 15px; padding: 1.2rem; }
+            .catalog-grid { grid-template-columns: 1fr; }
+            .cat-header { flex-direction: column; text-align: center; padding: 15px; }
+            h1 { font-size: 1.6rem !important; line-height: 1.2; }
+        }
+        @media (max-width: 480px) {
+            .top-bar > div:last-child { width: 100%; justify-content: center; }
+            .nav-links a span { display: none; }
+        }
     </style>
 </head>
 <body>
@@ -50,19 +73,19 @@
         <ul class="nav-links">
             <li><a href="panel-control.html"><i class='bx bxs-dashboard'></i> <span>Dashboard</span></a></li>
             <li><a href="mis-trabajos.html"><i class='bx bxs-briefcase'></i> <span>Mis Trabajos</span></a></li>
-            <li id="navColaboradores" style="display: none;"><a href="colaboradores.html"><i class='bx bxs-group'></i> <span>Colaboradores</span></a></li>
+            <li id="navColaboradores" style="display: none;"><a href="colaboradores.html"><i class='bx bxs-group'></i> <span>Equipo</span></a></li>
             <li><a href="catalogo.html" class="active"><i class='bx bxs-package'></i> <span>Catálogo</span></a></li>
         </ul>
         <button id="logoutBtn" style="background:none; border:none; color:#ff6b6b; cursor:pointer; display:flex; align-items:center; gap:15px; padding:12px 1rem; font-weight:600; margin-top: auto;">
-            <i class='bx bx-log-out'></i> <span>Cerrar Sesión</span>
+            <i class='bx bx-log-out'></i> <span>Salir</span>
         </button>
     </aside>
 
     <main class="main-content">
         <header class="top-bar">
             <div>
-                <h1 style="color: var(--dark-blue); font-weight: 900; margin:0;"><i class='bx bxs-package'></i> Catálogo Digital Core</h1>
-                <p style="color: #666; margin:0; font-size: 0.9rem;">Líneas de negocio y portafolio de servicios activos.</p>
+                <h1 style="color: var(--dark-blue); font-weight: 900; margin:0;"><i class='bx bxs-package'></i> Catálogo de Servicios</h1>
+                <p style="color: #666; margin:0; font-size: 0.9rem;">Líneas de negocio de Digital Core.</p>
             </div>
             <div style="background: #f8fafc; padding: 8px 15px; border-radius: 50px; display: flex; align-items: center; gap: 10px; border: 1px solid #edf2f7;">
                 <i class='bx bxs-user-circle' style="color: var(--light-blue); font-size: 1.4rem;"></i>
@@ -70,8 +93,7 @@
             </div>
         </header>
 
-        <div id="catalogContainer" class="catalog-grid">
-            </div>
+        <div id="catalogContainer" class="catalog-grid"></div>
     </main>
 
     <script type="module">
@@ -79,92 +101,38 @@
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
         const firebaseConfig = { apiKey: "AIzaSyBlouup64jteDrbUkOkSSEqsjesnuT6mdQ", authDomain: "digital-core-app.firebaseapp.com", projectId: "digital-core-app", storageBucket: "digital-core-app.firebasestorage.app", messagingSenderId: "1003292240722", appId: "1:1003292240722:web:b2a2af0665df1ef00fe88b" };
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
+        const app = initializeApp(firebaseConfig); const auth = getAuth(app);
 
-        // DATA MAESTRA DEL CATÁLOGO
         const catalogoServicios = [
-            {
-                categoria: "Desarrollo Web Estratégico",
-                icono: "bx-code-alt",
-                proximamente: false,
-                servicios: ["Core Event", "Core Flash", "Core Start", "Core Plus", "Core Landing", "Core Business", "Core Elite", "Core Commerce", "Core Dynamic", "Gestión de Dominios", "Hosting de Alto Rendimiento", "Correos Corporativos"]
-            },
-            {
-                categoria: "Sistemas de Datos",
-                icono: "bx-data",
-                proximamente: false,
-                servicios: ["Skill Excel", "Skill Macro", "Skill Dashboard", "Skill Cleanse", "Skill Connect", "Skill Cloud", "Hub Starter", "Hub Stock", "Hub CRM", "Hub ERP", "Hub Network", "Hub SQL", "Data Custom", "Licencia POS Básico", "Hardware POS Completo"]
-            },
-            {
-                categoria: "Cursos y Capacitación",
-                icono: "bx-chalkboard",
-                proximamente: false,
-                servicios: ["Skill Basics", "Skill Office", "Skill Cloud", "Skill Data", "Skill Code", "Skill Mentor", "Team Office", "Team Cloud", "Team Data", "Team Commerce", "Team Software", "Team Custom", "Strategy Audit", "Strategy Digital", "Strategy Tech", "Strategy Cloud", "Strategy Custom", "Strategy Support"]
-            },
-            {
-                categoria: "Soporte e Infraestructura",
-                icono: "bx-server",
-                proximamente: true,
-                servicios: ["Mantenimiento de equipos de cómputo", "Instalación de sistemas de seguridad CCTV", "Micro centros de datos corporativos"]
-            },
-            {
-                categoria: "Identidad y Diseño Visual",
-                icono: "bx-palette",
-                proximamente: true,
-                servicios: ["Creación de logotipos y branding", "Diseño de interfaces UI/UX"]
-            },
-            {
-                categoria: "Automatización y Chatbots",
-                icono: "bx-bot",
-                proximamente: true,
-                servicios: ["Implementación de flujos automáticos", "Chatbots inteligentes para WhatsApp y Messenger"]
-            }
+            { categoria: "Desarrollo Web Estratégico", icono: "bx-code-alt", proximamente: false, servicios: ["Core Event", "Core Flash", "Core Start", "Core Plus", "Core Landing", "Core Business", "Core Elite", "Core Commerce", "Core Dynamic", "Gestión de Dominios", "Hosting de Alto Rendimiento", "Correos Corporativos"] },
+            { categoria: "Sistemas de Datos", icono: "bx-data", proximamente: false, servicios: ["Skill Excel", "Skill Macro", "Skill Dashboard", "Skill Cleanse", "Skill Connect", "Skill Cloud", "Hub Starter", "Hub Stock", "Hub CRM", "Hub ERP", "Hub Network", "Hub SQL", "Data Custom", "Licencia POS Básico", "Hardware POS Completo"] },
+            { categoria: "Cursos y Capacitación", icono: "bx-chalkboard", proximamente: false, servicios: ["Skill Basics", "Skill Office", "Skill Cloud", "Skill Data", "Skill Code", "Skill Mentor", "Team Office", "Team Cloud", "Team Data", "Team Commerce", "Team Software", "Team Custom", "Strategy Audit", "Strategy Digital", "Strategy Tech", "Strategy Cloud", "Strategy Custom", "Strategy Support"] },
+            { categoria: "Soporte e Infraestructura", icono: "bx-server", proximamente: true, servicios: ["Mantenimiento de equipos de cómputo", "Instalación de sistemas de seguridad CCTV", "Micro centros de datos corporativos"] },
+            { categoria: "Identidad y Diseño Visual", icono: "bx-palette", proximamente: true, servicios: ["Creación de logotipos y branding", "Diseño de interfaces UI/UX"] },
+            { categoria: "Automatización y Chatbots", icono: "bx-bot", proximamente: true, servicios: ["Implementación de flujos automáticos", "Chatbots inteligentes para WhatsApp y Messenger"] }
         ];
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 const email = user.email.toLowerCase().trim();
-                const isAdmin = email === 'diego.725.reyes@gmail.com';
                 document.getElementById('userEmailLabel').innerText = email;
-                
-                if (isAdmin) document.getElementById('navColaboradores').style.display = 'flex';
-                
+                if (email === 'diego.725.reyes@gmail.com') document.getElementById('navColaboradores').style.display = 'flex';
                 renderizarCatalogo();
             } else { window.location.href = 'index.html'; }
         });
 
         function renderizarCatalogo() {
-            const container = document.getElementById('catalogContainer');
-            container.innerHTML = "";
-
+            const container = document.getElementById('catalogContainer'); container.innerHTML = "";
             catalogoServicios.forEach(cat => {
                 let headerClass = cat.proximamente ? "cat-header prox-header" : "cat-header";
                 let badgeHTML = cat.proximamente ? `<span class="prox-badge">Próximamente</span>` : "";
                 let itemIconClass = cat.proximamente ? "bx-time-five" : "bx-check-circle";
                 let itemClass = cat.proximamente ? "service-item prox-item" : "service-item";
-
                 let serviciosHTML = cat.servicios.map(s => `<li class="${itemClass}"><i class='bx ${itemIconClass}'></i> ${s}</li>`).join("");
 
-                container.innerHTML += `
-                    <div class="cat-card">
-                        <div class="${headerClass}">
-                            <i class='bx ${cat.icono}'></i>
-                            <div>
-                                <h2>${cat.categoria}</h2>
-                                ${badgeHTML}
-                            </div>
-                        </div>
-                        <div class="cat-body">
-                            <ul class="service-list">
-                                ${serviciosHTML}
-                            </ul>
-                        </div>
-                    </div>
-                `;
+                container.innerHTML += `<div class="cat-card"><div class="${headerClass}"><i class='bx ${cat.icono}'></i><div><h2>${cat.categoria}</h2>${badgeHTML}</div></div><div class="cat-body"><ul class="service-list">${serviciosHTML}</ul></div></div>`;
             });
         }
-
         document.getElementById('logoutBtn').onclick = () => signOut(auth).then(() => window.location.href = 'index.html');
     </script>
 </body>
