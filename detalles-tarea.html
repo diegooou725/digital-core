@@ -3,27 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalles Tarea | Digital Core</title>
+    <title>Ficha Técnica | Digital Core</title>
+    <link rel="icon" href="Isotipo.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <style>
-        /* Estilos base minimizados para mantener el código limpio */
+        :root { --neon-blue: #009ce1; --dark-blue: #0f172a; }
         body { display: flex; background: #f0f4f8; min-height: 100vh; margin: 0; font-family: 'Inter', sans-serif; }
-        .sidebar { width: 260px; height: 100vh; background: #0f172a; color: white; position: fixed; padding: 2rem 1rem; display: flex; flex-direction: column; z-index: 100; }
+        .sidebar { width: 260px; height: 100vh; background: var(--dark-blue); color: white; position: fixed; padding: 2rem 1rem; display: flex; flex-direction: column; z-index: 100; }
         .nav-links { list-style: none; padding: 0; } .nav-links a { display: flex; align-items: center; gap: 15px; color: rgba(255,255,255,0.7); text-decoration: none; padding: 12px 1rem; border-radius: 8px; font-weight: 600; }
         .main-content { margin-left: 260px; width: calc(100% - 260px); padding: 2rem 3rem; box-sizing: border-box; }
         .detail-card { background: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); max-width: 900px; margin: auto; }
         .status-pill { padding: 8px 20px; border-radius: 50px; font-size: 0.85rem; font-weight: 800; display: inline-block; margin-bottom: 1.5rem; }
         .completed { background: #c6f6d5; color: #22543d; } .pending { background: #feebc8; color: #744210; }
-        .btn-action { padding: 12px 20px; border-radius: 8px; border: none; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 10px; font-family: inherit; }
-        .history-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 15px; margin-top: 20px; max-height: 200px; overflow-y: auto; }
-        .history-item { font-size: 0.8rem; color: #4a5568; padding: 8px 0; border-bottom: 1px dashed #cbd5e0; display: flex; justify-content: space-between; }
-        .form-control { padding: 10px; border: 1px solid #cbd5e0; border-radius: 6px; font-family: inherit; }
+        
+        .btn-action { padding: 12px 20px; border-radius: 8px; border: none; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-family: inherit; transition: 0.2s; }
+        .btn-action:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-control { background: #edf2f7; border: none; border-radius: 8px; font-size: 1.2rem; font-weight: 900; color: var(--dark-blue); width: 45px; height: 45px; cursor: pointer; transition: 0.2s; }
+        .btn-control:hover:not(:disabled) { background: #e2e8f0; }
+        .btn-control:disabled { opacity: 0.5; cursor: not-allowed; }
+        
+        .history-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 15px; margin-top: 20px; max-height: 300px; overflow-y: auto; }
+        .history-item { font-size: 0.85rem; color: #4a5568; padding: 12px 0; border-bottom: 1px dashed #cbd5e0; display: flex; flex-direction: column; gap: 5px; }
+        .form-control { padding: 12px; border: 1px solid #cbd5e0; border-radius: 8px; font-family: inherit; width: 100%; box-sizing: border-box; }
     </style>
 </head>
 <body>
     <aside class="sidebar">
-        <h2 style="padding-left: 1rem; margin-bottom: 2rem; color: #009ce1;">Digital Core</h2>
+        <h2 style="padding-left: 1rem; color: var(--neon-blue); margin-bottom: 2rem;">Digital Core</h2>
         <ul class="nav-links">
             <li><a href="panel-control.html"><i class='bx bxs-dashboard'></i> Dashboard</a></li>
             <li><a href="mis-trabajos.html"><i class='bx bxs-briefcase'></i> Mis Trabajos</a></li>
@@ -33,43 +40,61 @@
     </aside>
 
     <main class="main-content">
-        <div id="loader" style="text-align: center; padding: 5rem;">Cargando ficha técnica...</div>
+        <div id="loader" style="text-align: center; padding: 5rem;"><i class='bx bx-loader-alt bx-spin' style="font-size: 3rem; color: var(--neon-blue);"></i></div>
         
         <div id="taskDetail" class="detail-card" style="display: none;">
             <div id="statusBadge" class="status-pill"></div>
-            <h1 id="tProduct" style="color: #0f172a; font-weight: 900; font-size: 2.2rem; margin: 0;"></h1>
-            <p id="tCategory" style="color: #009ce1; font-weight: 700;"></p>
+            <h1 id="tProduct" style="color: var(--dark-blue); font-weight: 900; font-size: 2.2rem; margin: 0;"></h1>
+            <p id="tCategory" style="color: var(--neon-blue); font-weight: 700;"></p>
             
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; background: #f8fafc; padding: 20px; border-radius: 12px; margin: 20px 0;">
-                <div><small>FECHA DE ASIGNACIÓN:</small><br><b id="tAssignedDate"></b></div>
-                <div><small>FECHA LÍMITE:</small><br><b id="tDeadline" style="color:#c53030;"></b></div>
-                <div><small>CLIENTE:</small><br><b id="tClient"></b></div>
-                <div><small>COLABORADOR:</small><br><b id="tAssignees"></b></div>
+                <div><small style="color:#718096; font-weight:800;">LÍMITE DE ENTREGA:</small><br><b id="tDeadline" style="color:#c53030; font-size:1.1rem;"></b></div>
+                <div><small style="color:#718096; font-weight:800;">CLIENTE:</small><br><b id="tClient" style="font-size:1.1rem;"></b></div>
+                <div style="grid-column: 1 / -1;"><small style="color:#718096; font-weight:800;">EQUIPO ASIGNADO:</small><br><b id="tAssignees"></b></div>
             </div>
 
             <div id="progressControlBox" style="border: 2px solid #e2e8f0; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
-                <h3 style="margin-top:0;">Avance Actual: <span id="tProgress" style="color:#009ce1; font-size: 1.5rem;"></span>%</h3>
-                <div style="display:flex; gap:10px; align-items:center;">
-                    <label>Nuevo Avance (%):</label>
-                    <input type="number" id="inputProgreso" class="form-control" style="width: 80px;">
-                    <button id="btnConfirmProgress" class="btn-action" style="background: #009ce1; color:white;">Confirmar Avance</button>
+                <h3 style="margin-top:0; color:var(--dark-blue);">Registrar Avance</h3>
+                
+                <div style="display:flex; align-items:center; gap:15px; margin-bottom: 15px;">
+                    <button id="btnMinus" class="btn-control">-10</button>
+                    <div style="background: #edf2f7; width: 100%; height: 20px; border-radius: 50px; position: relative;">
+                        <div id="uiProgressBar" style="background: var(--neon-blue); height: 100%; border-radius: 50px; transition: 0.3s; width: 0%;"></div>
+                        <span id="uiProgressText" style="position: absolute; width: 100%; text-align: center; top: 0; font-weight: 900; font-size: 0.8rem; line-height: 20px; color: var(--dark-blue);">0%</span>
+                    </div>
+                    <button id="btnPlus" class="btn-control">+10</button>
                 </div>
-                <p style="font-size:0.75rem; color:#718096; margin-top:10px;"><i class='bx bx-info-circle'></i> Cuidado: El avance no puede retroceder una vez confirmado.</p>
+                
+                <textarea id="txtComentario" class="form-control" rows="2" placeholder="Describe qué avance lograste hoy... (Ej. 'Terminé la base de datos')"></textarea>
+                
+                <div style="display: flex; gap: 10px; margin-top: 15px;">
+                    <button id="btnConfirmProgress" class="btn-action" style="background: var(--neon-blue); color:white; width: 100%;">Guardar Avance en Bitácora</button>
+                    <button id="btnMarkComplete" class="btn-action" style="background: #48bb78; color: white; width: 100%;"><i class='bx bx-check-double'></i> Tarea Terminada (100%)</button>
+                </div>
             </div>
 
             <div class="history-box">
-                <h4 style="margin-top:0; border-bottom:2px solid #e2e8f0; padding-bottom:5px;">Historial de Trazabilidad</h4>
+                <h4 style="margin-top:0; border-bottom:2px solid #e2e8f0; padding-bottom:5px; color:var(--dark-blue);"><i class='bx bx-history'></i> Bitácora de Movimientos</h4>
                 <div id="historyList"></div>
             </div>
 
-            <div style="display:flex; gap:10px; margin-top: 20px;">
-                <button id="btnMarkComplete" class="btn-action" style="background: #48bb78; color: white;"><i class='bx bx-check-double'></i> Finalizar Tarea (100%)</button>
-                <button id="btnRequestUnmark" class="btn-action" style="background: #edf2f7; color: #4a5568; display:none;"><i class='bx bx-undo'></i> Solicitar Reabrir</button>
+            <div id="collabActions" style="display:none; margin-top: 20px; border-top: 1px solid #e2e8f0; padding-top: 15px;">
+                <button id="btnRequestUnmark" class="btn-action" style="background: #edf2f7; color: #4a5568; margin-bottom: 10px;"><i class='bx bx-undo'></i> Pedir Reabrir Tarea</button>
+                <button id="btnRequestRemove" class="btn-action" style="background: #fff5f5; color: #c53030;"><i class='bx bx-user-x'></i> Pedir Desasignación / Eliminación</button>
             </div>
 
             <div id="adminPanel" style="display: none; border-top: 2px dashed #cbd5e0; margin-top: 30px; padding-top: 20px;">
-                <h3 style="color: #c53030;">Zona de Administrador</h3>
-                <button id="btnAdminUnmark" class="btn-action" style="background: #fff5f5; color: #c53030;"><i class='bx bx-reset'></i> Forzar Apertura de Tarea</button>
+                <h3 style="color: var(--dark-blue);"><i class='bx bxs-crown'></i> Administración Total</h3>
+                <div style="background: #f8fafc; padding: 15px; border-radius: 10px; margin-bottom: 15px;">
+                    <label style="font-size: 0.85rem; font-weight: 800; color: #4a5568;">REASIGNAR EQUIPO (Correos separados por coma para varios):</label>
+                    <input type="text" id="adminAssignees" class="form-control" style="margin: 10px 0;" placeholder="ejemplo@gmail.com, otro@gmail.com">
+                    <button id="btnUpdateAssignees" class="btn-action" style="background: var(--dark-blue); color: white;">Actualizar Asignación</button>
+                </div>
+                
+                <div style="display: flex; gap: 10px;">
+                    <button id="btnAdminUnmark" class="btn-action" style="background: #edf2f7; color: #4a5568;"><i class='bx bx-reset'></i> Forzar Apertura</button>
+                    <button id="btnAdminDelete" class="btn-action" style="background: #fff5f5; color: #c53030;"><i class='bx bx-trash'></i> Borrar Tarea</button>
+                </div>
             </div>
         </div>
     </main>
@@ -77,7 +102,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
-        import { getFirestore, doc, onSnapshot, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+        import { getFirestore, doc, onSnapshot, updateDoc, deleteDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
         const firebaseConfig = { apiKey: "AIzaSyBlouup64jteDrbUkOkSSEqsjesnuT6mdQ", authDomain: "digital-core-app.firebaseapp.com", projectId: "digital-core-app", storageBucket: "digital-core-app.firebasestorage.app", messagingSenderId: "1003292240722", appId: "1:1003292240722:web:b2a2af0665df1ef00fe88b" };
         const app = initializeApp(firebaseConfig);
@@ -85,15 +110,27 @@
         const db = getFirestore(app);
 
         const taskId = new URLSearchParams(window.location.search).get('id');
+        let dbProgreso = 0; 
+        let uiProgreso = 0;
+        let currentUserEmail = "";
 
         onAuthStateChanged(auth, (user) => {
             if (user && taskId) {
-                abrirFicha(taskId, user.email === 'diego.725.reyes@gmail.com');
+                currentUserEmail = user.email.toLowerCase().trim();
+                abrirFicha(taskId, currentUserEmail === 'diego.725.reyes@gmail.com');
             } else { window.location.href = 'intranet.html'; }
         });
 
+        function actualizarBarraUI() {
+            document.getElementById('uiProgressBar').style.width = uiProgreso + "%";
+            document.getElementById('uiProgressText').innerText = uiProgreso + "%";
+            document.getElementById('btnMinus').disabled = uiProgreso <= dbProgreso;
+            document.getElementById('btnPlus').disabled = uiProgreso >= 100;
+        }
+
         function abrirFicha(id, isAdmin) {
             const docRef = doc(db, "proyectos", id);
+            
             onSnapshot(docRef, (snap) => {
                 if (!snap.exists()) return alert("Tarea no encontrada.");
                 const t = snap.data();
@@ -106,80 +143,101 @@
                 document.getElementById('tClient').innerText = t.cliente;
                 document.getElementById('tDeadline').innerText = t.entrega;
                 
-                // Fecha de asignación (Timestamp a Texto)
-                const fAsig = t.creado ? t.creado.toDate().toLocaleDateString('es-MX') : 'Desconocida';
-                document.getElementById('tAssignedDate').innerText = fAsig;
+                // Soporte para múltiples asignados (Array o String)
+                let asignadosTexto = Array.isArray(t.asignado_a) ? t.asignado_a.join(', ') : t.asignado_a;
+                document.getElementById('tAssignees').innerText = asignadosTexto;
                 
-                document.getElementById('tAssignees').innerText = t.asignado_a;
-                document.getElementById('tProgress').innerText = t.progreso || 0;
+                if(isAdmin) document.getElementById('adminAssignees').value = asignadosTexto;
 
-                // Input de progreso
-                const inputProg = document.getElementById('inputProgreso');
-                inputProg.value = t.progreso || 0;
-                inputProg.min = t.progreso || 0;
-                inputProg.max = 100;
+                // Cargar progreso desde DB
+                dbProgreso = t.progreso || 0;
+                uiProgreso = dbProgreso; // Reinicia la UI al valor real de la base de datos
+                actualizarBarraUI();
 
-                // Historial
+                // Pintar Historial
                 const histList = document.getElementById('historyList');
                 if (t.historial_avance && t.historial_avance.length > 0) {
-                    // Volteamos el array para ver lo más nuevo arriba
-                    histList.innerHTML = t.historial_avance.slice().reverse().map(h => 
-                        `<div class="history-item"><span><i class='bx bx-time'></i> ${h.fecha}</span> <b>Avance registrado: ${h.porcentaje}%</b></div>`
-                    ).join('');
+                    histList.innerHTML = t.historial_avance.slice().reverse().map(h => `
+                        <div class="history-item">
+                            <div style="display:flex; justify-content:space-between;">
+                                <span><i class='bx bx-time'></i> ${h.fecha} | <b>${h.autor.split('@')[0]}</b></span>
+                                <b style="color:var(--neon-blue);">Avance: ${h.porcentaje}%</b>
+                            </div>
+                            ${h.comentario ? `<p style="margin:5px 0 0 0; font-style:italic; font-size:0.8rem;">"${h.comentario}"</p>` : ''}
+                        </div>
+                    `).join('');
                 } else {
-                    histList.innerHTML = "<p style='color:#a0aec0; font-size:0.8rem;'>No hay avances registrados aún.</p>";
+                    histList.innerHTML = "<p style='color:#a0aec0; font-size:0.8rem;'>Aún no hay avances.</p>";
                 }
 
-                // Estados y UI
+                // Estados
                 const badge = document.getElementById('statusBadge');
                 badge.innerText = t.completado ? "✓ COMPLETADA" : "⟳ ACTIVA";
                 badge.className = `status-pill ${t.completado ? 'completed' : 'pending'}`;
 
-                // Bloquear UI si está completada
+                // Mostrar/Ocultar paneles según estado y rol
                 if(t.completado) {
                     document.getElementById('progressControlBox').style.display = 'none';
-                    document.getElementById('btnMarkComplete').style.display = 'none';
-                    document.getElementById('btnRequestUnmark').style.display = 'block';
+                    if(!isAdmin) document.getElementById('collabActions').style.display = 'block';
+                    document.getElementById('btnRequestUnmark').style.display = 'inline-flex';
                 } else {
                     document.getElementById('progressControlBox').style.display = 'block';
-                    document.getElementById('btnMarkComplete').style.display = 'flex';
+                    if(!isAdmin) document.getElementById('collabActions').style.display = 'block';
                     document.getElementById('btnRequestUnmark').style.display = 'none';
                 }
 
-                if (isAdmin) document.getElementById('adminPanel').style.display = 'block';
+                if (isAdmin) {
+                    document.getElementById('adminPanel').style.display = 'block';
+                    document.getElementById('collabActions').style.display = 'none'; // Admin no "solicita", ejecuta.
+                }
 
-                // --- ACCIONES ---
+                // === LÓGICA DE BOTONES +10 / -10 ===
+                document.getElementById('btnPlus').onclick = () => { if(uiProgreso <= 90) { uiProgreso += 10; actualizarBarraUI(); } };
+                document.getElementById('btnMinus').onclick = () => { if(uiProgreso > dbProgreso) { uiProgreso -= 10; actualizarBarraUI(); } };
+
+                // === GUARDAR AVANCE ===
                 document.getElementById('btnConfirmProgress').onclick = async () => {
-                    const nuevoValor = parseInt(inputProg.value);
-                    if (nuevoValor <= t.progreso) return alert("Error: No puedes establecer un progreso menor o igual al actual.");
-                    if (nuevoValor > 100) return alert("El máximo es 100%.");
-                    
-                    if(confirm(`⚠️ ¿Estás totalmente seguro de marcar ${nuevoValor}% de avance?\n\nNO se pueden realizar cambios hacia atrás.`)) {
+                    if (uiProgreso === dbProgreso) return alert("No has modificado el avance.");
+                    const comentario = document.getElementById('txtComentario').value.trim();
+                    if(uiProgreso > dbProgreso && comentario === "") return alert("Por favor, añade un comentario describiendo qué hiciste.");
+
+                    if(confirm(`⚠️ Se guardará el avance al ${uiProgreso}% en la bitácora.\nNo se podrá retroceder. ¿Confirmar?`)) {
                         const fechaHora = new Date().toLocaleString('es-MX');
                         await updateDoc(docRef, {
-                            progreso: nuevoValor,
-                            completado: nuevoValor === 100,
-                            historial_avance: arrayUnion({ fecha: fechaHora, porcentaje: nuevoValor })
+                            progreso: uiProgreso,
+                            completado: uiProgreso === 100,
+                            historial_avance: arrayUnion({ fecha: fechaHora, porcentaje: uiProgreso, comentario: comentario, autor: currentUserEmail })
                         });
-                        alert("Avance guardado en la bitácora.");
+                        document.getElementById('txtComentario').value = ""; // Limpiar textarea
                     }
                 };
 
+                // === FINALIZAR TAREA (100%) ===
                 document.getElementById('btnMarkComplete').onclick = async () => {
-                    if(confirm("¿Seguro que deseas finalizar esta tarea al 100%?")) {
+                    const comentario = document.getElementById('txtComentario').value.trim();
+                    if(confirm("¿Seguro que deseas dar por finalizada esta tarea al 100%?")) {
                         const fechaHora = new Date().toLocaleString('es-MX');
-                        await updateDoc(docRef, { completado: true, progreso: 100, historial_avance: arrayUnion({ fecha: fechaHora, porcentaje: 100 }) });
+                        await updateDoc(docRef, { 
+                            completado: true, progreso: 100, 
+                            historial_avance: arrayUnion({ fecha: fechaHora, porcentaje: 100, comentario: comentario || "Tarea Finalizada", autor: currentUserEmail }) 
+                        });
                     }
                 };
 
-                document.getElementById('btnRequestUnmark').onclick = async () => {
-                    await updateDoc(docRef, { solicitud_desmarcar: true });
-                    alert("Solicitud enviada al Lead Engineer.");
-                };
+                // === SOLICITUDES COLABORADOR ===
+                document.getElementById('btnRequestUnmark').onclick = async () => { await updateDoc(docRef, { solicitud_desmarcar: true }); alert("Solicitud de reapertura enviada."); };
+                document.getElementById('btnRequestRemove').onclick = async () => { await updateDoc(docRef, { solicitud_eliminacion: true }); alert("Solicitud de desasignación/eliminación enviada a Diego."); };
 
+                // === ACCIONES ADMIN ===
                 if(isAdmin) {
-                    document.getElementById('btnAdminUnmark').onclick = async () => {
-                        await updateDoc(docRef, { completado: false, solicitud_desmarcar: false });
+                    document.getElementById('btnAdminUnmark').onclick = async () => await updateDoc(docRef, { completado: false, solicitud_desmarcar: false });
+                    document.getElementById('btnAdminDelete').onclick = async () => { if(confirm("¿Borrar definitivamente?")) deleteDoc(docRef); };
+                    
+                    document.getElementById('btnUpdateAssignees').onclick = async () => {
+                        // Toma los correos, los separa por comas, quita espacios y los convierte en un Array
+                        const listaCorreos = document.getElementById('adminAssignees').value.split(',').map(e => e.trim().toLowerCase()).filter(e => e !== "");
+                        await updateDoc(docRef, { asignado_a: listaCorreos });
+                        alert("Equipo actualizado correctamente.");
                     };
                 }
             });
