@@ -22,7 +22,6 @@
         .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; background: white; padding: 1.5rem 2rem; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         .content-card { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 2rem; }
         
-        /* ESTADÍSTICAS CLICKABLES */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
         .stat-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.5rem; text-align: center; cursor: pointer; transition: 0.2s; }
         .stat-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.05); border-color: var(--neon-blue); }
@@ -30,7 +29,6 @@
         .stat-card p { margin: 5px 0 0 0; font-size: 0.85rem; color: #64748b; font-weight: 700; text-transform: uppercase; }
         .report-box { background: #ebf8ff; border-left: 5px solid var(--neon-blue); padding: 15px 20px; border-radius: 8px; margin-bottom: 2rem; display: flex; align-items: center; gap: 15px; }
         
-        /* FORMULARIO */
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .form-control { padding: 12px; border: 1px solid #cbd5e0; border-radius: 8px; width: 100%; box-sizing: border-box; font-family: inherit; }
         .form-group { display: flex; flex-direction: column; gap: 5px; }
@@ -39,14 +37,12 @@
         .btn-secondary { background: #edf2f7; color: #4a5568; border: 1px dashed #cbd5e0; padding: 10px; border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.3s; width: 100%; margin-top: 10px; }
         .accordion-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; padding-bottom: 10px; }
         
-        /* NOTIFICACIONES */
         .notif-badge-menu { background: #e53e3e; color: white; border-radius: 50%; padding: 2px 7px; font-size: 0.65rem; font-weight: 900; position: absolute; right: 10px; }
         .notif-item { background: white; border-left: 4px solid var(--neon-blue); padding: 15px; border-radius: 8px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: 0.2s;}
         .notif-item.n-alerta { border-left-color: #e53e3e; background: #fff5f5; }
         .btn-ignorar { background: transparent; border: none; color: #a0aec0; cursor: pointer; font-size: 1.5rem; transition: 0.2s; padding: 5px; border-radius: 50%; }
         .btn-ignorar:hover { background: #fed7d7; color: #e53e3e; }
 
-        /* TABLERO SCRUM */
         .kanban-board { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 15px; }
         .kanban-col { background: #e2e8f0; border-radius: 12px; min-width: 320px; flex: 1; padding: 15px; display: flex; flex-direction: column; gap: 15px; }
         .kanban-col h3 { margin: 0 0 10px 0; color: var(--dark-blue); font-size: 1.1rem; display: flex; justify-content: space-between; align-items: center;}
@@ -108,7 +104,6 @@
 
     <aside class="sidebar">
         <img src="DigitalCore-blanco.png" alt="Digital Core" class="sidebar-logo">
-        
         <ul class="nav-links">
             <li><a href="panel-control.html" class="active"><i class='bx bxs-dashboard'></i> <span>Dashboard</span> <span id="notifCount" class="notif-badge-menu" style="display:none;">0</span></a></li>
             <li><a href="mis-trabajos.html"><i class='bx bxs-briefcase'></i> <span>Mis Trabajos</span></a></li>
@@ -150,26 +145,12 @@
                             <div class="form-group"><label>Producto</label><select id="projProduct" class="form-control" required disabled><option value="">Selecciona...</option></select></div>
                             <div class="form-group"><label>Cliente</label><input type="text" id="projClient" class="form-control" required></div>
                             <div class="form-group"><label>Fecha Límite (Deadline)</label><input type="date" id="projDeadline" class="form-control" required></div>
-                            
                             <div class="form-group" style="grid-column: 1 / -1; background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0;">
                                 <label><i class='bx bx-group'></i> Equipo Asignado</label>
                                 <div id="assigneesContainer" style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;"><select class="form-control collab-select" required><option value="">Cargando equipo...</option></select></div>
                                 <button type="button" id="btnAddCollab" class="btn-secondary">+ Asignar otro colaborador</button>
                             </div>
-                            
-                            <div class="form-group" style="grid-column: 1 / -1;"><label>Requerimientos y Link de GitHub</label><textarea id="projRequerimientos" class="form-control" rows="3" placeholder="Pega aquí instrucciones, o el link del repositorio inicial..." required></textarea></div>
-                            
-                            <div class="form-group" style="border: 2px dashed #cbd5e0; padding: 15px; border-radius: 10px; text-align: center; background: #f8fafc;">
-                                <label style="cursor:pointer; color: #4a5568; font-weight: 800;"><i class='bx bx-file' style="font-size: 1.5rem; vertical-align: middle;"></i> Adjuntar Contrato (PDF/Doc)</label>
-                                <input type="file" id="projContract" class="form-control" accept=".pdf,.doc,.docx" style="margin-top: 10px;">
-                                <small style="color: #718096; display: block; margin-top: 5px;">Sube 1 solo archivo con los acuerdos legales (Opcional).</small>
-                            </div>
-
-                            <div class="form-group" style="border: 2px dashed #bee3f8; padding: 15px; border-radius: 10px; text-align: center; background: #ebf8ff;">
-                                <label style="cursor:pointer; color: var(--neon-blue); font-weight: 800;"><i class='bx bx-images' style="font-size: 1.5rem; vertical-align: middle;"></i> Recursos del Cliente</label>
-                                <input type="file" id="projAssets" class="form-control" multiple accept="image/*,.zip,.rar" style="margin-top: 10px;">
-                                <small style="color: #718096; display: block; margin-top: 5px;">Sube logos, imágenes de referencia o archivos zip (Opcional).</small>
-                            </div>
+                            <div class="form-group" style="grid-column: 1 / -1;"><label>Requerimientos, Enlaces de Drive o GitHub</label><textarea id="projRequerimientos" class="form-control" rows="3" placeholder="Pega aquí instrucciones, enlaces a Drive con recursos o el link del repositorio inicial..." required></textarea></div>
                         </div>
                         <button type="submit" id="btnSubmitForm" class="btn-primary">CREAR PROYECTO</button>
                     </form>
@@ -201,13 +182,9 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
         import { getFirestore, collection, onSnapshot, query, where, addDoc, updateDoc, deleteDoc, doc, serverTimestamp, getDocs } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
-        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-storage.js";
 
         const firebaseConfig = { apiKey: "AIzaSyBlouup64jteDrbUkOkSSEqsjesnuT6mdQ", authDomain: "digital-core-app.firebaseapp.com", projectId: "digital-core-app", storageBucket: "digital-core-app.firebasestorage.app", messagingSenderId: "1003292240722", appId: "1:1003292240722:web:b2a2af0665df1ef00fe88b" };
-        const app = initializeApp(firebaseConfig); 
-        const auth = getAuth(app); 
-        const db = getFirestore(app);
-        const storage = getStorage(app);
+        const app = initializeApp(firebaseConfig); const auth = getAuth(app); const db = getFirestore(app);
 
         let opcionesEquipoHTML = '<option value="">Selecciona un colaborador...</option>'; let usuarioActual = ""; let esAdmin = false;
 
@@ -227,10 +204,10 @@
             try {
                 if (accion === 'iniciar') {
                     if (!esAdmin) { const q = query(collection(db, "proyectos"), where("asignado_a", "array-contains", usuarioActual), where("en_proceso", "==", true)); const activas = await getDocs(q); if (!activas.empty) { alert("✋ Ya tienes una tarea en tu Sprint. Páusala antes de iniciar otra."); return; } }
-                    await updateDoc(docRef, { en_proceso: true, historial_avance: window.firebaseArrayUnion({ fecha: fechaHora, porcentaje: 0, comentario: "▶ Tarea INICIADA desde el Tablero Scrum.", autor: nombreAutor }) });
+                    await updateDoc(docRef, { en_proceso: true, historial_avance: window.firebaseArrayUnion({ fecha: fechaHora, porcentaje: 0, comentario: esAdmin ? "▶ Tarea INICIADA forzada por Administrador." : "▶ Tarea INICIADA.", autor: nombreAutor }) });
                 } 
-                else if (accion === 'pausar') { await updateDoc(docRef, { en_proceso: false, historial_avance: window.firebaseArrayUnion({ fecha: fechaHora, porcentaje: 0, comentario: "⏸ Tarea PAUSADA desde el Tablero Scrum.", autor: nombreAutor }) }); } 
-                else if (accion === 'terminar') { if(confirm("¿Seguro que deseas marcar este proyecto como Terminado?")) { await updateDoc(docRef, { completado: true, progreso: 100, en_proceso: false, historial_avance: window.firebaseArrayUnion({ fecha: fechaHora, porcentaje: 100, comentario: "✅ Tarea FINALIZADA desde el Tablero Scrum.", autor: nombreAutor }) }); } }
+                else if (accion === 'pausar') { await updateDoc(docRef, { en_proceso: false, historial_avance: window.firebaseArrayUnion({ fecha: fechaHora, porcentaje: 0, comentario: esAdmin ? "⏸ Tarea PAUSADA forzada por Administrador." : "⏸ Tarea PAUSADA.", autor: nombreAutor }) }); } 
+                else if (accion === 'terminar') { if(confirm("¿Seguro que deseas marcar este proyecto como Terminado?")) { await updateDoc(docRef, { completado: true, progreso: 100, en_proceso: false, historial_avance: window.firebaseArrayUnion({ fecha: fechaHora, porcentaje: 100, comentario: "✅ Tarea FINALIZADA.", autor: nombreAutor }) }); } }
             } catch (err) { alert("Error al actualizar estado."); console.error(err); }
         };
 
@@ -268,8 +245,8 @@
                 });
 
                 document.getElementById('statTotal').innerText = cTotal; document.getElementById('statAsignados').innerText = arrAsignadas.length; document.getElementById('statProceso').innerText = cProceso; document.getElementById('statAtrasados').innerText = cAtrasados;
-
                 document.getElementById('countAsignadas').innerText = arrAsignadas.length; document.getElementById('countProceso').innerText = arrProceso.length; document.getElementById('countCompletadas').innerText = arrCompletadas.slice(0, 10).length;
+                
                 const colAsig = document.getElementById('colAsignadas'); colAsig.innerHTML = ''; const colProc = document.getElementById('colProceso'); colProc.innerHTML = ''; const colComp = document.getElementById('colCompletadas'); colComp.innerHTML = '';
 
                 arrAsignadas.forEach(p => { let esDemorada = p.entrega < hoyString; let claseCard = esDemorada ? "k-card k-card-demorada" : "k-card"; let claseFecha = esDemorada ? "k-meta k-meta-danger" : "k-meta"; let iconFecha = esDemorada ? "bx-error-circle bx-tada" : "bx-calendar"; let responsablesArray = Array.isArray(p.asignado_a) ? p.asignado_a : [p.asignado_a]; let responsablesTxt = responsablesArray[0].split('@')[0] + (responsablesArray.length > 1 ? ' +' : ''); let txtFinalResponsable = isAdmin ? responsablesTxt : 'Tú';
@@ -286,66 +263,25 @@
             });
         }
 
-        // =========================================
-        // FORMULARIO CON SUBIDA DE ARCHIVOS SEPARADOS (CONTRATO Y RECURSOS)
-        // =========================================
         document.getElementById('addProjectForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btnSubmit = document.getElementById('btnSubmitForm');
-            
             try {
                 const selects = document.querySelectorAll('.collab-select'); let correos = Array.from(selects).map(s => s.value.toLowerCase().trim()).filter(c => c !== "");
                 correos = [...new Set(correos)]; if (correos.length === 0) return alert("Selecciona colaborador.");
 
-                btnSubmit.innerText = "Preparando base de datos..."; btnSubmit.disabled = true;
+                btnSubmit.innerText = "Creando..."; btnSubmit.disabled = true;
 
-                // 1. Crear el documento base en Firestore
                 const docRef = await addDoc(collection(db, "proyectos"), {
                     categoria: document.getElementById('projCategory').value, producto: document.getElementById('projProduct').value, cliente: document.getElementById('projClient').value,
                     entrega: document.getElementById('projDeadline').value, requerimientos: document.getElementById('projRequerimientos').value, 
-                    asignado_a: correos, progreso: 0, completado: false, en_proceso: false, alerta_vencimiento: false, creado: serverTimestamp(),
-                    archivos_adjuntos: [] 
+                    asignado_a: correos, progreso: 0, completado: false, en_proceso: false, alerta_vencimiento: false, creado: serverTimestamp()
                 });
                 
-                // 2. Lógica para subir los archivos
-                let urlsAdjuntos = [];
-                const inputContract = document.getElementById('projContract');
-                const inputAssets = document.getElementById('projAssets');
-
-                // 2.1 Subir Contrato (Si hay)
-                if(inputContract.files.length > 0) {
-                    btnSubmit.innerText = "Subiendo contrato seguro...";
-                    const file = inputContract.files[0];
-                    const storageRef = ref(storage, `proyectos/${docRef.id}/contrato_${file.name}`);
-                    await uploadBytes(storageRef, file);
-                    const downloadUrl = await getDownloadURL(storageRef);
-                    // Agregamos el emoji de "hoja" para diferenciarlo en la lista visual
-                    urlsAdjuntos.push({ nombre: "📄 Contrato: " + file.name, url: downloadUrl });
-                }
-
-                // 2.2 Subir Recursos (Si hay)
-                if(inputAssets.files.length > 0) {
-                    btnSubmit.innerText = `Subiendo ${inputAssets.files.length} recurso(s) de imagen...`;
-                    for(let file of inputAssets.files) {
-                        const storageRef = ref(storage, `proyectos/${docRef.id}/recurso_${file.name}`);
-                        await uploadBytes(storageRef, file);
-                        const downloadUrl = await getDownloadURL(storageRef);
-                        // Agregamos el emoji de "imagen" para diferenciarlo
-                        urlsAdjuntos.push({ nombre: "🖼️ Recurso: " + file.name, url: downloadUrl });
-                    }
-                }
-
-                // Si se subió algo, actualizar el documento en Firebase
-                if(urlsAdjuntos.length > 0) {
-                    await updateDoc(docRef, { archivos_adjuntos: urlsAdjuntos });
-                }
-                
-                // 3. Notificar a los colaboradores
-                btnSubmit.innerText = "Notificando al equipo...";
                 correos.forEach(async (correo) => { await addDoc(collection(db, "notificaciones"), { destinatario: correo, titulo: "NUEVO PROYECTO ASIGNADO", mensaje: `Se te ha asignado la tarea: ${document.getElementById('projProduct').value}.`, tipo: "NUEVO", proyectoId: docRef.id, creado: serverTimestamp() }); });
                 
-                alert("¡Proyecto creado con todos sus archivos!"); document.getElementById('addProjectForm').reset(); toggleForm(); 
-            } catch (err) { alert("Error al subir los archivos: " + err.message); console.error(err); } finally {
+                alert("¡Proyecto creado!"); document.getElementById('addProjectForm').reset(); toggleForm(); 
+            } catch (err) { alert("Error: " + err.message); console.error(err); } finally {
                 btnSubmit.innerText = "CREAR PROYECTO"; btnSubmit.disabled = false;
             }
         });
