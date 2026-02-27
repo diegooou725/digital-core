@@ -14,14 +14,13 @@
         .sidebar { width: var(--sidebar-width); height: 100vh; background: var(--dark-blue); color: white; position: fixed; padding: 2rem 1rem; display: flex; flex-direction: column; z-index: 100; box-sizing: border-box; }
         .sidebar-logo { width: 80%; margin-bottom: 3rem; padding-left: 1rem; }
         .nav-links { list-style: none; flex-grow: 1; padding: 0; margin: 0; }
-        .nav-links a { display: flex; align-items: center; gap: 15px; color: rgba(255,255,255,0.7); text-decoration: none; padding: 12px 1rem; border-radius: 8px; transition: 0.3s; font-weight: 600; margin-bottom: 5px; }
+        .nav-links a { display: flex; align-items: center; gap: 15px; color: rgba(255,255,255,0.7); text-decoration: none; padding: 12px 1rem; border-radius: 8px; transition: 0.3s; font-weight: 600; margin-bottom: 5px; position: relative;}
         .nav-links a:hover, .nav-links a.active { background: rgba(0, 156, 225, 0.2); color: var(--neon-blue); }
         
         .main-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 2rem 3rem; box-sizing: border-box; }
         .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; background: white; padding: 1.5rem 2rem; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         .content-card { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 2rem; }
         
-        /* ESTADÍSTICAS CLICKABLES */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
         .stat-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.5rem; text-align: center; cursor: pointer; transition: 0.2s; }
         .stat-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.05); border-color: var(--neon-blue); }
@@ -44,23 +43,18 @@
         .btn-primary { background: var(--neon-blue); color: white; border: none; padding: 14px; border-radius: 8px; font-weight: 800; cursor: pointer; width: 100%; margin-top: 20px; transition: 0.3s; }
         .btn-secondary { background: #edf2f7; color: #4a5568; border: 1px dashed #cbd5e0; padding: 10px; border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.3s; width: 100%; margin-top: 10px; }
         
-        /* NOTIFICACIONES */
         .notif-badge-menu { background: #e53e3e; color: white; border-radius: 50%; padding: 2px 7px; font-size: 0.65rem; font-weight: 900; position: absolute; right: 10px; }
         .notif-item { background: white; border-left: 4px solid var(--neon-blue); padding: 15px; border-radius: 8px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: 0.2s;}
-        .notif-item:hover { transform: translateX(5px); }
         .notif-item.n-alerta { border-left-color: #e53e3e; background: #fff5f5; }
         .btn-ignorar { background: transparent; border: none; color: #a0aec0; cursor: pointer; font-size: 1.5rem; transition: 0.2s; padding: 5px; border-radius: 50%; }
         .btn-ignorar:hover { background: #fed7d7; color: #e53e3e; }
 
-        /* Estilo para acordeón */
         .accordion-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; padding-bottom: 10px; }
-        .accordion-header:hover h2 { color: var(--neon-blue); }
-
-       /* =========================================
+        
+        /* =========================================
            MÓDULO DE OPTIMIZACIÓN MÓVIL (APP NATIVA)
            ========================================= */
         @media (max-width: 768px) {
-            /* 1. Transformar Sidebar en Menú Inferior Flotante */
             body { display: block; }
             .sidebar { width: 100%; height: 75px; position: fixed; bottom: 0; left: 0; top: auto; flex-direction: row; justify-content: space-around; padding: 0 5px; z-index: 9999; border-top: 1px solid #1e293b; box-shadow: 0 -5px 20px rgba(0,0,0,0.15); border-radius: 20px 20px 0 0; }
             .sidebar h2, .sidebar-logo { display: none; }
@@ -70,46 +64,22 @@
             .nav-links a i { font-size: 1.6rem; margin: 0; }
             .nav-links a span { font-size: 0.65rem; display: block; font-weight: 800; }
             
-            /* Botón de salida móvil */
-            #logoutBtn { padding: 10px; flex-direction: column; gap: 4px; margin: 0; }
+            #logoutBtn { padding: 10px; flex-direction: column; gap: 4px; margin: 0; width: auto;}
             #logoutBtn span { display: none; }
             #logoutBtn i { font-size: 1.6rem; margin: 0; }
-
-            /* Burbuja de notificaciones en el menú móvil */
             .notif-badge-menu { position: absolute; right: 25%; top: 5px; padding: 2px 6px; }
 
-            /* 2. Ajustar Contenido Principal (Evitar que el menú lo tape) */
             .main-content { margin-left: 0; width: 100%; padding: 1.5rem 1rem 95px 1rem; }
             .top-bar { flex-direction: column; align-items: flex-start; gap: 15px; padding: 1.2rem; }
-            
-            /* 3. Reorganizar Cuadrículas (Grids) */
-            .stats-grid { grid-template-columns: 1fr 1fr; } /* KPIs en 2 columnas en móvil */
-            .card-grid, .form-grid, .user-grid, .catalog-grid { grid-template-columns: 1fr; }
-            
-            /* 4. Correcciones Específicas para Fichas Técnicas */
-            .detail-card { padding: 1.5rem; }
-            div[style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; gap: 10px !important; }
-            
-            /* Botones de Avance (+10/-10) táctiles */
-            #progressControlBox > div:first-of-type { flex-direction: column; gap: 10px; }
-            .btn-control { width: 100%; height: 50px; font-size: 2rem; }
-            #uiProgressBar { border-radius: 10px; }
-            
-            /* 5. Ajustes Universales */
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .card-grid, .form-grid { grid-template-columns: 1fr; }
             h1 { font-size: 1.6rem !important; line-height: 1.2; }
             .btn-action, .btn-secondary { width: 100%; justify-content: center; padding: 15px; font-size: 1rem; }
-            .cat-header { flex-direction: column; text-align: center; padding: 15px; }
-            
-            /* Ajuste de Chips de Colaboradores (Admin) */
-            #equipoActualChips { flex-direction: column; }
-            .user-chip { width: 100%; justify-content: space-between; padding: 10px 20px; box-sizing: border-box;}
         }
-
-        /* Ajuste extra para celulares muy pequeños (iPhone SE, etc) */
         @media (max-width: 480px) {
-            .stats-grid { grid-template-columns: 1fr; } /* KPIs a 1 sola columna */
+            .stats-grid { grid-template-columns: 1fr; }
             .top-bar > div:last-child { width: 100%; justify-content: center; }
-            .nav-links a span { display: none; } /* Ocultar texto del menú, dejar solo íconos */
+            .nav-links a span { display: none; }
         }
     </style>
 </head>
@@ -120,11 +90,11 @@
         <ul class="nav-links">
             <li><a href="panel-control.html" class="active"><i class='bx bxs-dashboard'></i> <span>Dashboard</span> <span id="notifCount" class="notif-badge-menu" style="display:none;">0</span></a></li>
             <li><a href="mis-trabajos.html"><i class='bx bxs-briefcase'></i> <span>Mis Trabajos</span></a></li>
-            <li id="navColaboradores" style="display: none;"><a href="colaboradores.html"><i class='bx bxs-group'></i> <span>Colaboradores</span></a></li>
+            <li id="navColaboradores" style="display: none;"><a href="colaboradores.html"><i class='bx bxs-group'></i> <span>Equipo</span></a></li>
             <li><a href="catalogo.html"><i class='bx bxs-package'></i> <span>Catálogo</span></a></li>
         </ul>
         <button id="logoutBtn" style="background:none; border:none; color:#ff6b6b; cursor:pointer; display:flex; align-items:center; gap:15px; padding:12px 1rem; font-weight:600; margin-top: auto;">
-            <i class='bx bx-log-out'></i> <span>Cerrar Sesión</span>
+            <i class='bx bx-log-out'></i> <span>Salir</span>
         </button>
     </aside>
 
@@ -151,22 +121,10 @@
                     <h2 style="color: var(--dark-blue); margin: 0; transition: 0.3s;"><i class='bx bx-plus-circle'></i> Asignar Proyecto</h2>
                     <i class='bx bx-chevron-down' id="formToggleIcon" style="font-size: 2rem; color: var(--neon-blue); transition: 0.3s;"></i>
                 </div>
-                
                 <div id="formContainer" style="display: none; margin-top: 1.5rem; border-top: 1px solid #edf2f7; padding-top: 1.5rem;">
                     <form id="addProjectForm">
                         <div class="form-grid">
-                            <div class="form-group">
-                                <label>Categoría</label>
-                                <select id="projCategory" class="form-control" onchange="actualizarProductos()" required>
-                                    <option value="">Selecciona...</option>
-                                    <option value="Desarrollo Web Estratégico">Desarrollo Web Estratégico</option>
-                                    <option value="Sistemas de Datos">Sistemas de Datos</option>
-                                    <option value="Cursos y Capacitación">Cursos y Capacitación</option>
-                                    <option value="Soporte e Infraestructura (Próximamente)">Soporte e Infraestructura (Próximamente)</option>
-                                    <option value="Identidad y Diseño Visual (Próximamente)">Identidad y Diseño Visual (Próximamente)</option>
-                                    <option value="Automatización y Chatbots (Próximamente)">Automatización y Chatbots (Próximamente)</option>
-                                </select>
-                            </div>
+                            <div class="form-group"><label>Categoría</label><select id="projCategory" class="form-control" onchange="actualizarProductos()" required><option value="">Selecciona...</option><option value="Desarrollo Web Estratégico">Desarrollo Web Estratégico</option><option value="Sistemas de Datos">Sistemas de Datos</option><option value="Cursos y Capacitación">Cursos y Capacitación</option><option value="Soporte e Infraestructura (Próximamente)">Soporte e Infraestructura (Próximamente)</option><option value="Identidad y Diseño Visual (Próximamente)">Identidad y Diseño Visual (Próximamente)</option><option value="Automatización y Chatbots (Próximamente)">Automatización y Chatbots (Próximamente)</option></select></div>
                             <div class="form-group"><label>Producto</label><select id="projProduct" class="form-control" required disabled><option value="">Selecciona...</option></select></div>
                             <div class="form-group"><label>Cliente</label><input type="text" id="projClient" class="form-control" required></div>
                             <div class="form-group"><label>Fecha Límite</label><input type="date" id="projDeadline" class="form-control" required></div>
@@ -175,9 +133,7 @@
                                 <div id="assigneesContainer" style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;"><select class="form-control collab-select" required><option value="">Cargando equipo...</option></select></div>
                                 <button type="button" id="btnAddCollab" class="btn-secondary">+ Asignar otro colaborador</button>
                             </div>
-                            <div class="form-group" style="grid-column: 1 / -1;">
-                                <label>Requerimientos</label><textarea id="projRequerimientos" class="form-control" rows="3" required></textarea>
-                            </div>
+                            <div class="form-group" style="grid-column: 1 / -1;"><label>Requerimientos</label><textarea id="projRequerimientos" class="form-control" rows="3" required></textarea></div>
                         </div>
                         <button type="submit" class="btn-primary">CREAR PROYECTO</button>
                     </form>
@@ -188,30 +144,16 @@
         <section>
             <h2 style="color: var(--dark-blue); margin-bottom: 1rem;"><i class='bx bx-line-chart'></i> Rendimiento Operativo</h2>
             <div class="stats-grid">
-                <div class="stat-card" onclick="window.location.href='mis-trabajos.html?filtro=todas'" title="Ver todo el historial">
-                    <h3 id="statTotal">0</h3><p>Total Histórico</p>
-                </div>
-                <div class="stat-card" onclick="window.location.href='mis-trabajos.html?filtro=asignadas'" title="Ver tareas en fila">
-                    <h3 id="statAsignados" style="color: #718096;">0</h3><p>Asignados</p>
-                </div>
-                <div class="stat-card" onclick="window.location.href='mis-trabajos.html?filtro=proceso'" title="Ver tareas activas">
-                    <h3 id="statProceso" style="color: #3182ce;">0</h3><p>En Proceso</p>
-                </div>
-                <div class="stat-card" style="border-color: #feb2b2;" onclick="window.location.href='mis-trabajos.html?filtro=demoradas'" title="Ver tareas con retraso">
-                    <h3 id="statAtrasados" style="color: #e53e3e;">0</h3><p>Demorados</p>
-                </div>
+                <div class="stat-card" onclick="window.location.href='mis-trabajos.html?filtro=todas'"><h3 id="statTotal">0</h3><p>Total Histórico</p></div>
+                <div class="stat-card" onclick="window.location.href='mis-trabajos.html?filtro=asignadas'"><h3 id="statAsignados" style="color: #718096;">0</h3><p>Asignados</p></div>
+                <div class="stat-card" onclick="window.location.href='mis-trabajos.html?filtro=proceso'"><h3 id="statProceso" style="color: #3182ce;">0</h3><p>En Proceso</p></div>
+                <div class="stat-card" style="border-color: #feb2b2;" onclick="window.location.href='mis-trabajos.html?filtro=demoradas'"><h3 id="statAtrasados" style="color: #e53e3e;">0</h3><p>Demorados</p></div>
             </div>
-            
-            <div id="reportBox" class="report-box">
-                <i id="reportIcon" class='bx bxs-message-rounded-dots' style="font-size: 2.2rem;"></i>
-                <div>
-                    <span id="reportText" style="font-size: 1rem;">Analizando...</span>
-                </div>
-            </div>
+            <div id="reportBox" class="report-box"><i id="reportIcon" class='bx bxs-message-rounded-dots' style="font-size: 2.2rem;"></i><div><span id="reportText" style="font-size: 1rem;">Analizando...</span></div></div>
         </section>
 
         <section>
-            <h2 style="color: var(--dark-blue); margin-bottom: 1rem;"><i class='bx bxs-flame'></i> Top 3 Prioridades</h2>
+            <h2 style="color: var(--dark-blue); margin-bottom: 1rem;"><i class='bx bxs-flame'></i> Top Prioridades</h2>
             <div id="top3Board" class="card-grid"></div>
         </section>
     </main>
@@ -222,69 +164,27 @@
         import { getFirestore, collection, onSnapshot, query, where, addDoc, updateDoc, deleteDoc, doc, serverTimestamp, getDocs } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
         const firebaseConfig = { apiKey: "AIzaSyBlouup64jteDrbUkOkSSEqsjesnuT6mdQ", authDomain: "digital-core-app.firebaseapp.com", projectId: "digital-core-app", storageBucket: "digital-core-app.firebasestorage.app", messagingSenderId: "1003292240722", appId: "1:1003292240722:web:b2a2af0665df1ef00fe88b" };
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
+        const app = initializeApp(firebaseConfig); const auth = getAuth(app); const db = getFirestore(app);
 
-        // LÓGICA DEL ACORDEÓN PARA ASIGNAR PROYECTO
         window.toggleForm = function() {
-            const form = document.getElementById('formContainer');
-            const icon = document.getElementById('formToggleIcon');
-            if (form.style.display === 'none' || form.style.display === '') {
-                form.style.display = 'block';
-                icon.style.transform = 'rotate(180deg)';
-            } else {
-                form.style.display = 'none';
-                icon.style.transform = 'rotate(0deg)';
-            }
+            const form = document.getElementById('formContainer'); const icon = document.getElementById('formToggleIcon');
+            if (form.style.display === 'none' || form.style.display === '') { form.style.display = 'block'; icon.style.transform = 'rotate(180deg)'; } else { form.style.display = 'none'; icon.style.transform = 'rotate(0deg)'; }
         };
 
         let opcionesEquipoHTML = '<option value="">Selecciona un colaborador...</option>';
 
-        // DICCIONARIO ACTUALIZADO CON CATÁLOGO COMPLETO
         window.actualizarProductos = function() {
-            const cat = document.getElementById('projCategory').value;
-            const prod = document.getElementById('projProduct');
-            
+            const cat = document.getElementById('projCategory').value; const prod = document.getElementById('projProduct');
             const diccionario = {
-                "Desarrollo Web Estratégico": [
-                    "Core Event", "Core Flash", "Core Start", "Core Plus", "Core Landing", 
-                    "Core Business", "Core Elite", "Core Commerce", "Core Dynamic", 
-                    "Gestión de Dominios", "Hosting de Alto Rendimiento", "Correos Corporativos"
-                ],
-                "Sistemas de Datos": [
-                    "Skill Excel", "Skill Macro", "Skill Dashboard", "Skill Cleanse", "Skill Connect", 
-                    "Skill Cloud", "Hub Starter", "Hub Stock", "Hub CRM", "Hub ERP", "Hub Network", 
-                    "Hub SQL", "Data Custom", "Licencia POS Básico", "Hardware POS Completo"
-                ],
-                "Cursos y Capacitación": [
-                    "Skill Basics", "Skill Office", "Skill Cloud", "Skill Data", "Skill Code", 
-                    "Skill Mentor", "Team Office", "Team Cloud", "Team Data", "Team Commerce", 
-                    "Team Software", "Team Custom", "Strategy Audit", "Strategy Digital", 
-                    "Strategy Tech", "Strategy Cloud", "Strategy Custom", "Strategy Support"
-                ],
-                "Soporte e Infraestructura (Próximamente)": [
-                    "Mantenimiento de equipos de cómputo", 
-                    "Instalación de sistemas de seguridad CCTV", 
-                    "Micro centros de datos corporativos"
-                ],
-                "Identidad y Diseño Visual (Próximamente)": [
-                    "Creación de logotipos y branding", 
-                    "Diseño de interfaces UI/UX"
-                ],
-                "Automatización y Chatbots (Próximamente)": [
-                    "Implementación de flujos automáticos", 
-                    "Chatbots inteligentes para WhatsApp y Messenger"
-                ]
+                "Desarrollo Web Estratégico": ["Core Event", "Core Flash", "Core Start", "Core Plus", "Core Landing", "Core Business", "Core Elite", "Core Commerce", "Core Dynamic", "Gestión de Dominios", "Hosting de Alto Rendimiento", "Correos Corporativos"],
+                "Sistemas de Datos": ["Skill Excel", "Skill Macro", "Skill Dashboard", "Skill Cleanse", "Skill Connect", "Skill Cloud", "Hub Starter", "Hub Stock", "Hub CRM", "Hub ERP", "Hub Network", "Hub SQL", "Data Custom", "Licencia POS Básico", "Hardware POS Completo"],
+                "Cursos y Capacitación": ["Skill Basics", "Skill Office", "Skill Cloud", "Skill Data", "Skill Code", "Skill Mentor", "Team Office", "Team Cloud", "Team Data", "Team Commerce", "Team Software", "Team Custom", "Strategy Audit", "Strategy Digital", "Strategy Tech", "Strategy Cloud", "Strategy Custom", "Strategy Support"],
+                "Soporte e Infraestructura (Próximamente)": ["Mantenimiento de equipos de cómputo", "Instalación de sistemas de seguridad CCTV", "Micro centros de datos corporativos"],
+                "Identidad y Diseño Visual (Próximamente)": ["Creación de logotipos y branding", "Diseño de interfaces UI/UX"],
+                "Automatización y Chatbots (Próximamente)": ["Implementación de flujos automáticos", "Chatbots inteligentes para WhatsApp y Messenger"]
             };
-            
             prod.innerHTML = '<option value="">Selecciona producto...</option>';
-            if (cat && diccionario[cat]) { 
-                prod.disabled = false; 
-                diccionario[cat].forEach(p => { prod.innerHTML += `<option value="${p}">${p}</option>`; }); 
-            } else { 
-                prod.disabled = true; 
-            }
+            if (cat && diccionario[cat]) { prod.disabled = false; diccionario[cat].forEach(p => { prod.innerHTML += `<option value="${p}">${p}</option>`; }); } else { prod.disabled = true; }
         };
 
         async function prepararEquipo() {
@@ -300,9 +200,7 @@
             document.getElementById('assigneesContainer').appendChild(div);
         });
 
-        window.borrarNotificacion = async function(id) {
-            try { await deleteDoc(doc(db, "notificaciones", id)); } catch(e) { console.error(e); }
-        };
+        window.borrarNotificacion = async function(id) { try { await deleteDoc(doc(db, "notificaciones", id)); } catch(e) { console.error(e); } };
 
         onAuthStateChanged(auth, async (user) => {
             if (user) {
@@ -311,11 +209,7 @@
                 document.getElementById('userEmailLabel').innerText = email;
 
                 const userSnap = await getDocs(query(collection(db, "usuarios"), where("correo", "==", email)));
-                if (!userSnap.empty) {
-                    const u = userSnap.docs[0].data();
-                    document.getElementById('userNameWelcome').innerText = `¡Hola, ${u.nombre.split(' ')[0]}!`;
-                    document.getElementById('roleLabel').innerText = u.rol;
-                }
+                if (!userSnap.empty) { const u = userSnap.docs[0].data(); document.getElementById('userNameWelcome').innerText = `¡Hola, ${u.nombre.split(' ')[0]}!`; document.getElementById('roleLabel').innerText = u.rol; }
 
                 if (isAdmin) { 
                     document.getElementById('adminOnlySection').style.display = 'block'; 
@@ -331,51 +225,27 @@
         function cargarNotificaciones(miCorreo) {
             const q = query(collection(db, "notificaciones"), where("destinatario", "==", miCorreo));
             onSnapshot(q, (snap) => {
-                const list = document.getElementById('notifListContainer');
-                const badge = document.getElementById('notifCount');
-                const section = document.getElementById('notifSection');
-                
+                const list = document.getElementById('notifListContainer'); const badge = document.getElementById('notifCount'); const section = document.getElementById('notifSection');
                 list.innerHTML = "";
                 if (snap.size > 0) {
                     badge.innerText = snap.size; badge.style.display = "block"; section.style.display = "block";
                     snap.forEach(d => {
-                        const n = d.data();
-                        let icon = "bx-info-circle"; let colorClass = "n-info";
+                        const n = d.data(); let icon = "bx-info-circle"; let colorClass = "n-info";
                         if(n.tipo === "ALERTA") { icon = "bxs-error"; colorClass = "n-alerta"; }
-                        let nombreReal = n.solicitante_notificacion || "Un colaborador";
-                        
-                        list.innerHTML += `
-                            <div class="notif-item ${colorClass}">
-                                <div style="width: 85%; cursor:pointer;" onclick="window.location.href='detalles-tarea.html?id=${n.proyectoId}'">
-                                    <strong style="display:block; font-size:0.95rem; margin-bottom:5px; color: var(--dark-blue);"><i class='bx ${icon}'></i> ${n.titulo}</strong>
-                                    <span style="font-size:0.85rem; color:#4a5568;">${n.mensaje}</span>
-                                </div>
-                                <button class="btn-ignorar" onclick="borrarNotificacion('${d.id}')" title="Ignorar / Borrar"><i class='bx bx-trash'></i></button>
-                            </div>`;
+                        list.innerHTML += `<div class="notif-item ${colorClass}"><div style="width: 85%; cursor:pointer;" onclick="window.location.href='detalles-tarea.html?id=${n.proyectoId}'"><strong style="display:block; font-size:0.95rem; margin-bottom:5px; color: var(--dark-blue);"><i class='bx ${icon}'></i> ${n.titulo}</strong><span style="font-size:0.85rem; color:#4a5568;">${n.mensaje}</span></div><button class="btn-ignorar" onclick="borrarNotificacion('${d.id}')" title="Borrar"><i class='bx bx-trash'></i></button></div>`;
                     });
-                } else {
-                    badge.style.display = "none"; section.style.display = "none";
-                }
+                } else { badge.style.display = "none"; section.style.display = "none"; }
             });
         }
 
         function renderizarDashboard(email, isAdmin) {
             const q = isAdmin ? collection(db, "proyectos") : query(collection(db, "proyectos"), where("asignado_a", "array-contains", email));
-            
             onSnapshot(q, (snap) => {
-                let tareas = [];
-                snap.forEach(d => tareas.push({ id: d.id, ...d.data() }));
+                let tareas = []; snap.forEach(d => tareas.push({ id: d.id, ...d.data() }));
+                let cTotal = tareas.length; let cAsignados = 0; let cProceso = 0; let cAtrasados = 0; let cCompletadosTotales = 0; let hayUnaEnProceso = false; 
+                const hoyFecha = new Date(); const hoyString = hoyFecha.toISOString().split('T')[0];
 
-                let cTotal = tareas.length; let cAsignados = 0; let cProceso = 0; let cAtrasados = 0;
-                let cCompletadosTotales = 0;
-                let hayUnaEnProceso = false; 
-                const hoyFecha = new Date();
-                const hoyString = hoyFecha.toISOString().split('T')[0];
-
-                tareas.sort((a, b) => {
-                    if (a.completado === b.completado) return new Date(a.entrega) - new Date(b.entrega);
-                    return a.completado ? 1 : -1;
-                });
+                tareas.sort((a, b) => { if (a.completado === b.completado) return new Date(a.entrega) - new Date(b.entrega); return a.completado ? 1 : -1; });
 
                 tareas.forEach(async (p) => {
                     if (p.completado) { cCompletadosTotales++; } 
@@ -384,24 +254,17 @@
                     else { cAsignados++; p._estadoVisual = "ASIGNADA"; }
 
                     if (!p.completado) {
-                        let msFaltantes = new Date(p.entrega) - hoyFecha;
-                        let diasFaltantes = msFaltantes / (1000 * 60 * 60 * 24);
+                        let msFaltantes = new Date(p.entrega) - hoyFecha; let diasFaltantes = msFaltantes / (1000 * 60 * 60 * 24);
                         if (diasFaltantes > 0 && diasFaltantes <= 2 && !p.alerta_vencimiento) {
                             await updateDoc(doc(db, "proyectos", p.id), { alerta_vencimiento: true });
-                            p.asignado_a.forEach(correoDestino => {
-                                addDoc(collection(db, "notificaciones"), { destinatario: correoDestino, titulo: "¡TAREA PRÓXIMA A VENCER!", mensaje: `Tu proyecto "${p.producto}" debe entregarse en menos de 48 horas.`, tipo: "ALERTA", proyectoId: p.id, creado: serverTimestamp() });
-                            });
+                            p.asignado_a.forEach(correoDestino => { addDoc(collection(db, "notificaciones"), { destinatario: correoDestino, titulo: "¡TAREA PRÓXIMA A VENCER!", mensaje: `Tu proyecto "${p.producto}" debe entregarse en menos de 48 horas.`, tipo: "ALERTA", proyectoId: p.id, creado: serverTimestamp() }); });
                         }
                     }
                 });
 
-                document.getElementById('statTotal').innerText = cTotal; document.getElementById('statAsignados').innerText = cAsignados;
-                document.getElementById('statProceso').innerText = cProceso; document.getElementById('statAtrasados').innerText = cAtrasados;
+                document.getElementById('statTotal').innerText = cTotal; document.getElementById('statAsignados').innerText = cAsignados; document.getElementById('statProceso').innerText = cProceso; document.getElementById('statAtrasados').innerText = cAtrasados;
 
-                const rBox = document.getElementById('reportBox'); 
-                const rText = document.getElementById('reportText');
-                const rIcon = document.getElementById('reportIcon');
-
+                const rBox = document.getElementById('reportBox'); const rText = document.getElementById('reportText'); const rIcon = document.getElementById('reportIcon');
                 if (isAdmin) {
                     rBox.style.borderLeftColor = "var(--dark-blue)"; rIcon.style.color = "var(--dark-blue)"; rIcon.className = "bx bx-world";
                     rText.innerHTML = `<strong style="display: block; color: var(--dark-blue);">Resumen Global de Digital Core:</strong> En la empresa hay <b>${cProceso}</b> proyectos activos, <b>${cAtrasados}</b> demorados, <b>${cAsignados}</b> en fila y <b>${cCompletadosTotales}</b> completados en la historia.`;
@@ -412,25 +275,15 @@
                     else { rBox.style.borderLeftColor = "#718096"; rIcon.className = "bx bx-coffee"; rIcon.style.color = "#718096"; rText.innerHTML = `<strong style="display: block; color: var(--dark-blue);">Reporte Personal:</strong> Tu bandeja está limpia.`; }
                 }
 
-                const container = document.getElementById('top3Board');
-                container.innerHTML = "";
+                const container = document.getElementById('top3Board'); container.innerHTML = "";
                 const top3 = tareas.filter(t => !t.completado).slice(0, 3);
-
                 if(top3.length === 0) container.innerHTML = `<p style="grid-column: 1/-1; color: #718096;">No hay tareas pendientes en pantalla.</p>`;
 
                 top3.forEach(p => {
                     let claseEst = "st-asignada"; let badgeClass = "badge-asignada";
-                    if (p._estadoVisual === "DEMORADA") { claseEst = "st-demorada"; badgeClass = "badge-demorada"; }
-                    else if (p._estadoVisual === "EN PROCESO") { claseEst = "st-proceso"; badgeClass = "badge-proceso"; }
+                    if (p._estadoVisual === "DEMORADA") { claseEst = "st-demorada"; badgeClass = "badge-demorada"; } else if (p._estadoVisual === "EN PROCESO") { claseEst = "st-proceso"; badgeClass = "badge-proceso"; }
                     let reps = Array.isArray(p.asignado_a) ? p.asignado_a[0].split('@')[0] : p.asignado_a.split('@')[0];
-
-                    container.innerHTML += `
-                        <div class="task-card ${claseEst}" onclick="window.location.href='detalles-tarea.html?id=${p.id}'">
-                            <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span class="${badgeClass}">${p._estadoVisual}</span><span style="font-size:0.75rem; color:#a0aec0;">Vence: ${p.entrega}</span></div>
-                            <h3 style="margin:8px 0; font-size:1.1rem;">${p.producto}</h3>
-                            <div style="background:#edf2f7; height:8px; border-radius:10px; margin:15px 0 10px 0;"><div style="width:${p.progreso}%; background:var(--neon-blue); height:100%; border-radius:10px;"></div></div>
-                            <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:#718096; font-weight:600;"><span>Avance: ${p.progreso}%</span><span><i class='bx bx-user'></i> ${isAdmin ? reps : 'Tú'}</span></div>
-                        </div>`;
+                    container.innerHTML += `<div class="task-card ${claseEst}" onclick="window.location.href='detalles-tarea.html?id=${p.id}'"><div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span class="${badgeClass}">${p._estadoVisual}</span><span style="font-size:0.75rem; color:#a0aec0;">Vence: ${p.entrega}</span></div><h3 style="margin:8px 0; font-size:1.1rem;">${p.producto}</h3><div style="background:#edf2f7; height:8px; border-radius:10px; margin:15px 0 10px 0;"><div style="width:${p.progreso}%; background:var(--neon-blue); height:100%; border-radius:10px;"></div></div><div style="display:flex; justify-content:space-between; font-size:0.75rem; color:#718096; font-weight:600;"><span>Avance: ${p.progreso}%</span><span><i class='bx bx-user'></i> ${isAdmin ? reps : 'Tú'}</span></div></div>`;
                 });
             });
         }
@@ -444,24 +297,14 @@
                 if (correos.length === 0) return alert("Selecciona colaborador.");
 
                 const docRef = await addDoc(collection(db, "proyectos"), {
-                    categoria: document.getElementById('projCategory').value,
-                    producto: document.getElementById('projProduct').value,
-                    cliente: document.getElementById('projClient').value,
-                    entrega: document.getElementById('projDeadline').value,
-                    requerimientos: document.getElementById('projRequerimientos').value, 
-                    asignado_a: correos, progreso: 0, completado: false, en_proceso: false,
-                    alerta_vencimiento: false, creado: serverTimestamp()
+                    categoria: document.getElementById('projCategory').value, producto: document.getElementById('projProduct').value, cliente: document.getElementById('projClient').value,
+                    entrega: document.getElementById('projDeadline').value, requerimientos: document.getElementById('projRequerimientos').value, 
+                    asignado_a: correos, progreso: 0, completado: false, en_proceso: false, alerta_vencimiento: false, creado: serverTimestamp()
                 });
                 
-                correos.forEach(async (correo) => {
-                    await addDoc(collection(db, "notificaciones"), {
-                        destinatario: correo, titulo: "NUEVO PROYECTO ASIGNADO", mensaje: `Se te ha asignado la tarea: ${document.getElementById('projProduct').value}.`, tipo: "NUEVO", proyectoId: docRef.id, creado: serverTimestamp()
-                    });
-                });
+                correos.forEach(async (correo) => { await addDoc(collection(db, "notificaciones"), { destinatario: correo, titulo: "NUEVO PROYECTO ASIGNADO", mensaje: `Se te ha asignado la tarea: ${document.getElementById('projProduct').value}.`, tipo: "NUEVO", proyectoId: docRef.id, creado: serverTimestamp() }); });
                 
-                alert("Proyecto guardado y equipo notificado.");
-                document.getElementById('addProjectForm').reset();
-                toggleForm(); // Ocultar el formulario después de guardar
+                alert("Proyecto guardado y equipo notificado."); document.getElementById('addProjectForm').reset(); toggleForm(); 
             } catch (err) { alert(err.message); }
         });
 
@@ -469,5 +312,3 @@
     </script>
 </body>
 </html>
-
-
