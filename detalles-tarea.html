@@ -103,24 +103,24 @@
             </div>
 
             <div id="actionStartBox" style="margin-bottom: 20px; display: none;">
-                <button id="btnStartTask" class="btn-action" style="background: var(--neon-blue); color: white; padding: 18px; font-size: 1.1rem; box-shadow: 0 4px 10px rgba(0, 156, 225, 0.3);"><i class='bx bx-play-circle' style="font-size: 1.5rem;"></i> COMENZAR A TRABAJAR (INICIAR SPRINT)</button>
-                <button id="btnPauseTask" class="btn-action" style="background: #e2e8f0; color: var(--dark-blue); display:none;"><i class='bx bx-pause-circle'></i> PAUSAR TAREA</button>
+                <button onclick="iniciarTarea()" id="btnStartTask" class="btn-action" style="background: var(--neon-blue); color: white; padding: 18px; font-size: 1.1rem; box-shadow: 0 4px 10px rgba(0, 156, 225, 0.3);"><i class='bx bx-play-circle' style="font-size: 1.5rem;"></i> COMENZAR A TRABAJAR (INICIAR SPRINT)</button>
+                <button onclick="pausarTarea()" id="btnPauseTask" class="btn-action" style="background: #e2e8f0; color: var(--dark-blue); display:none;"><i class='bx bx-pause-circle'></i> PAUSAR TAREA</button>
             </div>
 
             <div id="progressControlBox" style="border: 2px solid var(--neon-blue); padding: 20px; border-radius: 12px; margin-bottom: 20px; background: #f0f9ff; display: none;">
                 <h3 style="margin-top:0; color:var(--dark-blue);"><i class='bx bx-slider-alt'></i> Registrar Avance Diario (+10%)</h3>
                 
                 <div style="display:flex; align-items:center; gap:15px; margin-bottom: 15px;">
-                    <button id="btnMinus" class="btn-control">-</button>
+                    <button onclick="decrementarUi()" class="btn-control">-</button>
                     <div style="background: #edf2f7; width: 100%; height: 25px; border-radius: 50px; position: relative; overflow: hidden; border: 1px solid #bee3f8;"><div id="uiProgressBar" style="background: linear-gradient(90deg, var(--light-blue), var(--neon-blue)); height: 100%; transition: 0.3s; width: 0%;"></div><span id="uiProgressText" style="position: absolute; width: 100%; text-align: center; top: 0; font-weight: 900; font-size: 0.85rem; line-height: 25px; color: var(--dark-blue);">0%</span></div>
-                    <button id="btnPlus" class="btn-control">+</button>
+                    <button onclick="incrementarUi()" class="btn-control">+</button>
                 </div>
                 
                 <textarea id="txtComentario" class="form-control" rows="2" placeholder="Describe qué lograste hoy y pega aquí tus links de Drive o GitHub..." style="margin-bottom: 15px;"></textarea>
 
                 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                    <button id="btnConfirmProgress" class="btn-action" style="background: var(--dark-blue); color:white;"><i class='bx bx-save'></i> Guardar Avance</button>
-                    <button id="btnMarkComplete" class="btn-action" style="background: #38a169; color: white;"><i class='bx bx-check-double'></i> Entregar (100%)</button>
+                    <button onclick="guardarAvance()" class="btn-action" style="background: var(--dark-blue); color:white;"><i class='bx bx-save'></i> Guardar Avance</button>
+                    <button onclick="entregarTarea()" class="btn-action" style="background: #38a169; color: white;"><i class='bx bx-check-double'></i> Entregar (100%)</button>
                 </div>
             </div>
 
@@ -132,8 +132,8 @@
             <div id="collabRequests" class="collab-panel" style="display:none;">
                 <h3 style="margin-top:0; color: #4a5568;"><i class='bx bx-support'></i> Opciones de Colaborador</h3>
                 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                    <button id="btnRequestUnmark" class="btn-action" style="background: white; border: 1px solid #cbd5e0; color: #4a5568;"><i class='bx bx-undo'></i> Pedir Reabrir Tarea</button>
-                    <button id="btnRequestRemove" class="btn-action" style="background: #fff5f5; border: 1px solid #feb2b2; color: #c53030;"><i class='bx bx-user-x'></i> Pedir Desasignación</button>
+                    <button onclick="pedirReabrir()" class="btn-action" style="background: white; border: 1px solid #cbd5e0; color: #4a5568;"><i class='bx bx-undo'></i> Pedir Reabrir Tarea</button>
+                    <button onclick="pedirDesasignacion()" class="btn-action" style="background: #fff5f5; border: 1px solid #feb2b2; color: #c53030;"><i class='bx bx-user-x'></i> Pedir Desasignación</button>
                 </div>
             </div>
 
@@ -144,13 +144,13 @@
                     <label style="font-size: 0.85rem; font-weight: 800; color: #4a5568;"><i class='bx bx-group'></i> GESTIONAR EQUIPO:</label>
                     <div id="equipoActualChips" style="display: flex; gap: 10px; flex-wrap: wrap; margin: 15px 0;"></div>
                     <div id="nuevosAsignadosContainer" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 10px;"></div>
-                    <button id="btnAddSelect" class="btn-secondary"><i class='bx bx-user-plus'></i> Asignar a otro colaborador</button>
-                    <button id="btnUpdateAssignees" class="btn-action" style="background: var(--dark-blue); color: white;"><i class='bx bx-check-circle'></i> Guardar Nuevo Equipo</button>
+                    <button onclick="agregarSelectorEquipo()" class="btn-secondary"><i class='bx bx-user-plus'></i> Asignar a otro colaborador</button>
+                    <button onclick="actualizarEquipo()" class="btn-action" style="background: var(--dark-blue); color: white;"><i class='bx bx-check-circle'></i> Guardar Nuevo Equipo</button>
                 </div>
                 
                 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                    <button id="btnAdminUnmark" class="btn-action" style="background: white; border: 1px solid #cbd5e0; color: #4a5568;"><i class='bx bx-reset'></i> Forzar Apertura (Baja a 90%)</button>
-                    <button id="btnAdminDelete" class="btn-action" style="background: #c53030; color: white;"><i class='bx bx-trash'></i> Eliminar Definitivamente</button>
+                    <button onclick="forzarApertura()" class="btn-action" style="background: white; border: 1px solid #cbd5e0; color: #4a5568;"><i class='bx bx-reset'></i> Forzar Apertura (Baja a 90%)</button>
+                    <button onclick="eliminarTareaAdmin()" class="btn-action" style="background: #c53030; color: white;"><i class='bx bx-trash'></i> Eliminar Definitivamente</button>
                 </div>
             </div>
         </div>
@@ -159,7 +159,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
-        // SOLO IMPORTAMOS FIRESTORE (BASE DE DATOS). CERO STORAGE.
+        // IMPORTAMOS FIRESTORE (SIN STORAGE)
         import { getFirestore, doc, collection, onSnapshot, query, where, updateDoc, deleteDoc, addDoc, serverTimestamp, arrayUnion, getDocs } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
         const firebaseConfig = { apiKey: "AIzaSyBlouup64jteDrbUkOkSSEqsjesnuT6mdQ", authDomain: "digital-core-app.firebaseapp.com", projectId: "digital-core-app", storageBucket: "digital-core-app.firebasestorage.app", messagingSenderId: "1003292240722", appId: "1:1003292240722:web:b2a2af0665df1ef00fe88b" };
@@ -167,10 +167,15 @@
         const auth = getAuth(app); 
         const db = getFirestore(app);
 
+        // GLOBALES (Vital para que el HTML reconozca las funciones de Firebase)
+        window.firebaseArrayUnion = arrayUnion;
+        window.firebaseServerTimestamp = serverTimestamp;
+
         const taskId = new URLSearchParams(window.location.search).get('id');
         let dbProgreso = 0; let uiProgreso = 0; let currentUserEmail = ""; let currentUserName = "Colaborador"; let esAdminGlobal = false;
         let opcionesEquipoHTML = '<option value="">Selecciona un colaborador...</option>'; let asignadosActualesDB = [];
 
+        // RENDER DE EQUIPO
         async function prepararEquipo() {
             onSnapshot(collection(db, "usuarios"), (snap) => {
                 opcionesEquipoHTML = '<option value="">Selecciona un colaborador...</option>';
@@ -178,20 +183,26 @@
             });
         }
 
-        window.quitarColaborador = function(correoABorrar) { asignadosActualesDB = asignadosActualesDB.filter(c => c !== correoABorrar); renderizarChips(); };
+        window.quitarColaborador = function(correoABorrar) { 
+            asignadosActualesDB = asignadosActualesDB.filter(c => c !== correoABorrar); 
+            renderizarChips(); 
+        };
+        
         function renderizarChips() {
             const box = document.getElementById('equipoActualChips'); box.innerHTML = '';
             if(asignadosActualesDB.length === 0) box.innerHTML = '<span style="color:#e53e3e; font-size:0.85rem; font-weight:bold;">¡La tarea quedará sin responsables!</span>';
             asignadosActualesDB.forEach(correo => { box.innerHTML += `<div class="user-chip">${correo.split('@')[0]} <i class='bx bx-x' onclick="quitarColaborador('${correo}')"></i></div>`; });
         }
 
-        if(document.getElementById('btnAddSelect')) {
-            document.getElementById('btnAddSelect').addEventListener('click', () => {
-                const container = document.getElementById('nuevosAsignadosContainer'); const nuevoSelect = document.createElement('select');
-                nuevoSelect.className = 'form-control admin-collab-select'; nuevoSelect.innerHTML = opcionesEquipoHTML; container.appendChild(nuevoSelect);
-            });
-        }
+        window.agregarSelectorEquipo = function() {
+            const container = document.getElementById('nuevosAsignadosContainer'); 
+            const nuevoSelect = document.createElement('select');
+            nuevoSelect.className = 'form-control admin-collab-select'; 
+            nuevoSelect.innerHTML = opcionesEquipoHTML; 
+            container.appendChild(nuevoSelect);
+        };
 
+        // CARGA INICIAL
         onAuthStateChanged(auth, async (user) => {
             if (user && taskId) {
                 currentUserEmail = user.email.toLowerCase().trim(); 
@@ -208,10 +219,9 @@
             } else { window.location.href = 'index.html'; }
         });
 
-        function actualizarBarraUI() {
-            document.getElementById('uiProgressBar').style.width = uiProgreso + "%"; document.getElementById('uiProgressText').innerText = uiProgreso + "%";
-            document.getElementById('btnPlus').disabled = uiProgreso >= 100;
-            if (esAdminGlobal) document.getElementById('btnMinus').disabled = uiProgreso <= 0; else document.getElementById('btnMinus').disabled = uiProgreso <= dbProgreso;
+        window.actualizarBarraUI = function() {
+            document.getElementById('uiProgressBar').style.width = uiProgreso + "%"; 
+            document.getElementById('uiProgressText').innerText = uiProgreso + "%";
         }
 
         function renderizarURLsTextos(texto) {
@@ -219,20 +229,21 @@
             return texto.replace(urlRegex, function(url) { return `<a href="${url}" target="_blank" style="color: var(--neon-blue); font-weight:bold; text-decoration:underline;">${url}</a>`; });
         }
 
+        // MOTOR DE ESCUCHA (SNAPSHOT)
         function abrirFicha(id) {
             const docRef = doc(db, "proyectos", id);
             onSnapshot(docRef, (snap) => {
                 if (!snap.exists()) { document.getElementById('loaderStatus').innerHTML = "<b style='color:#e53e3e'>ERROR: Tarea eliminada.</b>"; return; }
                 const t = snap.data(); let arrayAsignados = Array.isArray(t.asignado_a) ? t.asignado_a : [t.asignado_a];
 
-                // SEGURIDAD: SI NO ES ADMIN Y NO ESTÁ ASIGNADO, LO EXPULSA
+                // Filtro de Seguridad
                 if (!esAdminGlobal && !arrayAsignados.includes(currentUserEmail)) {
                     document.getElementById('loader').style.display = 'block';
                     document.getElementById('loader').innerHTML = `<i class='bx bxs-lock-alt' style='font-size: 5rem; color: #e53e3e;'></i><h2 style='color: #e53e3e; margin-top:1rem;'>ACCESO DENEGADO</h2><p style='color: #4a5568;'>No estás asignado a este proyecto.</p><button onclick="window.location.href='panel-control.html'" class="btn-action" style="background:var(--dark-blue); color:white; width:auto; margin: 20px auto;">Volver al Dashboard</button>`;
                     document.getElementById('taskDetail').style.display = 'none'; return;
                 }
                 
-                // PINTAR DATOS DE LA TAREA
+                // Mostrar datos
                 document.getElementById('loader').style.display = 'none'; document.getElementById('taskDetail').style.display = 'block';
                 document.getElementById('tProduct').innerText = t.producto; document.getElementById('tCategory').innerText = t.categoria;
                 document.getElementById('tClient').innerText = t.cliente; document.getElementById('tDeadline').innerText = t.entrega;
@@ -242,9 +253,11 @@
                 document.getElementById('tAssignees').innerText = arrayAsignados.join(', ');
                 
                 asignadosActualesDB = [...arrayAsignados]; if(esAdminGlobal) renderizarChips();
-                dbProgreso = t.progreso || 0; uiProgreso = dbProgreso; actualizarBarraUI(); const enProceso = t.en_proceso || false;
+                
+                dbProgreso = t.progreso || 0; uiProgreso = dbProgreso; window.actualizarBarraUI(); 
+                const enProceso = t.en_proceso || false;
 
-                // PINTAR BITÁCORA
+                // Historial
                 const histList = document.getElementById('historyList');
                 if (t.historial_avance && t.historial_avance.length > 0) {
                     histList.innerHTML = t.historial_avance.slice().reverse().map(h => {
@@ -254,131 +267,173 @@
                     }).join('');
                 } else { histList.innerHTML = "<p style='color:#a0aec0; font-size:0.8rem;'>Aún no hay registros.</p>"; }
 
-                // PINTAR ESTADOS Y BOTONES
+                // Etiquetas y Cajas Visuales
                 const badge = document.getElementById('statusBadge');
+                const boxStart = document.getElementById('actionStartBox'); 
+                const btnStart = document.getElementById('btnStartTask'); 
+                const btnPause = document.getElementById('btnPauseTask'); 
+                const boxProgress = document.getElementById('progressControlBox');
+
                 if (t.completado) { badge.innerText = "✓ TAREA COMPLETADA"; badge.className = "status-pill completed"; } else if (enProceso) { badge.innerText = "▶ EN PROCESO"; badge.className = "status-pill active-state"; } else { badge.innerText = "⟳ ASIGNADA / PENDIENTE"; badge.className = "status-pill pending"; }
 
-                const boxStart = document.getElementById('actionStartBox'); const btnStart = document.getElementById('btnStartTask'); const btnPause = document.getElementById('btnPauseTask'); const boxProgress = document.getElementById('progressControlBox');
-
-                if (t.completado) { boxStart.style.display = 'none'; boxProgress.style.display = 'none'; } else {
+                if (t.completado) { 
+                    boxStart.style.display = 'none'; boxProgress.style.display = 'none'; 
+                } else {
                     boxStart.style.display = 'block';
-                    if (enProceso) { btnStart.style.display = 'none'; btnPause.style.display = 'flex'; boxProgress.style.display = 'block'; } else { btnStart.style.display = 'flex'; btnPause.style.display = 'none'; boxProgress.style.display = 'none'; }
+                    if (enProceso) { btnStart.style.display = 'none'; btnPause.style.display = 'flex'; boxProgress.style.display = 'block'; } 
+                    else { btnStart.style.display = 'flex'; btnPause.style.display = 'none'; boxProgress.style.display = 'none'; }
                 }
 
-                // PANEL DE ADMINISTRADOR O COLABORADOR
                 if (esAdminGlobal) {
                     document.getElementById('adminPanel').style.display = 'block'; document.getElementById('collabRequests').style.display = 'none';
-                    if(!t.completado) boxProgress.style.display = 'block'; document.getElementById('progressWarning').innerText = "Modo Dios: Puedes aumentar o reducir el progreso a voluntad.";
+                    if(!t.completado) boxProgress.style.display = 'block'; 
                 } else {
                     document.getElementById('adminPanel').style.display = 'none'; document.getElementById('collabRequests').style.display = 'block';
-                    document.getElementById('btnRequestUnmark').style.display = t.completado ? 'block' : 'none'; document.getElementById('btnRequestRemove').style.display = t.completado ? 'none' : 'block';
-                }
-
-                // ===============================================
-                // MODO DIOS: ADMIN INICIA/PAUSA LO QUE SEA
-                // ===============================================
-                btnStart.onclick = async () => {
-                    try {
-                        // Solo bloquea a los Colaboradores si ya tienen otra tarea activa
-                        if (!esAdminGlobal) {
-                            const q = query(collection(db, "proyectos"), where("asignado_a", "array-contains", currentUserEmail), where("en_proceso", "==", true));
-                            const activas = await getDocs(q);
-                            if (!activas.empty && activas.docs[0].id !== id) { alert(`✋ ALTO AHI: Ya tienes la tarea "${activas.docs[0].data().producto}" iniciada. Termínala o páusala primero.`); return; }
-                        }
-                        const fechaHora = new Date().toLocaleString('es-MX');
-                        let nombreAutor = esAdminGlobal ? "Administrador (Diego)" : currentUserName;
-                        await updateDoc(docRef, { en_proceso: true, historial_avance: arrayUnion({ fecha: fechaHora, porcentaje: dbProgreso, comentario: esAdminGlobal ? "▶ Tarea INICIADA forzada por Administrador." : "▶ Tarea INICIADA.", autor: nombreAutor }) });
-                    } catch(e) { alert("Error al iniciar."); console.error(e); }
-                };
-
-                btnPause.onclick = async () => {
-                    try {
-                        const fechaHora = new Date().toLocaleString('es-MX');
-                        let nombreAutor = esAdminGlobal ? "Administrador (Diego)" : currentUserName;
-                        await updateDoc(docRef, { en_proceso: false, historial_avance: arrayUnion({ fecha: fechaHora, porcentaje: dbProgreso, comentario: esAdminGlobal ? "⏸ Tarea PAUSADA forzada por Administrador." : "⏸ Tarea PAUSADA.", autor: nombreAutor }) });
-                    } catch(e) { alert("Error al pausar."); console.error(e); }
-                };
-
-                document.getElementById('btnPlus').onclick = () => { if(uiProgreso <= 90) { uiProgreso += 10; actualizarBarraUI(); } };
-                document.getElementById('btnMinus').onclick = () => { if (esAdminGlobal && uiProgreso >= 10) { uiProgreso -= 10; actualizarBarraUI(); } else if (!esAdminGlobal && uiProgreso > dbProgreso) { uiProgreso -= 10; actualizarBarraUI(); } };
-
-                document.getElementById('btnConfirmProgress').onclick = async () => {
-                    if (uiProgreso === dbProgreso) return alert("Modifica el progreso con el botón de (+) antes de guardar.");
-                    const comentario = document.getElementById('txtComentario').value.trim();
-                    if (uiProgreso < dbProgreso && !esAdminGlobal) return alert("Solo el administrador puede reducir el avance.");
-                    if (comentario === "") return alert("Debes incluir un comentario o link a Drive/GitHub para la bitácora.");
-
-                    let autorFinal = esAdminGlobal ? "Administrador (Diego)" : currentUserName; 
-                    let comentarioFinal = (uiProgreso < dbProgreso) ? `[Corrección Admin] ${comentario}` : comentario;
-
-                    if(confirm(`Se registrará el avance al ${uiProgreso}%. ¿Continuar?`)) {
-                        const btnConf = document.getElementById('btnConfirmProgress');
-                        btnConf.innerText = "Guardando..."; btnConf.disabled = true;
-
-                        try {
-                            const fechaHora = new Date().toLocaleString('es-MX');
-                            let objAvance = { fecha: fechaHora, porcentaje: uiProgreso, comentario: comentarioFinal, autor: autorFinal };
-
-                            await updateDoc(docRef, { progreso: uiProgreso, completado: uiProgreso === 100, en_proceso: uiProgreso !== 100, historial_avance: arrayUnion(objAvance) });
-
-                            if(!esAdminGlobal) { try { await addDoc(collection(db, "notificaciones"), { destinatario: "diego.725.reyes@gmail.com", titulo: `AVANCE REGISTRADO: ${uiProgreso}%`, mensaje: `${currentUserName.toUpperCase()} reportó progreso en "${t.producto}".`, tipo: "NUEVO", proyectoId: docRef.id, creado: serverTimestamp() }); } catch (e) {} } 
-                            else { arrayAsignados.forEach(async (correoColab) => { if (correoColab !== currentUserEmail) { try { await addDoc(collection(db, "notificaciones"), { destinatario: correoColab, titulo: `AVANCE MODIFICADO`, mensaje: `Diego ajustó el progreso de "${t.producto}" al ${uiProgreso}%.`, tipo: "ALERTA", proyectoId: docRef.id, creado: serverTimestamp() }); } catch (e) {} } }); }
-                            
-                            document.getElementById('txtComentario').value = ""; 
-                            alert("Avance guardado con éxito.");
-                        } catch (error) { alert("Error de conexión al guardar."); console.error(error);
-                        } finally { btnConf.innerHTML = "<i class='bx bx-save'></i> Guardar Avance"; btnConf.disabled = false; }
-                    }
-                };
-
-                document.getElementById('btnMarkComplete').onclick = async () => {
-                    const comentario = document.getElementById('txtComentario').value.trim() || "Tarea Finalizada."; let autorFinal = esAdminGlobal ? "Administrador (Diego)" : currentUserName;
-                    if(confirm("¿Confirmas que la tarea está al 100%?")) {
-                        try {
-                            const fechaHora = new Date().toLocaleString('es-MX');
-                            await updateDoc(docRef, { completado: true, progreso: 100, en_proceso: false, historial_avance: arrayUnion({ fecha: fechaHora, porcentaje: 100, comentario: comentario, autor: autorFinal }) });
-                            if(!esAdminGlobal) { try { await addDoc(collection(db, "notificaciones"), { destinatario: "diego.725.reyes@gmail.com", titulo: `¡TAREA FINALIZADA!`, mensaje: `${currentUserName.toUpperCase()} terminó el proyecto "${t.producto}".`, tipo: "NUEVO", proyectoId: docRef.id, creado: serverTimestamp() }); } catch (e) {} }
-                        } catch(e) { alert("Error al finalizar tarea."); }
-                    }
-                };
-
-                // NOTIFICACIONES COLABORADOR
-                document.getElementById('btnRequestUnmark').onclick = async () => { try { await updateDoc(docRef, { solicitud_desmarcar: true }); await addDoc(collection(db, "notificaciones"), { destinatario: "diego.725.reyes@gmail.com", titulo: `PETICIÓN: REABRIR TAREA`, mensaje: `${currentUserName.toUpperCase()} pide reabrir el proyecto "${t.producto}".`, tipo: "ALERTA", proyectoId: docRef.id, creado: serverTimestamp() }); alert("Notificación enviada."); } catch (error) { alert("Error."); } };
-                document.getElementById('btnRequestRemove').onclick = async () => { try { await updateDoc(docRef, { solicitud_eliminacion: true }); await addDoc(collection(db, "notificaciones"), { destinatario: "diego.725.reyes@gmail.com", titulo: `PETICIÓN: DESASIGNACIÓN`, mensaje: `${currentUserName.toUpperCase()} solicita que lo retires del proyecto "${t.producto}".`, tipo: "ALERTA", proyectoId: docRef.id, creado: serverTimestamp() }); alert("Notificación enviada."); } catch (error) { alert("Error."); } };
-
-                // ===============================================
-                // MODO DIOS: REABRIR, ELIMINAR Y GESTIONAR EQUIPO
-                // ===============================================
-                if(esAdminGlobal) {
-                    document.getElementById('btnAdminUnmark').onclick = async () => {
-                        try {
-                            const fechaHora = new Date().toLocaleString('es-MX');
-                            await updateDoc(docRef, { completado: false, solicitud_desmarcar: false, progreso: 90, en_proceso: false, historial_avance: arrayUnion({ fecha: fechaHora, porcentaje: 90, comentario: "Reapertura Forzada por Administrador.", autor: "Administrador (Diego)" }) });
-                            arrayAsignados.forEach(async (correoColab) => { if (correoColab !== currentUserEmail) { try { await addDoc(collection(db, "notificaciones"), { destinatario: correoColab, titulo: `¡TAREA REABIERTA!`, mensaje: `Diego ha reabierto el proyecto "${t.producto}" al 90%.`, tipo: "ALERTA", proyectoId: docRef.id, creado: serverTimestamp() }); } catch (e) {} } });
-                            alert("Tarea reabierta al 90%.");
-                        } catch(e) { alert("Error al reabrir."); console.error(e); }
-                    };
-                    
-                    document.getElementById('btnAdminDelete').onclick = async () => { 
-                        if(confirm("¿Seguro que deseas ELIMINAR la tarea definitivamente de la base de datos?")) { 
-                            try { await deleteDoc(docRef); window.location.href = 'panel-control.html'; } catch(e) { alert("Error al borrar."); console.error(e); }
-                        } 
-                    };
-                    
-                    document.getElementById('btnUpdateAssignees').onclick = async () => {
-                        try {
-                            const selectoresNuevos = document.querySelectorAll('.admin-collab-select'); let agregados = Array.from(selectoresNuevos).map(s => s.value.toLowerCase().trim()).filter(v => v !== "");
-                            let equipoFinal = [...asignadosActualesDB, ...agregados]; equipoFinal = [...new Set(equipoFinal)]; 
-                            if (equipoFinal.length === 0) return alert("La tarea debe tener al menos 1 asignado.");
-                            const fechaHora = new Date().toLocaleString('es-MX');
-                            await updateDoc(docRef, { asignado_a: equipoFinal, solicitud_eliminacion: false, historial_avance: arrayUnion({ fecha: fechaHora, porcentaje: dbProgreso, comentario: `Modificación de equipo. Asignados ahora: ${equipoFinal.join(', ')}`, autor: "Administrador (Diego)" }) });
-                            document.getElementById('nuevosAsignadosContainer').innerHTML = ''; alert("Equipo actualizado con éxito.");
-                        } catch(e) { alert("Error al asignar."); console.error(e); }
-                    };
                 }
             });
         }
+
+        // =========================================================
+        // FUNCIONES GLOBALES MAESTRAS (NO ESTÁN DENTRO DEL SNAPSHOT)
+        // =========================================================
         
+        window.iniciarTarea = async function() {
+            try {
+                if (!esAdminGlobal) {
+                    const q = query(collection(db, "proyectos"), where("asignado_a", "array-contains", currentUserEmail), where("en_proceso", "==", true));
+                    const activas = await getDocs(q);
+                    if (!activas.empty && activas.docs[0].id !== taskId) { return alert(`✋ Ya tienes otra tarea iniciada. Termínala o páusala primero.`); }
+                }
+                const docRef = doc(db, "proyectos", taskId);
+                const fechaHora = new Date().toLocaleString('es-MX');
+                let nombreAutor = esAdminGlobal ? "Administrador (Diego)" : currentUserName;
+                await updateDoc(docRef, { 
+                    en_proceso: true, 
+                    historial_avance: window.firebaseArrayUnion({ fecha: fechaHora, porcentaje: dbProgreso, comentario: esAdminGlobal ? "▶ Tarea INICIADA forzada por Administrador." : "▶ Tarea INICIADA.", autor: nombreAutor }) 
+                });
+            } catch(e) { alert("Error al iniciar: " + e.message); console.error(e); }
+        };
+
+        window.pausarTarea = async function() {
+            try {
+                const docRef = doc(db, "proyectos", taskId);
+                const fechaHora = new Date().toLocaleString('es-MX');
+                let nombreAutor = esAdminGlobal ? "Administrador (Diego)" : currentUserName;
+                await updateDoc(docRef, { 
+                    en_proceso: false, 
+                    historial_avance: window.firebaseArrayUnion({ fecha: fechaHora, porcentaje: dbProgreso, comentario: esAdminGlobal ? "⏸ Tarea PAUSADA forzada por Administrador." : "⏸ Tarea PAUSADA.", autor: nombreAutor }) 
+                });
+            } catch(e) { alert("Error al pausar: " + e.message); console.error(e); }
+        };
+
+        window.incrementarUi = function() {
+            if(uiProgreso <= 90) { uiProgreso += 10; window.actualizarBarraUI(); }
+        };
+
+        window.decrementarUi = function() {
+            if (esAdminGlobal && uiProgreso >= 10) { uiProgreso -= 10; window.actualizarBarraUI(); } 
+            else if (!esAdminGlobal && uiProgreso > dbProgreso) { uiProgreso -= 10; window.actualizarBarraUI(); }
+        };
+
+        window.guardarAvance = async function() {
+            if (uiProgreso === dbProgreso) return alert("Modifica el progreso con el botón de (+) antes de guardar.");
+            const comentario = document.getElementById('txtComentario').value.trim();
+            if (uiProgreso < dbProgreso && !esAdminGlobal) return alert("Solo el administrador puede reducir el avance.");
+            if (comentario === "") return alert("Debes incluir un comentario o link a Drive/GitHub para la bitácora.");
+
+            let autorFinal = esAdminGlobal ? "Administrador (Diego)" : currentUserName; 
+            let comentarioFinal = (uiProgreso < dbProgreso) ? `[Corrección Admin] ${comentario}` : comentario;
+
+            if(confirm(`Se registrará el avance al ${uiProgreso}%. ¿Continuar?`)) {
+                try {
+                    const docRef = doc(db, "proyectos", taskId);
+                    const fechaHora = new Date().toLocaleString('es-MX');
+                    let objAvance = { fecha: fechaHora, porcentaje: uiProgreso, comentario: comentarioFinal, autor: autorFinal };
+
+                    await updateDoc(docRef, { progreso: uiProgreso, completado: uiProgreso === 100, en_proceso: uiProgreso !== 100, historial_avance: window.firebaseArrayUnion(objAvance) });
+
+                    if(!esAdminGlobal) { 
+                        await addDoc(collection(db, "notificaciones"), { destinatario: "diego.725.reyes@gmail.com", titulo: `AVANCE REGISTRADO: ${uiProgreso}%`, mensaje: `${currentUserName.toUpperCase()} reportó progreso.`, tipo: "NUEVO", proyectoId: taskId, creado: window.firebaseServerTimestamp() }); 
+                    } else { 
+                        asignadosActualesDB.forEach(async (correoColab) => { 
+                            if (correoColab !== currentUserEmail) { 
+                                await addDoc(collection(db, "notificaciones"), { destinatario: correoColab, titulo: `AVANCE MODIFICADO`, mensaje: `Diego ajustó el progreso al ${uiProgreso}%.`, tipo: "ALERTA", proyectoId: taskId, creado: window.firebaseServerTimestamp() }); 
+                            } 
+                        }); 
+                    }
+                    document.getElementById('txtComentario').value = ""; 
+                    alert("Avance guardado con éxito.");
+                } catch (error) { alert("Error al guardar: " + error.message); console.error(error); }
+            }
+        };
+
+        window.entregarTarea = async function() {
+            const comentario = document.getElementById('txtComentario').value.trim() || "Tarea Finalizada."; let autorFinal = esAdminGlobal ? "Administrador (Diego)" : currentUserName;
+            if(confirm("¿Confirmas que la tarea está al 100%?")) {
+                try {
+                    const docRef = doc(db, "proyectos", taskId);
+                    const fechaHora = new Date().toLocaleString('es-MX');
+                    await updateDoc(docRef, { completado: true, progreso: 100, en_proceso: false, historial_avance: window.firebaseArrayUnion({ fecha: fechaHora, porcentaje: 100, comentario: comentario, autor: autorFinal }) });
+                    if(!esAdminGlobal) { await addDoc(collection(db, "notificaciones"), { destinatario: "diego.725.reyes@gmail.com", titulo: `¡TAREA FINALIZADA!`, mensaje: `${currentUserName.toUpperCase()} terminó el proyecto.`, tipo: "NUEVO", proyectoId: taskId, creado: window.firebaseServerTimestamp() }); }
+                } catch(e) { alert("Error al finalizar."); }
+            }
+        };
+
+        window.pedirReabrir = async function() { try { const docRef = doc(db, "proyectos", taskId); await updateDoc(docRef, { solicitud_desmarcar: true }); await addDoc(collection(db, "notificaciones"), { destinatario: "diego.725.reyes@gmail.com", titulo: `PETICIÓN: REABRIR TAREA`, mensaje: `Solicitud de reapertura.`, tipo: "ALERTA", proyectoId: taskId, creado: window.firebaseServerTimestamp() }); alert("Notificación enviada."); } catch (e) { alert("Error."); } };
+        window.pedirDesasignacion = async function() { try { const docRef = doc(db, "proyectos", taskId); await updateDoc(docRef, { solicitud_eliminacion: true }); await addDoc(collection(db, "notificaciones"), { destinatario: "diego.725.reyes@gmail.com", titulo: `PETICIÓN: DESASIGNACIÓN`, mensaje: `Solicitud de retiro de proyecto.`, tipo: "ALERTA", proyectoId: taskId, creado: window.firebaseServerTimestamp() }); alert("Notificación enviada."); } catch (e) { alert("Error."); } };
+
+        // FUNCIONES ADMIN MODO DIOS
+        window.forzarApertura = async function() {
+            if(!esAdminGlobal) return;
+            try {
+                const docRef = doc(db, "proyectos", taskId);
+                const fechaHora = new Date().toLocaleString('es-MX');
+                await updateDoc(docRef, { completado: false, solicitud_desmarcar: false, progreso: 90, en_proceso: false, historial_avance: window.firebaseArrayUnion({ fecha: fechaHora, porcentaje: 90, comentario: "Reapertura Forzada por Administrador.", autor: "Administrador (Diego)" }) });
+                
+                asignadosActualesDB.forEach(async (correoColab) => { 
+                    if (correoColab !== currentUserEmail) { 
+                        await addDoc(collection(db, "notificaciones"), { destinatario: correoColab, titulo: `¡TAREA REABIERTA!`, mensaje: `Diego ha reabierto el proyecto al 90%.`, tipo: "ALERTA", proyectoId: taskId, creado: window.firebaseServerTimestamp() }); 
+                    } 
+                });
+                alert("Tarea reabierta al 90%.");
+            } catch(e) { alert("Error al reabrir: " + e.message); console.error(e); }
+        };
+
+        window.eliminarTareaAdmin = async function() {
+            if(!esAdminGlobal) return;
+            if(confirm("¿Seguro que deseas ELIMINAR la tarea definitivamente de la base de datos?")) { 
+                try { 
+                    const docRef = doc(db, "proyectos", taskId);
+                    await deleteDoc(docRef); 
+                    window.location.href = 'panel-control.html'; 
+                } catch(e) { alert("Error al borrar: " + e.message); console.error(e); }
+            }
+        };
+
+        window.actualizarEquipo = async function() {
+            if(!esAdminGlobal) return;
+            try {
+                const selectoresNuevos = document.querySelectorAll('.admin-collab-select'); 
+                let agregados = Array.from(selectoresNuevos).map(s => s.value.toLowerCase().trim()).filter(v => v !== "");
+                let equipoFinal = [...asignadosActualesDB, ...agregados]; 
+                equipoFinal = [...new Set(equipoFinal)]; 
+                
+                if (equipoFinal.length === 0) return alert("La tarea debe tener al menos 1 asignado.");
+                
+                const docRef = doc(db, "proyectos", taskId);
+                const fechaHora = new Date().toLocaleString('es-MX');
+                
+                await updateDoc(docRef, { 
+                    asignado_a: equipoFinal, 
+                    solicitud_eliminacion: false, 
+                    historial_avance: window.firebaseArrayUnion({ fecha: fechaHora, porcentaje: dbProgreso, comentario: `Modificación de equipo. Asignados ahora: ${equipoFinal.join(', ')}`, autor: "Administrador (Diego)" }) 
+                });
+                
+                document.getElementById('nuevosAsignadosContainer').innerHTML = ''; 
+                alert("Equipo actualizado con éxito.");
+            } catch(e) { alert("Error al asignar: " + e.message); console.error(e); }
+        };
+
         document.getElementById('logoutBtn').onclick = () => signOut(auth).then(() => window.location.href = 'index.html');
     </script>
 </body>
